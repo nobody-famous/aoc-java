@@ -7,6 +7,58 @@ public class Part2 {
         return intValue >= low && intValue <= high;
     }
 
+    private boolean validateHeight(String height) {
+        var num = height.substring(0, height.length() - 2);
+        var type = height.substring(height.length() - 2);
+
+        if ("cm".equals(type)) {
+            return inRange(num, 150, 193);
+        } else if ("in".equals(type)) {
+            return inRange(num, 59, 76);
+        }
+
+        return false;
+    }
+
+    private boolean isHex(char ch) {
+        return ('0' <= ch && ch <= '9') || ('a' <= ch && ch <= 'f');
+    }
+
+    private boolean validateHair(String value) {
+        if (value.length() != 7) {
+            return false;
+        }
+
+        for (var i = 1; i < value.length(); i += 1) {
+            var ch = value.charAt(i);
+
+            if (!isHex(ch)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean valideEyeColor(String value) {
+        return ("amb".equals(value) || "blu".equals(value) || "brn".equals(value) || "gry".equals(value)
+                || "grn".equals(value) || "hzl".equals(value) || "oth".equals(value));
+    }
+
+    private boolean validatePID(String value) {
+        if (value.length() != 9) {
+            return false;
+        }
+
+        for (var ch : value.toCharArray()) {
+            if (ch < '0' || ch > '9') {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     private boolean validate(String[][] entries) {
         boolean byr = false;
         boolean iyr = false;
@@ -27,13 +79,13 @@ public class Part2 {
             } else if (key.toLowerCase() == "eyr") {
                 eyr = inRange(value, 2020, 2030);
             } else if (key.toLowerCase() == "hgt") {
-                hgt = true;
+                hgt = validateHeight(value);
             } else if (key.toLowerCase() == "hcl") {
-                hcl = true;
+                hcl = validateHair(value);
             } else if (key.toLowerCase() == "ecl") {
-                ecl = true;
+                ecl = valideEyeColor(value);
             } else if (key.toLowerCase() == "pid") {
-                pid = true;
+                pid = validatePID(value);
             }
         }
 
@@ -54,7 +106,7 @@ public class Part2 {
 
     public static void main(String[] args) {
         var solver = new Part2();
-        var answer = solver.solve(Input.sample);
+        var answer = solver.solve(Input.puzzle);
 
         System.out.println(answer);
     }
