@@ -1,19 +1,8 @@
 package y2020.day7;
 
-import java.util.HashMap;
 import java.util.Map;
 
-public class Part1 {
-    private Map<String, BagContents[]> rulesToMap(BagRule[] rules) {
-        var out = new HashMap<String, BagContents[]>();
-
-        for (var rule : rules) {
-            out.put(rule.getType(), rule.getContents());
-        }
-
-        return out;
-    }
-
+public class Part1 extends Solver {
     private boolean hasTarget(String target, Map<String, BagContents[]> rules, String bag) {
         var contents = rules.get(bag);
 
