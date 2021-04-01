@@ -1,32 +1,71 @@
 package y2020.day10;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Part2 extends Solver {
+    private List<Integer> getSteps(int[] input, int start) {
+        var steps = new ArrayList<Integer>();
+        var value = input[start];
+
+        for (var ndx = start + 1; ndx < input.length; ndx += 1) {
+            if (input[ndx] > value + 3) {
+                break;
+            }
+
+            steps.add(input[ndx]);
+        }
+
+        return steps;
+    }
+
+    private Map<Integer, List<Integer>> buildStepsMap(int[] input) {
+        var steps = new HashMap<Integer, List<Integer>>();
+
+        for (var ndx = 0; ndx < input.length; ndx += 1) {
+            steps.put(input[ndx], getSteps(input, ndx));
+        }
+
+        return steps;
+    }
+
+    private Map<Integer, Long> buildArrangeMap(int[] input, Map<Integer, List<Integer>> stepsMap) {
+        var arranges = new HashMap<Integer, Long>();
+
+        arranges.put(input[input.length - 1], 1L);
+
+        for (var ndx = input.length - 2; ndx >= 0; ndx -= 1) {
+            var entry = input[ndx];
+            var steps = stepsMap.get(entry);
+            var sum = 0L;
+
+            for (var step : steps) {
+                sum += arranges.get(step);
+            }
+
+            arranges.put(entry, sum);
+        }
+
+        return arranges;
+    }
+
     public long solve(int[] input) {
         var adapters = addAdapters(input);
+        Arrays.sort(adapters);
 
-        return 0;
+        var stepsMap = buildStepsMap(adapters);
+        var arranges = buildArrangeMap(adapters, stepsMap);
+
+        return arranges.get(0);
     }
 
     public static void main(String[] args) {
         var solver = new Part2();
-        var answer = solver.solve(Input.sample1);
+        var answer = solver.solve(Input.puzzle);
 
         System.out.println(answer);
     }
 }
-
-/*
-(0), 1, 4, 5, 6, 7, 10, 11, 12, 15, 16, 19, (22)
-0 -> 1
-1 -> 4
-4 -> 5, 6, 7
-5 -> 6, 7
-6 -> 7
-7 -> 10
-10 -> 11, 12
-11 -> 12
-12 -> 15
-15 -> 16
-16 -> 19
-19 -> 22
-*/
