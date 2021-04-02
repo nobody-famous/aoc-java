@@ -5,7 +5,7 @@ public class Part1 extends Solver {
         super(board);
     }
 
-    private int countNeighbors(int row, int col) {
+    protected int countNeighbors(int row, int col) {
         int count = 0;
 
         for (var nRow = row - 1; nRow <= row + 1; nRow += 1) {
@@ -23,20 +23,9 @@ public class Part1 extends Solver {
         return count;
     }
 
-    protected void updateSeat(int row, int col) {
-        var cur = lookup(row, col);
-        var count = countNeighbors(row, col);
-
-        if (cur == 'L' && count == 0) {
-            update(row, col, '#');
-        } else if (cur == '#' && count >= 4) {
-            update(row, col, 'L');
-        }
-    }
-
     public long solve() {
         while (!isDone()) {
-            doRound();
+            doRound(4);
         }
 
         return countOccupied();

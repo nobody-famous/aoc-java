@@ -5,10 +5,21 @@ public abstract class Solver {
     private char[][] nextBoard = null;
     private boolean done = false;
 
-    abstract void updateSeat(int row, int col);
+    abstract int countNeighbors(int row, int col);
 
     protected Solver(char[][] board) {
         this.board = board;
+    }
+
+    protected void updateSeat(int row, int col, int threshold) {
+        var cur = lookup(row, col);
+        var count = countNeighbors(row, col);
+
+        if (cur == 'L' && count == 0) {
+            update(row, col, '#');
+        } else if (cur == '#' && count >= threshold) {
+            update(row, col, 'L');
+        }
     }
 
     protected boolean isDone() {
@@ -23,7 +34,7 @@ public abstract class Solver {
         return board[0].length;
     }
 
-    private boolean onBoard(int row, int col) {
+    protected boolean onBoard(int row, int col) {
         return row >= 0 && row < board.length && col >= 0 && col < board[0].length;
     }
 
@@ -80,12 +91,12 @@ public abstract class Solver {
         }
     }
 
-    protected void doRound() {
+    protected void doRound(int threshold) {
         copyBoard();
 
         for (var row = 0; row < board.length; row += 1) {
             for (var col = 0; col < board.length; col += 1) {
-                updateSeat(row, col);
+                updateSeat(row, col, threshold);
             }
         }
 
