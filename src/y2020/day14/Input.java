@@ -4,6 +4,9 @@ public interface Input {
     Op[] sample = new Op[] { new Mask("XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X"), new Memory(8, 11), new Memory(7, 101),
             new Memory(8, 0), };
 
+    Op[] sample2 = new Op[] { new Mask("000000000000000000000000000000X1001X"), new Memory(42, 100),
+            new Mask("00000000000000000000000000000000X0XX"), new Memory(26, 1), };
+
     Op[] puzzle = new Op[] { new Mask("X00000000000110011100XXX011110111011"), new Memory(41579, 225076),
             new Memory(14806, 26208185), new Memory(47659, 176531392), new Memory(27723, 186971157),
             new Memory(35129, 3483636), new Memory(27142, 4246), new Mask("01101X10101011000101X1X0XXX101111110"),
