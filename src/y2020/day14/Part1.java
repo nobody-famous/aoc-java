@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class Part1 extends Solver {
     public long solve(Op[] prog) {
-        var mem = new HashMap<Integer, Long>();
+        var mem = new HashMap<Long, Long>();
         Mask curMask = null;
 
         for (var op : prog) {

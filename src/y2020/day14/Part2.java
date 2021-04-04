@@ -3,7 +3,6 @@ package y2020.day14;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Part2 extends Solver {
     private void appendChar(List<StringBuilder> builders, char ch) {
@@ -22,7 +21,7 @@ public class Part2 extends Solver {
         return copy;
     }
 
-    public List<Mask> permutations(String mask) {
+    public List<Long> permutations(String mask) {
         var permsBuilder = new ArrayList<StringBuilder>();
 
         permsBuilder.add(new StringBuilder());
@@ -38,19 +37,12 @@ public class Part2 extends Solver {
             }
         }
 
-        var perms = new ArrayList<Mask>();
+        var perms = new ArrayList<Long>();
         for (var builder : permsBuilder) {
-            perms.add(new Mask(builder.toString()));
+            perms.add(Long.parseLong(builder.toString(), 2));
         }
 
         return perms;
-    }
-
-    private void updateMem(Map<Long, Long> mem, List<Mask> masks, long addr, long value) {
-        for (var mask : masks) {
-            var target = mask.apply(addr);
-            mem.put(target, value);
-        }
     }
 
     public String updateMask(String orig, String update) {
@@ -75,28 +67,29 @@ public class Part2 extends Solver {
 
     public long solve(Op[] prog) {
         var mem = new HashMap<Long, Long>();
-        List<Mask> curMasks = null;
+        Mask curMask = null;
 
         for (var op : prog) {
             if (op.getType() == Op.Type.MEMORY) {
                 var memOp = (Memory) op;
-                updateMem(mem, curMasks, memOp.getAddr(), memOp.getValue());
+                var update = updateMask(curMask.getOriginalMask(), Long.toBinaryString(memOp.getAddr()));
+                var perms = permutations(update);
+
+                for (var perm : perms) {
+                    mem.put(perm, memOp.getValue());
+                }
             } else if (op.getType() == Op.Type.MASK) {
-                var maskOp = (Mask) op;
-                curMasks = permutations(maskOp.getOriginalMask());
+                curMask = (Mask) op;
             }
         }
 
-        System.out.println(sumValues(mem.values()));
-        return 0L;
+        return sumValues(mem.values());
     }
 
     public static void main(String[] args) {
         var solver = new Part2();
-        // var answer = solver.solve(Input.sample2);
+        var answer = solver.solve(Input.puzzle);
 
-        // System.out.println(answer);
-
-        System.out.println(solver.updateMask("00000000000000000000000000000000X0XX", Integer.toBinaryString(26)));
+        System.out.println(answer);
     }
 }

@@ -1,10 +1,10 @@
 package y2020.day14;
 
 public class Memory implements Op {
-    private int addr;
-    private int value;
+    private long addr;
+    private long value;
 
-    public Memory(int addr, int value) {
+    public Memory(long addr, long value) {
         this.addr = addr;
         this.value = value;
     }
@@ -13,11 +13,11 @@ public class Memory implements Op {
         return Type.MEMORY;
     }
 
-    public int getAddr() {
+    public long getAddr() {
         return addr;
     }
 
-    public int getValue() {
+    public long getValue() {
         return value;
     }
 }
