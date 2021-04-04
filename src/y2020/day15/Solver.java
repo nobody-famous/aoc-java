@@ -14,7 +14,6 @@ public class Solver {
         }
 
         current = 0L;
-        var start = System.currentTimeMillis();
         while (turn < numRounds) {
             var firstTime = !seen.containsKey(current);
             var next = firstTime ? 0 : turn - seen.get(current);
@@ -25,7 +24,6 @@ public class Solver {
             turn += 1;
         }
 
-        System.out.println("Took " + (System.currentTimeMillis() - start) + "ms");
         return current;
     }
 
