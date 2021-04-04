@@ -20,7 +20,7 @@
             "args": [
                 "-cp",
                 "out/src",
-                "y2020.day14.Part2"
+                "y2020.day15.Part1"
             ],
             "problemMatcher": []
         }
