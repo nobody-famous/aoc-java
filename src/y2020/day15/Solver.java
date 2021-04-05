@@ -1,7 +1,5 @@
 package y2020.day15;
 
-import java.util.HashMap;
-
 public class Solver {
     public long solve(int[] input, int numRounds) {
         var seen = new int[numRounds];
