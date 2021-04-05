@@ -1,24 +1,21 @@
 package y2020.day15;
 
-import java.util.HashMap;
-
 public class Solver {
-    public long solve(long[] input, long numRounds) {
-        var seen = new HashMap<Long, Long>();
-        var current = 0L;
-        var turn = 1L;
+    public long solve(int[] input, int numRounds) {
+        var seen = new int[numRounds];
+        var turn = 1;
 
         for (var item : input) {
-            seen.put(item, turn);
+            seen[item] = turn;
             turn += 1;
         }
 
-        current = 0L;
+        var current = 0;
         while (turn < numRounds) {
-            var firstTime = !seen.containsKey(current);
-            var next = firstTime ? 0 : turn - seen.get(current);
+            var firstTime = seen[current] == 0;
+            var next = firstTime ? 0 : turn - seen[current];
 
-            seen.put(current, turn);
+            seen[current] = turn;
             current = next;
 
             turn += 1;
