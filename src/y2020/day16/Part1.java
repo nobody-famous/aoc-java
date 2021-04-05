@@ -3,19 +3,7 @@ package y2020.day16;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Part1 {
-    private boolean isValid(long value, List<Field> fields) {
-        for (var field : fields) {
-            for (var range : field.getRanges()) {
-                if (value >= range.getLow() && value <= range.getHigh()) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
+public class Part1 extends Solver {
     private long sumValues(List<Long> values) {
         var sum = 0L;
 
