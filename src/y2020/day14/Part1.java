@@ -3,7 +3,11 @@ package y2020.day14;
 import java.util.HashMap;
 
 public class Part1 extends Solver {
-    public long solve(Op[] prog) {
+    public Part1(Op[] prog) {
+        super(prog);
+    }
+
+    public long solve() {
         var mem = new HashMap<Long, Long>();
         Mask curMask = null;
 
@@ -19,13 +23,8 @@ public class Part1 extends Solver {
             }
         }
 
-        return sumValues(mem.values());
-    }
+        var answer = sumValues(mem.values());
 
-    public static void main(String[] args) {
-        var solver = new Part1();
-        var answer = solver.solve(Input.puzzle);
-
-        System.out.println(answer);
+        return answer;
     }
 }

@@ -1,7 +1,12 @@
 import utils.Problem;
 
 public class Runner {
-    public static Problem[] allDays = new Problem[] { new y2020.day16.Part1(y2020.day16.Input.puzzle),
+    public static Problem[] allDays = new Problem[] { new y2020.day11.Part1(y2020.day11.Input.puzzle),
+            new y2020.day11.Part2(y2020.day11.Input.puzzle), new y2020.day12.Part1(y2020.day12.Input.puzzle),
+            new y2020.day12.Part2(y2020.day12.Input.puzzle), new y2020.day13.Part1(y2020.day13.Input.puzzle),
+            new y2020.day13.Part2(y2020.day13.Input.puzzle), new y2020.day14.Part1(y2020.day14.Input.puzzle),
+            new y2020.day14.Part2(y2020.day14.Input.puzzle), new y2020.day15.Part1(y2020.day15.Input.puzzle),
+            new y2020.day15.Part2(y2020.day15.Input.puzzle), new y2020.day16.Part1(y2020.day16.Input.puzzle),
             new y2020.day16.Part2(y2020.day16.Input.puzzle), new y2020.day17.Part1(y2020.day17.Input.puzzle),
             new y2020.day17.Part2(y2020.day17.Input.puzzle) };
 
@@ -26,6 +31,7 @@ public class Runner {
         var runner = new Runner();
         runner.runAll(allDays);
 
-        // runner.runAll(new Problem[] { new y2020.day17.Part2(y2020.day17.Input.puzzle) });
+        // runner.runAll(new Problem[] { new y2020.day17.Part2(y2020.day17.Input.puzzle)
+        // });
     }
 }

@@ -1,7 +1,15 @@
 package y2020.day13;
 
-public class Part1 {
-    public long solve(Notes input) {
+import utils.Problem;
+
+public class Part1 implements Problem {
+    private Notes input;
+
+    public Part1(Notes input) {
+        this.input = input;
+    }
+
+    public long solve() {
         var min = Long.MAX_VALUE;
         var busID = 0;
 
@@ -18,13 +26,8 @@ public class Part1 {
             }
         }
 
-        return busID * min;
-    }
+        var answer = busID * min;
 
-    public static void main(String[] args) {
-        var solver = new Part1();
-        var answer = solver.solve(Input.puzzle);
-
-        System.out.println(answer);
+        return answer;
     }
 }

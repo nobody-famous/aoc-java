@@ -1,7 +1,17 @@
 package y2020.day15;
 
-public class Solver {
-    public long solve(int[] input, int numRounds) {
+import utils.Problem;
+
+public class Solver implements Problem {
+    protected int[] input;
+    protected int numRounds;
+
+    protected Solver(int[] input, int numRounds) {
+        this.input = input;
+        this.numRounds = numRounds;
+    }
+
+    public long solve() {
         var seen = new int[numRounds];
         var turn = 1;
 
@@ -22,12 +32,5 @@ public class Solver {
         }
 
         return current;
-    }
-
-    public static void main(String[] args) {
-        var solver = new Solver();
-        var answer = solver.solve(Input.puzzle, 30000000);
-
-        System.out.println(answer);
     }
 }

@@ -1,6 +1,8 @@
 package y2020.day11;
 
-public abstract class Solver {
+import utils.Problem;
+
+public abstract class Solver implements Problem {
     private char[][] board = null;
     private char[][] nextBoard = null;
     private boolean done = false;

@@ -4,6 +4,10 @@ public class Part2 extends Solver {
     private int wpX;
     private int wpY;
 
+    public Part2(Instruction[] instrs) {
+        super(instrs);
+    }
+
     protected void north(int value) {
         wpY += value;
     }
@@ -54,17 +58,10 @@ public class Part2 extends Solver {
         y += wpY * value;
     }
 
-    public long solve(Instruction[] instrs) {
+    public long solve() {
         wpX = 10;
         wpY = 1;
 
-        return super.solve(instrs);
-    }
-
-    public static void main(String[] args) {
-        var solver = new Part2();
-        var answer = solver.solve(Input.puzzle);
-
-        System.out.println(answer);
+        return super.solve();
     }
 }

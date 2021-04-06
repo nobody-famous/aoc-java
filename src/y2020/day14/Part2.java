@@ -5,6 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Part2 extends Solver {
+    public Part2(Op[] prog) {
+        super(prog);
+    }
+
     private void appendChar(List<StringBuilder> builders, char ch) {
         for (var builder : builders) {
             builder.append(ch);
@@ -65,7 +69,7 @@ public class Part2 extends Solver {
         return new String(mask);
     }
 
-    public long solve(Op[] prog) {
+    public long solve() {
         var mem = new HashMap<Long, Long>();
         Mask curMask = null;
 
@@ -83,13 +87,8 @@ public class Part2 extends Solver {
             }
         }
 
-        return sumValues(mem.values());
-    }
+        var answer = sumValues(mem.values());
 
-    public static void main(String[] args) {
-        var solver = new Part2();
-        var answer = solver.solve(Input.puzzle);
-
-        System.out.println(answer);
+        return answer;
     }
 }

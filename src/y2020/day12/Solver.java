@@ -1,9 +1,16 @@
 package y2020.day12;
 
-public abstract class Solver {
+import utils.Problem;
+
+public abstract class Solver implements Problem {
     protected int x;
     protected int y;
     protected int dir;
+    protected Instruction[] instrs;
+
+    protected Solver(Instruction[] instrs) {
+        this.instrs = instrs;
+    }
 
     abstract void north(int value);
 
@@ -49,7 +56,7 @@ public abstract class Solver {
         return Math.abs(x) + Math.abs(y);
     }
 
-    public long solve(Instruction[] instrs) {
+    public long solve() {
         x = 0;
         y = 0;
         dir = 1;
@@ -58,6 +65,8 @@ public abstract class Solver {
             process(instr);
         }
 
-        return distance(x, y);
+        var answer = distance(x, y);
+
+        return answer;
     }
 }

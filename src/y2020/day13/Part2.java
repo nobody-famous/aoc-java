@@ -3,9 +3,16 @@ package y2020.day13;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Part2 {
+import utils.Problem;
+
+public class Part2 implements Problem {
     private long value;
     private long step;
+    private Notes input;
+
+    public Part2(Notes input) {
+        this.input = input;
+    }
 
     private List<Bus> notesToBuses(Notes input) {
         var buses = new ArrayList<Bus>();
@@ -57,7 +64,7 @@ public class Part2 {
         }
     }
 
-    public long solve(Notes input) {
+    public long solve() {
         var buses = notesToBuses(input);
 
         value = buses.get(0).getId();
@@ -68,12 +75,5 @@ public class Part2 {
         }
 
         return value;
-    }
-
-    public static void main(String[] args) {
-        var solver = new Part2();
-        var answer = solver.solve(Input.puzzle);
-
-        System.out.println(answer);
     }
 }

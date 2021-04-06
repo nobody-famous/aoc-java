@@ -46,13 +46,8 @@ public class Part2 extends Solver {
             doRound(5);
         }
 
-        return countOccupied();
-    }
+        var answer = countOccupied();
 
-    public static void main(String[] args) {
-        var solver = new Part2(Input.puzzle);
-        var answer = solver.solve();
-
-        System.out.println(answer);
+        return answer;
     }
 }
