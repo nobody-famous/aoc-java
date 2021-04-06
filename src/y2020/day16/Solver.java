@@ -2,7 +2,15 @@ package y2020.day16;
 
 import java.util.List;
 
-public abstract class Solver {
+import utils.Problem;
+
+public abstract class Solver implements Problem {
+    protected Notes input;
+
+    protected Solver(Notes input) {
+        this.input = input;
+    }
+
     protected boolean inField(long value, Field field) {
         for (var range : field.getRanges()) {
             if (value >= range.getLow() && value <= range.getHigh()) {

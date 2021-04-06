@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 public class Part2 extends Solver {
+    public Part2(Notes input) {
+        super(input);
+    }
+
     private boolean isValidTicket(Ticket ticket, List<Field> fields) {
         for (var value : ticket.getValues()) {
             if (!isValid(value, fields)) {
@@ -117,7 +121,7 @@ public class Part2 extends Solver {
         return sum;
     }
 
-    public long solve(Notes input) {
+    public long solve() {
         var tickets = getValidTickets(input);
         var candidates = initCandidates(input.getFields());
 
@@ -128,12 +132,5 @@ public class Part2 extends Solver {
         var names = candidatesToNames(candidates);
 
         return multiplyValues(names, input.getMine());
-    }
-
-    public static void main(String[] args) {
-        var solver = new Part2();
-        var answer = solver.solve(Input.puzzle);
-
-        System.out.println(answer);
     }
 }
