@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Part1 extends Solver {
+    public Part1(Notes input) {
+        super(input);
+    }
+
     private long sumValues(List<Long> values) {
         var sum = 0L;
 
@@ -14,7 +18,7 @@ public class Part1 extends Solver {
         return sum;
     }
 
-    public long solve(Notes input) {
+    public long solve() {
         var invalid = new ArrayList<Long>();
 
         for (var ticket : input.getNearby()) {
@@ -26,12 +30,5 @@ public class Part1 extends Solver {
         }
 
         return sumValues(invalid);
-    }
-
-    public static void main(String[] args) {
-        var solver = new Part1();
-        var answer = solver.solve(Input.puzzle);
-
-        System.out.println(answer);
     }
 }
