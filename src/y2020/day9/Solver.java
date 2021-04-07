@@ -1,6 +1,16 @@
 package y2020.day9;
 
-public abstract class Solver {
+import utils.Problem;
+
+public abstract class Solver implements Problem {
+    protected long[] input;
+    protected int preambleLength;
+
+    protected Solver(long[] input, int preambleLength) {
+        this.input = input;
+        this.preambleLength = preambleLength;
+    }
+
     protected boolean findPair(long[] input, int start, int end, long target) {
         for (var first = start; first < end; first += 1) {
             for (var second = first + 1; second <= end; second += 1) {

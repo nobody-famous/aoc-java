@@ -2,7 +2,15 @@ package y2020.day6;
 
 import java.util.HashMap;
 
-public class Part1 {
+import utils.Problem;
+
+public class Part1 implements Problem {
+    private String[][] input;
+
+    public Part1(String[][] input) {
+        this.input = input;
+    }
+
     private int countQuestions(String[] group) {
         var seen = new HashMap<>();
 
@@ -15,7 +23,7 @@ public class Part1 {
         return seen.keySet().size();
     }
 
-    public long solve(String[][] input) {
+    public long solve() {
         long total = 0;
 
         for (var group : input) {
@@ -23,12 +31,5 @@ public class Part1 {
         }
 
         return total;
-    }
-
-    public static void main(String[] args) {
-        var solver = new Part1();
-        var answer = solver.solve(Input.puzzle);
-
-        System.out.println(answer);
     }
 }

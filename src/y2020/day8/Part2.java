@@ -1,6 +1,14 @@
 package y2020.day8;
 
-public class Part2 {
+import utils.Problem;
+
+public class Part2 implements Problem {
+    private Instruction[] prog;
+
+    public Part2(Instruction[] prog) {
+        this.prog = prog;
+    }
+
     private boolean tryRun(Machine m, Instruction[] prog, int ndx, String before, String after) {
         prog[ndx].setOp(after);
 
@@ -11,7 +19,7 @@ public class Part2 {
         return m.didFinish();
     }
 
-    public long solve(Instruction[] prog) {
+    public long solve() {
         var machine = new Machine();
 
         for (var ndx = 0; ndx < prog.length; ndx += 1) {
@@ -29,13 +37,8 @@ public class Part2 {
             }
         }
 
-        return machine.getAcc();
-    }
+        var answer = machine.getAcc();
 
-    public static void main(String[] args) {
-        var solver = new Part2();
-        var answer = solver.solve(Input.puzzle);
-
-        System.out.println(answer);
+        return answer;
     }
 }

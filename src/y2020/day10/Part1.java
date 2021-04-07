@@ -3,7 +3,11 @@ package y2020.day10;
 import java.util.Arrays;
 
 public class Part1 extends Solver {
-    public long solve(int[] input) {
+    public Part1(int[] input) {
+        super(input);
+    }
+
+    public long solve() {
         var adapters = addAdapters(input);
         Arrays.sort(adapters);
 
@@ -20,13 +24,8 @@ public class Part1 extends Solver {
             }
         }
 
-        return ones * threes;
-    }
+        var answer = ones * threes;
 
-    public static void main(String[] args) {
-        var solver = new Part1();
-        var answer = solver.solve(Input.puzzle);
-
-        System.out.println(answer);
+        return answer;
     }
 }

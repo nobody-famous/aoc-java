@@ -7,6 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 public class Part2 extends Solver {
+    public Part2(int[] input) {
+        super(input);
+    }
+
     private List<Integer> getSteps(int[] input, int start) {
         var steps = new ArrayList<Integer>();
         var value = input[start];
@@ -52,20 +56,15 @@ public class Part2 extends Solver {
         return arranges;
     }
 
-    public long solve(int[] input) {
+    public long solve() {
         var adapters = addAdapters(input);
         Arrays.sort(adapters);
 
         var stepsMap = buildStepsMap(adapters);
         var arranges = buildArrangeMap(adapters, stepsMap);
 
-        return arranges.get(0);
-    }
+        var answer = arranges.get(0);
 
-    public static void main(String[] args) {
-        var solver = new Part2();
-        var answer = solver.solve(Input.puzzle);
-
-        System.out.println(answer);
+        return answer;
     }
 }

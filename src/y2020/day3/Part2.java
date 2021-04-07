@@ -1,7 +1,11 @@
 package y2020.day3;
 
 public class Part2 extends Solver {
-    protected long solve(char[][] input) {
+    public Part2(char[][] input) {
+        super(input);
+    }
+
+    public long solve() {
         int[][] slopes = new int[][] { { 1, 1 }, { 3, 1 }, { 5, 1 }, { 7, 1 }, { 1, 2 } };
         long answer = 0;
 
@@ -12,12 +16,5 @@ public class Part2 extends Solver {
         }
 
         return answer;
-    }
-
-    public static void main(String[] args) {
-        var solver = new Part2();
-        var answer = solver.solve(Input.puzzle);
-
-        System.out.println(answer);
     }
 }

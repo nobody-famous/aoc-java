@@ -1,7 +1,13 @@
 package y2020.day3;
 
-public abstract class Solver {
-    protected abstract long solve(char[][] input);
+import utils.Problem;
+
+public abstract class Solver implements Problem {
+    protected char[][] input;
+
+    protected Solver(char[][] input) {
+        this.input = input;
+    }
 
     protected int countTrees(char[][] input, int right, int down) {
         var row = 0;

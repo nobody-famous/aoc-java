@@ -1,6 +1,14 @@
 package y2020.day10;
 
-public abstract class Solver {
+import utils.Problem;
+
+public abstract class Solver implements Problem {
+    protected int[] input;
+
+    protected Solver(int[] input) {
+        this.input = input;
+    }
+
     protected int[] addAdapters(int[] input) {
         var adapters = new int[input.length + 2];
         var ndx = 0;

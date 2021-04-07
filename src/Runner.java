@@ -1,7 +1,17 @@
 import utils.Problem;
 
 public class Runner {
-    public static Problem[] allDays = new Problem[] { new y2020.day11.Part1(y2020.day11.Input.puzzle),
+    public static Problem[] allDays = new Problem[] { new y2020.day1.Part1(y2020.day1.Input.puzzle),
+            new y2020.day1.Part2(y2020.day1.Input.puzzle), new y2020.day2.Part1(y2020.day2.Input.puzzle),
+            new y2020.day2.Part2(y2020.day2.Input.puzzle), new y2020.day3.Part1(y2020.day3.Input.puzzle),
+            new y2020.day3.Part2(y2020.day3.Input.puzzle), new y2020.day4.Part1(y2020.day4.Input.puzzle),
+            new y2020.day4.Part2(y2020.day4.Input.puzzle), new y2020.day5.Part1(y2020.day5.Input.puzzle),
+            new y2020.day5.Part2(y2020.day5.Input.puzzle), new y2020.day6.Part1(y2020.day6.Input.puzzle),
+            new y2020.day6.Part2(y2020.day6.Input.puzzle), new y2020.day7.Part1(y2020.day7.Input.puzzle),
+            new y2020.day7.Part2(y2020.day7.Input.puzzle), new y2020.day8.Part1(y2020.day8.Input.puzzle),
+            new y2020.day8.Part2(y2020.day8.Input.puzzle), new y2020.day9.Part1(y2020.day9.Input.puzzle),
+            new y2020.day9.Part2(y2020.day9.Input.puzzle), new y2020.day10.Part1(y2020.day10.Input.puzzle),
+            new y2020.day10.Part2(y2020.day10.Input.puzzle), new y2020.day11.Part1(y2020.day11.Input.puzzle),
             new y2020.day11.Part2(y2020.day11.Input.puzzle), new y2020.day12.Part1(y2020.day12.Input.puzzle),
             new y2020.day12.Part2(y2020.day12.Input.puzzle), new y2020.day13.Part1(y2020.day13.Input.puzzle),
             new y2020.day13.Part2(y2020.day13.Input.puzzle), new y2020.day14.Part1(y2020.day14.Input.puzzle),

@@ -1,14 +1,13 @@
 package y2020.day9;
 
 public class Part1 extends Solver {
-    public long solve(long[] input, int preambleLength) {
-        return findWeakness(input, preambleLength);
+    public Part1(long[] input) {
+        super(input, 25);
     }
 
-    public static void main(String[] args) {
-        var solver = new Part1();
-        var answer = solver.solve(Input.puzzle, 25);
+    public long solve() {
+        var answer = findWeakness(input, preambleLength);
 
-        System.out.println(answer);
+        return answer;
     }
 }

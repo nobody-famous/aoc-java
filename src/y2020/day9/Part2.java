@@ -4,6 +4,10 @@ public class Part2 extends Solver {
     private long smallest = Integer.MAX_VALUE;
     private long largest = Integer.MIN_VALUE;
 
+    public Part2(long[] input) {
+        super(input, 25);
+    }
+
     private boolean hasTargetSet(long[] input, int ndx, long target) {
         var sum = 0L;
 
@@ -33,22 +37,17 @@ public class Part2 extends Solver {
         return false;
     }
 
-    public long solve(long[] input, int preambleLength) {
+    public long solve() {
         var target = findWeakness(input, preambleLength);
+        var answer = 0L;
 
         for (var ndx = 0; ndx < input.length; ndx += 1) {
             if (hasTargetSet(input, ndx, target)) {
-                return smallest + largest;
+                answer = smallest + largest;
+                break;
             }
         }
 
-        return 0;
-    }
-
-    public static void main(String[] args) {
-        var solver = new Part2();
-        var answer = solver.solve(Input.puzzle, 25);
-
-        System.out.println(answer);
+        return answer;
     }
 }

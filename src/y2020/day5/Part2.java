@@ -1,10 +1,18 @@
 package y2020.day5;
 
-public class Part2 {
-    public int solve(int[] input) {
-        var min = Integer.MAX_VALUE;
-        var max = Integer.MIN_VALUE;
-        var sum = 0;
+import utils.Problem;
+
+public class Part2 implements Problem {
+    private int[] input;
+
+    public Part2(int[] input) {
+        this.input = input;
+    }
+
+    public long solve() {
+        var min = Long.MAX_VALUE;
+        var max = Long.MIN_VALUE;
+        var sum = 0L;
 
         for (var n : input) {
             if (n < min) {
@@ -23,13 +31,8 @@ public class Part2 {
             rangeSum += i;
         }
 
-        return rangeSum - sum;
-    }
+        var answer = rangeSum - sum;
 
-    public static void main(String[] args) {
-        var solver = new Part2();
-        var answer = solver.solve(Input.puzzle);
-
-        System.out.println(answer);
+        return answer;
     }
 }

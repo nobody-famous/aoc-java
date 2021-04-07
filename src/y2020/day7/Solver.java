@@ -3,7 +3,15 @@ package y2020.day7;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Solver {
+import utils.Problem;
+
+public abstract class Solver implements Problem {
+    protected BagRule[] input;
+
+    protected Solver(BagRule[] input) {
+        this.input = input;
+    }
+
     protected Map<String, BagContents[]> rulesToMap(BagRule[] rules) {
         var out = new HashMap<String, BagContents[]>();
 

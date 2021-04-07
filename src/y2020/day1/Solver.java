@@ -1,7 +1,17 @@
 package y2020.day1;
 
-public abstract class Solver {
-    protected abstract int[] solve(Integer[] input, int target);
+import utils.Problem;
+
+public abstract class Solver implements Problem {
+    protected int[] input;
+    protected int target;
+
+    protected Solver(int[] input, int target) {
+        this.input = input;
+        this.target = target;
+    }
+
+    protected abstract int[] findCandidates(int[] input, int target);
 
     protected long product(int[] entries) {
         if (entries.length == 0) {
@@ -17,21 +27,15 @@ public abstract class Solver {
         return answer;
     }
 
-    public long run(String fileName) throws Exception {
-        var input = Parser.parse(fileName);
-        var target = 2020;
-
-        if (input.size() == 0) {
-            throw new Exception("No input");
-        }
-
-        var ints = input.toArray(new Integer[input.size()]);
-        var entries = solve(ints, target);
+    public long solve() {
+        var entries = findCandidates(input, target);
 
         if (entries == null) {
-            throw new Exception("No solution found");
+            throw new RuntimeException("No solution found");
         }
 
-        return product(entries);
+        var answer = product(entries);
+
+        return answer;
     }
 }

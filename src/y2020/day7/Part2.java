@@ -3,6 +3,10 @@ package y2020.day7;
 import java.util.Map;
 
 public class Part2 extends Solver {
+    public Part2(BagRule[] input) {
+        super(input);
+    }
+
     private long countBags(Map<String, BagContents[]> rules, String bag) {
         long count = 0;
         var content = rules.get(bag);
@@ -19,19 +23,12 @@ public class Part2 extends Solver {
         return count;
     }
 
-    public long solve(BagRule[] input) {
+    public long solve() {
         long answer = 0;
         var rules = rulesToMap(input);
 
         answer = countBags(rules, "shiny gold");
 
         return answer;
-    }
-
-    public static void main(String[] args) {
-        var solver = new Part2();
-        var answer = solver.solve(Input.puzzle);
-
-        System.out.println(answer);
     }
 }

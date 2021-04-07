@@ -1,14 +1,13 @@
 package y2020.day8;
 
 public class Part1 extends Solver {
-    public long solve(Instruction[] prog) {
-        return run(prog);
+    public Part1(Instruction[] prog) {
+        super(prog);
     }
 
-    public static void main(String[] args) {
-        var solver = new Part1();
-        var answer = solver.solve(Input.puzzle);
+    public long solve() {
+        var answer = run(prog);
 
-        System.out.println(answer);
+        return answer;
     }
 }

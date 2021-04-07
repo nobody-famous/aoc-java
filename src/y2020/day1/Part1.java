@@ -1,7 +1,11 @@
 package y2020.day1;
 
 public class Part1 extends Solver {
-    protected int[] solve(Integer[] input, int target) {
+    public Part1(int[] input) {
+        super(input, 2020);
+    }
+
+    protected int[] findCandidates(int[] input, int target) {
         for (var i = 0; i < input.length; i += 1) {
             var first = input[i];
 
@@ -15,12 +19,5 @@ public class Part1 extends Solver {
         }
 
         return null;
-    }
-
-    public static void main(String[] args) throws Exception {
-        var solver = new Part1();
-        var answer = solver.run("src/y2020/day1/input.txt");
-
-        System.out.println(answer);
     }
 }

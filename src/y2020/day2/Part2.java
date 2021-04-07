@@ -1,6 +1,12 @@
 package y2020.day2;
 
+import java.util.List;
+
 public class Part2 extends Solver {
+    public Part2(List<DBEntry> input) {
+        super(input);
+    }
+
     protected boolean validate(DBEntry entry) {
         var policy = entry.getPolicy();
         var low = policy.getLow();
@@ -12,12 +18,5 @@ public class Part2 extends Solver {
         count += pw.charAt(high - 1) == policy.getLetter() ? 1 : 0;
 
         return count == 1;
-    }
-
-    public static void main(String[] args) {
-        var solver = new Part2();
-        var answer = solver.run(Input.puzzle);
-
-        System.out.println(answer);
     }
 }

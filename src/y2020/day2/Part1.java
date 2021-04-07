@@ -1,6 +1,12 @@
 package y2020.day2;
 
+import java.util.List;
+
 public class Part1 extends Solver {
+    public Part1(List<DBEntry> input) {
+        super(input);
+    }
+
     private int countLetter(char letter, String pw) {
         int count = 0;
 
@@ -18,12 +24,5 @@ public class Part1 extends Solver {
         var count = countLetter(policy.getLetter(), entry.getPassword());
 
         return count >= policy.getLow() && count <= policy.getHigh();
-    }
-
-    public static void main(String[] args) {
-        var solver = new Part1();
-        var answer = solver.run(Input.puzzle);
-
-        System.out.println(answer);
     }
 }

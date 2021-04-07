@@ -1,8 +1,16 @@
 package y2020.day5;
 
-public class Part1 {
-    public int solve(int[] input) {
-        int highest = 0;
+import utils.Problem;
+
+public class Part1 implements Problem {
+    private int[] input;
+
+    public Part1(int[] input) {
+        this.input = input;
+    }
+
+    public long solve() {
+        var highest = 0L;
 
         for (var n : input) {
             if (n > highest) {
@@ -11,12 +19,5 @@ public class Part1 {
         }
 
         return highest;
-    }
-
-    public static void main(String[] args) {
-        var solver = new Part1();
-        var answer = solver.solve(Input.puzzle);
-
-        System.out.println(answer);
     }
 }

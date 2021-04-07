@@ -1,6 +1,14 @@
 package y2020.day4;
 
-public class Part1 {
+import utils.Problem;
+
+public class Part1 implements Problem {
+    private String[][][] input;
+
+    public Part1(String[][][] input) {
+        this.input = input;
+    }
+
     private boolean validate(String[][] entries) {
         boolean byr = false;
         boolean iyr = false;
@@ -33,7 +41,7 @@ public class Part1 {
         return byr && iyr && eyr && hgt && hcl && ecl && pid;
     }
 
-    public long solve(String[][][] input) {
+    public long solve() {
         long valid = 0;
 
         for (var entries : input) {
@@ -43,12 +51,5 @@ public class Part1 {
         }
 
         return valid;
-    }
-
-    public static void main(String[] args) {
-        var solver = new Part1();
-        var answer = solver.solve(Input.puzzle);
-
-        System.out.println(answer);
     }
 }
