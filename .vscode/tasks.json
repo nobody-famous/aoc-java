@@ -7,7 +7,9 @@
             "label": "Compile",
             "type": "shell",
             "command": "jabuto",
-            "args": ["build", "-v"],
+            "args": [
+                "build"
+            ],
             "problemMatcher": []
         },
         {
@@ -15,7 +17,11 @@
             "dependsOn": "Compile",
             "type": "shell",
             "command": "java",
-            "args": ["-cp", "out/src", "Runner"],
+            "args": [
+                "-cp",
+                "out/src",
+                "Runner"
+            ],
             "problemMatcher": []
         }
     ]
