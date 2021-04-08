@@ -6,9 +6,15 @@ public class Expression {
     private String expr;
     private int ndx;
     private Stack<Token> stack;
+    private boolean usePrecedence;
 
     public Expression(String expr) {
+        this(expr, false);
+    }
+
+    public Expression(String expr, boolean usePrecedence) {
         this.expr = expr;
+        this.usePrecedence = usePrecedence;
     }
 
     public long eval() {
@@ -35,6 +41,8 @@ public class Expression {
             }
         }
 
+        collapse();
+
         var token = stack.peek();
 
         return token.isNumber() ? ((Number) token).getValue() : 0;
@@ -60,7 +68,13 @@ public class Expression {
         if (token.isAdd()) {
             stack.push(new Number(num + value.getValue()));
         } else if (token.isMultiply()) {
-            stack.push(new Number(num * value.getValue()));
+            if (usePrecedence) {
+                stack.push(nextToken);
+                stack.push(token);
+                stack.push(new Number(num));
+            } else {
+                stack.push(new Number(num * value.getValue()));
+            }
         }
     }
 
@@ -122,6 +136,10 @@ public class Expression {
     private void closeParen() {
         consume();
 
+        if (usePrecedence) {
+            collapse();
+        }
+
         var numToken = stack.pop();
         var paren = stack.pop();
 
@@ -130,7 +148,10 @@ public class Expression {
         }
 
         stack.push(numToken);
-        collapse();
+
+        if (!usePrecedence) {
+            collapse();
+        }
     }
 
     private void skipWS() {
