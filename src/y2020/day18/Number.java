@@ -10,4 +10,12 @@ public class Number implements Token {
     public boolean isNumber() {
         return true;
     }
+
+    public long getValue() {
+        return value;
+    }
+
+    public String toString() {
+        return "Number(" + value + ")";
+    }
 }
