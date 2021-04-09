@@ -18,7 +18,8 @@ public class Runner {
             new y2020.day14.Part2(y2020.day14.Input.puzzle), new y2020.day15.Part1(y2020.day15.Input.puzzle),
             new y2020.day15.Part2(y2020.day15.Input.puzzle), new y2020.day16.Part1(y2020.day16.Input.puzzle),
             new y2020.day16.Part2(y2020.day16.Input.puzzle), new y2020.day17.Part1(y2020.day17.Input.puzzle),
-            new y2020.day17.Part2(y2020.day17.Input.puzzle), new y2020.day18.Part1(y2020.day18.Input.puzzle) };
+            new y2020.day17.Part2(y2020.day17.Input.puzzle), new y2020.day18.Part1(y2020.day18.Input.puzzle),
+            new y2020.day18.Part2(y2020.day18.Input.puzzle) };
 
     public void runAll(Problem[] all) {
         var total = 0L;
@@ -39,8 +40,8 @@ public class Runner {
 
     public static void main(String[] args) {
         var runner = new Runner();
-        // runner.runAll(allDays);
+        runner.runAll(allDays);
 
-        runner.runAll(new Problem[] { new y2020.day18.Part2(y2020.day18.Input.puzzle) });
+        // runner.runAll(new Problem[] { new y2020.day18.Part2(y2020.day18.Input.puzzle) });
     }
 }

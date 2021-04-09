@@ -48,6 +48,20 @@ public class Expression {
         return token.isNumber() ? ((Number) token).getValue() : 0;
     }
 
+    private long combine(long firstValue) {
+        var top = stack.pop();
+        var secondToken = stack.pop();
+        var secondValue = ((Number) secondToken).getValue();
+
+        if (top.isAdd()) {
+            return firstValue + secondValue;
+        } else if (top.isMultiply()) {
+            return firstValue * secondValue;
+        }
+
+        throw new RuntimeException("combine Invalid Op");
+    }
+
     private void number() {
         var num = parseNumber();
 
@@ -56,25 +70,13 @@ public class Expression {
             return;
         }
 
-        var token = stack.pop();
-        var nextToken = stack.pop();
+        var top = stack.peek();
 
-        if (!nextToken.isNumber()) {
-            throw new RuntimeException("Popped invalid value " + nextToken);
-        }
-
-        var value = (Number) nextToken;
-
-        if (token.isAdd()) {
-            stack.push(new Number(num + value.getValue()));
-        } else if (token.isMultiply()) {
-            if (usePrecedence) {
-                stack.push(nextToken);
-                stack.push(token);
-                stack.push(new Number(num));
-            } else {
-                stack.push(new Number(num * value.getValue()));
-            }
+        if (!usePrecedence || (usePrecedence && top.isAdd())) {
+            var value = combine(num);
+            stack.push(new Number(value));
+        } else {
+            stack.push(new Number(num));
         }
     }
 
@@ -147,7 +149,12 @@ public class Expression {
             throw new RuntimeException("closeParen INVALID TOKENS");
         }
 
-        stack.push(numToken);
+        var firstValue = ((Number) numToken).getValue();
+        while (stack.size() > 1 && stack.peek().isAdd()) {
+            firstValue = combine(firstValue);
+        }
+
+        stack.push(new Number(firstValue));
 
         if (!usePrecedence) {
             collapse();

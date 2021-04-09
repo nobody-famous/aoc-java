@@ -21,7 +21,6 @@ public abstract class Solver implements Problem {
             answer += value;
         }
 
-        System.out.println(answer);
         return answer;
     }
 }
