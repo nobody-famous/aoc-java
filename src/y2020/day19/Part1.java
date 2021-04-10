@@ -10,10 +10,17 @@ public class Part1 implements Problem {
     }
 
     public long solve() {
-        var ruleZero = input.getRules().get(0);
+        var answer = 0L;
 
-        System.out.println(ruleZero);
+        for (var msg : input.getMsgs()) {
+            var m = new Matcher(input.getRules(), msg);
 
-        return 0;
+            if (m.match()) {
+                answer += 1;
+            }
+        }
+
+        System.out.println(answer);
+        return answer;
     }
 }
