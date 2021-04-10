@@ -1,11 +1,14 @@
 package y2020.day19;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.List;
 
 public class Matcher {
     private List<Rule> rules;
     private String msg;
     private int ndx;
+    private boolean done;
 
     public Matcher(List<Rule> rules, String msg) {
         this.rules = rules;
@@ -21,29 +24,44 @@ public class Matcher {
         return false;
     }
 
-    private boolean matchAnd(AndRule rule) {
+    private boolean matchAnd(AndRule rule, Deque<Rule> rest) {
         var startNdx = ndx;
+        var copy = new ArrayDeque<Rule>();
 
         for (var subRule : rule.getRules()) {
-            if (!match(subRule)) {
-                ndx = startNdx;
-                return false;
-            }
+            copy.add(rules.get(subRule));
         }
 
-        return true;
+        copy.addAll(rest);
+
+        if (match(copy)) {
+            return true;
+        }
+
+        ndx = startNdx;
+
+        return false;
     }
 
-    private boolean matchOr(OrRule rule) {
+    private boolean matchOr(OrRule rule, Deque<Rule> rest) {
         var startNdx = ndx;
         var left = rule.getLeft();
         var right = rule.getRight();
 
-        if (match(left)) {
+        var copy = new ArrayDeque<Rule>();
+
+        copy.add(left);
+        copy.addAll(rest);
+
+        if (match(copy)) {
             return true;
         }
 
-        if (match(right)) {
+        copy = new ArrayDeque<Rule>();
+        copy.add(right);
+        copy.addAll(rest);
+
+        if (match(copy)) {
             return true;
         }
 
@@ -51,25 +69,45 @@ public class Matcher {
         return false;
     }
 
-    private boolean match(Rule rule) {
-        if (rule.isChar()) {
-            return matchChar((CharRule) rule);
-        } else if (rule.isAnd()) {
-            return matchAnd((AndRule) rule);
-        } else if (rule.isOr()) {
-            return matchOr((OrRule) rule);
+    private boolean match(Deque<Rule> rules) {
+        while (!done && !rules.isEmpty()) {
+            var rule = rules.removeFirst();
+
+            if (ndx >= msg.length()) {
+                return false;
+            }
+
+            if (rule.isChar()) {
+                if (!matchChar((CharRule) rule)) {
+                    return false;
+                }
+            } else if (rule.isAnd()) {
+                if (!matchAnd((AndRule) rule, rules)) {
+                    return false;
+                }
+            } else if (rule.isOr()) {
+                if (!matchOr((OrRule) rule, rules)) {
+                    return false;
+                }
+            }
         }
 
-        return false;
+        done = true;
+
+        return true;
     }
 
     private boolean match(int ruleNdx) {
         var rule = rules.get(ruleNdx);
+        var rules = new ArrayDeque<Rule>();
 
-        return match(rule);
+        rules.add(rule);
+
+        return match(rules);
     }
 
     public boolean match() {
+        done = false;
         return match(0) && ndx >= msg.length();
     }
 }

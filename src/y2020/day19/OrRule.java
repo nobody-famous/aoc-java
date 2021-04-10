@@ -20,4 +20,16 @@ public class OrRule implements Rule {
     public Rule getRight() {
         return right;
     }
+
+    public String toString() {
+        var builder = new StringBuilder();
+
+        builder.append("OrRule(");
+        builder.append(left);
+        builder.append(" | ");
+        builder.append(right);
+        builder.append(")");
+
+        return builder.toString();
+    }
 }

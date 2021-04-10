@@ -14,4 +14,8 @@ public class CharRule implements Rule {
     public char getChar() {
         return ch;
     }
+
+    public String toString() {
+        return "CharRule(" + ch + ")";
+    }
 }

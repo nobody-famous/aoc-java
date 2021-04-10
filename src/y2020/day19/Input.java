@@ -15,6 +15,7 @@ public class Input {
     }
 
     public static Notes sample;
+    public static Notes sample2;
     public static Notes puzzle;
 
     static List<InputItem> sampleRules = Arrays.asList(new InputItem(0, new AndRule(new int[] { 4, 1, 5 })),
@@ -24,6 +25,12 @@ public class Input {
             new InputItem(4, new CharRule('a')), new InputItem(5, new CharRule('b')));
 
     static String[] sampleMsgs = new String[] { "ababbb", "bababa", "abbbab", "aaabbb", "aaaabbb", };
+
+    static List<InputItem> sample2Rules = Arrays.asList(new InputItem(0, new AndRule(new int[] { 1, 3 })),
+            new InputItem(1, new OrRule(new AndRule(new int[] { 2 }), new AndRule(new int[] { 2, 1 }))),
+            new InputItem(2, new CharRule('a')), new InputItem(3, new CharRule('b')));
+
+    static String[] sample2Msgs = new String[] { "aaaab" };
 
     static List<InputItem> puzzleRules = Arrays.asList(new InputItem(62, new AndRule(new int[] { 93, 93 })),
             new InputItem(41, new OrRule(new AndRule(new int[] { 40, 111 }), new AndRule(new int[] { 127, 70 }))),
@@ -355,6 +362,14 @@ public class Input {
         }
 
         sample = new Notes(Arrays.asList(rules), sampleMsgs);
+
+        rules = new Rule[sample2Rules.size()];
+
+        for (var rule : sample2Rules) {
+            rules[rule.ndx] = rule.rule;
+        }
+
+        sample2 = new Notes(Arrays.asList(rules), sample2Msgs);
 
         rules = new Rule[puzzleRules.size()];
 
