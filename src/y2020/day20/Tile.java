@@ -3,31 +3,33 @@ package y2020.day20;
 public class Tile {
     private int id;
     private String[] data;
-    private String north;
-    private String south;
-    private String east;
-    private String west;
+    private String[] borders = new String[4];
+
+    public static final int NORTH = 0;
+    public static final int SOUTH = 1;
+    public static final int EAST = 2;
+    public static final int WEST = 3;
 
     public Tile(int id, String[] data) {
         this.id = id;
         this.data = data;
 
-        north = data[0];
-        south = data[data.length - 1];
+        borders[NORTH] = data[0];
+        borders[SOUTH] = data[data.length - 1];
 
         char[] chars = new char[data.length];
         for (var row = 0; row < data.length; row += 1) {
             chars[row] = data[row].charAt(data.length - 1);
         }
 
-        east = new String(chars);
+        borders[EAST] = new String(chars);
 
         chars = new char[data.length];
         for (int row = 0; row < data.length; row += 1) {
             chars[row] = data[row].charAt(0);
         }
 
-        west = new String(chars);
+        borders[WEST] = new String(chars);
     }
 
     public int getId() {
@@ -38,20 +40,12 @@ public class Tile {
         return data;
     }
 
-    public String getNorth() {
-        return north;
-    }
+    public String getBorder(int border) {
+        if (border < 0 || border > 3) {
+            throw new RuntimeException("Invalid border requested " + border);
+        }
 
-    public String getSouth() {
-        return south;
-    }
-
-    public String getEast() {
-        return east;
-    }
-
-    public String getWest() {
-        return west;
+        return borders[border];
     }
 
     private Tile charsToTile(char[][] out) {
@@ -91,10 +85,6 @@ public class Tile {
         var builder = new StringBuilder();
 
         builder.append("Tile " + id + "\n");
-        builder.append("north " + north + "\n");
-        builder.append("south " + south + "\n");
-        builder.append("east " + east + "\n");
-        builder.append("west " + west + "\n");
 
         for (var line : data) {
             builder.append(line + "\n");
