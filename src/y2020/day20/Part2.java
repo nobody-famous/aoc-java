@@ -1,69 +1,98 @@
 package y2020.day20;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Part2 extends Solver {
+    private Map<Integer, Boolean> used = new HashMap<Integer, Boolean>();
+    private Map<String, Integer> borderCounts;
+
     public Part2(Tile[] input) {
         super(input);
     }
 
-    private List<Tile> getCandidates(Map<Integer, List<Tile>> tilesMap, String target, int id, int direction) {
-        var candidates = new ArrayList<Tile>();
+    private List<Tile> getCandidates(Map<Integer, List<Tile>> tilesMap, String north, String west) {
+        var candidates = new HashMap<Integer, Tile>();
 
         for (var entry : tilesMap.entrySet()) {
-            var entryID = entry.getKey();
             var tiles = entry.getValue();
 
-            if (entryID == id) {
+            if (used.containsKey(entry.getKey())) {
                 continue;
             }
 
             for (var tile : tiles) {
-                var border = tile.getBorder(direction);
-
-                if (target.equals(border)) {
-                    candidates.add(tile);
-                }
-            }
-        }
-
-        return candidates;
-    }
-
-    private Tile findMatch(Map<Integer, List<Tile>> tilesMap, int ignoreID, String northTarget, String westTarget) {
-        for (var tiles : tilesMap.values()) {
-            for (var tile : tiles) {
-                if (tile.getId() == ignoreID) {
-                    continue;
-                }
-
-                var northList = getCandidates(tilesMap, tile.getBorder(Tile.NORTH), tile.getId(), Tile.SOUTH);
-                var westList = getCandidates(tilesMap, tile.getBorder(Tile.WEST), tile.getId(), Tile.EAST);
-
-                if (northList.size() > 1 || westList.size() > 1) {
-                    throw new RuntimeException("Too many candidates " + northList.size() + " " + westList.size());
-                }
-
-                var north = northList.size() > 0 ? northList.get(0).getBorder(Tile.SOUTH) : null;
-                var west = westList.size() > 0 ? westList.get(0).getBorder(Tile.EAST) : null;
-
+                var northBorder = tile.getBorder(Tile.NORTH);
+                var westBorder = tile.getBorder(Tile.WEST);
                 var matchNorth = false;
                 var matchWest = false;
 
-                if ((north == null && northTarget == null) || (north != null && north.equals(northTarget))) {
+                if ((north == null && borderCounts.get(northBorder) == 4)
+                        || (north != null && north.equals(northBorder))) {
                     matchNorth = true;
                 }
 
-                if ((west == null && westTarget == null) || (west != null && west.equals(westTarget))) {
+                if ((west == null && borderCounts.get(westBorder) == 4) || (west != null && west.equals(westBorder))) {
                     matchWest = true;
                 }
 
                 if (matchNorth && matchWest) {
-                    return tile;
+                    candidates.put(tile.getId(), tile);
                 }
             }
+        }
+
+        var tiles = new ArrayList<Tile>();
+        for (var tile : candidates.values()) {
+            tiles.add(tile);
+        }
+
+        return tiles;
+    }
+
+    private Tile findMatch(Map<Integer, List<Tile>> tilesMap, String northTarget, String westTarget) {
+        for (var entry : tilesMap.entrySet()) {
+            var tileID = entry.getKey();
+            var tiles = entry.getValue();
+
+            if (used.containsKey(tileID)) {
+                continue;
+            }
+
+            // for (var tile : tiles) {
+            var northList = getCandidates(tilesMap, northTarget, westTarget);
+            // var westList = getCandidates(tilesMap, used, westTarget, Tile.WEST);
+
+            if (northList.size() > 1) {
+                for (var tile : northList) {
+                    System.out.println(tile.getId());
+                }
+                throw new RuntimeException("Too many candidates " + northList.size());
+            }
+
+            return northList.get(0);
+            // var north = northList.size() > 0 ? northList.get(0).getBorder(Tile.SOUTH) : null;
+            // var west = westList.size() > 0 ? westList.get(0).getBorder(Tile.EAST) : null;
+
+            // var matchNorth = false;
+            // var matchWest = false;
+
+            // if ((north == null && northTarget == null) || (north != null && north.equals(northTarget))) {
+            // matchNorth = true;
+
+            // }
+
+            // if ((west == null && westTarget == null) || (west != null && west.equals(westTarget))) {
+            //     matchWest = true;
+            // }
+
+            // if (matchNorth && matchWest) {
+            //     return tile;
+            // }
+            // }
         }
 
         return null;
@@ -71,23 +100,42 @@ public class Part2 extends Solver {
     }
 
     public long solve() {
+        var size = (int) Math.sqrt(input.length);
+        var grid = new Tile[size][size];
         var tiles = tilePerms(input);
 
-        var corner = findMatch(tiles, -1, null, null);
-        System.out.println(corner);
+        borderCounts = bordersMap(tiles);
 
-        var perm = findMatch(tiles, corner.getId(), null, corner.getBorder(Tile.EAST));
-        System.out.println();
-        System.out.println(perm);
+        var corners = getCandidates(tiles, null, null);
 
-        perm = findMatch(tiles, perm.getId(), null, perm.getBorder(Tile.EAST));
-        System.out.println();
-        System.out.println(perm);
+        grid[0][0] = corners.get(0);
+        used.put(grid[0][0].getId(), true);
 
-        perm = findMatch(tiles, corner.getId(), corner.getBorder(Tile.SOUTH), null);
-        System.out.println();
-        System.out.println(perm);
+        for (var row = 0; row < size; row += 1) {
+            for (var col = 0; col < size; col += 1) {
+                if (grid[row][col] != null) {
+                    continue;
+                }
 
+                var north = (col > 0) ? grid[row][col - 1].getBorder(Tile.SOUTH) : null;
+                var east = (row > 0) ? grid[row - 1][col].getBorder(Tile.EAST) : null;
+                var tile = findMatch(tiles, north, east);
+
+                if (tile == null) {
+                    throw new RuntimeException("Failed to place " + row + "," + col);
+                }
+
+                used.put(tile.getId(), true);
+                grid[row][col] = tile;
+            }
+        }
+
+        for (var row = 0; row < size; row += 1) {
+            for (var col = 0; col < size; col += 1) {
+                System.out.print(grid[row][col].getId() + " ");
+            }
+            System.out.println();
+        }
         return 0;
     }
 }
