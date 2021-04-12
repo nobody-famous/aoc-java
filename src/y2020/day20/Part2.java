@@ -32,27 +32,15 @@ public class Part2 extends Solver {
         return candidates;
     }
 
-    private Tile findCorner(Map<String, Integer> borders) {
-        for (var tile : input) {
-            var count = countMatches(borders, tile);
-
-            if (count == 2) {
-                return tile;
-            }
-        }
-
-        throw new RuntimeException("FAILED TO FIND CORNER");
-    }
-
     private Tile findMatch(Map<Integer, List<Tile>> tilesMap, int ignoreID, String northTarget, String westTarget) {
         for (var tiles : tilesMap.values()) {
-            for (var perm : tiles) {
-                if (perm.getId() == ignoreID) {
+            for (var tile : tiles) {
+                if (tile.getId() == ignoreID) {
                     continue;
                 }
 
-                var northList = getCandidates(tilesMap, perm.getBorder(Tile.NORTH), perm.getId(), Tile.SOUTH);
-                var westList = getCandidates(tilesMap, perm.getBorder(Tile.WEST), perm.getId(), Tile.EAST);
+                var northList = getCandidates(tilesMap, tile.getBorder(Tile.NORTH), tile.getId(), Tile.SOUTH);
+                var westList = getCandidates(tilesMap, tile.getBorder(Tile.WEST), tile.getId(), Tile.EAST);
 
                 if (northList.size() > 1 || westList.size() > 1) {
                     throw new RuntimeException("Too many candidates " + northList.size() + " " + westList.size());
@@ -64,24 +52,16 @@ public class Part2 extends Solver {
                 var matchNorth = false;
                 var matchWest = false;
 
-                if (north == null && northTarget == null) {
+                if ((north == null && northTarget == null) || (north != null && north.equals(northTarget))) {
                     matchNorth = true;
                 }
 
-                if (!matchNorth && north != null && north.equals(northTarget)) {
-                    matchNorth = true;
-                }
-
-                if (west == null && westTarget == null) {
-                    matchWest = true;
-                }
-
-                if (!matchWest && west != null && west.equals(westTarget)) {
+                if ((west == null && westTarget == null) || (west != null && west.equals(westTarget))) {
                     matchWest = true;
                 }
 
                 if (matchNorth && matchWest) {
-                    return perm;
+                    return tile;
                 }
             }
         }
@@ -104,7 +84,7 @@ public class Part2 extends Solver {
         System.out.println();
         System.out.println(perm);
 
-        perm = findMatch(tiles, perm.getId(), null, perm.getBorder(Tile.EAST));
+        perm = findMatch(tiles, corner.getId(), corner.getBorder(Tile.SOUTH), null);
         System.out.println();
         System.out.println(perm);
 
