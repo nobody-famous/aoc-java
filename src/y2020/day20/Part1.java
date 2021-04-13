@@ -18,7 +18,6 @@ public class Part1 extends Solver {
             }
         }
 
-        System.out.println(answer);
-        return 0;
+        return answer;
     }
 }
