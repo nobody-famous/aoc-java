@@ -1,7 +1,5 @@
 package y2020.day20;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,9 +12,15 @@ public class Part2 extends Solver {
         super(input);
     }
 
-    private List<Tile> getCandidates(Map<Integer, List<Tile>> tilesMap, String north, String west) {
-        var candidates = new HashMap<Integer, Tile>();
+    private boolean isEdge(String border) {
+        return borderCounts.get(border) == 4;
+    }
 
+    private boolean edgeMatches(String first, String second) {
+        return ((first == null && isEdge(second)) || (first != null && first.equals(second)));
+    }
+
+    private Tile getCandidate(Map<Integer, List<Tile>> tilesMap, String north, String west) {
         for (var entry : tilesMap.entrySet()) {
             var tiles = entry.getValue();
 
@@ -27,72 +31,25 @@ public class Part2 extends Solver {
             for (var tile : tiles) {
                 var northBorder = tile.getBorder(Tile.NORTH);
                 var westBorder = tile.getBorder(Tile.WEST);
-                var matchNorth = false;
-                var matchWest = false;
 
-                if ((north == null && borderCounts.get(northBorder) == 4)
-                        || (north != null && north.equals(northBorder))) {
-                    matchNorth = true;
-                }
-
-                if ((west == null && borderCounts.get(westBorder) == 4) || (west != null && west.equals(westBorder))) {
-                    matchWest = true;
-                }
-
-                if (matchNorth && matchWest) {
-                    candidates.put(tile.getId(), tile);
+                if (edgeMatches(north, northBorder) && edgeMatches(west, westBorder)) {
+                    return tile;
                 }
             }
         }
 
-        var tiles = new ArrayList<Tile>();
-        for (var tile : candidates.values()) {
-            tiles.add(tile);
-        }
-
-        return tiles;
+        return null;
     }
 
     private Tile findMatch(Map<Integer, List<Tile>> tilesMap, String northTarget, String westTarget) {
         for (var entry : tilesMap.entrySet()) {
             var tileID = entry.getKey();
-            var tiles = entry.getValue();
 
             if (used.containsKey(tileID)) {
                 continue;
             }
 
-            // for (var tile : tiles) {
-            var northList = getCandidates(tilesMap, northTarget, westTarget);
-            // var westList = getCandidates(tilesMap, used, westTarget, Tile.WEST);
-
-            if (northList.size() > 1) {
-                for (var tile : northList) {
-                    System.out.println(tile.getId());
-                }
-                throw new RuntimeException("Too many candidates " + northList.size());
-            }
-
-            return northList.get(0);
-            // var north = northList.size() > 0 ? northList.get(0).getBorder(Tile.SOUTH) : null;
-            // var west = westList.size() > 0 ? westList.get(0).getBorder(Tile.EAST) : null;
-
-            // var matchNorth = false;
-            // var matchWest = false;
-
-            // if ((north == null && northTarget == null) || (north != null && north.equals(northTarget))) {
-            // matchNorth = true;
-
-            // }
-
-            // if ((west == null && westTarget == null) || (west != null && west.equals(westTarget))) {
-            //     matchWest = true;
-            // }
-
-            // if (matchNorth && matchWest) {
-            //     return tile;
-            // }
-            // }
+            return getCandidate(tilesMap, northTarget, westTarget);
         }
 
         return null;
@@ -106,10 +63,10 @@ public class Part2 extends Solver {
 
         borderCounts = bordersMap(tiles);
 
-        var corners = getCandidates(tiles, null, null);
+        var corner = getCandidate(tiles, null, null);
 
-        grid[0][0] = corners.get(0);
-        used.put(grid[0][0].getId(), true);
+        used.put(corner.getId(), true);
+        grid[0][0] = corner;
 
         for (var row = 0; row < size; row += 1) {
             for (var col = 0; col < size; col += 1) {
