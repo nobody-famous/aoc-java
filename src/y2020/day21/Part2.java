@@ -2,7 +2,6 @@ package y2020.day21;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Part2 extends Solver {
     public Part2(Food[] input) {
@@ -69,7 +68,7 @@ public class Part2 extends Solver {
             ingrs.add(ingr);
         }
 
-        var answer = String.join(",", ingrs);
+        String.join(",", ingrs);
 
         return 0L;
     }
