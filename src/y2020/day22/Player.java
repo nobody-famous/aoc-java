@@ -20,14 +20,6 @@ public class Player {
         return cards;
     }
 
-    public int dealCard() {
-        return cards.removeFirst();
-    }
-
-    public void addCard(int card) {
-        cards.add(card);
-    }
-
     public String toString() {
         var builder = new StringBuilder();
 

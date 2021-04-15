@@ -1,54 +1,41 @@
 package y2020.day22;
 
-import utils.Problem;
+import java.util.Deque;
 
-public class Part1 implements Problem {
-    private Player[] input;
-
+public class Part1 extends Solver {
     public Part1(Player[] input) {
-        this.input = input;
+        super(input);
     }
 
-    private void playRound(Player player1, Player player2) {
-        var card1 = player1.dealCard();
-        var card2 = player2.dealCard();
+    private void playRound(Deque<Integer> cards1, Deque<Integer> cards2) {
+        var card1 = cards1.removeFirst();
+        var card2 = cards2.removeFirst();
 
         if (card1 > card2) {
-            input[0].addCard(card1);
-            input[0].addCard(card2);
+            cards1.add(card1);
+            cards1.add(card2);
         } else {
-            input[1].addCard(card2);
-            input[1].addCard(card1);
+            cards2.add(card2);
+            cards2.add(card1);
         }
     }
 
     public long solve() {
-        var player1 = input[0];
-        var player2 = input[1];
-        Player winner;
+        var cards1 = copyCards(input[0].getCards());
+        var cards2 = copyCards(input[1].getCards());
+        Deque<Integer> winner;
 
         while (true) {
-            playRound(player1, player2);
-
-            var cards1 = player1.getCards();
-            var cards2 = player2.getCards();
+            playRound(cards1, cards2);
 
             if (cards1.size() == 0 || cards2.size() == 0) {
-                winner = cards1.size() == 0 ? player2 : player1;
+                winner = cards1.size() == 0 ? cards2 : cards1;
                 break;
             }
         }
 
-        var mult = winner.getCards().size();
-        var cards = winner.getCards();
-        var answer = 0L;
+        var answer = calculateAnswer(winner);
 
-        for (var card : cards) {
-            answer += card * mult;
-            mult -= 1;
-        }
-
-        System.out.println(answer);
         return answer;
     }
 }
