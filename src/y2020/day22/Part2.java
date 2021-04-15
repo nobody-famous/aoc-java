@@ -2,16 +2,42 @@ package y2020.day22;
 
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Part2 extends Solver {
     public Part2(Player[] input) {
         super(input);
     }
 
-    private boolean alreadyPlayed(List<HistoryItem> history, Deque<Integer> cards1) {
-        for (var item : history) {
-            if (item.equals(cards1)) {
+    private boolean dequesEqual(Deque<Integer> us, Deque<Integer> them) {
+        if (us.size() != them.size()) {
+            return false;
+        }
+
+        var themIter = them.iterator();
+        for (var card : us) {
+            var themCard = themIter.next();
+
+            if (card != themCard) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean alreadyPlayed(Map<Long, List<Deque<Integer>>> history, Deque<Integer> cards) {
+        var hash = hashCards(cards);
+
+        if (!history.containsKey(hash)) {
+            return false;
+        }
+
+        var items = history.get(hash);
+        for (var item : items) {
+            if (dequesEqual(item, cards)) {
                 return true;
             }
         }
@@ -19,8 +45,29 @@ public class Part2 extends Solver {
         return false;
     }
 
-    private void updateHistory(List<HistoryItem> history, Deque<Integer> cards1) {
-        history.add(new HistoryItem(copyCards(cards1)));
+    private long hashCards(Deque<Integer> cards) {
+        if (cards.size() == 0) {
+            return 0;
+        }
+
+        var hash = 1L;
+        for (var card : cards) {
+            hash *= card;
+        }
+
+        return hash;
+    }
+
+    private void updateHistory(Map<Long, List<Deque<Integer>>> history, Deque<Integer> cards) {
+        var hash = hashCards(cards);
+
+        if (!history.containsKey(hash)) {
+            history.put(hash, new ArrayList<Deque<Integer>>());
+        }
+
+        var list = history.get(hash);
+
+        list.add(copyCards(cards));
     }
 
     private Deque<Integer> playRound(Deque<Integer> cards1, Deque<Integer> cards2) {
@@ -54,7 +101,7 @@ public class Part2 extends Solver {
     }
 
     private Deque<Integer> play(Deque<Integer> cards1, Deque<Integer> cards2) {
-        var history = new ArrayList<HistoryItem>();
+        var history = new HashMap<Long, List<Deque<Integer>>>();
 
         while (true) {
             if (alreadyPlayed(history, cards1)) {
