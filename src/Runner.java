@@ -44,8 +44,8 @@ public class Runner {
 
     public static void main(String[] args) {
         var runner = new Runner();
-        runner.runAll(allDays);
+        // runner.runAll(allDays);
 
-        // runner.runAll(new Problem[] { new y2020.day22.Part2(y2020.day22.Input.puzzle) });
+        runner.runAll(new Problem[] { new y2020.day23.Part1(y2020.day23.Input.sample) });
     }
 }
