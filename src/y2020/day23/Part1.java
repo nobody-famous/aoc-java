@@ -1,47 +1,23 @@
 package y2020.day23;
 
-import java.util.ArrayList;
-
-import utils.Problem;
-
-public class Part1 implements Problem {
-    private int[] input;
-    private Node[] board;
-    private int current;
-
+public class Part1 extends Solver {
     public Part1(int[] input) {
-        this.input = input;
+        super(input, 9);
     }
 
-    private void printBoard() {
-        System.out.print(1);
-
-        var next = board[1].getNext();
-        while (next != 1) {
-            if (next == current) {
-                System.out.print(" (" + next + ")");
-            } else {
-                System.out.print(" " + next);
-            }
-
-            next = board[next].getNext();
-        }
-
-        System.out.println();
-    }
-
-    private void printAnswer() {
+    private String getAnswer() {
+        var builder = new StringBuilder();
         var next = board[1].getNext();
 
         while (next != 1) {
-            System.out.print(next);
+            builder.append(next);
             next = board[next].getNext();
         }
 
-        System.out.println();
+        return builder.toString();
     }
 
-    private void buildBoard() {
+    protected void buildBoard() {
         board = new Node[input.length + 1];
 
         for (var ndx = 0; ndx < input.length - 1; ndx += 1) {
@@ -57,37 +33,6 @@ public class Part1 implements Problem {
         board[cur] = new Node(next);
     }
 
-    private void pickCups() {
-        var cups = new ArrayList<Integer>();
-        var cup = current;
-
-        for (var count = 0; count < 3; count += 1) {
-            cup = board[cup].getNext();
-            cups.add(cup);
-        }
-
-        var last = cups.get(2);
-        board[current].setNext(board[last].getNext());
-
-        var dest = current - 1;
-        if (dest < 1) {
-            dest = 9;
-        }
-
-        while (cups.contains(dest)) {
-            dest -= 1;
-            if (dest < 1) {
-                dest = 9;
-            }
-        }
-
-        var tmp = board[dest].getNext();
-        board[dest].setNext(cups.get(0));
-        board[cups.get(2)].setNext(tmp);
-
-        current = board[current].getNext();
-    }
-
     public long solve() {
         buildBoard();
         current = input[0];
@@ -96,8 +41,9 @@ public class Part1 implements Problem {
             pickCups();
         }
 
-        printAnswer();
+        var answer = getAnswer();
 
+        System.out.println(answer);
         return 0L;
     }
 }
