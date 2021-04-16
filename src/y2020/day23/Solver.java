@@ -6,7 +6,6 @@ public abstract class Solver implements Problem {
     protected int[] input;
     protected Node[] board;
     protected int current;
-    // protected int timer;
     private int maximum;
 
     protected Solver(int[] input, int maximum) {
@@ -31,28 +30,21 @@ public abstract class Solver implements Problem {
     }
 
     protected void pickCups() {
-        var cups = new int[3];
-        var cup = current;
+        var first = board[current].getNext();
+        var second = board[first].getNext();
+        var third = board[second].getNext();
 
-        // var start = System.currentTimeMillis();
-        for (var ndx = 0; ndx < 3; ndx += 1) {
-            cup = board[cup].getNext();
-            cups[ndx] = cup;
-        }
-        // timer += (System.currentTimeMillis() - start);
-
-        var last = cups[2];
-        board[current].setNext(board[last].getNext());
+        board[current].setNext(board[third].getNext());
 
         var dest = dec(current);
 
-        while (dest == cups[0] || dest == cups[1] || dest == cups[2]) {
+        while (dest == first || dest == second || dest == third) {
             dest = dec(dest);
         }
 
         var tmp = board[dest].getNext();
-        board[dest].setNext(cups[0]);
-        board[cups[2]].setNext(tmp);
+        board[dest].setNext(first);
+        board[third].setNext(tmp);
 
         current = board[current].getNext();
     }

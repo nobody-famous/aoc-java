@@ -40,8 +40,6 @@ public class Part2 extends Solver {
         var second = board[first].getNext();
         long answer = (long) first * (long) second;
 
-        System.out.println(answer);
-        // System.out.println("timer " + timer);
         return answer;
     }
 }

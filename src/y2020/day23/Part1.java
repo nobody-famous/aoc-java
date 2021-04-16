@@ -43,7 +43,6 @@ public class Part1 extends Solver {
 
         var answer = getAnswer();
 
-        System.out.println(answer);
-        return 0L;
+        return Long.parseLong(answer);
     }
 }
