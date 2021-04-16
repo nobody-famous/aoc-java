@@ -4,7 +4,7 @@ import utils.Problem;
 
 public abstract class Solver implements Problem {
     protected int[] input;
-    protected Node[] board;
+    protected int[] board;
     protected int current;
     private int maximum;
 
@@ -15,7 +15,7 @@ public abstract class Solver implements Problem {
 
     protected void printBoard() {
         for (var ndx = 1; ndx < board.length; ndx += 1) {
-            System.out.println(ndx + " -> " + board[ndx].getNext());
+            System.out.println(ndx + " -> " + board[ndx]);
         }
     }
 
@@ -30,11 +30,11 @@ public abstract class Solver implements Problem {
     }
 
     protected void pickCups() {
-        var first = board[current].getNext();
-        var second = board[first].getNext();
-        var third = board[second].getNext();
+        var first = board[current];
+        var second = board[first];
+        var third = board[second];
 
-        board[current].setNext(board[third].getNext());
+        board[current] = board[third];
 
         var dest = dec(current);
 
@@ -42,10 +42,10 @@ public abstract class Solver implements Problem {
             dest = dec(dest);
         }
 
-        var tmp = board[dest].getNext();
-        board[dest].setNext(first);
-        board[third].setNext(tmp);
+        var tmp = board[dest];
+        board[dest] = first;
+        board[third] = tmp;
 
-        current = board[current].getNext();
+        current = board[current];
     }
 }

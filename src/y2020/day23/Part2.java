@@ -6,25 +6,25 @@ public class Part2 extends Solver {
     }
 
     private void buildBoard() {
-        board = new Node[1000001];
+        board = new int[1000001];
 
         for (var ndx = 0; ndx < input.length - 1; ndx += 1) {
             var cur = input[ndx];
             var next = input[ndx + 1];
 
-            board[cur] = new Node(next);
+            board[cur] = next;
         }
 
         var cur = input[input.length - 1];
         var next = 10;
 
         while (next < board.length) {
-            board[cur] = new Node(next);
+            board[cur] = next;
             cur = next;
             next += 1;
         }
 
-        board[cur] = new Node(input[0]);
+        board[cur] = input[0];
     }
 
     public long solve() {
@@ -36,8 +36,8 @@ public class Part2 extends Solver {
             pickCups();
         }
 
-        var first = board[1].getNext();
-        var second = board[first].getNext();
+        var first = board[1];
+        var second = board[first];
         long answer = (long) first * (long) second;
 
         return answer;

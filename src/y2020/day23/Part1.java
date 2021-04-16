@@ -7,30 +7,30 @@ public class Part1 extends Solver {
 
     private String getAnswer() {
         var builder = new StringBuilder();
-        var next = board[1].getNext();
+        var next = board[1];
 
         while (next != 1) {
             builder.append(next);
-            next = board[next].getNext();
+            next = board[next];
         }
 
         return builder.toString();
     }
 
     protected void buildBoard() {
-        board = new Node[input.length + 1];
+        board = new int[input.length + 1];
 
         for (var ndx = 0; ndx < input.length - 1; ndx += 1) {
             var cur = input[ndx];
             var next = input[ndx + 1];
 
-            board[cur] = new Node(next);
+            board[cur] = next;
         }
 
         var cur = input[input.length - 1];
         var next = input[0];
 
-        board[cur] = new Node(next);
+        board[cur] = next;
     }
 
     public long solve() {
