@@ -10,4 +10,8 @@ public class Node {
     public int getNext() {
         return next;
     }
+
+    public void setNext(int next) {
+        this.next = next;
+    }
 }
