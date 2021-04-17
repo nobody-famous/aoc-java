@@ -72,6 +72,8 @@ public class Part2 extends Solver {
             tiles = newTiles;
         }
 
-        return newTiles.size();
+        var answer = newTiles.size();
+
+        return answer;
     }
 }

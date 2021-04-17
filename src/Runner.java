@@ -48,6 +48,6 @@ public class Runner {
         var runner = new Runner();
         runner.runAll(allDays);
 
-        // runner.runAll(new Problem[] { new y2020.day25.Part1(y2020.day25.Input.puzzle) });
+        // runner.runAll(new Problem[] { new y2020.day24.Part2(y2020.day24.Input.puzzle) });
     }
 }

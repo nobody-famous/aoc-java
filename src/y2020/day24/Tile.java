@@ -74,7 +74,7 @@ public class Tile {
     }
 
     public int hashCode() {
-        var hash = x * x + y * y + z * z;
+        var hash = x * 1000 + y * 100 + z * 10;
         return hash;
     }
 
