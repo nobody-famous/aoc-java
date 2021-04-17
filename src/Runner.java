@@ -1,7 +1,7 @@
-import utils.Problem;
+import utils.AocProblem;
 
 public class Runner {
-    public static Problem[] allDays = new Problem[] { new y2020.day1.Part1(y2020.day1.Input.puzzle, 972576),
+    public static AocProblem[] allDays = new AocProblem[] { new y2020.day1.Part1(y2020.day1.Input.puzzle, 972576),
             new y2020.day1.Part2(y2020.day1.Input.puzzle, 199300880),
             new y2020.day2.Part1(y2020.day2.Input.puzzle, 564), new y2020.day2.Part2(y2020.day2.Input.puzzle, 325),
             new y2020.day3.Part1(y2020.day3.Input.puzzle, 145),
@@ -42,7 +42,7 @@ public class Runner {
             new y2020.day24.Part1(y2020.day24.Input.puzzle, 317), new y2020.day24.Part2(y2020.day24.Input.puzzle, 3804),
             new y2020.day25.Part1(y2020.day25.Input.puzzle, 19414467) };
 
-    public void runAll(Problem[] all) {
+    public void runAll(AocProblem[] all) {
         var total = 0L;
 
         for (var problem : all) {

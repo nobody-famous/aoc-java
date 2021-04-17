@@ -1,6 +1,6 @@
 package utils;
 
-public abstract class Problem<T> {
+public abstract class Problem<T> implements AocProblem {
     private T expected;
 
     public abstract T run();
