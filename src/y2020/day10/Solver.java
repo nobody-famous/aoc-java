@@ -2,10 +2,11 @@ package y2020.day10;
 
 import utils.Problem;
 
-public abstract class Solver implements Problem {
+public abstract class Solver extends Problem<Long> {
     protected int[] input;
 
-    protected Solver(int[] input) {
+    protected Solver(int[] input, long expected) {
+        super(expected);
         this.input = input;
     }
 

@@ -1,8 +1,8 @@
 package y2020.day11;
 
 public class Part2 extends Solver {
-    public Part2(char[][] board) {
-        super(board);
+    public Part2(char[][] board, long expected) {
+        super(board, expected);
     }
 
     private boolean visibleOccupied(int row, int col, int dRow, int dCol) {
@@ -41,7 +41,7 @@ public class Part2 extends Solver {
         return count;
     }
 
-    public long solve() {
+    public Long run() {
         while (!isDone()) {
             doRound(5);
         }

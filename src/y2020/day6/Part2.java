@@ -5,10 +5,11 @@ import java.util.Map;
 
 import utils.Problem;
 
-public class Part2 implements Problem {
+public class Part2 extends Problem<Long> {
     private String[][] input;
 
-    public Part2(String[][] input) {
+    public Part2(String[][] input, long expected) {
+        super(expected);
         this.input = input;
     }
 
@@ -42,7 +43,7 @@ public class Part2 implements Problem {
         return count;
     }
 
-    public long solve() {
+    public Long run() {
         long sum = 0;
 
         for (var group : input) {

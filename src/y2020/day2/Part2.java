@@ -3,8 +3,8 @@ package y2020.day2;
 import java.util.List;
 
 public class Part2 extends Solver {
-    public Part2(List<DBEntry> input) {
-        super(input);
+    public Part2(List<DBEntry> input, long expected) {
+        super(input, expected);
     }
 
     protected boolean validate(DBEntry entry) {

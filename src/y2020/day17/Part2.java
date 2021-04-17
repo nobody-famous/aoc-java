@@ -2,13 +2,14 @@ package y2020.day17;
 
 import utils.Problem;
 
-public class Part2 implements Problem {
+public class Part2 extends Problem<Long> {
     private char[][] input;
     private char[][][][] cube;
     private char[][][][] newCube;
     private int cycles = 6;
 
-    public Part2(char[][] input) {
+    public Part2(char[][] input, long expected) {
+        super(expected);
         this.input = input;
     }
 
@@ -138,7 +139,7 @@ public class Part2 implements Problem {
         cube = newCube;
     }
 
-    public long solve() {
+    public Long run() {
         buildCube(cycles);
 
         for (var cycle = 0; cycle < cycles; cycle += 1) {

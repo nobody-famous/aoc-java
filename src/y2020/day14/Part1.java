@@ -3,11 +3,11 @@ package y2020.day14;
 import java.util.HashMap;
 
 public class Part1 extends Solver {
-    public Part1(Op[] prog) {
-        super(prog);
+    public Part1(Op[] prog, long expected) {
+        super(prog, expected);
     }
 
-    public long solve() {
+    public Long run() {
         var mem = new HashMap<Long, Long>();
         Mask curMask = null;
 

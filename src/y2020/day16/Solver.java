@@ -4,10 +4,11 @@ import java.util.List;
 
 import utils.Problem;
 
-public abstract class Solver implements Problem {
+public abstract class Solver extends Problem<Long> {
     protected Notes input;
 
-    protected Solver(Notes input) {
+    protected Solver(Notes input, long expected) {
+        super(expected);
         this.input = input;
     }
 

@@ -1,8 +1,8 @@
 package y2020.day1;
 
 public class Part1 extends Solver {
-    public Part1(int[] input) {
-        super(input, 2020);
+    public Part1(int[] input, long target) {
+        super(input, 2020, target);
     }
 
     protected int[] findCandidates(int[] input, int target) {

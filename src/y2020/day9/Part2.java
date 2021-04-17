@@ -4,8 +4,8 @@ public class Part2 extends Solver {
     private long smallest = Integer.MAX_VALUE;
     private long largest = Integer.MIN_VALUE;
 
-    public Part2(long[] input) {
-        super(input, 25);
+    public Part2(long[] input, long expected) {
+        super(input, 25, expected);
     }
 
     private boolean hasTargetSet(long[] input, int ndx, long target) {
@@ -37,7 +37,7 @@ public class Part2 extends Solver {
         return false;
     }
 
-    public long solve() {
+    public Long run() {
         var target = findWeakness(input, preambleLength);
         var answer = 0L;
 

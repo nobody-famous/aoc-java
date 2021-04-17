@@ -4,18 +4,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import utils.Problem;
+public class Solver {
+    public Food[] input;
+    public Map<String, Map<String, Boolean>> allergenMap = new HashMap<String, Map<String, Boolean>>();
+    public Map<String, Boolean> allIngredients = new HashMap<String, Boolean>();
 
-public abstract class Solver implements Problem {
-    protected Food[] input;
-    protected Map<String, Map<String, Boolean>> allergenMap = new HashMap<String, Map<String, Boolean>>();
-    protected Map<String, Boolean> allIngredients = new HashMap<String, Boolean>();
-
-    protected Solver(Food[] input) {
+    public Solver(Food[] input) {
         this.input = input;
     }
 
-    protected void buildMaps() {
+    public void buildMaps() {
         for (var food : input) {
             for (var ingr : food.getIngredients()) {
                 allIngredients.put(ingr, true);
@@ -28,7 +26,7 @@ public abstract class Solver implements Problem {
         }
     }
 
-    protected void updateAllergens(String allergen, Map<String, Boolean> ingrs) {
+    public void updateAllergens(String allergen, Map<String, Boolean> ingrs) {
         if (!allergenMap.containsKey(allergen)) {
             allergenMap.put(allergen, ingrs);
             return;
@@ -48,7 +46,7 @@ public abstract class Solver implements Problem {
         }
     }
 
-    protected Map<String, Boolean> listToMap(String[] list) {
+    public Map<String, Boolean> listToMap(String[] list) {
         var out = new HashMap<String, Boolean>();
 
         for (var item : list) {

@@ -1,8 +1,8 @@
 package y2020.day11;
 
 public class Part1 extends Solver {
-    public Part1(char[][] board) {
-        super(board);
+    public Part1(char[][] board, long expected) {
+        super(board, expected);
     }
 
     protected int countNeighbors(int row, int col) {
@@ -23,7 +23,7 @@ public class Part1 extends Solver {
         return count;
     }
 
-    public long solve() {
+    public Long run() {
         while (!isDone()) {
             doRound(4);
         }

@@ -7,10 +7,11 @@ import java.util.Map;
 
 import utils.Problem;
 
-public abstract class Solver implements Problem {
+public abstract class Solver extends Problem<Long> {
     protected Tile[] input;
 
-    protected Solver(Tile[] input) {
+    protected Solver(Tile[] input, long expected) {
+        super(expected);
         this.input = input;
     }
 

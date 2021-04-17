@@ -2,13 +2,14 @@ package y2020.day12;
 
 import utils.Problem;
 
-public abstract class Solver implements Problem {
+public abstract class Solver extends Problem<Long> {
     protected int x;
     protected int y;
     protected int dir;
     protected Instruction[] instrs;
 
-    protected Solver(Instruction[] instrs) {
+    protected Solver(Instruction[] instrs, long expected) {
+        super(expected);
         this.instrs = instrs;
     }
 
@@ -56,7 +57,7 @@ public abstract class Solver implements Problem {
         return Math.abs(x) + Math.abs(y);
     }
 
-    public long solve() {
+    public Long run() {
         x = 0;
         y = 0;
         dir = 1;

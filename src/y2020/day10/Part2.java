@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Part2 extends Solver {
-    public Part2(int[] input) {
-        super(input);
+    public Part2(int[] input, long expected) {
+        super(input, expected);
     }
 
     private List<Integer> getSteps(int[] input, int start) {
@@ -56,7 +56,7 @@ public class Part2 extends Solver {
         return arranges;
     }
 
-    public long solve() {
+    public Long run() {
         var adapters = addAdapters(input);
         Arrays.sort(adapters);
 

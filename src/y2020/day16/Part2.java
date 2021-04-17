@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Part2 extends Solver {
-    public Part2(Notes input) {
-        super(input);
+    public Part2(Notes input, long expected) {
+        super(input, expected);
     }
 
     private boolean isValidTicket(Ticket ticket, List<Field> fields) {
@@ -121,7 +121,7 @@ public class Part2 extends Solver {
         return sum;
     }
 
-    public long solve() {
+    public Long run() {
         var tickets = getValidTickets(input);
         var candidates = initCandidates(input.getFields());
 

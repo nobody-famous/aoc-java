@@ -2,14 +2,15 @@ package y2020.day11;
 
 import utils.Problem;
 
-public abstract class Solver implements Problem {
+public abstract class Solver extends Problem<Long> {
     private char[][] board = null;
     private char[][] nextBoard = null;
     private boolean done = false;
 
     abstract int countNeighbors(int row, int col);
 
-    protected Solver(char[][] board) {
+    protected Solver(char[][] board, long expected) {
+        super(expected);
         this.board = board;
     }
 

@@ -2,10 +2,11 @@ package y2020.day8;
 
 import utils.Problem;
 
-public class Part2 implements Problem {
+public class Part2 extends Problem<Long> {
     private Instruction[] prog;
 
-    public Part2(Instruction[] prog) {
+    public Part2(Instruction[] prog, long expected) {
+        super(expected);
         this.prog = prog;
     }
 
@@ -19,7 +20,7 @@ public class Part2 implements Problem {
         return m.didFinish();
     }
 
-    public long solve() {
+    public Long run() {
         var machine = new Machine();
 
         for (var ndx = 0; ndx < prog.length; ndx += 1) {

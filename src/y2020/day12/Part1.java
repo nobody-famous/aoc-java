@@ -1,8 +1,8 @@
 package y2020.day12;
 
 public class Part1 extends Solver {
-    public Part1(Instruction[] instrs) {
-        super(instrs);
+    public Part1(Instruction[] instrs, long expected) {
+        super(instrs, expected);
     }
 
     protected void north(int value) {

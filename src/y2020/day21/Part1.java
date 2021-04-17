@@ -3,15 +3,20 @@ package y2020.day21;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Part1 extends Solver {
-    public Part1(Food[] input) {
-        super(input);
+import utils.Problem;
+
+public class Part1 extends Problem<Long> {
+    private Solver solver;
+
+    public Part1(Food[] input, long expected) {
+        super(expected);
+        this.solver = new Solver(input);
     }
 
     private boolean isMissing(String ingr) {
         var found = false;
 
-        for (var ingrsMap : allergenMap.values()) {
+        for (var ingrsMap : solver.allergenMap.values()) {
             if (ingrsMap.containsKey(ingr)) {
                 found = true;
                 break;
@@ -24,7 +29,7 @@ public class Part1 extends Solver {
     private long countMissing(Map<String, Boolean> missing) {
         var count = 0L;
 
-        for (var food : input) {
+        for (var food : solver.input) {
             for (var ingr : food.getIngredients()) {
                 if (missing.containsKey(ingr)) {
                     count += 1;
@@ -38,7 +43,7 @@ public class Part1 extends Solver {
     private Map<String, Boolean> findMissing() {
         var missing = new HashMap<String, Boolean>();
 
-        for (var ingr : allIngredients.keySet()) {
+        for (var ingr : solver.allIngredients.keySet()) {
             if (isMissing(ingr)) {
                 missing.put(ingr, true);
             }
@@ -47,8 +52,8 @@ public class Part1 extends Solver {
         return missing;
     }
 
-    public long solve() {
-        buildMaps();
+    public Long run() {
+        solver.buildMaps();
 
         var missing = findMissing();
         var answer = countMissing(missing);

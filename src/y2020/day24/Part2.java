@@ -6,8 +6,8 @@ import java.util.Map;
 public class Part2 extends Solver {
     protected Map<Tile, Color> newTiles;
 
-    public Part2(Direction[][] input) {
-        super(input);
+    public Part2(Direction[][] input, int expected) {
+        super(input, expected);
     }
 
     private Tile[] getNeighbors(Tile tile) {
@@ -58,7 +58,7 @@ public class Part2 extends Solver {
         checkWhites(neighbors);
     }
 
-    public long solve() {
+    public Integer run() {
         for (var dirs : input) {
             processMoves(dirs);
         }

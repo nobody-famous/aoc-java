@@ -4,10 +4,11 @@ import java.util.HashMap;
 
 import utils.Problem;
 
-public class Part1 implements Problem {
+public class Part1 extends Problem<Long> {
     private String[][] input;
 
-    public Part1(String[][] input) {
+    public Part1(String[][] input, long expected) {
+        super(expected);
         this.input = input;
     }
 
@@ -23,7 +24,7 @@ public class Part1 implements Problem {
         return seen.keySet().size();
     }
 
-    public long solve() {
+    public Long run() {
         long total = 0;
 
         for (var group : input) {

@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Part2 extends Solver {
-    public Part2(Op[] prog) {
-        super(prog);
+    public Part2(Op[] prog, long expected) {
+        super(prog, expected);
     }
 
     private void appendChar(List<StringBuilder> builders, char ch) {
@@ -69,7 +69,7 @@ public class Part2 extends Solver {
         return new String(mask);
     }
 
-    public long solve() {
+    public Long run() {
         var mem = new HashMap<Long, Long>();
         Mask curMask = null;
 

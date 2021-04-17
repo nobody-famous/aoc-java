@@ -4,8 +4,8 @@ public class Part2 extends Solver {
     private int wpX;
     private int wpY;
 
-    public Part2(Instruction[] instrs) {
-        super(instrs);
+    public Part2(Instruction[] instrs, long expected) {
+        super(instrs, expected);
     }
 
     protected void north(int value) {
@@ -58,10 +58,10 @@ public class Part2 extends Solver {
         y += wpY * value;
     }
 
-    public long solve() {
+    public void solve() {
         wpX = 10;
         wpY = 1;
 
-        return super.solve();
+        super.solve();
     }
 }

@@ -3,8 +3,8 @@ package y2020.day22;
 import java.util.Deque;
 
 public class Part1 extends Solver {
-    public Part1(Player[] input) {
-        super(input);
+    public Part1(Player[] input, long expected) {
+        super(input, expected);
     }
 
     private void playRound(Deque<Integer> cards1, Deque<Integer> cards2) {
@@ -20,7 +20,7 @@ public class Part1 extends Solver {
         }
     }
 
-    public long solve() {
+    public Long run() {
         var cards1 = copyCards(input[0].getCards());
         var cards2 = copyCards(input[1].getCards());
         Deque<Integer> winner;

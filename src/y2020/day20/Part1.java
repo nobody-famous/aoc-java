@@ -1,11 +1,11 @@
 package y2020.day20;
 
 public class Part1 extends Solver {
-    public Part1(Tile[] input) {
-        super(input);
+    public Part1(Tile[] input, long expected) {
+        super(input, expected);
     }
 
-    public long solve() {
+    public Long run() {
         var tiles = tilePerms(input);
         var borders = bordersMap(tiles);
         var answer = 0L;

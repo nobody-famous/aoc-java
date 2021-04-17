@@ -3,15 +3,20 @@ package y2020.day21;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Part2 extends Solver {
-    public Part2(Food[] input) {
-        super(input);
+import utils.Problem;
+
+public class Part2 extends Problem<String> {
+    private Solver solver;
+
+    public Part2(Food[] input, String expected) {
+        super(expected);
+        this.solver = new Solver(input);
     }
 
     private boolean removeIngredient(String ingr) {
         var changed = false;
 
-        for (var ingrsMap : allergenMap.values()) {
+        for (var ingrsMap : solver.allergenMap.values()) {
             if (ingrsMap.size() > 1 && ingrsMap.containsKey(ingr)) {
                 ingrsMap.remove(ingr);
                 changed = true;
@@ -25,7 +30,7 @@ public class Part2 extends Solver {
         while (true) {
             var modified = false;
 
-            for (var entry : allergenMap.entrySet()) {
+            for (var entry : solver.allergenMap.entrySet()) {
                 var ingrs = entry.getValue();
 
                 if (ingrs.size() == 1) {
@@ -41,7 +46,7 @@ public class Part2 extends Solver {
     }
 
     private String[] sortedAllergens() {
-        var keys = allergenMap.keySet();
+        var keys = solver.allergenMap.keySet();
         var sorted = new String[keys.size()];
 
         var ndx = 0;
@@ -55,21 +60,21 @@ public class Part2 extends Solver {
         return sorted;
     }
 
-    public long solve() {
-        buildMaps();
+    public String run() {
+        solver.buildMaps();
         reduceAllergens();
 
         var allergens = sortedAllergens();
         var ingrs = new ArrayList<String>();
         for (var allergen : allergens) {
-            var ingrMap = allergenMap.get(allergen);
+            var ingrMap = solver.allergenMap.get(allergen);
             var ingr = ingrMap.keySet().iterator().next();
 
             ingrs.add(ingr);
         }
 
-        String.join(",", ingrs);
+        var answer = String.join(",", ingrs);
 
-        return 0L;
+        return answer;
     }
 }

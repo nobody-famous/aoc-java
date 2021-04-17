@@ -2,16 +2,17 @@ package y2020.day18;
 
 import utils.Problem;
 
-public abstract class Solver implements Problem {
+public abstract class Solver extends Problem<Long> {
     private String[] input;
     private boolean usePrecedence;
 
-    public Solver(String[] input, boolean usePrecedence) {
+    public Solver(String[] input, boolean usePrecedence, long expected) {
+        super(expected);
         this.input = input;
         this.usePrecedence = usePrecedence;
     }
 
-    public long solve() {
+    public Long run() {
         var answer = 0L;
 
         for (var exprStr : input) {

@@ -2,14 +2,15 @@ package y2020.day19;
 
 import utils.Problem;
 
-public abstract class Solver implements Problem {
+public abstract class Solver extends Problem<Long> {
     protected Notes input;
 
-    protected Solver(Notes input) {
+    protected Solver(Notes input, long expected) {
+        super(expected);
         this.input = input;
     }
 
-    public long solve() {
+    public Long run() {
         var answer = 0L;
 
         for (var msg : input.getMsgs()) {

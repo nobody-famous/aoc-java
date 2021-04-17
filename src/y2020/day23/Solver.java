@@ -2,13 +2,14 @@ package y2020.day23;
 
 import utils.Problem;
 
-public abstract class Solver implements Problem {
+public abstract class Solver extends Problem<Long> {
     protected int[] input;
     protected int[] board;
     protected int current;
     private int maximum;
 
-    protected Solver(int[] input, int maximum) {
+    protected Solver(int[] input, int maximum, long expected) {
+        super(expected);
         this.input = input;
         this.maximum = maximum;
     }

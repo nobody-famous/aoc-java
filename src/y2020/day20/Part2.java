@@ -12,8 +12,8 @@ public class Part2 extends Solver {
     private String[] monster = new String[] { "                  # ", "#    ##    ##    ###", " #  #  #  #  #  #   " };
     private int numMonsterPoints;
 
-    public Part2(Tile[] input) {
-        super(input);
+    public Part2(Tile[] input, long expected) {
+        super(input, expected);
 
         numMonsterPoints = countPounds(monster);
     }
@@ -197,7 +197,7 @@ public class Part2 extends Solver {
         return count;
     }
 
-    public long solve() {
+    public Long run() {
         var answer = 0L;
         var tiles = tilePerms(input);
 

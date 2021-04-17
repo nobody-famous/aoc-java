@@ -2,16 +2,17 @@ package y2020.day15;
 
 import utils.Problem;
 
-public class Solver implements Problem {
+public class Solver extends Problem<Integer> {
     protected int[] input;
     protected int numRounds;
 
-    protected Solver(int[] input, int numRounds) {
+    protected Solver(int[] input, int numRounds, int expected) {
+        super(expected);
         this.input = input;
         this.numRounds = numRounds;
     }
 
-    public long solve() {
+    public Integer run() {
         var seen = new int[numRounds];
         var turn = 1;
 

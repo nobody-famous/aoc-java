@@ -2,14 +2,15 @@ package y2020.day13;
 
 import utils.Problem;
 
-public class Part1 implements Problem {
+public class Part1 extends Problem<Long> {
     private Notes input;
 
-    public Part1(Notes input) {
+    public Part1(Notes input, long expected) {
+        super(expected);
         this.input = input;
     }
 
-    public long solve() {
+    public Long run() {
         var min = Long.MAX_VALUE;
         var busID = 0;
 

@@ -2,10 +2,11 @@ package y2020.day25;
 
 import utils.Problem;
 
-public class Part1 implements Problem {
+public class Part1 extends Problem<Long> {
     private int[] input;
 
-    public Part1(int[] input) {
+    public Part1(int[] input, long expected) {
+        super(expected);
         this.input = input;
     }
 
@@ -16,7 +17,7 @@ public class Part1 implements Problem {
         return value;
     }
 
-    public long solve() {
+    public Long run() {
         var value = 1L;
         var subject = 7L;
         var loopSize = 0;

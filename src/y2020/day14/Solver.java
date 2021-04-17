@@ -4,10 +4,11 @@ import java.util.Collection;
 
 import utils.Problem;
 
-public abstract class Solver implements Problem {
+public abstract class Solver extends Problem<Long> {
     protected Op[] prog;
 
-    protected Solver(Op[] prog) {
+    protected Solver(Op[] prog, long expected) {
+        super(expected);
         this.prog = prog;
     }
 

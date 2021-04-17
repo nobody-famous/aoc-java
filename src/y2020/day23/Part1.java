@@ -1,8 +1,8 @@
 package y2020.day23;
 
 public class Part1 extends Solver {
-    public Part1(int[] input) {
-        super(input, 9);
+    public Part1(int[] input, long expected) {
+        super(input, 9, expected);
     }
 
     private String getAnswer() {
@@ -33,7 +33,7 @@ public class Part1 extends Solver {
         board[cur] = next;
     }
 
-    public long solve() {
+    public Long run() {
         buildBoard();
         current = input[0];
 

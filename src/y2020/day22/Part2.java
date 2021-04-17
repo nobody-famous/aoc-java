@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Part2 extends Solver {
-    public Part2(Player[] input) {
-        super(input);
+    public Part2(Player[] input, long expected) {
+        super(input, expected);
     }
 
     private boolean dequesEqual(Deque<Integer> us, Deque<Integer> them) {
@@ -121,7 +121,7 @@ public class Part2 extends Solver {
         }
     }
 
-    public long solve() {
+    public Long run() {
         var cards1 = input[0].getCards();
         var cards2 = input[1].getCards();
 

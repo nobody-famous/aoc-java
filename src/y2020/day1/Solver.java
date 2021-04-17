@@ -2,11 +2,12 @@ package y2020.day1;
 
 import utils.Problem;
 
-public abstract class Solver implements Problem {
+public abstract class Solver extends Problem<Long> {
     protected int[] input;
     protected int target;
 
-    protected Solver(int[] input, int target) {
+    protected Solver(int[] input, int target, long expected) {
+        super(expected);
         this.input = input;
         this.target = target;
     }
@@ -27,7 +28,7 @@ public abstract class Solver implements Problem {
         return answer;
     }
 
-    public long solve() {
+    public Long run() {
         var entries = findCandidates(input, target);
 
         if (entries == null) {

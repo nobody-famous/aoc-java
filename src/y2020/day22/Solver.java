@@ -5,10 +5,11 @@ import java.util.LinkedList;
 
 import utils.Problem;
 
-public abstract class Solver implements Problem {
+public abstract class Solver extends Problem<Long> {
     protected Player[] input;
 
-    protected Solver(Player[] input) {
+    protected Solver(Player[] input, long expected) {
+        super(expected);
         this.input = input;
     }
 

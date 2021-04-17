@@ -5,10 +5,11 @@ import java.util.Map;
 
 import utils.Problem;
 
-public abstract class Solver implements Problem {
+public abstract class Solver extends Problem<Long> {
     protected BagRule[] input;
 
-    protected Solver(BagRule[] input) {
+    protected Solver(BagRule[] input, long expected) {
+        super(expected);
         this.input = input;
     }
 

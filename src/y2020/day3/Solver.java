@@ -2,14 +2,15 @@ package y2020.day3;
 
 import utils.Problem;
 
-public abstract class Solver implements Problem {
+public abstract class Solver extends Problem<Long> {
     protected char[][] input;
 
-    protected Solver(char[][] input) {
+    protected Solver(char[][] input, long expected) {
+        super(expected);
         this.input = input;
     }
 
-    protected int countTrees(char[][] input, int right, int down) {
+    protected long countTrees(char[][] input, int right, int down) {
         var row = 0;
         var col = 0;
         var trees = 0;

@@ -3,8 +3,8 @@ package y2020.day7;
 import java.util.Map;
 
 public class Part2 extends Solver {
-    public Part2(BagRule[] input) {
-        super(input);
+    public Part2(BagRule[] input, long expected) {
+        super(input, expected);
     }
 
     private long countBags(Map<String, BagContents[]> rules, String bag) {
@@ -23,7 +23,7 @@ public class Part2 extends Solver {
         return count;
     }
 
-    public long solve() {
+    public Long run() {
         long answer = 0;
         var rules = rulesToMap(input);
 

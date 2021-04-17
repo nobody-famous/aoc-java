@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Part1 extends Solver {
-    public Part1(Notes input) {
-        super(input);
+    public Part1(Notes input, long expected) {
+        super(input, expected);
     }
 
     private long sumValues(List<Long> values) {
@@ -18,7 +18,7 @@ public class Part1 extends Solver {
         return sum;
     }
 
-    public long solve() {
+    public Long run() {
         var invalid = new ArrayList<Long>();
 
         for (var ticket : input.getNearby()) {

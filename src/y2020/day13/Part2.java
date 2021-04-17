@@ -5,12 +5,13 @@ import java.util.List;
 
 import utils.Problem;
 
-public class Part2 implements Problem {
+public class Part2 extends Problem<Long> {
     private long value;
     private long step;
     private Notes input;
 
-    public Part2(Notes input) {
+    public Part2(Notes input, long expected) {
+        super(expected);
         this.input = input;
     }
 
@@ -64,7 +65,7 @@ public class Part2 implements Problem {
         }
     }
 
-    public long solve() {
+    public Long run() {
         var buses = notesToBuses(input);
 
         value = buses.get(0).getId();
