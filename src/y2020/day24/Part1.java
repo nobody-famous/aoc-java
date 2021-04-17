@@ -1,31 +1,8 @@
 package y2020.day24;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import utils.Problem;
-
-public class Part1 implements Problem {
-    private Map<Tile, Color> tiles = new HashMap<Tile, Color>();
-    private Direction[][] input;
-
+public class Part1 extends Solver {
     public Part1(Direction[][] input) {
-        this.input = input;
-    }
-
-    private void processMoves(Direction[] dirs) {
-        var tile = new Tile();
-
-        for (var dir : dirs) {
-            tile.move(dir);
-        }
-
-        if (!tiles.containsKey(tile)) {
-            tiles.put(tile, Color.BLACK);
-        } else {
-            var color = tiles.get(tile);
-            tiles.put(tile, color == Color.WHITE ? Color.BLACK : Color.WHITE);
-        }
+        super(input);
     }
 
     public long solve() {
@@ -39,8 +16,6 @@ public class Part1 implements Problem {
                 sum += 1;
             }
         }
-
-        System.out.println(sum);
 
         return sum;
     }

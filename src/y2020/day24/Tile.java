@@ -6,9 +6,13 @@ public class Tile {
     private int z;
 
     public Tile() {
-        x = 0;
-        y = 0;
-        z = 0;
+        this(0, 0, 0);
+    }
+
+    public Tile(int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
 
     public void move(Direction dir) {
