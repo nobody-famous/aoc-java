@@ -16,4 +16,8 @@ public abstract class Problem<T> implements AocProblem {
             throw new RuntimeException("Wrong answer: " + actual + " != " + expected);
         }
     }
+
+    public String toString() {
+        return getClass().getName();
+    }
 }
