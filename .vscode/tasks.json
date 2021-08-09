@@ -13,6 +13,18 @@
             "problemMatcher": []
         },
         {
+            "label": "Run 2018",
+            "dependsOn": "Compile",
+            "type": "shell",
+            "command": "java",
+            "args": [
+                "-cp",
+                "out/src",
+                "Runner2018"
+            ],
+            "problemMatcher": []
+        },
+        {
             "label": "Run 2020",
             "dependsOn": "Compile",
             "type": "shell",
