@@ -4,22 +4,22 @@ import java.util.HashSet;
 
 import utils.Problem;
 
-public class Part2 extends Problem<Long> {
+public class Part2 extends Problem<Integer> {
     private Parser parser;
 
-    public Part2(String fileName, long exp) {
+    public Part2(String fileName, int exp) {
         super(exp);
 
         parser = new Parser(fileName);
     }
 
-    public Long run() {
+    public Integer run() {
         var ints = parser.parse();
-        var seen = new HashSet<Long>();
+        var seen = new HashSet<Integer>();
 
         var ndx = 0;
-        var total = 0L;
-        var dup = 0L;
+        var total = 0;
+        var dup = 0;
 
         while (dup == 0) {
             total += ints[ndx];
