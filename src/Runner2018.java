@@ -12,7 +12,7 @@ public class Runner2018 extends Runner {
     public static void main(String[] args) {
         var runner = new Runner2018();
 
-        // var allDays = new AocProblem[] { new y2018.day3.Part2("input/2018/day3/puzzle.txt", 1100) };
+        var allDays = new AocProblem[] { new y2018.day4.Part1("input/2018/day4/puzzle.txt", 39698) };
 
         runner.runAll(allDays);
     }
