@@ -2,36 +2,35 @@ package y2018.day3;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import utils.geometry.Point;
 
 public class Parser extends utils.Parser<List<Claim>> {
+    private Matcher matcher;
+
     public Parser(String fileName) {
         super(fileName);
-    }
 
-    private Point parsePoint(String str, char ch) {
-        var ndx = str.indexOf(ch);
-        var x = Integer.parseInt(str.substring(0, ndx).trim());
-        var y = Integer.parseInt(str.substring(ndx + 1).trim());
-
-        return new Point(x, y);
+        var pattern = Pattern.compile("#(\\d+) @ (\\d+),(\\d+): (\\d+)x(\\d+)");
+        matcher = pattern.matcher("");
     }
 
     private Claim parseLine(String line) {
-        var ndx = line.indexOf('@');
-        var first = line.substring(0, ndx).trim();
-        var last = line.substring(ndx + 1).trim();
-        var id = Integer.parseInt(first.substring(1));
+        matcher.reset(line);
 
-        var ndx2 = last.indexOf(':');
-        var ptStr = last.substring(0, ndx2).trim();
-        var dimStr = last.substring(ndx2 + 1).trim();
+        if (!matcher.matches()) {
+            throw new RuntimeException("Failed to match: " + line);
+        }
 
-        var pt = parsePoint(ptStr, ',');
-        var rect = parsePoint(dimStr, 'x');
+        var id = Integer.parseInt(matcher.group(1));
+        var x = Integer.parseInt(matcher.group(2));
+        var y = Integer.parseInt(matcher.group(3));
+        var w = Integer.parseInt(matcher.group(4));
+        var h = Integer.parseInt(matcher.group(5));
 
-        return new Claim(id, pt, rect.x, rect.y);
+        return new Claim(id, new Point(x, y), w, h);
     }
 
     @Override
