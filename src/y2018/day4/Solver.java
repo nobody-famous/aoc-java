@@ -15,7 +15,12 @@ public abstract class Solver extends Problem<Integer> {
         super(exp);
 
         parser = new Parser(fileName);
+        guardMinutes = new HashMap<Integer, int[]>();
+        curGuard = null;
+        fallsAsleep = null;
     }
+
+    protected abstract int doWork();
 
     protected void addGuardMinutes(int guardId, int start, int end) {
         var minutes = guardMinutes.get(guardId);
@@ -54,5 +59,14 @@ public abstract class Solver extends Problem<Integer> {
                 processRecord((WakesUpRecord) rec);
             }
         }
+    }
+
+    @Override
+    public Integer run() {
+        var records = parser.parse();
+
+        processRecords(records);
+
+        return doWork();
     }
 }

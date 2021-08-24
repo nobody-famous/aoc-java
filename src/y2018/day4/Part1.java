@@ -1,14 +1,8 @@
 package y2018.day4;
 
-import java.util.HashMap;
-
 public class Part1 extends Solver {
     public Part1(String fileName, int exp) {
         super(fileName, exp);
-
-        guardMinutes = new HashMap<Integer, int[]>();
-        curGuard = null;
-        fallsAsleep = null;
     }
 
     private int countMinutes(int[] minutes) {
@@ -52,12 +46,7 @@ public class Part1 extends Solver {
         return mostMinute;
     }
 
-    @Override
-    public Integer run() {
-        var records = parser.parse();
-
-        processRecords(records);
-
+    public int doWork() {
         var guard = findGuard();
         var minute = findMinute(guard);
 
