@@ -25,6 +25,18 @@
             "problemMatcher": []
         },
         {
+            "label": "Run 2019",
+            "dependsOn": "Compile",
+            "type": "shell",
+            "command": "java",
+            "args": [
+                "-cp",
+                "out/src",
+                "Runner2019"
+            ],
+            "problemMatcher": []
+        },
+        {
             "label": "Run 2020",
             "dependsOn": "Compile",
             "type": "shell",
