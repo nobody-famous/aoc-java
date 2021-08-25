@@ -1,28 +1,21 @@
 package y2019.intcode;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Machine {
-    private List<Integer> prog;
+    private int[] prog;
 
     private int ip = 0;
     private boolean halted = false;
 
-    public Machine(List<Integer> prog) {
-        this.prog = new ArrayList<Integer>();
-
-        for (var op : prog) {
-            this.prog.add(op);
-        }
+    public Machine(int[] prog) {
+        this.prog = prog.clone();
     }
 
     public void set(int addr, int value) {
-        prog.set(addr, value);
+        prog[addr] = value;
     }
 
     public int get(int addr) {
-        return prog.get(addr);
+        return prog[addr];
     }
 
     public boolean isHalted() {
@@ -59,10 +52,10 @@ public class Machine {
         protected abstract int calculate(int arg1, int arg2);
 
         public void process() {
-            var value1 = prog.get(arg1);
-            var value2 = prog.get(arg2);
+            var value1 = prog[arg1];
+            var value2 = prog[arg2];
 
-            prog.set(addr, calculate(value1, value2));
+            prog[addr] = calculate(value1, value2);
 
             ip += 4;
         }
@@ -89,14 +82,14 @@ public class Machine {
     }
 
     private Instr parseInstr() {
-        var instr = prog.get(ip);
+        var instr = prog[ip];
         var op = instr % 100;
 
         switch (op) {
             case 1:
-                return new Add(prog.get(ip + 1), prog.get(ip + 2), prog.get(ip + 3));
+                return new Add(prog[ip + 1], prog[ip + 2], prog[ip + 3]);
             case 2:
-                return new Mul(prog.get(ip + 1), prog.get(ip + 2), prog.get(ip + 3));
+                return new Mul(prog[ip + 1], prog[ip + 2], prog[ip + 3]);
             case 99:
                 return new Halt();
             default:

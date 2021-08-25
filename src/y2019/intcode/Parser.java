@@ -1,22 +1,19 @@
 package y2019.intcode;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Parser extends utils.Parser<List<Integer>> {
+public class Parser extends utils.Parser<int[]> {
     public Parser(String fileName) {
         super(fileName);
     }
 
-    public List<Integer> parse() {
+    public int[] parse() {
         try {
             var lines = readLines();
             var line = lines.get(0);
             var parts = line.split(",");
-            var prog = new ArrayList<Integer>();
+            var prog = new int[parts.length];
 
-            for (var part : parts) {
-                prog.add(Integer.parseInt(part));
+            for (var ndx = 0; ndx < parts.length; ndx += 1) {
+                prog[ndx] = Integer.parseInt(parts[ndx]);
             }
 
             return prog;

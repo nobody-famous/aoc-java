@@ -5,7 +5,7 @@ import y2019.intcode.Machine;
 import y2019.intcode.Parser;
 
 public class Part1 extends Problem<Integer> {
-    private y2019.intcode.Parser parser;
+    private Parser parser;
 
     public Part1(String fileName, int exp) {
         super(exp);
