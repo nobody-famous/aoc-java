@@ -8,4 +8,12 @@ public class Point {
         this.x = x;
         this.y = y;
     }
+
+    public int manDist(Point pt) {
+        return Math.abs(x - pt.x) + Math.abs(y - pt.y);
+    }
+
+    public String toString() {
+        return "(" + x + "," + y + ")";
+    }
 }
