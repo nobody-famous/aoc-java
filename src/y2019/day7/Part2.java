@@ -3,10 +3,10 @@ package y2019.day7;
 import utils.Problem;
 import y2019.intcode.Parser;
 
-public class Part1 extends Problem<Long> {
+public class Part2 extends Problem<Long> {
     private Parser parser;
 
-    public Part1(String fileName, long exp) {
+    public Part2(String fileName, long exp) {
         super(exp);
 
         this.parser = new Parser(fileName);
@@ -14,7 +14,7 @@ public class Part1 extends Problem<Long> {
 
     public Long run() {
         var prog = parser.parse();
-        var perms = Utils.findPerms(new int[] { 0, 1, 2, 3, 4 });
+        var perms = Utils.findPerms(new int[] { 5, 6, 7, 8, 9 });
 
         var most = 0L;
 
@@ -23,7 +23,7 @@ public class Part1 extends Problem<Long> {
 
             circuit.init(perm);
 
-            var signal = circuit.run(0L);
+            var signal = circuit.runFeedback(0L);
             if (signal > most) {
                 most = signal;
             }

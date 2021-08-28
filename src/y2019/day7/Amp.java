@@ -7,40 +7,44 @@ public class Amp {
     private IO io;
 
     private class IO implements Machine.IO {
-        public Integer nextInput = null;
-        public Integer lastOutput = null;
+        public Long nextInput = null;
+        public Long lastOutput = null;
 
-        public int input() {
-            var inp = nextInput == null ? 0 : nextInput;
+        public long input() {
+            var inp = nextInput == null ? 0L : nextInput;
 
             nextInput = null;
 
             return inp;
         }
 
-        public void output(int value) {
+        public void output(long value) {
             lastOutput = value;
         }
     }
 
-    public Amp(int[] prog) {
+    public Amp(long[] prog) {
         io = new IO();
         mach = new Machine(prog, io);
     }
 
-    public void init(int input) {
+    public boolean isDone() {
+        return mach.isHalted();
+    }
+
+    public void init(long input) {
         io.nextInput = input;
 
-        while (io.nextInput != null) {
+        while (!mach.isHalted() && io.nextInput != null) {
             mach.exec();
         }
     }
 
-    public int runToOutput(int input) {
+    public Long runToOutput(long input) {
         io.nextInput = input;
         io.lastOutput = null;
 
-        while (io.lastOutput == null) {
+        while (!mach.isHalted() && io.lastOutput == null) {
             mach.exec();
         }
 
