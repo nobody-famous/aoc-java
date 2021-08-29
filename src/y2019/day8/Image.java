@@ -48,4 +48,30 @@ public class Image {
 
         return layer;
     }
+
+    public char[][] render() {
+        var canvas = new char[height][width];
+
+        for (var row = 0; row < height; row += 1) {
+            for (var col = 0; col < width; col += 1) {
+                canvas[row][col] = renderPixel(row, col);
+            }
+        }
+
+        return canvas;
+    }
+
+    private char renderPixel(int row, int col) {
+        for (var layer : layers) {
+            if (layer.get(row, col) != 2) {
+                return switch (layer.get(row, col)) {
+                    case 0 -> ' ';
+                    case 1 -> '#';
+                    default -> throw new RuntimeException("Invalid pixel");
+                };
+            }
+        }
+
+        return 0;
+    }
 }
