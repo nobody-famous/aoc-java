@@ -4,16 +4,16 @@ import utils.Problem;
 import y2019.intcode.Machine;
 import y2019.intcode.Parser;
 
-public class Part2 extends Problem<Long> {
+public class Part2 extends Problem<Integer> {
     private Parser parser;
 
-    public Part2(String fileName, long exp) {
+    public Part2(String fileName, int exp) {
         super(exp);
 
         parser = new Parser(fileName);
     }
 
-    private long runMachine(long[] prog, int noun, int verb) {
+    private int runMachine(int[] prog, int noun, int verb) {
         var mach = new Machine(prog);
 
         mach.set(1, noun);
@@ -26,10 +26,10 @@ public class Part2 extends Problem<Long> {
         return mach.get(0);
     }
 
-    public Long run() {
+    public Integer run() {
         var prog = parser.parse();
         var target = 19690720;
-        var answer = 0L;
+        var answer = 0;
 
         for (var noun = 0; answer == 0 && noun < 100; noun += 1) {
             for (var verb = 0; answer == 0 && verb < 100; verb += 1) {

@@ -3,7 +3,7 @@ package y2019.day7;
 public class Circuit {
     private Amp[] amps;
 
-    public Circuit(long[] prog, int size) {
+    public Circuit(int[] prog, int size) {
         amps = new Amp[size];
 
         for (var ndx = 0; ndx < size; ndx += 1) {
@@ -17,7 +17,7 @@ public class Circuit {
         }
     }
 
-    public Long run(long signal) {
+    public int run(int signal) {
         for (var amp : amps) {
             var nextSignal = amp.runToOutput(signal);
 
@@ -29,7 +29,7 @@ public class Circuit {
         return signal;
     }
 
-    public Long runFeedback(Long signal) {
+    public int runFeedback(int signal) {
         while (!amps[amps.length - 1].isDone()) {
             signal = run(signal);
         }
