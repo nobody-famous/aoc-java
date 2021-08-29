@@ -1,19 +1,19 @@
 package y2019.intcode;
 
-public class Parser extends utils.Parser<long[]> {
+public class Parser extends utils.Parser<int[]> {
     public Parser(String fileName) {
         super(fileName);
     }
 
-    public long[] parse() {
+    public int[] parse() {
         try {
             var lines = readLines();
             var line = lines.get(0);
             var parts = line.split(",");
-            var prog = new long[parts.length];
+            var prog = new int[parts.length];
 
             for (var ndx = 0; ndx < parts.length; ndx += 1) {
-                prog[ndx] = Long.parseLong(parts[ndx]);
+                prog[ndx] = Integer.parseInt(parts[ndx]);
             }
 
             return prog;

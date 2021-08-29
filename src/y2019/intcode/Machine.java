@@ -1,7 +1,7 @@
 package y2019.intcode;
 
 public class Machine {
-    private long[] prog;
+    private int[] prog;
     private IO io;
 
     private int ip = 0;
@@ -9,16 +9,16 @@ public class Machine {
     private boolean debug = false;
 
     public interface IO {
-        long input();
+        int input();
 
-        void output(long value);
+        void output(int value);
     }
 
-    public Machine(long[] prog) {
+    public Machine(int[] prog) {
         this(prog, null);
     }
 
-    public Machine(long[] prog, IO io) {
+    public Machine(int[] prog, IO io) {
         this.prog = prog.clone();
         this.io = io;
     }
@@ -31,7 +31,7 @@ public class Machine {
         prog[addr] = value;
     }
 
-    public long get(int addr) {
+    public int get(int addr) {
         return prog[addr];
     }
 
@@ -70,10 +70,10 @@ public class Machine {
     }
 
     private class JumpTrue implements Instr {
-        private long arg1;
-        private long arg2;
+        private int arg1;
+        private int arg2;
 
-        public JumpTrue(long arg1, long arg2) {
+        public JumpTrue(int arg1, int arg2) {
             this.arg1 = arg1;
             this.arg2 = arg2;
         }
@@ -83,15 +83,15 @@ public class Machine {
                 debugPrint("JT " + arg1 + " -> " + arg2);
             }
 
-            ip = (arg1 != 0) ? (int) arg2 : (int) ip + 3;
+            ip = (arg1 != 0) ? arg2 : ip + 3;
         }
     }
 
     private class JumpFalse implements Instr {
-        private long arg1;
-        private long arg2;
+        private int arg1;
+        private int arg2;
 
-        public JumpFalse(long arg1, long arg2) {
+        public JumpFalse(int arg1, int arg2) {
             this.arg1 = arg1;
             this.arg2 = arg2;
         }
@@ -101,16 +101,16 @@ public class Machine {
                 debugPrint("JF " + arg1 + " -> " + arg2);
             }
 
-            ip = (arg1 == 0) ? (int) arg2 : (int) ip + 3;
+            ip = (arg1 == 0) ? arg2 : ip + 3;
         }
     }
 
     private class LessThan implements Instr {
-        private long arg1;
-        private long arg2;
+        private int arg1;
+        private int arg2;
         private int addr;
 
-        public LessThan(long arg1, long arg2, int addr) {
+        public LessThan(int arg1, int arg2, int addr) {
             this.arg1 = arg1;
             this.arg2 = arg2;
             this.addr = addr;
@@ -128,11 +128,11 @@ public class Machine {
     }
 
     private class Equals implements Instr {
-        private long arg1;
-        private long arg2;
+        private int arg1;
+        private int arg2;
         private int addr;
 
-        public Equals(long arg1, long arg2, int addr) {
+        public Equals(int arg1, int arg2, int addr) {
             this.arg1 = arg1;
             this.arg2 = arg2;
             this.addr = addr;
@@ -172,9 +172,9 @@ public class Machine {
     }
 
     private class Output implements Instr {
-        private long value;
+        private int value;
 
-        public Output(long value) {
+        public Output(int value) {
             this.value = value;
         }
 
@@ -194,17 +194,17 @@ public class Machine {
     }
 
     private abstract class Math implements Instr {
-        protected long arg1;
-        protected long arg2;
+        protected int arg1;
+        protected int arg2;
         protected int addr;
 
-        public Math(long arg1, long arg2, int addr) {
+        public Math(int arg1, int arg2, int addr) {
             this.arg1 = arg1;
             this.arg2 = arg2;
             this.addr = addr;
         }
 
-        protected abstract long calculate(long arg1, long arg2);
+        protected abstract int calculate(int arg1, int arg2);
 
         public void process() {
             prog[addr] = calculate(arg1, arg2);
@@ -218,30 +218,30 @@ public class Machine {
     }
 
     private class Add extends Math {
-        public Add(long arg1, long arg2, int addr) {
+        public Add(int arg1, int arg2, int addr) {
             super(arg1, arg2, addr);
         }
 
-        protected long calculate(long arg1, long arg2) {
+        protected int calculate(int arg1, int arg2) {
             return arg1 + arg2;
         }
     }
 
     private class Mul extends Math {
-        public Mul(long arg1, long arg2, int addr) {
+        public Mul(int arg1, int arg2, int addr) {
             super(arg1, arg2, addr);
         }
 
-        protected long calculate(long arg1, long arg2) {
+        protected int calculate(int arg1, int arg2) {
             return arg1 * arg2;
         }
     }
 
-    private long argValue(long instr, int shift, long value) {
+    private int argValue(int instr, int shift, int value) {
         var mode = (instr / shift) % 10;
 
-        return switch ((int) mode) {
-            case 0 -> prog[(int) value];
+        return switch (mode) {
+            case 0 -> prog[value];
             case 1 -> value;
             default -> throw new RuntimeException("Unhandled mode: " + mode);
         };
@@ -251,15 +251,13 @@ public class Machine {
         var instr = prog[ip];
         var op = instr % 100;
 
-        switch ((int) op) {
+        switch (op) {
             case 1:
-                return new Add(argValue(instr, 100, prog[ip + 1]), argValue(instr, 1000, prog[ip + 2]),
-                        (int) prog[ip + 3]);
+                return new Add(argValue(instr, 100, prog[ip + 1]), argValue(instr, 1000, prog[ip + 2]), prog[ip + 3]);
             case 2:
-                return new Mul(argValue(instr, 100, prog[ip + 1]), argValue(instr, 1000, prog[ip + 2]),
-                        (int) prog[ip + 3]);
+                return new Mul(argValue(instr, 100, prog[ip + 1]), argValue(instr, 1000, prog[ip + 2]), prog[ip + 3]);
             case 3:
-                return new Input((int) prog[ip + 1]);
+                return new Input(prog[ip + 1]);
             case 4:
                 return new Output(argValue(instr, 100, prog[ip + 1]));
             case 5:
@@ -268,10 +266,10 @@ public class Machine {
                 return new JumpFalse(argValue(instr, 100, prog[ip + 1]), argValue(instr, 1000, prog[ip + 2]));
             case 7:
                 return new LessThan(argValue(instr, 100, prog[ip + 1]), argValue(instr, 1000, prog[ip + 2]),
-                        (int) prog[ip + 3]);
+                        prog[ip + 3]);
             case 8:
                 return new Equals(argValue(instr, 100, prog[ip + 1]), argValue(instr, 1000, prog[ip + 2]),
-                        (int) prog[ip + 3]);
+                        prog[ip + 3]);
             case 99:
                 return new Halt();
             default:
