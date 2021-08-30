@@ -1,24 +1,29 @@
 package y2019.intcode;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Machine {
-    private int[] prog;
+    private long[] prog;
     private IO io;
 
     private int ip = 0;
+    private int relBase = 0;
+    private Map<Integer, Long> mem = new HashMap<Integer, Long>();
     private boolean halted = false;
     private boolean debug = false;
 
     public interface IO {
-        int input();
+        long input();
 
-        void output(int value);
+        void output(long value);
     }
 
-    public Machine(int[] prog) {
+    public Machine(long[] prog) {
         this(prog, null);
     }
 
-    public Machine(int[] prog, IO io) {
+    public Machine(long[] prog, IO io) {
         this.prog = prog.clone();
         this.io = io;
     }
@@ -27,12 +32,22 @@ public class Machine {
         this.debug = debug;
     }
 
-    public void set(int addr, int value) {
-        prog[addr] = value;
+    public void set(int addr, long value) {
+        if (addr < prog.length) {
+            prog[addr] = value;
+        } else {
+            mem.put(addr, value);
+        }
     }
 
-    public int get(int addr) {
-        return prog[addr];
+    public long get(int addr) {
+        if (addr < prog.length) {
+            return prog[addr];
+        } else if (mem.containsKey(addr)) {
+            return mem.get(addr);
+        } else {
+            return 0;
+        }
     }
 
     public boolean isHalted() {
@@ -55,7 +70,7 @@ public class Machine {
     }
 
     private void debugPrint(String msg) {
-        System.out.println("[" + ip + "] (" + prog[ip] + "): " + msg);
+        System.out.println("[" + ip + "] (" + get(ip) + "): " + msg);
     }
 
     private class Halt implements Instr {
@@ -69,11 +84,29 @@ public class Machine {
         }
     }
 
-    private class JumpTrue implements Instr {
-        private int arg1;
-        private int arg2;
+    private class RelBase implements Instr {
+        private long arg;
 
-        public JumpTrue(int arg1, int arg2) {
+        public RelBase(long arg) {
+            this.arg = arg;
+        }
+
+        public void process() {
+            if (debug) {
+                debugPrint("RelBase " + relBase + " + " + arg + " -> " + (relBase + arg));
+            }
+
+            relBase += arg;
+
+            ip += 2;
+        }
+    }
+
+    private class JumpTrue implements Instr {
+        private long arg1;
+        private long arg2;
+
+        public JumpTrue(long arg1, long arg2) {
             this.arg1 = arg1;
             this.arg2 = arg2;
         }
@@ -83,15 +116,15 @@ public class Machine {
                 debugPrint("JT " + arg1 + " -> " + arg2);
             }
 
-            ip = (arg1 != 0) ? arg2 : ip + 3;
+            ip = (int) ((arg1 != 0) ? arg2 : ip + 3);
         }
     }
 
     private class JumpFalse implements Instr {
-        private int arg1;
-        private int arg2;
+        private long arg1;
+        private long arg2;
 
-        public JumpFalse(int arg1, int arg2) {
+        public JumpFalse(long arg1, long arg2) {
             this.arg1 = arg1;
             this.arg2 = arg2;
         }
@@ -101,16 +134,16 @@ public class Machine {
                 debugPrint("JF " + arg1 + " -> " + arg2);
             }
 
-            ip = (arg1 == 0) ? arg2 : ip + 3;
+            ip = (int) ((arg1 == 0) ? arg2 : ip + 3);
         }
     }
 
     private class LessThan implements Instr {
-        private int arg1;
-        private int arg2;
+        private long arg1;
+        private long arg2;
         private int addr;
 
-        public LessThan(int arg1, int arg2, int addr) {
+        public LessThan(long arg1, long arg2, int addr) {
             this.arg1 = arg1;
             this.arg2 = arg2;
             this.addr = addr;
@@ -121,18 +154,18 @@ public class Machine {
                 debugPrint("[" + addr + "] = " + arg1 + " < " + arg2);
             }
 
-            prog[addr] = (arg1 < arg2) ? 1 : 0;
+            set(addr, (arg1 < arg2) ? 1 : 0);
 
             ip += 4;
         }
     }
 
     private class Equals implements Instr {
-        private int arg1;
-        private int arg2;
+        private long arg1;
+        private long arg2;
         private int addr;
 
-        public Equals(int arg1, int arg2, int addr) {
+        public Equals(long arg1, long arg2, int addr) {
             this.arg1 = arg1;
             this.arg2 = arg2;
             this.addr = addr;
@@ -143,7 +176,7 @@ public class Machine {
                 debugPrint("[" + addr + "] = " + arg1 + " = " + arg2);
             }
 
-            prog[addr] = (arg1 == arg2) ? 1 : 0;
+            set(addr, (arg1 == arg2) ? 1 : 0);
 
             ip += 4;
         }
@@ -161,10 +194,10 @@ public class Machine {
                 throw new RuntimeException("Input: No IO set");
             }
 
-            prog[addr] = io.input();
+            set(addr, io.input());
 
             if (debug) {
-                debugPrint("INP [" + addr + "] = " + prog[addr]);
+                debugPrint("INP [" + addr + "] = " + get(addr));
             }
 
             ip += 2;
@@ -172,9 +205,9 @@ public class Machine {
     }
 
     private class Output implements Instr {
-        private int value;
+        private long value;
 
-        public Output(int value) {
+        public Output(long value) {
             this.value = value;
         }
 
@@ -194,23 +227,23 @@ public class Machine {
     }
 
     private abstract class Math implements Instr {
-        protected int arg1;
-        protected int arg2;
+        protected long arg1;
+        protected long arg2;
         protected int addr;
 
-        public Math(int arg1, int arg2, int addr) {
+        public Math(long arg1, long arg2, int addr) {
             this.arg1 = arg1;
             this.arg2 = arg2;
             this.addr = addr;
         }
 
-        protected abstract int calculate(int arg1, int arg2);
+        protected abstract long calculate(long arg1, long arg2);
 
         public void process() {
-            prog[addr] = calculate(arg1, arg2);
+            set(addr, calculate(arg1, arg2));
 
             if (debug) {
-                debugPrint("[" + addr + "] = " + prog[addr]);
+                debugPrint("[" + addr + "] = " + get(addr));
             }
 
             ip += 4;
@@ -218,58 +251,73 @@ public class Machine {
     }
 
     private class Add extends Math {
-        public Add(int arg1, int arg2, int addr) {
+        public Add(long arg1, long arg2, int addr) {
             super(arg1, arg2, addr);
         }
 
-        protected int calculate(int arg1, int arg2) {
+        protected long calculate(long arg1, long arg2) {
             return arg1 + arg2;
         }
     }
 
     private class Mul extends Math {
-        public Mul(int arg1, int arg2, int addr) {
+        public Mul(long arg1, long arg2, int addr) {
             super(arg1, arg2, addr);
         }
 
-        protected int calculate(int arg1, int arg2) {
+        protected long calculate(long arg1, long arg2) {
             return arg1 * arg2;
         }
     }
 
-    private int argValue(int instr, int shift, int value) {
+    private long rdValue(int instr, int shift, long value) {
         var mode = (instr / shift) % 10;
 
         return switch (mode) {
-            case 0 -> prog[value];
+            case 0 -> get((int) value);
             case 1 -> value;
-            default -> throw new RuntimeException("Unhandled mode: " + mode);
+            case 2 -> get((int) (relBase + value));
+            default -> throw new RuntimeException("Unhandled read mode: " + mode);
+        };
+    }
+
+    private int wrValue(int instr, int shift, long value) {
+        var mode = (instr / shift) % 10;
+
+        return switch (mode) {
+            case 0 -> (int) value;
+            case 2 -> (int) (relBase + value);
+            default -> throw new RuntimeException("Unhandled write mode: " + mode);
         };
     }
 
     private Instr parseInstr() {
-        var instr = prog[ip];
+        var instr = (int) get(ip);
         var op = instr % 100;
 
         switch (op) {
             case 1:
-                return new Add(argValue(instr, 100, prog[ip + 1]), argValue(instr, 1000, prog[ip + 2]), prog[ip + 3]);
+                return new Add(rdValue(instr, 100, get(ip + 1)), rdValue(instr, 1000, get(ip + 2)),
+                        wrValue(instr, 10000, get(ip + 3)));
             case 2:
-                return new Mul(argValue(instr, 100, prog[ip + 1]), argValue(instr, 1000, prog[ip + 2]), prog[ip + 3]);
+                return new Mul(rdValue(instr, 100, get(ip + 1)), rdValue(instr, 1000, get(ip + 2)),
+                        wrValue(instr, 10000, get(ip + 3)));
             case 3:
-                return new Input(prog[ip + 1]);
+                return new Input(wrValue(instr, 100, get(ip + 1)));
             case 4:
-                return new Output(argValue(instr, 100, prog[ip + 1]));
+                return new Output(rdValue(instr, 100, (int) get(ip + 1)));
             case 5:
-                return new JumpTrue(argValue(instr, 100, prog[ip + 1]), argValue(instr, 1000, prog[ip + 2]));
+                return new JumpTrue(rdValue(instr, 100, get(ip + 1)), rdValue(instr, 1000, get(ip + 2)));
             case 6:
-                return new JumpFalse(argValue(instr, 100, prog[ip + 1]), argValue(instr, 1000, prog[ip + 2]));
+                return new JumpFalse(rdValue(instr, 100, get(ip + 1)), rdValue(instr, 1000, get(ip + 2)));
             case 7:
-                return new LessThan(argValue(instr, 100, prog[ip + 1]), argValue(instr, 1000, prog[ip + 2]),
-                        prog[ip + 3]);
+                return new LessThan(rdValue(instr, 100, get(ip + 1)), rdValue(instr, 1000, get(ip + 2)),
+                        wrValue(instr, 10000, get(ip + 3)));
             case 8:
-                return new Equals(argValue(instr, 100, prog[ip + 1]), argValue(instr, 1000, prog[ip + 2]),
-                        prog[ip + 3]);
+                return new Equals(rdValue(instr, 100, get(ip + 1)), rdValue(instr, 1000, get(ip + 2)),
+                        wrValue(instr, 10000, get(ip + 3)));
+            case 9:
+                return new RelBase(rdValue(instr, 100, get(ip + 1)));
             case 99:
                 return new Halt();
             default:

@@ -1,4 +1,4 @@
-package y2019.day5;
+package y2019.day9;
 
 import y2019.intcode.Machine;
 
