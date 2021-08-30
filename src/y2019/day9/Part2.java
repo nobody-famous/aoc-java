@@ -1,4 +1,4 @@
-package y2019.day5;
+package y2019.day9;
 
 import utils.Problem;
 import y2019.intcode.Machine;
@@ -15,7 +15,7 @@ public class Part2 extends Problem<Long> {
 
     public Long run() {
         var prog = parser.parse();
-        var io = new MachIO(5);
+        var io = new MachIO(2);
         var mach = new Machine(prog, io);
 
         while (!mach.isHalted()) {
