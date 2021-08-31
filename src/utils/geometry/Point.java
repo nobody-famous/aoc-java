@@ -9,6 +9,10 @@ public class Point {
         this.y = y;
     }
 
+    public boolean equals(Point pt) {
+        return x == pt.x && y == pt.y;
+    }
+
     public int manDist(Point pt) {
         return Math.abs(x - pt.x) + Math.abs(y - pt.y);
     }
