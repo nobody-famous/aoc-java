@@ -1,5 +1,6 @@
 package y2019.day10;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class Part2 extends Solver {
 
     private List<List<Point>> sortSlopes(List<Point> asteroids, Point pt) {
         var groups = createGroups(asteroids, pt);
+        var sorted = new ArrayList<List<Point>>();
 
         for (var group : groups) {
             var slopes = getSlopeMap(group, pt);
@@ -19,14 +21,12 @@ public class Part2 extends Solver {
 
             Arrays.sort(keys);
 
-            System.out.println();
             for (var key : keys) {
-                System.out.print(" " + key);
+                sorted.add(slopes.get(key));
             }
-            System.out.println();
         }
 
-        return null;
+        return sorted;
     }
 
     private Point bestLocation(List<Point> asteroids) {
@@ -49,6 +49,21 @@ public class Part2 extends Solver {
         var pt = bestLocation(asteroids);
         var sorted = sortSlopes(asteroids, pt);
 
-        return 0;
+        var count = 0;
+        var ndx = 0;
+        Point lastPt = null;
+
+        while (count < 200) {
+            var item = sorted.get(ndx);
+
+            if (item.size() != 0) {
+                lastPt = item.remove(0);
+                count += 1;
+            }
+
+            ndx = (ndx + 1) % sorted.size();
+        }
+
+        return (lastPt.x * 100) + lastPt.y;
     }
 }
