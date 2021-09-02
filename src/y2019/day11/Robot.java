@@ -37,8 +37,8 @@ public class Robot implements Machine.IO {
         }
     }
 
-    public int numPanels() {
-        return panels.size();
+    public Map<Point,Integer> getPanels() {
+        return panels;
     }
 
     public long input() {
@@ -67,8 +67,8 @@ public class Robot implements Machine.IO {
         };
 
         curLoc = switch (dir) {
-            case DIR_UP -> new Point(curLoc.x, curLoc.y + 1);
-            case DIR_DOWN -> new Point(curLoc.x, curLoc.y - 1);
+            case DIR_UP -> new Point(curLoc.x, curLoc.y - 1);
+            case DIR_DOWN -> new Point(curLoc.x, curLoc.y + 1);
             case DIR_LEFT -> new Point(curLoc.x - 1, curLoc.y);
             case DIR_RIGHT -> new Point(curLoc.x + 1, curLoc.y);
             default -> throw new RuntimeException("Unhandled move dir " + dir);

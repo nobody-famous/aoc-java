@@ -18,6 +18,6 @@ public class Part1 extends Problem<Integer> {
 
         robot.run();
 
-        return robot.numPanels();
+        return robot.getPanels().size();
     }
 }

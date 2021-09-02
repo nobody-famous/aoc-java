@@ -22,12 +22,13 @@ public class Runner2019 extends Runner {
             new y2019.day9.Part2("input/2019/day9/puzzle.txt", 58534L),
             new y2019.day10.Part1("input/2019/day10/puzzle.txt", 347),
             new y2019.day10.Part2("input/2019/day10/puzzle.txt", 829),
-            new y2019.day11.Part1("input/2019/day11/puzzle.txt", 1885) };
+            new y2019.day11.Part1("input/2019/day11/puzzle.txt", 1885),
+            new y2019.day11.Part2("input/2019/day11/puzzle.txt", "BFEAGHAF") };
 
     public static void main(String[] args) {
         var runner = new Runner2018();
 
-        // var allDays = new AocProblem[] { new y2019.day11.Part1("input/2019/day11/puzzle.txt", 1885) };
+        // var allDays = new AocProblem[] { new y2019.day11.Part2("input/2019/day11/puzzle.txt", "BFEAGHAF") };
 
         runner.runAll(allDays);
     }
