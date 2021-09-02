@@ -9,7 +9,12 @@ public class Point {
         this.y = y;
     }
 
-    public boolean equals(Point pt) {
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Point)) {
+            return false;
+        }
+
+        var pt = (Point) obj;
         return x == pt.x && y == pt.y;
     }
 
@@ -19,5 +24,9 @@ public class Point {
 
     public String toString() {
         return "(" + x + "," + y + ")";
+    }
+
+    public int hashCode() {
+        return (x * 100) + y;
     }
 }
