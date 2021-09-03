@@ -11,7 +11,6 @@ public class Point3D {
         this.z = z;
     }
 
-    @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Point3D)) {
             return false;
@@ -22,7 +21,10 @@ public class Point3D {
         return x == pt3d.x && y == pt3d.y && z == pt3d.z;
     }
 
-    @Override
+    public String toString() {
+        return "(" + x + "," + y + "," + z + ")";
+    }
+
     public int hashCode() {
         return (x * 10000) + (y * 100) + z;
     }
