@@ -16,6 +16,7 @@ public class Arcade implements Machine.IO {
     private static final int READ_X = 0;
     private static final int READ_Y = 1;
     private static final int READ_TILE = 2;
+    private static final int READ_SCORE = 3;
 
     private Machine mach;
     private Map<Point, Integer> screen = new HashMap<>();
@@ -23,8 +24,20 @@ public class Arcade implements Machine.IO {
     private int xPos = 0;
     private int yPos = 0;
 
+    private int ballX = 0;
+    private int paddleX = 0;
+    private int score = 0;
+
     public Arcade(long[] prog) {
         mach = new Machine(prog, this);
+    }
+
+    public void addQuarters(int count) {
+        mach.set(0, count);
+    }
+
+    public int getScore() {
+        return score;
     }
 
     public Map<Point, Integer> getScreen() {
@@ -38,7 +51,13 @@ public class Arcade implements Machine.IO {
     }
 
     public long input() {
-        throw new RuntimeException("INPUT");
+        if (ballX < paddleX) {
+            return -1;
+        } else if (ballX > paddleX) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     public void output(long value) {
@@ -49,11 +68,29 @@ public class Arcade implements Machine.IO {
                 break;
             case READ_Y:
                 yPos = (int) value;
-                readState = READ_TILE;
+                readState = xPos == -1 && yPos == 0 ? READ_SCORE : READ_TILE;
                 break;
             case READ_TILE:
                 readState = READ_X;
+                updateTile((int) value);
                 screen.put(new Point(xPos, yPos), (int) value);
+                break;
+            case READ_SCORE:
+                readState = READ_X;
+                score = (int) value;
+                break;
+        }
+    }
+
+    private void updateTile(int tile) {
+        switch (tile) {
+            case BALL:
+                ballX = xPos;
+                break;
+            case PADDLE:
+                paddleX = xPos;
+                break;
+            default:
                 break;
         }
     }
