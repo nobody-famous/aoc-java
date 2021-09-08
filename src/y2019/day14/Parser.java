@@ -1,9 +1,11 @@
 package y2019.day14;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class Parser extends utils.Parser<List<Reaction>> {
+public class Parser extends utils.Parser<Map<String, Reaction>> {
     public Parser(String fileName) {
         super(fileName);
     }
@@ -29,13 +31,15 @@ public class Parser extends utils.Parser<List<Reaction>> {
         return new Reaction(inChems, outChem);
     }
 
-    public List<Reaction> parse() {
+    public Map<String, Reaction> parse() {
         try {
             var lines = readLines();
-            var reactions = new ArrayList<Reaction>();
+            var reactions = new HashMap<String, Reaction>();
 
             for (var line : lines) {
-                reactions.add(parseLine(line));
+                var reaction = parseLine(line);
+
+                reactions.put(reaction.output().name(), reaction);
             }
 
             return reactions;
