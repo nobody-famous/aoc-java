@@ -9,14 +9,17 @@ import utils.Problem;
 
 public class Part1 extends Problem<Integer> {
     private Parser parser;
+    private Map<String, Reaction> reactions;
+    private Map<String, Integer> stockPile;
 
     public Part1(String fileName, int exp) {
         super(exp);
 
         parser = new Parser(fileName);
+        stockPile = new HashMap<>();
     }
 
-    private Set<String> getFromOre(Map<String, Reaction> reactions) {
+    private Set<String> getFromOre() {
         var fromOre = new HashSet<String>();
 
         for (var entry : reactions.entrySet()) {
@@ -30,40 +33,78 @@ public class Part1 extends Problem<Integer> {
         return fromOre;
     }
 
-    private Map<String, Integer> updateNeeded(Map<String, Reaction> react, Map<String, Integer> old) {
+    private void addToMap(Map<String, Integer> dict, String name, int amount) {
+        var existing = dict.containsKey(name) ? dict.get(name) : 0;
+
+        dict.put(name, existing + amount);
+    }
+
+    private Map<String, Integer> updateNeeded(Map<String, Integer> old) {
         var needed = new HashMap<String, Integer>();
 
         for (var entry : old.entrySet()) {
-            if (entry.getKey().equals("ORE")) {
-                needed.put(entry.getKey(), entry.getValue());
+            var name = entry.getKey();
+            var quantity = entry.getValue();
+
+            if ("ORE".equals(name)) {
+                addToMap(needed, name, quantity);
                 continue;
             }
 
-            var target = react.get(entry.getKey());
+            var reaction = reactions.get(name);
+            // var toMake = quantity <= reaction.output().amount() ? 1 : quantity / reaction.output().amount();
+            var need = reaction.output().amount();
+            var toMake = quantity % need == 0 ? quantity / need : (quantity / need) + 1;
+            var leftOver = (toMake * need) - quantity;
 
-            for (var chem : target.input()) {
-                var existing = needed.containsKey(chem.name()) ? needed.get(chem.name()) : 0;
-                var amount = existing + chem.amount();
+            addToMap(stockPile, name, leftOver);
 
-                needed.put(chem.name(), amount);
+            for (var chem : reaction.input()) {
+                var fromPile = stockPile.containsKey(chem.name()) ? stockPile.get(chem.name()) : 0;
+                var toAdd = toMake * chem.amount();
+
+                if (fromPile == toAdd) {
+                    stockPile.remove(chem.name());
+                    continue;
+                } else if (fromPile > toAdd) {
+                    addToMap(stockPile, chem.name(), -toAdd);
+                    continue;
+                } else {
+                    toAdd -= fromPile;
+                    stockPile.remove(chem.name());
+                }
+
+                addToMap(needed, chem.name(), toAdd);
             }
         }
 
         return needed;
     }
 
+    private boolean onlyOre(Map<String, Integer> needed) {
+        for (var entry : needed.entrySet()) {
+            if (!entry.getKey().equals("ORE")) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public Integer run() {
-        var reactions = parser.parse();
-        var fromOre = getFromOre(reactions);
-        Map<String, Integer> needed = new HashMap<String, Integer>();
+        reactions = parser.parse();
+
+        var needed = (Map<String, Integer>) new HashMap<String, Integer>();
 
         needed.put("FUEL", reactions.get("FUEL").output().amount());
 
-        needed = updateNeeded(reactions, needed);
+        while (!onlyOre(needed)) {
+            needed = updateNeeded(needed);
+            System.out.println(needed);
+        }
 
-        System.out.println("fromOre" + fromOre);
         System.out.println("Needed " + needed);
 
-        return 0;
+        return needed.get("ORE");
     }
 }
