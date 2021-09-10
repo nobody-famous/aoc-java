@@ -1,7 +1,9 @@
 package y2019.day14;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,13 +12,11 @@ import utils.Problem;
 public class Part1 extends Problem<Integer> {
     private Parser parser;
     private Map<String, Reaction> reactions;
-    private Map<String, Integer> stockPile;
 
     public Part1(String fileName, int exp) {
         super(exp);
 
         parser = new Parser(fileName);
-        stockPile = new HashMap<>();
     }
 
     private Set<String> getFromOre() {
@@ -39,72 +39,83 @@ public class Part1 extends Problem<Integer> {
         dict.put(name, existing + amount);
     }
 
-    private Map<String, Integer> updateNeeded(Map<String, Integer> old) {
-        var needed = new HashMap<String, Integer>();
+    private void visit(Map<String, Integer> required, Map<String, Integer> pile, List<String> path, String name,
+            int mx) {
+        var react = reactions.get(name);
 
-        for (var entry : old.entrySet()) {
-            var name = entry.getKey();
-            var quantity = entry.getValue();
+        if (react == null) {
+            return;
+        }
 
-            if ("ORE".equals(name)) {
-                addToMap(needed, name, quantity);
+        for (var child : react.input()) {
+            var childReact = reactions.get(child.name());
+
+            if (childReact == null) {
                 continue;
             }
 
-            var reaction = reactions.get(name);
-            // var toMake = quantity <= reaction.output().amount() ? 1 : quantity / reaction.output().amount();
-            var need = reaction.output().amount();
-            var toMake = quantity % need == 0 ? quantity / need : (quantity / need) + 1;
-            var leftOver = (toMake * need) - quantity;
+            var need = child.amount() * mx;
+            var make = childReact.output().amount();
+            var mult = getMultiplier(need, make);
+            var rem = (make * mult) - need;
 
-            addToMap(stockPile, name, leftOver);
-
-            for (var chem : reaction.input()) {
-                var fromPile = stockPile.containsKey(chem.name()) ? stockPile.get(chem.name()) : 0;
-                var toAdd = toMake * chem.amount();
-
-                if (fromPile == toAdd) {
-                    stockPile.remove(chem.name());
-                    continue;
-                } else if (fromPile > toAdd) {
-                    addToMap(stockPile, chem.name(), -toAdd);
-                    continue;
-                } else {
-                    toAdd -= fromPile;
-                    stockPile.remove(chem.name());
-                }
-
-                addToMap(needed, chem.name(), toAdd);
+            if (rem > 0) {
+                addToMap(pile, child.name(), rem);
             }
-        }
 
-        return needed;
+            addToMap(required, child.name(), need);
+
+            visit(required, pile, path, child.name(), mult);
+        }
     }
 
-    private boolean onlyOre(Map<String, Integer> needed) {
-        for (var entry : needed.entrySet()) {
-            if (!entry.getKey().equals("ORE")) {
-                return false;
-            }
+    private int getMultiplier(int need, int make) {
+        return need % make == 0 ? need / make : (need / make) + 1;
+    }
+
+    private List<String> buildPath() {
+        var path = new ArrayList<String>();
+        var fromOre = getFromOre();
+        var required = new HashMap<String, Integer>();
+        var pile = new HashMap<String, Integer>();
+
+        visit(required, pile, path, "FUEL", 1);
+
+        var total = 0;
+        for (var name : fromOre) {
+            var react = reactions.get(name);
+            var fromPile = pile.containsKey(name) ? pile.get(name) : 0;
+            var req = required.get(name) - fromPile;
+            var ore = react.input().get(0).amount();
+            var mult = getMultiplier(req, react.output().amount());
+
+            total += (ore * mult);
         }
 
-        return true;
+        System.out.println("total ore " + total);
+
+        return path;
     }
 
     public Integer run() {
         reactions = parser.parse();
 
-        var needed = (Map<String, Integer>) new HashMap<String, Integer>();
+        var path = buildPath();
+        System.out.println("path " + path);
 
-        needed.put("FUEL", reactions.get("FUEL").output().amount());
+        // var needed = (Map<String, Integer>) new HashMap<String, Integer>();
 
-        while (!onlyOre(needed)) {
-            needed = updateNeeded(needed);
-            System.out.println(needed);
-        }
+        // needed.put("FUEL", reactions.get("FUEL").output().amount());
 
-        System.out.println("Needed " + needed);
+        // while (!onlyOre(needed)) {
+        //     needed = updateNeeded(needed);
+        //     System.out.println(needed);
+        // }
 
-        return needed.get("ORE");
+        // System.out.println("Needed " + needed);
+
+        // return needed.get("ORE");
+
+        return 0;
     }
 }
