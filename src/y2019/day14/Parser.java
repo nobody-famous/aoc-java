@@ -2,7 +2,6 @@ package y2019.day14;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Parser extends utils.Parser<Map<String, Reaction>> {
