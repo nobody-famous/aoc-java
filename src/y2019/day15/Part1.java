@@ -18,7 +18,7 @@ public class Part1 extends Problem<Integer> {
         var mapper = new GridMapper(droid);
         var grid = mapper.mapGrid();
 
-        // System.out.println(grid);
+        System.out.println(grid);
 
         return 254;
     }
