@@ -3,14 +3,14 @@ package y2019.day15;
 import y2019.intcode.Machine;
 
 public class RepairDroid implements Machine.IO {
-    public static final long North = 1;
-    public static final long South = 2;
-    public static final long West = 3;
-    public static final long East = 4;
+    public static final int North = 1;
+    public static final int South = 2;
+    public static final int West = 3;
+    public static final int East = 4;
 
-    public static final long Wall = 0;
-    public static final long Open = 1;
-    public static final long Oxygen = 2;
+    public static final int Wall = 0;
+    public static final int Open = 1;
+    public static final int Oxygen = 2;
 
     private Machine mach;
     private Long nextInput;
@@ -20,15 +20,15 @@ public class RepairDroid implements Machine.IO {
         this.mach = new Machine(prog, this);
     }
 
-    public long move(long dir) {
-        nextInput = dir;
+    public int move(int dir) {
+        nextInput = (long) dir;
         lastOutput = null;
 
         while (lastOutput == null) {
             mach.exec();
         }
 
-        return lastOutput;
+        return (int) lastOutput.longValue();
     }
 
     public long input() {
