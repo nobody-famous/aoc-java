@@ -1,8 +1,5 @@
 package y2019.day15;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import utils.geometry.Point;
 
 public class GridMapper {
@@ -12,27 +9,27 @@ public class GridMapper {
         this.droid = droid;
     }
 
-    public Map<Point, Integer> mapGrid() {
-        var map = new HashMap<Point, Integer>();
+    public Grid mapGrid() {
+        var grid = new Grid();
         var pt = new Point(0, 0);
 
-        map.put(pt, RepairDroid.Open);
+        grid.add(pt, RepairDroid.Open);
 
-        visit(map, pt);
+        visit(grid, pt);
 
-        return map;
+        return grid;
     }
 
-    private void visit(Map<Point, Integer> map, Point pt) {
-        visit(map, pt, null);
+    private void visit(Grid grid, Point pt) {
+        visit(grid, pt, null);
     }
 
-    private void visit(Map<Point, Integer> map, Point pt, Integer dir) {
+    private void visit(Grid grid, Point pt, Integer dir) {
         try {
-            tryMove(map, pt, RepairDroid.North);
-            tryMove(map, pt, RepairDroid.South);
-            tryMove(map, pt, RepairDroid.East);
-            tryMove(map, pt, RepairDroid.West);
+            tryMove(grid, pt, RepairDroid.North);
+            tryMove(grid, pt, RepairDroid.South);
+            tryMove(grid, pt, RepairDroid.East);
+            tryMove(grid, pt, RepairDroid.West);
         } finally {
             if (dir != null) {
                 droid.move(oppositeDir(dir));
@@ -40,19 +37,19 @@ public class GridMapper {
         }
     }
 
-    private void tryMove(Map<Point, Integer> map, Point pt, int dir) {
+    private void tryMove(Grid grid, Point pt, int dir) {
         var newPt = newPoint(pt, dir);
 
-        if (map.containsKey(newPt)) {
+        if (grid.seen(newPt)) {
             return;
         }
 
         var result = droid.move(dir);
 
-        map.put(newPt, result);
+        grid.add(newPt, result);
 
         if (result == RepairDroid.Open) {
-            visit(map, newPt, dir);
+            visit(grid, newPt, dir);
         }
     }
 
