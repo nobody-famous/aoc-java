@@ -27,6 +27,10 @@ public class Grid {
         }
     }
 
+    public int get(Point pt) {
+        return grid.containsKey(pt) ? grid.get(pt) : RepairDroid.Wall;
+    }
+
     public Point getOxygen() {
         return oxygen;
     }
@@ -47,6 +51,7 @@ public class Grid {
         return switch (cell) {
             case RepairDroid.Open -> ' ';
             case RepairDroid.Oxygen -> 'O';
+            case -1 -> '.';
             default -> '#';
         };
     }

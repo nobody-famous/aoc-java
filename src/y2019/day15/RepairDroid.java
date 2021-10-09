@@ -16,6 +16,10 @@ public class RepairDroid implements Machine.IO {
     private Long nextInput;
     private Long lastOutput;
 
+    public RepairDroid(RepairDroid clone) {
+        this.mach = new Machine(clone.mach, this);
+    }
+
     public RepairDroid(long[] prog) {
         this.mach = new Machine(prog, this);
     }

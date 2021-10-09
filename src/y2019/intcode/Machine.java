@@ -28,6 +28,11 @@ public class Machine {
         this.io = io;
     }
 
+    public Machine(Machine copy, IO io) {
+        this.prog = copy.prog.clone();
+        this.io = io;
+    }
+
     public void setDebug(boolean debug) {
         this.debug = debug;
     }

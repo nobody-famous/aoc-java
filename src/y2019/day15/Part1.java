@@ -14,12 +14,10 @@ public class Part1 extends Problem<Integer> {
 
     public Integer run() {
         var prog = parser.parse();
-        var droid = new RepairDroid(prog);
-        var mapper = new GridMapper(droid);
+        var mapper = new GridMapper(prog);
         var grid = mapper.mapGrid();
+        var finder = new PathFinder(grid);
 
-        System.out.println(grid);
-
-        return 254;
+        return finder.findMinDist();
     }
 }
