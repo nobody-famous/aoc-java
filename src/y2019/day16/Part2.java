@@ -18,17 +18,24 @@ public class Part2 extends Solver {
         return output;
     }
 
+    private void applyToOffset(List<Integer> nums, int offset) {
+        var total = 0;
+
+        for (var ndx = nums.size() - 1; ndx >= offset; ndx -= 1) {
+            total += nums.get(ndx);
+            nums.set(ndx, Math.abs(total % 10));
+        }
+    }
+
     protected int doWork(List<Integer> nums) {
         var offset = listToInt(nums.subList(0, 7));
 
         nums = createSignal(nums);
 
         for (var loop = 0; loop < 100; loop += 1) {
-            nums = applyPattern(nums);
+            applyToOffset(nums, offset);
         }
 
-        System.out.println("Length " + nums.size());
-        System.out.println("Offset " + offset);
-        return 0;
+        return listToInt(nums.subList(offset, offset + 8));
     }
 }
