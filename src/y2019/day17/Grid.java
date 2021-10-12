@@ -46,8 +46,16 @@ public class Grid {
         return robot;
     }
 
+    public void setRobot(Point pt) {
+        robot = pt;
+    }
+
     public char getRobotDir() {
         return robotDir;
+    }
+
+    public void setRobotDir(char dir) {
+        robotDir = dir;
     }
 
     public HashSet<Point> getScaffold() {

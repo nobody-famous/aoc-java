@@ -13,6 +13,10 @@ public class Controller implements Machine.IO {
         this.mach = new Machine(prog, this);
     }
 
+    public void wakeRobot() {
+        mach.set(0, 2);
+    }
+
     public List<String> readCamera() {
         var output = new ArrayList<String>();
 
@@ -25,7 +29,7 @@ public class Controller implements Machine.IO {
         return output;
     }
 
-    private String readLine() {
+    public String readLine() {
         var str = new StringBuilder();
         var ch = readChar();
 
