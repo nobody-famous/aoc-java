@@ -8,6 +8,7 @@ import y2019.intcode.Machine;
 public class Controller implements Machine.IO {
     private Machine mach;
     private Long lastOutput;
+    private Long nextInput;
 
     public Controller(long[] prog) {
         this.mach = new Machine(prog, this);
@@ -29,6 +30,14 @@ public class Controller implements Machine.IO {
         return output;
     }
 
+    public void writeLine(String str) {
+        for (var ch : str.toCharArray()) {
+            writeChar((long) ch);
+        }
+
+        writeChar(10);
+    }
+
     public String readLine() {
         var str = new StringBuilder();
         var ch = readChar();
@@ -39,6 +48,24 @@ public class Controller implements Machine.IO {
         }
 
         return str.toString();
+    }
+
+    private void writeChar(long ch) {
+        nextInput = ch;
+
+        while (nextInput != null) {
+            mach.exec();
+        }
+    }
+
+    public long readValue() {
+        lastOutput = null;
+
+        while (lastOutput == null) {
+            mach.exec();
+        }
+
+        return lastOutput.longValue();
     }
 
     private char readChar() {
@@ -52,7 +79,11 @@ public class Controller implements Machine.IO {
     }
 
     public long input() {
-        return 0L;
+        var value = nextInput;
+
+        nextInput = null;
+
+        return value;
     }
 
     public void output(long value) {

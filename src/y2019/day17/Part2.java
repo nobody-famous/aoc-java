@@ -88,6 +88,38 @@ public class Part2 extends Problem<Integer> {
         return moves;
     }
 
+    private void sendParts(Controller ctrl, PathParts parts) {
+        var sent = 0;
+
+        while (sent < 4) {
+            var line = ctrl.readLine();
+
+            if (line.equals("Main:")) {
+                ctrl.writeLine(parts.main());
+            } else if (line.equals("Function A:")) {
+                ctrl.writeLine(parts.A());
+            } else if (line.equals("Function B:")) {
+                ctrl.writeLine(parts.B());
+            } else if (line.equals("Function C:")) {
+                ctrl.writeLine(parts.C());
+            } else {
+                throw new RuntimeException("Unhandled line: " + line);
+            }
+
+            sent += 1;
+        }
+    }
+
+    private void answerPrompt(Controller ctrl) {
+        var line = ctrl.readLine();
+
+        if (!line.equals("Continuous video feed?")) {
+            throw new RuntimeException("Unhandled line: " + line);
+        }
+
+        ctrl.writeLine("n");
+    }
+
     public Integer run() {
         var prog = parser.parse();
         var ctrl = new Controller(prog);
@@ -95,17 +127,17 @@ public class Part2 extends Problem<Integer> {
         ctrl.wakeRobot();
 
         var output = ctrl.readCamera();
-        for (var line : output) {
-            System.out.println(line);
-        }
         var grid = Grid.fromCamera(output);
         var path = buildPath(grid);
+        var splitter = new PathSplitter(path);
+        var parts = splitter.split();
 
-        System.out.println(path);
-        var line = ctrl.readLine();
+        sendParts(ctrl, parts);
+        answerPrompt(ctrl);
 
-        System.out.println(line);
+        ctrl.readLine();
+        ctrl.readCamera();
 
-        return 0;
+        return (int) ctrl.readValue();
     }
 }
