@@ -13,18 +13,7 @@ public class PathFinder {
     }
 
     public void find() {
-        var candidates = findCandidates('@', new HashSet<Character>());
-
-        System.out.println(candidates);
-
-        // for (var entry : candidates.entrySet()) {
-        //     var key = entry.getKey();
-        //     var keyDist = entry.getValue();
-
-        //     if (keyDist.doors().size() == 0) {
-        //         System.out.println("Candidate " + key + " " + keyDist.dist() + " " + keyDist.keys());
-        //     }
-        // }
+        traverse('@', 0, new HashSet<Character>());
     }
 
     private Map<Character, KeyDist> findCandidates(char key, HashSet<Character> openDoors) {
@@ -68,7 +57,11 @@ public class PathFinder {
         return true;
     }
 
-    private int traverse() {
+    private int traverse(char key, int curDist, HashSet<Character> openDoors) {
+        var candidates = findCandidates(key, openDoors);
+
+        System.out.println(candidates);
+
         return 0;
     }
 }
