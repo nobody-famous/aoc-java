@@ -18,6 +18,10 @@ public class Grid {
         doors = new HashMap<>();
     }
 
+    public HashSet<Point> getPath() {
+        return path;
+    }
+
     public Map<Point, Character> getKeys() {
         return keys;
     }
