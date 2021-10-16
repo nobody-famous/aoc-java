@@ -51,9 +51,7 @@ public class Part1 extends Problem<Integer> {
     public Integer run() {
         var grid = parser.parse();
         var keyMap = buildKeyMap(grid);
-        var finder = new PathFinder(keyMap);
-
-        System.out.println(keyMap.size());
+        var finder = new PathFinder(keyMap, grid.getKeyMasks());
 
         finder.find();
 

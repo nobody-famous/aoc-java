@@ -2,26 +2,40 @@ package y2019.day18;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 public class PathFinder {
     private Map<Character, Map<Character, KeyDist>> keyMap;
+    private Map<Character, Integer> keyMasks;
+    private int allKeysMask;
+    private Map<Character, Map<Integer, Integer>> distances;
 
-    public PathFinder(Map<Character, Map<Character, KeyDist>> keyMap) {
+    public PathFinder(Map<Character, Map<Character, KeyDist>> keyMap, Map<Character, Integer> keyMasks) {
         this.keyMap = keyMap;
+        this.keyMasks = keyMasks;
+
+        allKeysMask = 0;
+        for (var mask : keyMasks.values()) {
+            allKeysMask |= mask;
+        }
+
+        this.distances = new HashMap<>();
+        for (var key : keyMasks.keySet()) {
+            this.distances.put(key, new HashMap<>());
+        }
     }
 
     public void find() {
-        traverse('@', 0, new HashSet<Character>());
+        var dist = traverse('@', 0, 0);
+        System.out.println("Final dist " + dist);
     }
 
-    private Map<Character, KeyDist> findCandidates(char key, HashSet<Character> openDoors) {
+    private Map<Character, KeyDist> findCandidates(char key, int foundKeys) {
         var distances = keyMap.get(key);
         var candidates = new HashMap<Character, KeyDist>();
 
         for (var keyDist : distances.values()) {
-            if (doorsOpen(openDoors, keyDist.doors())) {
+            if (neededKeysFound(foundKeys, keyDist.doors())) {
                 candidates.put(keyDist.key(), keyDist);
             }
         }
@@ -33,10 +47,17 @@ public class PathFinder {
 
     private void removeDupes(Map<Character, KeyDist> map) {
         var toRemove = new ArrayList<Character>();
+        var mapKeys = map.keySet();
 
         for (var keyDist : map.values()) {
-            for (var key : keyDist.keys()) {
-                if (map.containsKey(key)) {
+            for (var key : mapKeys) {
+                if (!keyMasks.containsKey(key)) {
+                    continue;
+                }
+
+                var mask = keyMasks.get(key);
+
+                if ((keyDist.keys() & mask) == mask) {
                     toRemove.add(key);
                 }
             }
@@ -47,21 +68,45 @@ public class PathFinder {
         }
     }
 
-    private boolean doorsOpen(HashSet<Character> areOpen, HashSet<Character> needOpen) {
-        for (var door : needOpen) {
-            if (!areOpen.contains(door)) {
-                return false;
+    private boolean neededKeysFound(int areOpen, int needOpen) {
+        return (areOpen & needOpen) == needOpen;
+    }
+
+    private String foundKeysString(int foundKeys) {
+        var str = new StringBuilder();
+
+        for (var entry : keyMasks.entrySet()) {
+            if ((entry.getValue() & foundKeys) != 0) {
+                str.append(entry.getKey());
             }
         }
 
-        return true;
+        return str.toString();
     }
 
-    private int traverse(char key, int curDist, HashSet<Character> openDoors) {
-        var candidates = findCandidates(key, openDoors);
+    private int traverse(char key, int curDist, int foundKeys) {
+        if ((foundKeys & allKeysMask) == allKeysMask) {
+            return curDist;
+        }
 
-        System.out.println(candidates);
+        var candidates = findCandidates(key, foundKeys);
+        var shortest = Integer.MAX_VALUE;
 
-        return 0;
+        for (var keyDist : candidates.values()) {
+            var mask = keyMasks.get(keyDist.key());
+
+            if ((mask & foundKeys) != 0) {
+                continue;
+            }
+
+            var newKeys = mask | keyDist.keys() | foundKeys;
+            var dist = traverse(keyDist.key(), keyDist.dist() + curDist, newKeys);
+
+            if (dist < shortest) {
+                shortest = dist;
+            }
+        }
+
+        return shortest;
     }
 }

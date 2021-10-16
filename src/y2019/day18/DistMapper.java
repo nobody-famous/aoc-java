@@ -15,7 +15,7 @@ public class DistMapper {
     private HashSet<Point> seen;
     private Map<Character, KeyDist> keyMap;
 
-    private record Walker(Point pt, int dist, HashSet<Character> keys, HashSet<Character> doors) {
+    private record Walker(Point pt, int dist, int keys, int doors) {
     }
 
     public DistMapper(Grid grid, Point start) {
@@ -27,7 +27,7 @@ public class DistMapper {
     }
 
     public Map<Character, KeyDist> map() {
-        toVisit.add(new Walker(start, 0, new HashSet<Character>(), new HashSet<Character>()));
+        toVisit.add(new Walker(start, 0, 0, 0));
 
         while (!toVisit.isEmpty()) {
             visitAll();
@@ -47,15 +47,11 @@ public class DistMapper {
         toVisit = next;
     }
 
-    private HashSet<Character> addItem(HashSet<Character> set, char item) {
-        var newSet = new HashSet<Character>(set);
-
-        newSet.add(item);
-
-        return newSet;
+    private int addItem(int set, char item) {
+        return set | grid.getKeyMask(item);
     }
 
-    private void addWalker(List<Walker> toAdd, Point pt, int dist, HashSet<Character> keys, HashSet<Character> doors) {
+    private void addWalker(List<Walker> toAdd, Point pt, int dist, int keys, int doors) {
         if (seen.contains(pt) || !grid.getPath().contains(pt)) {
             return;
         }
@@ -68,11 +64,13 @@ public class DistMapper {
         var pt = walker.pt;
         var newDist = walker.dist + 1;
         var keys = grid.getKeys().containsKey(pt) ? addItem(walker.keys, grid.getKeys().get(pt)) : walker.keys;
-        var doors = grid.getDoors().containsKey(pt) ? addItem(walker.doors, grid.getDoors().get(pt)) : walker.doors;
+        var doors = grid.getDoors().containsKey(pt)
+                ? addItem(walker.doors, Character.toLowerCase(grid.getDoors().get(pt)))
+                : walker.doors;
 
         if (grid.getKeys().containsKey(pt)) {
-            keyMap.put(grid.getKeys().get(pt), new KeyDist(grid.getKeys().get(pt), walker.dist,
-                    new HashSet<Character>(walker.keys), new HashSet<Character>(walker.doors)));
+            keyMap.put(grid.getKeys().get(pt),
+                    new KeyDist(grid.getKeys().get(pt), walker.dist, walker.keys, walker.doors));
         }
 
         addWalker(toAdd, new Point(pt.x, pt.y - 1), newDist, keys, doors);
