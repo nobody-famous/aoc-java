@@ -20,14 +20,14 @@ public class PathFinder {
         }
 
         this.distances = new HashMap<>();
+        this.distances.put('@', new HashMap<>());
         for (var key : keyMasks.keySet()) {
             this.distances.put(key, new HashMap<>());
         }
     }
 
-    public void find() {
-        var dist = traverse('@', 0, 0);
-        System.out.println("Final dist " + dist);
+    public int find() {
+        return traverse('@', 0, 0);
     }
 
     private Map<Character, KeyDist> findCandidates(char key, int foundKeys) {
@@ -51,10 +51,6 @@ public class PathFinder {
 
         for (var keyDist : map.values()) {
             for (var key : mapKeys) {
-                if (!keyMasks.containsKey(key)) {
-                    continue;
-                }
-
                 var mask = keyMasks.get(key);
 
                 if ((keyDist.keys() & mask) == mask) {
@@ -72,21 +68,14 @@ public class PathFinder {
         return (areOpen & needOpen) == needOpen;
     }
 
-    private String foundKeysString(int foundKeys) {
-        var str = new StringBuilder();
-
-        for (var entry : keyMasks.entrySet()) {
-            if ((entry.getValue() & foundKeys) != 0) {
-                str.append(entry.getKey());
-            }
+    private int traverse(char key, int lastStep, int foundKeys) {
+        if ((foundKeys & allKeysMask) == allKeysMask) {
+            return lastStep;
         }
 
-        return str.toString();
-    }
-
-    private int traverse(char key, int curDist, int foundKeys) {
-        if ((foundKeys & allKeysMask) == allKeysMask) {
-            return curDist;
+        var distKeysMap = distances.get(key);
+        if (distKeysMap.containsKey(foundKeys)) {
+            return lastStep + distKeysMap.get(foundKeys);
         }
 
         var candidates = findCandidates(key, foundKeys);
@@ -100,13 +89,15 @@ public class PathFinder {
             }
 
             var newKeys = mask | keyDist.keys() | foundKeys;
-            var dist = traverse(keyDist.key(), keyDist.dist() + curDist, newKeys);
+            var dist = traverse(keyDist.key(), keyDist.dist(), newKeys);
 
             if (dist < shortest) {
                 shortest = dist;
             }
         }
 
-        return shortest;
+        distKeysMap.put(foundKeys, shortest);
+
+        return lastStep + shortest;
     }
 }

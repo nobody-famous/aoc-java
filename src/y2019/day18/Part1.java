@@ -53,8 +53,6 @@ public class Part1 extends Problem<Integer> {
         var keyMap = buildKeyMap(grid);
         var finder = new PathFinder(keyMap, grid.getKeyMasks());
 
-        finder.find();
-
-        return 3048;
+        return finder.find();
     }
 }
