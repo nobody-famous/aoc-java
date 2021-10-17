@@ -21,7 +21,7 @@ public class Parser extends utils.Parser<Grid> {
         } else if (cell >= 'A' && cell <= 'Z') {
             grid.addDoor(pt, cell);
         } else if (cell == '@') {
-            grid.setEntrance(pt);
+            grid.addEntrance(pt);
         }
     }
 

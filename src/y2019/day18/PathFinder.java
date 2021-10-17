@@ -4,34 +4,51 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PathFinder {
-    private Map<Character, Map<Character, KeyDist>> keyMap;
-    private Map<Character, Integer> keyMasks;
-    private int allKeysMask;
-    private Map<Character, Map<Integer, Integer>> distances;
+import utils.geometry.Point;
 
-    public PathFinder(Map<Character, Map<Character, KeyDist>> keyMap, Map<Character, Integer> keyMasks) {
+public class PathFinder {
+    private Grid grid;
+    private Map<Point, Map<Character, KeyDist>> keyMap;
+    private int allKeysMask;
+    private Map<Point, Map<Integer, Integer>> distances;
+
+    public PathFinder(Grid grid, Map<Point, Map<Character, KeyDist>> keyMap) {
+        this.grid = grid;
         this.keyMap = keyMap;
-        this.keyMasks = keyMasks;
 
         allKeysMask = 0;
-        for (var mask : keyMasks.values()) {
+        for (var mask : grid.getKeyMasks().values()) {
             allKeysMask |= mask;
         }
 
         this.distances = new HashMap<>();
-        this.distances.put('@', new HashMap<>());
-        for (var key : keyMasks.keySet()) {
-            this.distances.put(key, new HashMap<>());
+
+        for (var entrance : grid.getEntrances()) {
+            this.distances.put(entrance, new HashMap<>());
+        }
+
+        for (var key : grid.getKeyMasks().keySet()) {
+            var pt = grid.getKeyLocs().get(key);
+            this.distances.put(pt, new HashMap<>());
         }
     }
 
     public int find() {
-        return traverse('@', 0, 0);
+        var shortest = Integer.MAX_VALUE;
+
+        for (var entrance : grid.getEntrances()) {
+            var dist = traverse(entrance, 0, 0);
+
+            if (dist < shortest) {
+                shortest = dist;
+            }
+        }
+
+        return shortest;
     }
 
-    private Map<Character, KeyDist> findCandidates(char key, int foundKeys) {
-        var distances = keyMap.get(key);
+    private Map<Character, KeyDist> findCandidates(Point pt, int foundKeys) {
+        var distances = keyMap.get(pt);
         var candidates = new HashMap<Character, KeyDist>();
 
         for (var keyDist : distances.values()) {
@@ -51,7 +68,7 @@ public class PathFinder {
 
         for (var keyDist : map.values()) {
             for (var key : mapKeys) {
-                var mask = keyMasks.get(key);
+                var mask = grid.getKeyMasks().get(key);
 
                 if ((keyDist.keys() & mask) == mask) {
                     toRemove.add(key);
@@ -68,28 +85,29 @@ public class PathFinder {
         return (areOpen & needOpen) == needOpen;
     }
 
-    private int traverse(char key, int lastStep, int foundKeys) {
+    private int traverse(Point pt, int lastStep, int foundKeys) {
         if ((foundKeys & allKeysMask) == allKeysMask) {
             return lastStep;
         }
 
-        var distKeysMap = distances.get(key);
+        var distKeysMap = distances.get(pt);
         if (distKeysMap.containsKey(foundKeys)) {
             return lastStep + distKeysMap.get(foundKeys);
         }
 
-        var candidates = findCandidates(key, foundKeys);
+        var candidates = findCandidates(pt, foundKeys);
         var shortest = Integer.MAX_VALUE;
 
         for (var keyDist : candidates.values()) {
-            var mask = keyMasks.get(keyDist.key());
+            var mask = grid.getKeyMasks().get(keyDist.key());
 
             if ((mask & foundKeys) != 0) {
                 continue;
             }
 
             var newKeys = mask | keyDist.keys() | foundKeys;
-            var dist = traverse(keyDist.key(), keyDist.dist(), newKeys);
+            var newPt = grid.getKeyLocs().get(keyDist.key());
+            var dist = traverse(newPt, keyDist.dist(), newKeys);
 
             if (dist < shortest) {
                 shortest = dist;

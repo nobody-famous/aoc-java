@@ -7,17 +7,29 @@ import java.util.Map;
 import utils.geometry.Point;
 
 public class Grid {
-    private Point entrance;
+    private HashSet<Point> entrances;
     private HashSet<Point> path;
     private Map<Point, Character> keys;
+    private Map<Character, Point> keyLocs;
     private Map<Point, Character> doors;
     private Map<Character, Integer> keyMasks;
+    private Point middle;
 
     public Grid() {
+        entrances = new HashSet<>();
         path = new HashSet<>();
         keys = new HashMap<>();
+        keyLocs = new HashMap<>();
         doors = new HashMap<>();
         keyMasks = new HashMap<>();
+    }
+
+    public void setMiddle(Point pt) {
+        middle = pt;
+    }
+
+    public Point getMiddle() {
+        return middle;
     }
 
     public int getKeyMask(char key) {
@@ -36,16 +48,24 @@ public class Grid {
         return keys;
     }
 
+    public Map<Character, Point> getKeyLocs() {
+        return keyLocs;
+    }
+
     public Map<Point, Character> getDoors() {
         return doors;
     }
 
-    public Point getEntrance() {
-        return entrance;
+    public HashSet<Point> getEntrances() {
+        return entrances;
     }
 
-    public void setEntrance(Point pt) {
-        entrance = pt;
+    public void removeEntrance(Point pt) {
+        entrances.remove(pt);
+    }
+
+    public void addEntrance(Point pt) {
+        entrances.add(pt);
     }
 
     public void addToPath(Point pt) {
@@ -55,6 +75,7 @@ public class Grid {
     public void addKey(Point pt, char key) {
         keyMasks.put(key, 1 << (key - 'a'));
         keys.put(pt, key);
+        keyLocs.put(key, pt);
     }
 
     public void addDoor(Point pt, char key) {
