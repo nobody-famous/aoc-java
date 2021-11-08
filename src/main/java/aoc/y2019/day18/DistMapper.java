@@ -29,34 +29,11 @@ public class DistMapper {
     public Map<Character, KeyDist> map() {
         toVisit.add(new Walker(start, 0, 0, 0));
 
-        // if (grid.getEntrances().size() > 1) {
-        //     addEntrancesToVisit(start);
-        // }
-
         while (!toVisit.isEmpty()) {
             visitAll();
         }
 
         return keyMap;
-    }
-
-    private void addEntrancesToVisit(Point start) {
-        var mask = grid.getKeys().containsKey(start) ? grid.getKeyMask(grid.getKeys().get(start)) : 0;
-
-        for (var entrance : grid.getEntrances()) {
-            if (!sameQuadrant(start, entrance)) {
-                toVisit.add(new Walker(entrance, 0, mask, 0));
-            }
-        }
-    }
-
-    private boolean sameQuadrant(Point pt1, Point pt2) {
-        var mid = grid.getMiddle();
-
-        return (pt1.x < mid.x && pt1.y < mid.y && pt2.x < mid.x && pt2.y < mid.y)
-                || (pt1.x < mid.x && pt1.y > mid.y && pt2.x < mid.x && pt2.y > mid.y)
-                || (pt1.x > mid.x && pt1.y < mid.y && pt2.x > mid.x && pt2.y < mid.y)
-                || (pt1.x > mid.x && pt1.y > mid.y && pt2.x > mid.x && pt2.y > mid.y);
     }
 
     private void visitAll() {
