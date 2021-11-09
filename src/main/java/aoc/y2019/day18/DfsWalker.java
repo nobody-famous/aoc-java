@@ -33,7 +33,6 @@ public class DfsWalker {
         var candidates = new HashMap<Character, GraphNode>();
         var added = new HashMap<Character, Integer>();
 
-        System.out.println("getCandidates");
         for (var entry : nodes.entrySet()) {
             var pt = entry.getKey();
             var node = entry.getValue();
@@ -45,7 +44,6 @@ public class DfsWalker {
             var keyCh = grid.keys.get(pt);
 
             if (!added.containsKey(keyCh)) {
-                System.out.println("Add " + keyCh);
                 added.put(keyCh, 0);
             }
 
@@ -64,7 +62,6 @@ public class DfsWalker {
             candidates.put(keyCh, node);
         }
 
-        System.out.println(added);
         for (var entry : added.entrySet()) {
             var ch = entry.getKey();
             var count = entry.getValue();
@@ -78,25 +75,18 @@ public class DfsWalker {
     }
 
     private int walk(Map<Point, GraphNode> robots, int keys, List<Character> path) {
-        System.out.println("walk " + path);
         if (keys == grid.allMasks) {
             return 0;
         }
 
         var candidates = new ArrayList<GraphNode>();
-        for (var robotPt : robots.keySet()) {
-            var nodes = getCandidates(graph.get(robotPt), keys);
+        for (var robotNode : robots.values()) {
+            var nodes = getCandidates(graph.get(robotNode.pt), keys);
 
             candidates.addAll(nodes);
         }
 
         var minDist = Integer.MAX_VALUE;
-
-        System.out.print("  ");
-        for (var candidate : candidates) {
-            System.out.print(candidate.pt + " ");
-        }
-        System.out.println();
 
         for (var candidate : candidates) {
             var keyCh = grid.keys.get(candidate.pt);
@@ -126,13 +116,11 @@ public class DfsWalker {
             below.get(keyCh).put(keys, belowDist);
 
             var newDist = belowDist + candidate.dist;
-            System.out.println("newDist " + newDist + " " + belowDist + " " + candidate.dist + " " + candidate.pt);
             if (newDist < minDist) {
                 minDist = newDist;
             }
         }
 
-        System.out.println("Walk done " + minDist);
         return minDist;
     }
 

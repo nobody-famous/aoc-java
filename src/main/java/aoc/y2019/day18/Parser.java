@@ -7,9 +7,9 @@ public class Parser extends aoc.utils.Parser<Grid> {
         super(fileName);
     }
 
-    private void parseLine(Grid grid, int x, String line) {
-        for (var y = 0; y < line.length(); y += 1) {
-            var ch = line.charAt(y);
+    private void parseLine(Grid grid, int y, String line) {
+        for (var x = 0; x < line.length(); x += 1) {
+            var ch = line.charAt(x);
             var pt = new Point(x, y);
 
             if (ch == '.') {
@@ -31,8 +31,8 @@ public class Parser extends aoc.utils.Parser<Grid> {
             var lines = readLines();
             var grid = new Grid();
 
-            for (var x = 0; x < lines.size(); x += 1) {
-                parseLine(grid, x, lines.get(x));
+            for (var y = 0; y < lines.size(); y += 1) {
+                parseLine(grid, y, lines.get(y));
             }
 
             return grid;

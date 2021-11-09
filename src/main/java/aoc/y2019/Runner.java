@@ -1,8 +1,10 @@
 package aoc.y2019;
+
 import aoc.utils.AocProblem;
 
 public class Runner extends aoc.utils.Runner {
-    public static AocProblem[] allDays = new AocProblem[] { new aoc.y2019.day1.Part1("input/2019/day1/puzzle.txt", 3279287),
+    public static AocProblem[] allDays = new AocProblem[] {
+            new aoc.y2019.day1.Part1("input/2019/day1/puzzle.txt", 3279287),
             new aoc.y2019.day1.Part2("input/2019/day1/puzzle.txt", 4916076),
             new aoc.y2019.day2.Part1("input/2019/day2/puzzle.txt", 3101844),
             new aoc.y2019.day2.Part2("input/2019/day2/puzzle.txt", 8478),
@@ -36,12 +38,13 @@ public class Runner extends aoc.utils.Runner {
             new aoc.y2019.day16.Part2("input/2019/day16/puzzle.txt", 52825021),
             new aoc.y2019.day17.Part1("input/2019/day17/puzzle.txt", 8928),
             new aoc.y2019.day17.Part2("input/2019/day17/puzzle.txt", 880360),
-            new aoc.y2019.day18.Part1("input/2019/day18/puzzle.txt", 3048) };
+            new aoc.y2019.day18.Part1("input/2019/day18/puzzle.txt", 3048),
+            new aoc.y2019.day18.Part2("input/2019/day18/puzzle2.txt", 1732) };
 
     public static void main(String[] args) {
         var runner = new Runner();
 
-        var allDays = new AocProblem[] { new aoc.y2019.day18.Part1("input/2019/day18/sample.txt", 3048) };
+        // var allDays = new AocProblem[] { new aoc.y2019.day18.Part2("input/2019/day18/puzzle2.txt", 1732) };
 
         runner.runAll(allDays);
     }
