@@ -1,7 +1,5 @@
 package aoc.y2019.day18;
 
-import java.util.List;
-
 import aoc.utils.geometry.Point;
 
 public class Parser extends aoc.utils.Parser<Grid> {
@@ -9,41 +7,35 @@ public class Parser extends aoc.utils.Parser<Grid> {
         super(fileName);
     }
 
-    private void addCell(Grid grid, Point pt, char cell) {
-        if (cell == '#') {
-            return;
-        }
+    private void parseLine(Grid grid, int x, String line) {
+        for (var y = 0; y < line.length(); y += 1) {
+            var ch = line.charAt(y);
+            var pt = new Point(x, y);
 
-        grid.addToPath(pt);
-
-        if (cell >= 'a' && cell <= 'z') {
-            grid.addKey(pt, cell);
-        } else if (cell >= 'A' && cell <= 'Z') {
-            grid.addDoor(pt, cell);
-        } else if (cell == '@') {
-            grid.addEntrance(pt);
-        }
-    }
-
-    private Grid parseGrid(List<String> lines) {
-        var grid = new Grid();
-
-        for (var y = 0; y < lines.size(); y += 1) {
-            var line = lines.get(y);
-
-            for (var x = 0; x < line.length(); x += 1) {
-                addCell(grid, new Point(x, y), line.charAt(x));
+            if (ch == '.') {
+                grid.spaces.add(pt);
+            } else if (ch == '@') {
+                grid.entrances.add(pt);
+                grid.spaces.add(pt);
+            } else if (ch >= 'a' && ch <= 'z') {
+                grid.keys.put(pt, ch);
+                grid.allMasks |= grid.masks.get(ch);
+            } else if (ch >= 'A' && ch <= 'Z') {
+                grid.doors.put(pt, ch);
             }
         }
-
-        return grid;
     }
 
     public Grid parse() {
         try {
             var lines = readLines();
+            var grid = new Grid();
 
-            return parseGrid(lines);
+            for (var x = 0; x < lines.size(); x += 1) {
+                parseLine(grid, x, lines.get(x));
+            }
+
+            return grid;
         } catch (Exception ex) {
             ex.printStackTrace();
             return null;

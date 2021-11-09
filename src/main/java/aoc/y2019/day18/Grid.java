@@ -2,83 +2,27 @@ package aoc.y2019.day18;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 
 import aoc.utils.geometry.Point;
 
 public class Grid {
-    private HashSet<Point> entrances;
-    private HashSet<Point> path;
-    private Map<Point, Character> keys;
-    private Map<Character, Point> keyLocs;
-    private Map<Point, Character> doors;
-    private Map<Character, Integer> keyMasks;
-    private Point middle;
+    public HashSet<Point> spaces = new HashSet<>();
+    public HashSet<Point> entrances = new HashSet<>();
+    public HashMap<Point, Character> keys = new HashMap<>();
+    public HashMap<Point, Character> doors = new HashMap<>();
+    public HashMap<Character, Integer> masks = new HashMap<>();
+    public int allMasks = 0;
 
     public Grid() {
-        entrances = new HashSet<>();
-        path = new HashSet<>();
-        keys = new HashMap<>();
-        keyLocs = new HashMap<>();
-        doors = new HashMap<>();
-        keyMasks = new HashMap<>();
-    }
+        var mask = 1;
 
-    public void setMiddle(Point pt) {
-        middle = pt;
-    }
+        for (var ch = 'a'; ch <= 'z'; ch += 1) {
+            var upper = Character.toUpperCase(ch);
 
-    public Point getMiddle() {
-        return middle;
-    }
+            masks.put(ch, mask);
+            masks.put(upper, mask);
 
-    public int getKeyMask(char key) {
-        return keyMasks.containsKey(key) ? keyMasks.get(key) : 0;
-    }
-
-    public Map<Character, Integer> getKeyMasks() {
-        return keyMasks;
-    }
-
-    public HashSet<Point> getPath() {
-        return path;
-    }
-
-    public Map<Point, Character> getKeys() {
-        return keys;
-    }
-
-    public Map<Character, Point> getKeyLocs() {
-        return keyLocs;
-    }
-
-    public Map<Point, Character> getDoors() {
-        return doors;
-    }
-
-    public HashSet<Point> getEntrances() {
-        return entrances;
-    }
-
-    public void removeEntrance(Point pt) {
-        entrances.remove(pt);
-    }
-
-    public void addEntrance(Point pt) {
-        entrances.add(pt);
-    }
-
-    public void addToPath(Point pt) {
-        path.add(pt);
-    }
-
-    public void addKey(Point pt, char key) {
-        keyMasks.put(key, 1 << (key - 'a'));
-        keys.put(pt, key);
-        keyLocs.put(key, pt);
-    }
-
-    public void addDoor(Point pt, char key) {
-        doors.put(pt, key);
+            mask = mask << 1;
+        }
     }
 }
