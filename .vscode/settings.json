@@ -1,6 +1,3 @@
 {
     "java.format.comments.enabled": false,
-    "java.project.sourcePaths": [
-        "src"
-    ],
 }

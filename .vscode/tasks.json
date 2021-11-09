@@ -25,6 +25,18 @@
             "problemMatcher": []
         },
         {
+            "label": "Watch 2018",
+            "type": "shell",
+            "command": "nodemon",
+            "args": [
+                "-e",
+                "java",
+                "--exec",
+                "\"mvn exec:java -D'\"exec.mainClass\"'='\"aoc.y2018.Runner\"'\""
+            ],
+            "problemMatcher": []
+        },
+        {
             "label": "Run 2019",
             "dependsOn": "Compile",
             "type": "shell",
@@ -33,6 +45,18 @@
                 "-cp",
                 "out/src",
                 "Runner2019"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Watch 2019",
+            "type": "shell",
+            "command": "nodemon",
+            "args": [
+                "-e",
+                "java",
+                "--exec",
+                "\"mvn exec:java -D'\"exec.mainClass\"'='\"aoc.y2019.Runner\"'\""
             ],
             "problemMatcher": []
         },
