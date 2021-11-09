@@ -1,3 +1,4 @@
 {
     "java.format.comments.enabled": false,
+    "java.configuration.updateBuildConfiguration": "automatic",
 }
