@@ -1,48 +1,25 @@
 package aoc.y2019.day19;
 
-import aoc.utils.Problem;
-import aoc.y2019.intcode.Parser;
-
-public class Part1 extends Problem<Integer> {
-    private Parser parser;
-    private Drone drone;
+public class Part1 extends Solver {
     private int prevStart;
 
     public Part1(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
-    }
-
-    private int findStart(int y, int maxX) {
-        var x = prevStart;
-
-        while (x < maxX && drone.sendRequest(x, y) == Drone.STATIC) {
-            x += 1;
-        }
-
-        return x;
+        super(fileName, exp);
     }
 
     private int scanLine(int y, int maxX) {
-        var start = findStart(y, maxX);
+        var start = findStart(y, prevStart, maxX);
 
         if (start == maxX) {
             prevStart = 0;
             return 0;
         }
 
-        var count = 0;
-        var x = start;
-
-        while (x < maxX && drone.sendRequest(x, y) == Drone.PULLED) {
-            count += 1;
-            x += 1;
-        }
+        var end = findEnd(y, start, maxX);
 
         prevStart = start;
 
-        return count;
+        return end - start;
     }
 
     private int scanArea(int maxX, int maxY) {
@@ -57,11 +34,7 @@ public class Part1 extends Problem<Integer> {
         return count;
     }
 
-    public Integer run() {
-        var prog = parser.parse();
-
-        drone = new Drone(prog);
-
+    public int doWork() {
         return scanArea(50, 50);
     }
 }
