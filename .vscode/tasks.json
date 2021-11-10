@@ -6,21 +6,20 @@
         {
             "label": "Compile",
             "type": "shell",
-            "command": "jabuto",
+            "command": "mvn",
             "args": [
-                "build"
+                "-B",
+                "compile"
             ],
             "problemMatcher": []
         },
         {
             "label": "Run 2018",
-            "dependsOn": "Compile",
             "type": "shell",
-            "command": "java",
+            "command": "mvn",
             "args": [
-                "-cp",
-                "out/src",
-                "Runner2018"
+                "exec:java",
+                "-D'\"exec.mainClass\"'='\"aoc.y2018.Runner\"'"
             ],
             "problemMatcher": []
         },
@@ -38,13 +37,11 @@
         },
         {
             "label": "Run 2019",
-            "dependsOn": "Compile",
             "type": "shell",
-            "command": "java",
+            "command": "mvn",
             "args": [
-                "-cp",
-                "out/src",
-                "Runner2019"
+                "exec:java",
+                "-D'\"exec.mainClass\"'='\"aoc.y2019.Runner\"'"
             ],
             "problemMatcher": []
         },
@@ -62,15 +59,13 @@
         },
         {
             "label": "Run 2020",
-            "dependsOn": "Compile",
             "type": "shell",
-            "command": "java",
+            "command": "mvn",
             "args": [
-                "-cp",
-                "out/src",
-                "Runner2020"
+                "exec:java",
+                "-D'\"exec.mainClass\"'='\"aoc.y2020.Runner\"'"
             ],
             "problemMatcher": []
-        }
+        },
     ]
 }
