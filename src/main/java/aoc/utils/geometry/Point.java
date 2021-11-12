@@ -9,6 +9,10 @@ public class Point {
         this.y = y;
     }
 
+    public Point(Point copy) {
+        this(copy.x, copy.y);
+    }
+
     public boolean equals(Object obj) {
         if (!(obj instanceof Point)) {
             return false;
@@ -16,6 +20,11 @@ public class Point {
 
         var pt = (Point) obj;
         return x == pt.x && y == pt.y;
+    }
+
+    public void inc(Point delta) {
+        x += delta.x;
+        y += delta.y;
     }
 
     public int manDist(Point pt) {
