@@ -10,39 +10,47 @@ import aoc.utils.geometry.Point;
 public class PathFinder {
     private Maze maze;
     private Map<Point, Map<Point, Integer>> dists;
-    private Map<Point, Integer> toEnd = new HashMap<>();
+    private Map<LevelPoint, Integer> toEnd = new HashMap<>();
+    private LevelPoint endPoint;
 
     public PathFinder(Maze maze, Map<Point, Map<Point, Integer>> dists) {
         this.maze = maze;
         this.dists = dists;
     }
 
-    private Point pointPair(Point pt) {
+    private LevelPoint pointPair(LevelPoint lvlPt) {
+        var pt = lvlPt.point();
+        var lvl = lvlPt.level();
+
         if (maze.innerJumps.containsKey(pt)) {
             var name = maze.innerJumps.get(pt);
-            return maze.outerJumpsByName.get(name);
+            return new LevelPoint(lvl, maze.outerJumpsByName.get(name));
         } else if (maze.outerJumps.containsKey(pt)) {
             var name = maze.outerJumps.get(pt);
-            return maze.innerJumpsByName.get(name);
+            return new LevelPoint(lvl, maze.innerJumpsByName.get(name));
         }
 
         return null;
     }
 
-    private int walk(Point pt, List<Point> path) {
-        if (pt.equals(maze.outerJumpsByName.get("ZZ"))) {
+    private int walk(LevelPoint pt, List<LevelPoint> path) {
+        if (pt.equals(endPoint)) {
             return 0;
         }
 
         var shortest = Integer.MAX_VALUE;
-        var kids = dists.get(pt);
+        var kids = dists.get(pt.point());
 
         for (var kid : kids.entrySet()) {
-            var kidPt = kid.getKey();
+            var kidPt = new LevelPoint(pt.level(), kid.getKey());
             var kidDist = kid.getValue();
 
             if (path.contains(kidPt)) {
                 continue;
+            }
+
+            if (!toEnd.containsKey(kidPt)) {
+                toEnd.put(kidPt, Integer.MAX_VALUE);
             }
 
             if (toEnd.get(kidPt) < Integer.MAX_VALUE) {
@@ -55,7 +63,7 @@ public class PathFinder {
                 continue;
             }
 
-            var newPath = new ArrayList<Point>(path);
+            var newPath = new ArrayList<LevelPoint>(path);
             newPath.add(kidPt);
             newPath.add(pointPair(kidPt));
 
@@ -75,14 +83,11 @@ public class PathFinder {
     }
 
     public int shortestPath() {
-        for (var pt : dists.keySet()) {
-            toEnd.put(pt, Integer.MAX_VALUE);
-        }
-
-        var path = new ArrayList<Point>();
-        var start = maze.outerJumpsByName.get("AA");
+        var path = new ArrayList<LevelPoint>();
+        var start = new LevelPoint(0, maze.outerJumpsByName.get("AA"));
 
         path.add(start);
+        endPoint = new LevelPoint(0, maze.outerJumpsByName.get("ZZ"));
 
         return walk(start, path);
     }
