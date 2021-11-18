@@ -1,18 +1,44 @@
 package aoc.y2019.day20;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import aoc.utils.geometry.Point;
 
 public class PathFinder {
     private Maze maze;
     private Map<Point, Map<Point, Integer>> dists;
-    private Map<LevelPoint, Integer> toEnd = new HashMap<>();
-    private LevelPoint endPoint;
     private boolean isRecusive = false;
+    private Set<Walker> toVisit = new HashSet<>();
+    private Set<LevelPoint> seen = new HashSet<>();
+    private boolean foundEnd = false;
+    private LevelPoint endPoint;
+
+    private class Walker {
+        public int dist;
+        public LevelPoint pt;
+
+        public Walker(int dist, LevelPoint pt) {
+            this.dist = dist;
+            this.pt = pt;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (!(obj instanceof Walker)) {
+                return false;
+            }
+
+            var them = (Walker) obj;
+            return them.dist == dist && them.pt.equals(pt);
+        }
+
+        @Override
+        public String toString() {
+            return "{" + pointName(pt.point()) + "(" + pt.level() + ") " + dist + "}";
+        }
+    }
 
     public PathFinder(Maze maze, Map<Point, Map<Point, Integer>> dists) {
         this.maze = maze;
@@ -33,139 +59,94 @@ public class PathFinder {
         }
     }
 
-    private LevelPoint pointPair(LevelPoint lvlPt) {
-        var pt = lvlPt.point();
-
-        if (maze.innerJumps.containsKey(pt)) {
-            var name = maze.innerJumps.get(pt);
-            var lvl = isRecusive ? lvlPt.level() + 1 : lvlPt.level();
-            return new LevelPoint(lvl, maze.outerJumpsByName.get(name));
-        } else if (maze.outerJumps.containsKey(pt)) {
-            var name = maze.outerJumps.get(pt);
-            var lvl = isRecusive ? lvlPt.level() - 1 : lvlPt.level();
-            return new LevelPoint(lvl, maze.innerJumpsByName.get(name));
-        }
-
-        return null;
-    }
-
-    private boolean isNestedStartOrEnd(int level, LevelPoint pt) {
-        var name = maze.outerJumps.get(pt.point());
+    private boolean isNestedStartOrEnd(int level, Point pt) {
+        var name = maze.outerJumps.get(pt);
 
         return level > 0 && ("AA".equals(name) || "ZZ".equals(name));
     }
 
-    private boolean isOuterJump(LevelPoint pt) {
-        return maze.outerJumps.get(pt.point()) != null;
-    }
+    private boolean isTopOuterJump(int level, Point pt) {
+        var name = maze.outerJumps.get(pt);
 
-    private boolean isInnerJump(LevelPoint pt) {
-        return maze.innerJumps.get(pt.point()) != null;
-    }
-
-    private boolean isTopInnerJump(int level, LevelPoint pt) {
-        return level == 0 && maze.innerJumps.get(pt.point()) != null;
-    }
-
-    private void printPath(List<LevelPoint> path) {
-        for (var pt : path) {
-            System.out.print(pointName(pt.point()) + "(" + pt.level() + ")" + ",");
-        }
-        System.out.println();
+        return level == 0 && name != null && !"AA".equals(name) && !"ZZ".equals(name);
     }
 
     private int levelDiff(Point pt) {
         if (maze.innerJumps.get(pt) != null) {
-            return -1;
-        } else if (maze.outerJumps.get(pt) != null) {
             return 1;
+        } else if (maze.outerJumps.get(pt) != null) {
+            return -1;
         } else {
             return 0;
         }
     }
 
-    private int walk(LevelPoint pt, List<LevelPoint> path) {
-        printPath(path);
+    private boolean shouldSkip(int level, Point pt) {
+        return isTopOuterJump(level, pt) || isNestedStartOrEnd(level, pt);
+    }
 
-        // System.out.println(pt.level());
-        if (pt.level() > 10) {
-            throw new RuntimeException("Too deep");
-        }
+    private Set<Walker> visit(Walker walker) {
+        var neighbors = new HashSet<Walker>();
+        var kids = dists.get(walker.pt.point());
 
-        if (pt.equals(endPoint)) {
-            throw new RuntimeException("FOUND END");
-            // return 0;
-        }
-
-        var shortest = Integer.MAX_VALUE;
-        var kids = dists.get(pt.point());
+        seen.add(walker.pt);
 
         for (var kid : kids.entrySet()) {
-            // System.out.println(pointName(pt.point()) + " " + pointName(kid.getKey()));
-
-            var newLevel = isRecusive ? pt.level() + levelDiff(kid.getKey()) : pt.level();
-            var kidPt = new LevelPoint(newLevel, kid.getKey());
-            var kidDist = kid.getValue();
-            var kidPair = pointPair(kidPt);
-
-            if ("ZZ".equals(pointName(kid.getKey()))) {
-                System.out.println("  ZZ " + pt.level());
-            }
-
-            if (path.contains(kidPt)) {
-                System.out.println("  PATH " + pointName(pt.point()) + " " + pointName(kidPt.point()));
+            if (isRecusive && kid.getValue() != 1 && shouldSkip(walker.pt.level(), kid.getKey())) {
                 continue;
             }
 
-            if (isRecusive && (isTopInnerJump(pt.level(), kidPt) || isNestedStartOrEnd(pt.level(), kidPt))) {
-                System.out.println("  SKIP " + pointName(pt.point()) + " " + pointName(kidPt.point()));
-                continue;
-            }
+            var lvlDiff = isRecusive && kid.getValue() == 1 ? levelDiff(walker.pt.point()) : 0;
+            var newPoint = new LevelPoint(walker.pt.level() + lvlDiff, kid.getKey());
+            var newDist = walker.dist + kid.getValue();
 
-            if (!toEnd.containsKey(kidPt)) {
-                toEnd.put(kidPt, Integer.MAX_VALUE);
-            }
-
-            if (toEnd.get(kidPt) < Integer.MAX_VALUE) {
-                var dist = kidDist + toEnd.get(kidPt);
-
-                if (dist < shortest) {
-                    shortest = dist;
-                }
-
-                continue;
-            }
-
-            if ("ZZ".equals(maze.outerJumps.get(kidPt.point()))) {
-                System.out.println("Adding ZZ to path " + newLevel);
-            }
-
-            var newPath = new ArrayList<LevelPoint>(path);
-            newPath.add(kidPt);
-            newPath.add(kidPair);
-
-            var distToEnd = walk(kidPt, newPath);
-            var newDist = distToEnd < Integer.MAX_VALUE ? kidDist + distToEnd : distToEnd;
-
-            if (distToEnd < toEnd.get(kidPt)) {
-                toEnd.put(kidPt, distToEnd);
-            }
-
-            if (newDist < shortest) {
-                shortest = newDist;
+            if (!seen.contains(newPoint)) {
+                neighbors.add(new Walker(newDist, newPoint));
             }
         }
+
+        return neighbors;
+    }
+
+    private Integer visitAll() {
+        var nextRound = new HashSet<Walker>();
+        Integer shortest = null;
+
+        for (var walker : toVisit) {
+            var neighbors = visit(walker);
+
+            for (var n : neighbors) {
+                if (n.pt.equals(endPoint) && (shortest == null || n.dist < shortest)) {
+                    shortest = n.dist;
+                }
+            }
+
+            if (foundEnd) {
+                break;
+            }
+
+            nextRound.addAll(neighbors);
+        }
+
+        toVisit = nextRound;
 
         return shortest;
     }
 
     public int shortestPath() {
-        var path = new ArrayList<LevelPoint>();
         var start = new LevelPoint(0, maze.outerJumpsByName.get("AA"));
 
-        path.add(start);
         endPoint = new LevelPoint(0, maze.outerJumpsByName.get("ZZ"));
+        toVisit.add(new Walker(0, start));
 
-        return walk(start, path);
+        Integer dist = null;
+        while (dist == null) {
+            dist = visitAll();
+            if (foundEnd) {
+                break;
+            }
+        }
+
+        return dist;
     }
 }

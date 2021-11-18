@@ -26,20 +26,8 @@ public class DistMapper {
 
         seen.add(pt);
 
-        if (maze.outerJumps.containsKey(pt)) {
-            var name = maze.outerJumps.get(pt);
-            var target = maze.innerJumpsByName.get(name);
-
-            if (target == null) {
-                dists.put(pt, curDist);
-            } else {
-                dists.put(target, curDist + 1);
-            }
-        } else if (maze.innerJumps.containsKey(pt)) {
-            var name = maze.innerJumps.get(pt);
-            var target = maze.outerJumpsByName.get(name);
-
-            dists.put(target, curDist + 1);
+        if (maze.outerJumps.containsKey(pt) || maze.innerJumps.containsKey(pt)) {
+            dists.put(pt, curDist);
         } else if (maze.path.contains(pt)) {
             neighbors.add(pt);
         }
@@ -72,6 +60,19 @@ public class DistMapper {
         Set<Point> toVisit = new HashSet<>();
 
         seen.add(start);
+
+        if (maze.innerJumps.containsKey(start)) {
+            var name = maze.innerJumps.get(start);
+            dists.put(maze.outerJumpsByName.get(name), 1);
+        } else if (maze.outerJumps.containsKey(start)) {
+            var name = maze.outerJumps.get(start);
+            var inner = maze.innerJumpsByName.get(name);
+
+            if (inner != null) {
+                dists.put(inner, 1);
+            }
+        }
+
         toVisit.add(start);
 
         while (!toVisit.isEmpty()) {
