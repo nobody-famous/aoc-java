@@ -10,7 +10,7 @@ public class Shuffler {
         this.techniques.add(tech);
     }
 
-    public int apply(int size, int index) {
+    public long apply(long size, long index) {
         for (var tech : techniques) {
             index = tech.apply(size, index);
         }

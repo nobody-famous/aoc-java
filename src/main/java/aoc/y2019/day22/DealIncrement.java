@@ -1,14 +1,14 @@
 package aoc.y2019.day22;
 
 public class DealIncrement implements Technique {
-    private int increment;
+    private long increment;
 
-    public DealIncrement(int increment) {
+    public DealIncrement(long increment) {
         this.increment = increment;
     }
 
     @Override
-    public int apply(int size, int index) {
+    public long apply(long size, long index) {
         return (index * increment) % size;
     }
 }
