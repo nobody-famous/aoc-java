@@ -7,6 +7,10 @@ public class DealIncrement implements Technique {
         this.increment = increment;
     }
 
+    public long getIncrement() {
+        return increment;
+    }
+
     @Override
     public long apply(long size, long index) {
         return (index * increment) % size;

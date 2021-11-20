@@ -7,6 +7,10 @@ public class CutCards implements Technique {
         this.numCards = numCards;
     }
 
+    public long getNumCards() {
+        return numCards;
+    }
+
     @Override
     public long apply(long size, long index) {
         return numCards < 0 ? cutEnd(size, index) : cutFront(size, index);
