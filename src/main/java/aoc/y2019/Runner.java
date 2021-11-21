@@ -54,7 +54,7 @@ public class Runner extends aoc.utils.Runner {
     public static void main(String[] args) {
         var runner = new Runner();
 
-        var allDays = new AocProblem[] { new aoc.y2019.day23.Part2("input/2019/day23/puzzle.txt", 19406) };
+        // var allDays = new AocProblem[] { new aoc.y2019.day23.Part2("input/2019/day23/puzzle.txt", 19406) };
 
         runner.runAll(allDays);
     }
