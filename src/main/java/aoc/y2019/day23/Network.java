@@ -3,59 +3,75 @@ package aoc.y2019.day23;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Network implements Computer.Listener, Runnable {
+public class Network {
     private List<Computer> computers = new ArrayList<>();
-
-    private int count = 0;
+    private Long lastY;
 
     public Network(long[] prog, int numComputers) {
         for (var id = 0; id < numComputers; id += 1) {
-            computers.add(new Computer(prog, id, this));
+            computers.add(new Computer(prog, id));
         }
     }
 
-    private void halt() {
-        for (var comp : computers) {
-            comp.powerOff();
-        }
+    public Long getLastY() {
+        return lastY;
     }
 
-    @Override
-    synchronized public void send(Packet packet) {
-        // System.out.println("SEND " + packet);
-
+    public void send(Packet packet) {
         if (packet.addr() < 0 || packet.addr() >= computers.size()) {
-            System.out.println("INVALID ADDR " + packet.addr());
-            halt();
+            lastY = packet.y();
             return;
         }
 
-        computers.get(packet.addr()).receive(packet.x(), packet.y());
+        computers.get(packet.addr()).receive(packet);
+    }
 
-        count += 1;
-
-        if (count > 400) {
-            halt();
+    private void startAll() {
+        for (var comp : computers) {
+            comp.runToIO();
         }
     }
 
-    @Override
-    public void run() {
-        var threads = new ArrayList<Thread>();
+    private List<Packet> nextRound() {
+        var packets = new ArrayList<Packet>();
 
         for (var comp : computers) {
-            threads.add(new Thread(comp));
-        }
+            var pkt = comp.runToIO();
 
-        for (var thread : threads) {
-            thread.start();
-        }
-
-        for (var thread : threads) {
-            try {
-                thread.join();
-            } catch (Exception ex) {
+            if (pkt != null) {
+                packets.add(pkt);
             }
         }
+        return packets;
+    }
+
+    private Packet processPackets(List<Packet> pkts) {
+        for (var pkt : pkts) {
+            var addr = pkt.addr();
+
+            if (addr >= computers.size()) {
+                return pkt;
+            }
+
+            computers.get(addr).receive(pkt);
+        }
+
+        return null;
+    }
+
+    public Packet run() {
+        startAll();
+
+        Packet stopPacket = null;
+
+        while (stopPacket == null) {
+            var pkts = nextRound();
+
+            if (pkts.size() > 0) {
+                stopPacket = processPackets(pkts);
+            }
+        }
+
+        return stopPacket;
     }
 }

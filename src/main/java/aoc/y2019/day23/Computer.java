@@ -5,48 +5,78 @@ import java.util.Queue;
 
 import aoc.y2019.intcode.Machine;
 
-public class Computer implements Machine.IO, Runnable {
+public class Computer implements Machine.IO {
     private Machine mach;
-    private Listener listener;
-    private long id;
+    private Long id;
+    private Long sendId;
     private Long packetId;
     private Long packetX;
-    private boolean poweredOn;
-    private Queue<Long> messages = new LinkedList<>();
+    private Long nextInput;
+    private Packet nextPacket;
+    private Queue<Packet> messages = new LinkedList<>();
 
-    public interface Listener {
-        void send(Packet packet);
-    }
-
-    public Computer(long[] prog, long id, Listener listener) {
+    public Computer(long[] prog, long id) {
         this.mach = new Machine(prog, this);
         this.id = id;
-        this.listener = listener;
-        this.poweredOn = false;
+        this.sendId = id;
     }
 
-    @Override
-    public void run() {
-        messages.add(id);
-        poweredOn = true;
+    public long getId() {
+        return id;
+    }
 
-        while (poweredOn && !mach.isHalted()) {
+    public Packet runToIO() {
+        if (sendId != null) {
+            initId();
+            return null;
+        }
+
+        if (!messages.isEmpty()) {
+            sendPacket(messages.remove());
+            return null;
+        }
+
+        nextInput = -1L;
+        nextPacket = null;
+
+        while (nextInput != null && nextPacket == null) {
+            mach.exec();
+        }
+
+        return nextPacket;
+    }
+
+    private void sendPacket(Packet pkt) {
+        sendInput(pkt.x());
+        sendInput(pkt.y());
+    }
+
+    private void initId() {
+        sendInput(sendId);
+        sendId = null;
+    }
+
+    private void sendInput(long value) {
+        nextInput = value;
+
+        while (nextInput != null) {
             mach.exec();
         }
     }
 
-    public void powerOff() {
-        poweredOn = false;
-    }
-
-    synchronized public void receive(long x, long y) {
-        messages.add(y);
-        messages.add(x);
+    public void receive(Packet pkt) {
+        messages.add(pkt);
     }
 
     @Override
-    synchronized public long input() {
-        var value = messages.isEmpty() ? -1L : messages.remove();
+    public long input() {
+        if (nextInput == null) {
+            throw new RuntimeException(id + " No input");
+        }
+
+        var value = nextInput.longValue();
+
+        nextInput = null;
 
         return value;
     }
@@ -57,13 +87,13 @@ public class Computer implements Machine.IO, Runnable {
     }
 
     @Override
-    synchronized public void output(long value) {
+    public void output(long value) {
         if (packetId == null) {
             packetId = value;
         } else if (packetX == null) {
             packetX = value;
         } else {
-            listener.send(new Packet(packetId.intValue(), packetX, value));
+            nextPacket = new Packet(packetId.intValue(), packetX, value);
             resetPacketData();
         }
     }
