@@ -17,6 +17,8 @@ public class Part1 extends Problem<Integer> {
         var prog = parser.parse();
         var network = new Network(prog, 50);
 
+        network.start();
+
         var pkt = network.run();
 
         return (int) pkt.y();

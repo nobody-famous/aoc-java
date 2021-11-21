@@ -26,7 +26,7 @@ public class Network {
         computers.get(packet.addr()).receive(packet);
     }
 
-    private void startAll() {
+    public void start() {
         for (var comp : computers) {
             comp.runToIO();
         }
@@ -59,16 +59,21 @@ public class Network {
         return null;
     }
 
+    public void sendNat(Packet pkt) {
+        computers.get(0).receive(pkt);
+    }
+
     public Packet run() {
-        startAll();
-
         Packet stopPacket = null;
+        var count = 0;
 
-        while (stopPacket == null) {
+        while (count < 10 && stopPacket == null) {
             var pkts = nextRound();
 
             if (pkts.size() > 0) {
                 stopPacket = processPackets(pkts);
+            } else {
+                count += 1;
             }
         }
 
