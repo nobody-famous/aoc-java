@@ -6,7 +6,7 @@ public class Grid {
 
     public static int GRID_SIZE = 5;
 
-    private int cells = 0;
+    protected int cells = 0;
 
     public void set(int x, int y, int value) {
         if (!isValidValue(value)) {
@@ -40,19 +40,19 @@ public class Grid {
         return (cells & mask) != 0 ? BUG : EMPTY;
     }
 
-    private int toCell(int x, int y) {
+    protected int toCell(int x, int y) {
         return (y * GRID_SIZE) + x;
     }
 
-    private boolean isValidValue(int value) {
+    protected boolean isValidValue(int value) {
         return value == EMPTY || value == BUG;
     }
 
-    private boolean isOnGrid(int x, int y) {
+    protected boolean isOnGrid(int x, int y) {
         return isInRange(x) && isInRange(y);
     }
 
-    private boolean isInRange(int value) {
+    protected boolean isInRange(int value) {
         return value >= 0 && value < 5;
     }
 
