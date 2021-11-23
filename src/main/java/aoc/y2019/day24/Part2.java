@@ -141,9 +141,7 @@ public class Part2 extends Problem<Integer> {
         updateInnerCircle(grid, newGrid, center);
         updateOuterCircle(grid, newGrid, outer);
 
-        if (newGrid.getRating() != 0) {
-            newGrids.put(level, newGrid);
-        }
+        newGrids.put(level, newGrid);
 
         if (grids.containsKey(level) && !newGrids.containsKey(level + 1)) {
             updateGrid(level + 1);
@@ -166,6 +164,13 @@ public class Part2 extends Problem<Integer> {
 
     private int countBugs(Grid grid) {
         var count = 0;
+
+        for (var y = 0; y < Grid.GRID_SIZE; y += 1) {
+            for (var x = 0; x < Grid.GRID_SIZE; x += 1) {
+                count += (grid.get(x, y) == Grid.BUG) ? 1 : 0;
+            }
+        }
+
         return count;
     }
 
@@ -185,15 +190,10 @@ public class Part2 extends Problem<Integer> {
 
         grids.put(0, grid);
 
-        for (var loop = 0; loop < 10; loop += 1) {
+        for (var loop = 0; loop < 200; loop += 1) {
             minute();
         }
 
-        for (var entry : grids.entrySet()) {
-            System.out.println("Level " + entry.getKey());
-            System.out.println(entry.getValue());
-        }
-
-        return 0;
+        return countBugs();
     }
 }
