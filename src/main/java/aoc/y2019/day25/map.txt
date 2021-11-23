@@ -1,0 +1,13 @@
+              X
+              |
+        Food Photon - SC - Pod
+         |    |
+        Mug - X
+         |
+         |   coin - mutex
+         |    |
+  X      X - Orn - Candy - X - Loop
+  |      |
+lava - Magnet - mouse
+                 |
+             O - X

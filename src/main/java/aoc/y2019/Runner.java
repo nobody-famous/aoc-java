@@ -51,12 +51,13 @@ public class Runner extends aoc.utils.Runner {
             new aoc.y2019.day23.Part1("input/2019/day23/puzzle.txt", 27061),
             new aoc.y2019.day23.Part2("input/2019/day23/puzzle.txt", 19406),
             new aoc.y2019.day24.Part1("input/2019/day24/puzzle.txt", 24662545),
-            new aoc.y2019.day24.Part2("input/2019/day24/puzzle.txt", 2063) };
+            new aoc.y2019.day24.Part2("input/2019/day24/puzzle.txt", 2063),
+            new aoc.y2019.day25.Part1("input/2019/day25/puzzle.txt", 100667393) };
 
     public static void main(String[] args) {
         var runner = new Runner();
 
-        // var allDays = new AocProblem[] { new aoc.y2019.day24.Part2("input/2019/day24/puzzle.txt", 2063) };
+        // var allDays = new AocProblem[] { new aoc.y2019.day25.Part1("input/2019/day25/puzzle.txt", 100667393) };
 
         runner.runAll(allDays);
     }
