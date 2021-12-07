@@ -14,6 +14,16 @@
             "problemMatcher": []
         },
         {
+            "label": "Run Intcode Machine",
+            "type": "shell",
+            "command": "mvn",
+            "args": [
+                "exec:java",
+                "-D'\"exec.mainClass\"'='\"aoc.IntcodeMachine\"'"
+            ],
+            "problemMatcher": []
+        },
+        {
             "label": "Run 2018",
             "type": "shell",
             "command": "mvn",
