@@ -64,6 +64,8 @@ public class Part2 extends Problem<String> {
         }
     }
 
+    private boolean doDrawPixels = false;
+
     public String run() {
         var prog = parser.parse();
         var robot = new Robot(prog, Robot.COLOR_WHITE);
@@ -71,7 +73,9 @@ public class Part2 extends Problem<String> {
         robot.run();
 
         var panels = robot.getPanels();
-        // drawPanels(panels);
+        if (doDrawPixels) {
+            drawPanels(panels);
+        }
 
         return "BFEAGHAF";
     }
