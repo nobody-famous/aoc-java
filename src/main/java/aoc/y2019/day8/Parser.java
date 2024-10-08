@@ -1,12 +1,12 @@
 package aoc.y2019.day8;
 
+import java.util.List;
+
 public class Parser extends aoc.utils.Parser<Image> {
     private int width;
     private int height;
 
-    public Parser(String fileName, int width, int height) {
-        super(fileName);
-
+    public Parser(int width, int height) {
         this.width = width;
         this.height = height;
     }
@@ -37,10 +37,9 @@ public class Parser extends aoc.utils.Parser<Image> {
         return img;
     }
 
-    public Image parse() {
+    @Override
+    public Image parse(List<String> lines) {
         try {
-            var lines = readLines();
-
             return parseImage(lines.get(0));
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -14,7 +14,7 @@ public class Runner extends aoc.utils.Runner {
             new aoc.y2018.day9.Part1("input/2018/day9/puzzle.txt", 382055L),
             new aoc.y2018.day9.Part2("input/2018/day9/puzzle.txt", 3133277384L) };
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         var runner = new Runner();
 
         // var allDays = new AocProblem[] { new aoc.y2018.day9.Part2("input/2018/day9/puzzle.txt", 3133277384L) };

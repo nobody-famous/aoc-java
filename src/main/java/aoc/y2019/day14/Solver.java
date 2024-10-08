@@ -1,24 +1,24 @@
 package aoc.y2019.day14;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import aoc.utils.Problem;
 
 public abstract class Solver extends Problem<Long> {
     protected Map<String, Reaction> reactions;
-    private Parser parser;
+    private Parser parser = new Parser();
 
     public Solver(String fileName, long exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
+        super(fileName, exp);
     }
 
     abstract long doWork();
 
-    public Long run() {
-        reactions = parser.parse();
+    @Override
+    public Long run(List<String> lines) {
+        reactions = parser.parse(lines);
         return doWork();
     }
 

@@ -8,12 +8,10 @@ import aoc.utils.geometry.Point;
 import aoc.y2019.intcode.Parser;
 
 public class Part2 extends Problem<Integer> {
-    private Parser parser;
+    private Parser parser = new Parser();
 
     public Part2(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
+        super(fileName, exp);
     }
 
     private boolean hasMove(Grid grid) {
@@ -120,8 +118,9 @@ public class Part2 extends Problem<Integer> {
         ctrl.writeLine("n");
     }
 
-    public Integer run() {
-        var prog = parser.parse();
+    @Override
+    public Integer run(List<String> lines) {
+        var prog = parser.parse(lines);
         var ctrl = new Controller(prog);
 
         ctrl.wakeRobot();

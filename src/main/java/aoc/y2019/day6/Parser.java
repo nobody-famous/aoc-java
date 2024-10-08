@@ -6,10 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 public class Parser extends aoc.utils.Parser<Map<String, List<String>>> {
-    public Parser(String fileName) {
-        super(fileName);
-    }
-
     private void addToMap(Map<String, List<String>> orbits, String parent, String child) {
         if (!orbits.containsKey(parent)) {
             orbits.put(parent, new ArrayList<String>());
@@ -20,9 +16,9 @@ public class Parser extends aoc.utils.Parser<Map<String, List<String>>> {
         kids.add(child);
     }
 
-    public Map<String, List<String>> parse() {
+    @Override
+    public Map<String, List<String>> parse(List<String> lines) {
         try {
-            var lines = readLines();
             var orbits = new HashMap<String, List<String>>();
 
             for (var line : lines) {

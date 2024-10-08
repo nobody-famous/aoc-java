@@ -1,13 +1,11 @@
 package aoc.y2019.intcode;
 
-public class Parser extends aoc.utils.Parser<long[]> {
-    public Parser(String fileName) {
-        super(fileName);
-    }
+import java.util.List;
 
-    public long[] parse() {
+public class Parser extends aoc.utils.Parser<long[]> {
+    @Override
+    public long[] parse(List<String> lines) {
         try {
-            var lines = readLines();
             var line = lines.get(0);
             var parts = line.split(",");
             var prog = new long[parts.length];

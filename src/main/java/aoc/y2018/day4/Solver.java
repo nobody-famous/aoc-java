@@ -6,15 +6,14 @@ import java.util.List;
 import aoc.utils.Problem;
 
 public abstract class Solver extends Problem<Integer> {
-    protected Parser parser;
+    protected Parser parser = new Parser();
     protected Integer curGuard;
     protected Integer fallsAsleep;
     protected HashMap<Integer, int[]> guardMinutes;
 
     public Solver(String fileName, int exp) {
-        super(exp);
+        super(fileName, exp);
 
-        parser = new Parser(fileName);
         guardMinutes = new HashMap<Integer, int[]>();
         curGuard = null;
         fallsAsleep = null;
@@ -62,8 +61,8 @@ public abstract class Solver extends Problem<Integer> {
     }
 
     @Override
-    public Integer run() {
-        var records = parser.parse();
+    public Integer run(List<String> lines) {
+        var records = parser.parse(lines);
 
         processRecords(records);
 

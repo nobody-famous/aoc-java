@@ -11,9 +11,7 @@ public class Parser extends aoc.utils.Parser<List<GuardRecord>> {
     private Matcher fallAsleep;
     private Matcher wakesUp;
 
-    public Parser(String fileName) {
-        super(fileName);
-
+    public Parser() {
         var dateStr = "\\[(\\d\\d\\d\\d)-(\\d\\d)-(\\d\\d) (\\d\\d):(\\d\\d)\\]";
         var beginShiftRegex = Pattern.compile(dateStr + " Guard #(\\d+) begins shift");
         var fallAsleepRegex = Pattern.compile(dateStr + " falls asleep");
@@ -24,9 +22,9 @@ public class Parser extends aoc.utils.Parser<List<GuardRecord>> {
         wakesUp = wakesUpRegex.matcher("");
     }
 
-    public List<GuardRecord> parse() {
+    @Override
+    public List<GuardRecord> parse(List<String> lines) {
         try {
-            var lines = readLines();
             var records = parseRecords(lines);
 
             records.sort(new Comparator<GuardRecord>() {

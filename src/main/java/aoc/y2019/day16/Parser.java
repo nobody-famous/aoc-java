@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Parser extends aoc.utils.Parser<List<Integer>> {
-    public Parser(String fileName) {
-        super(fileName);
-    }
-
     private List<Integer> toIntList(String line) {
         var list = new ArrayList<Integer>();
 
@@ -18,10 +14,9 @@ public class Parser extends aoc.utils.Parser<List<Integer>> {
         return list;
     }
 
-    public List<Integer> parse() {
+    @Override
+    public List<Integer> parse(List<String> lines) {
         try {
-            var lines = readLines();
-
             return toIntList(lines.get(0));
         } catch (Exception ex) {
             ex.printStackTrace();

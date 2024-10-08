@@ -1,5 +1,6 @@
 package aoc.y2019.day11;
 
+import java.util.List;
 import java.util.Map;
 
 import aoc.utils.Problem;
@@ -7,12 +8,10 @@ import aoc.utils.geometry.Point;
 import aoc.y2019.intcode.Parser;
 
 public class Part2 extends Problem<String> {
-    private Parser parser;
+    private Parser parser = new Parser();
 
     public Part2(String fileName, String exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
+        super(fileName, exp);
     }
 
     private Point findMin(Map<Point, Integer> panels) {
@@ -66,8 +65,9 @@ public class Part2 extends Problem<String> {
 
     private boolean doDrawPixels = false;
 
-    public String run() {
-        var prog = parser.parse();
+    @Override
+    public String run(List<String> lines) {
+        var prog = parser.parse(lines);
         var robot = new Robot(prog, Robot.COLOR_WHITE);
 
         robot.run();

@@ -8,12 +8,10 @@ import aoc.utils.geometry.Line;
 import aoc.utils.geometry.Point;
 
 public abstract class Solver extends Problem<Integer> {
-    protected Parser parser;
+    protected Parser parser = new Parser();
 
     public Solver(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
+        super(fileName, exp);
     }
 
     protected abstract int doWork(Wire[] wires, List<Point> crosses);
@@ -53,8 +51,9 @@ public abstract class Solver extends Problem<Integer> {
         return crosses;
     }
 
-    public Integer run() {
-        var wires = parser.parse();
+    @Override
+    public Integer run(List<String> lines) {
+        var wires = parser.parse(lines);
         var crosses = findCrosses(wires);
 
         return doWork(wires, crosses);

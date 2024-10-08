@@ -1,20 +1,20 @@
 package aoc.y2019.day13;
 
+import java.util.List;
+
 import aoc.utils.Problem;
 import aoc.y2019.intcode.Parser;
 
 public class Part2 extends Problem<Integer> {
-    private Parser parser;
+    private Parser parser = new Parser();
 
     public Part2(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
+        super(fileName, exp);
     }
 
     @Override
-    public Integer run() {
-        var prog = parser.parse();
+    public Integer run(List<String> lines) {
+        var prog = parser.parse(lines);
         var arcade = new Arcade(prog);
 
         arcade.addQuarters(2);

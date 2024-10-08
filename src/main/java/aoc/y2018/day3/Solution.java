@@ -6,15 +6,13 @@ import aoc.utils.Problem;
 import aoc.utils.geometry.Point;
 
 public abstract class Solution extends Problem<Integer> {
-    private Parser parser;
+    private Parser parser = new Parser();
 
     protected List<Claim> claims;
     protected int[][] grid;
 
     public Solution(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
+        super(fileName, exp);
     }
 
     protected abstract Integer doWork();
@@ -63,8 +61,8 @@ public abstract class Solution extends Problem<Integer> {
     }
 
     @Override
-    public Integer run() {
-        claims = parser.parse();
+    public Integer run(List<String> lines) {
+        claims = parser.parse(lines);
         grid = buildGrid(claims);
 
         return doWork();

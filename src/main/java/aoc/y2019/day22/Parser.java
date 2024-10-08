@@ -3,10 +3,6 @@ package aoc.y2019.day22;
 import java.util.List;
 
 public class Parser extends aoc.utils.Parser<Shuffler> {
-    public Parser(String fileName) {
-        super(fileName);
-    }
-
     private Technique parseLine(String line) {
         var parts = line.split(" ");
 
@@ -30,10 +26,8 @@ public class Parser extends aoc.utils.Parser<Shuffler> {
     }
 
     @Override
-    public Shuffler parse() {
+    public Shuffler parse(List<String> lines) {
         try {
-            var lines = readLines();
-
             return parseLines(lines);
         } catch (Exception ex) {
             ex.printStackTrace();

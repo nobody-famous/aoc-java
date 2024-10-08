@@ -1,20 +1,20 @@
 package aoc.y2018.day1;
 
 import java.util.HashSet;
+import java.util.List;
 
 import aoc.utils.Problem;
 
 public class Part2 extends Problem<Integer> {
-    private Parser parser;
+    private Parser parser = new Parser();
 
     public Part2(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
+        super(fileName, exp);
     }
 
-    public Integer run() {
-        var ints = parser.parse();
+    @Override
+    public Integer run(List<String> lines) {
+        var ints = parser.parse(lines);
         var seen = new HashSet<Integer>();
 
         var ndx = 0;

@@ -12,10 +12,6 @@ public class Parser extends aoc.utils.Parser<Maze> {
     private char[][] matrix;
     private Maze maze = new Maze();
 
-    public Parser(String fileName) {
-        super(fileName);
-    }
-
     private void readMatrix(List<String> lines) {
         matrix = new char[lines.size()][lines.get(0).length()];
 
@@ -135,10 +131,9 @@ public class Parser extends aoc.utils.Parser<Maze> {
         }
     }
 
-    public Maze parse() {
+    @Override
+    public Maze parse(List<String> lines) {
         try {
-            var lines = readLines();
-
             readMatrix(lines);
             parseMaze(matrix);
             findOuterJumps();

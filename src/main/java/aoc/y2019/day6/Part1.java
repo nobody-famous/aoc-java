@@ -6,12 +6,10 @@ import java.util.Map;
 import aoc.utils.Problem;
 
 public class Part1 extends Problem<Integer> {
-    private Parser parser;
+    private Parser parser = new Parser();
 
     public Part1(String fileName, int exp) {
-        super(exp);
-
-        this.parser = new Parser(fileName);
+        super(fileName, exp);
     }
 
     private int countOrbits(Map<String, List<String>> orbits, String node, int curTotal) {
@@ -29,8 +27,9 @@ public class Part1 extends Problem<Integer> {
         return total;
     }
 
-    public Integer run() {
-        var orbits = parser.parse();
+    @Override
+    public Integer run(List<String> lines) {
+        var orbits = parser.parse(lines);
 
         return countOrbits(orbits, "COM", 0);
     }

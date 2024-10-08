@@ -2,13 +2,10 @@ package aoc.y2019.day14;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Parser extends aoc.utils.Parser<Map<String, Reaction>> {
-    public Parser(String fileName) {
-        super(fileName);
-    }
-
     private Chemical parseChemical(String chem) {
         var parts = chem.split(" ");
         var amount = Integer.parseInt(parts[0]);
@@ -30,9 +27,9 @@ public class Parser extends aoc.utils.Parser<Map<String, Reaction>> {
         return new Reaction(inChems, outChem);
     }
 
-    public Map<String, Reaction> parse() {
+    @Override
+    public Map<String, Reaction> parse(List<String> lines) {
         try {
-            var lines = readLines();
             var reactions = new HashMap<String, Reaction>();
 
             for (var line : lines) {

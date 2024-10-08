@@ -1,18 +1,19 @@
 package aoc.y2019.day8;
 
+import java.util.List;
+
 import aoc.utils.Problem;
 
 public class Part2 extends Problem<String> {
-    private Parser parser;
+    private Parser parser = new Parser(25, 6);
 
     public Part2(String fileName, String exp) {
-        super(exp);
-
-        parser = new Parser(fileName, 25, 6);
+        super(fileName, exp);
     }
 
-    public String run() {
-        var img = parser.parse();
+    @Override
+    public String run(List<String> lines) {
+        var img = parser.parse(lines);
 
         img.render();
 

@@ -1,14 +1,11 @@
 package aoc.y2019.day24;
 
-public class Parser extends aoc.utils.Parser<Grid> {
-    public Parser(String fileName) {
-        super(fileName);
-    }
+import java.util.List;
 
+public class Parser extends aoc.utils.Parser<Grid> {
     @Override
-    public Grid parse() {
+    public Grid parse(List<String> lines) {
         try {
-            var lines = readLines();
             var grid = new Grid();
 
             for (var y = 0; y < lines.size(); y += 1) {

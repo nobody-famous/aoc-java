@@ -10,9 +10,7 @@ import aoc.utils.geometry.Point3D;
 public class Parser extends aoc.utils.Parser<List<Moon>> {
     private Matcher regex;
 
-    public Parser(String fileName) {
-        super(fileName);
-
+    public Parser() {
         var moonRegex = Pattern.compile("<x=(-?\\d+), y=(-?\\d+), z=(-?\\d+)>");
         regex = moonRegex.matcher("");
     }
@@ -31,9 +29,9 @@ public class Parser extends aoc.utils.Parser<List<Moon>> {
         return new Moon(new Point3D(x, y, z));
     }
 
-    public List<Moon> parse() {
+    @Override
+    public List<Moon> parse(List<String> lines) {
         try {
-            var lines = readLines();
             var moons = new ArrayList<Moon>();
 
             for (var line : lines) {

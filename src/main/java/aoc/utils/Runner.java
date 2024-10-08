@@ -1,13 +1,19 @@
 package aoc.utils;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Runner {
-    public void runAll(AocProblem[] all) {
+    public void runAll(AocProblem[] all) throws Exception {
         var total = 0L;
 
         for (var problem : all) {
             var start = System.currentTimeMillis();
+            var lines = readLines(problem.getFileName());
 
-            problem.solve();
+            problem.solve(lines);
 
             var diff = System.currentTimeMillis() - start;
 
@@ -16,5 +22,19 @@ public abstract class Runner {
         }
 
         System.out.println("Total: " + total + " ms");
+    }
+
+    private List<String> readLines(String fileName) throws Exception {
+        try (var reader = new BufferedReader(new FileReader(fileName))) {
+            var lines = new ArrayList<String>();
+            var line = reader.readLine();
+
+            while (line != null) {
+                lines.add(line);
+                line = reader.readLine();
+            }
+
+            return lines;
+        }
     }
 }

@@ -2,21 +2,20 @@ package aoc.y2019.day22;
 
 import java.math.BigInteger;
 import java.util.Collections;
+import java.util.List;
 
 import aoc.utils.Problem;
 
 public class Part2 extends Problem<Long> {
-    private Parser parser;
+    private Parser parser = new Parser();
 
     public Part2(String fileName, long exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
+        super(fileName, exp);
     }
 
     @Override
-    public Long run() {
-        var shuffler = parser.parse();
+    public Long run(List<String> lines) {
+        var shuffler = parser.parse(lines);
         var size = BigInteger.valueOf(119315717514047L);
         var iters = BigInteger.valueOf(101741582076661L);
         var steps = shuffler.getTechniques();

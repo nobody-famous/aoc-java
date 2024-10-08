@@ -1,19 +1,18 @@
 package aoc.y2019.day24;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import aoc.utils.Problem;
 
 public class Part2 extends Problem<Integer> {
-    private Parser parser;
+    private Parser parser = new Parser();
     private Map<Integer, Grid> grids = new HashMap<>();
     private Map<Integer, Grid> newGrids;
 
     public Part2(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
+        super(fileName, exp);
     }
 
     private int countAdjacent(Grid grid, int x, int y) {
@@ -185,8 +184,8 @@ public class Part2 extends Problem<Integer> {
     }
 
     @Override
-    public Integer run() {
-        var grid = parser.parse();
+    public Integer run(List<String> lines) {
+        var grid = parser.parse(lines);
 
         grids.put(0, grid);
 

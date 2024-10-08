@@ -9,18 +9,17 @@ import aoc.utils.Problem;
 import aoc.utils.geometry.Point;
 
 public abstract class Solver extends Problem<Integer> {
-    private Parser parser;
+    private Parser parser = new Parser();
 
     public Solver(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
+        super(fileName, exp);
     }
 
     protected abstract int doWork(List<Point> asteroids);
 
-    public Integer run() {
-        var asteroids = parser.parse();
+    @Override
+    public Integer run(List<String> lines) {
+        var asteroids = parser.parse(lines);
 
         return doWork(asteroids);
     }

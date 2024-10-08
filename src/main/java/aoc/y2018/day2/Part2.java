@@ -5,12 +5,10 @@ import java.util.List;
 import aoc.utils.Problem;
 
 public class Part2 extends Problem<String> {
-    private Parser parser;
+    private Parser parser = new Parser();
 
     public Part2(String fileName, String exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
+        super(fileName, exp);
     }
 
     private int countDiffs(String str1, String str2) {
@@ -60,8 +58,8 @@ public class Part2 extends Problem<String> {
     }
 
     @Override
-    public String run() {
-        var input = parser.parse();
+    public String run(List<String> lines) {
+        var input = parser.parse(lines);
         var matches = findDiffByOne(input);
         var answer = removeDiffs(matches);
 

@@ -7,10 +7,6 @@ import aoc.utils.geometry.Line;
 import aoc.utils.geometry.Point;
 
 public class Parser extends aoc.utils.Parser<Wire[]> {
-    public Parser(String fileName) {
-        super(fileName);
-    }
-
     private List<Point> toDeltas(String[] parts) {
         var deltas = new ArrayList<Point>();
 
@@ -54,10 +50,10 @@ public class Parser extends aoc.utils.Parser<Wire[]> {
         return toWire(deltas);
     }
 
-    public Wire[] parse() {
+    @Override
+    public Wire[] parse(List<String> lines) {
         try {
             var wires = new Wire[2];
-            var lines = readLines();
 
             wires[0] = parseLine(lines.get(0));
             wires[1] = parseLine(lines.get(1));

@@ -1,16 +1,12 @@
 package aoc.y2018.day9;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class Parser extends aoc.utils.Parser<Config> {
-    public Parser(String fileName) {
-        super(fileName);
-    }
-
     @Override
-    public Config parse() {
+    public Config parse(List<String> lines) {
         try {
-            var lines = readLines();
             var re = Pattern.compile("(\\d+) players; last marble is worth (\\d+) points");
             var matcher = re.matcher(lines.get(0));
 

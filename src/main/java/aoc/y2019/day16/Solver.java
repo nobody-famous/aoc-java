@@ -6,12 +6,10 @@ import java.util.List;
 import aoc.utils.Problem;
 
 public abstract class Solver extends Problem<Integer> {
-    private Parser parser;
+    private Parser parser = new Parser();
 
     public Solver(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
+        super(fileName, exp);
     }
 
     protected abstract int doWork(List<Integer> nums);
@@ -53,8 +51,9 @@ public abstract class Solver extends Problem<Integer> {
         return output;
     }
 
-    public Integer run() {
-        var nums = parser.parse();
+    @Override
+    public Integer run(List<String> lines) {
+        var nums = parser.parse(lines);
 
         return doWork(nums);
     }

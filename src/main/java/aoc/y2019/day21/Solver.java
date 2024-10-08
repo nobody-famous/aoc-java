@@ -1,16 +1,16 @@
 package aoc.y2019.day21;
 
+import java.util.List;
+
 import aoc.utils.Problem;
 import aoc.y2019.intcode.Parser;
 
 public abstract class Solver extends Problem<Integer> {
-    private Parser parser;
+    private Parser parser = new Parser();
     private Droid droid;
 
     public Solver(String fileName, int exp) {
-        super(exp);
-
-        this.parser = new Parser(fileName);
+        super(fileName, exp);
     }
 
     protected abstract String[] getInstrList();
@@ -42,8 +42,8 @@ public abstract class Solver extends Problem<Integer> {
     }
 
     @Override
-    public Integer run() {
-        var prog = parser.parse();
+    public Integer run(List<String> lines) {
+        var prog = parser.parse(lines);
         var instrs = getInstrList();
         var speed = getSpeed();
 

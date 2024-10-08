@@ -6,10 +6,6 @@ import java.util.List;
 import aoc.utils.geometry.Point;
 
 public class Parser extends aoc.utils.Parser<List<Point>> {
-    public Parser(String fileName) {
-        super(fileName);
-    }
-
     private List<Point> parseMap(List<String> lines) {
         var points = new ArrayList<Point>();
 
@@ -26,10 +22,9 @@ public class Parser extends aoc.utils.Parser<List<Point>> {
         return points;
     }
 
-    public List<Point> parse() {
+    @Override
+    public List<Point> parse(List<String> lines) {
         try {
-            var lines = readLines();
-
             return parseMap(lines);
         } catch (Exception ex) {
             ex.printStackTrace();

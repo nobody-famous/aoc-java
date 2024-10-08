@@ -9,12 +9,10 @@ import aoc.utils.geometry.Point;
 import aoc.y2019.intcode.Parser;
 
 public class Part1 extends Problem<Integer> {
-    private Parser parser;
+    private Parser parser = new Parser();
 
     public Part1(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
+        super(fileName, exp);
     }
 
     private boolean isCross(HashSet<Point> scaffold, Point pt) {
@@ -45,8 +43,9 @@ public class Part1 extends Problem<Integer> {
         return total;
     }
 
-    public Integer run() {
-        var prog = parser.parse();
+    @Override
+    public Integer run(List<String> lines) {
+        var prog = parser.parse(lines);
         var ctrl = new Controller(prog);
         var output = ctrl.readCamera();
         var grid = Grid.fromCamera(output);

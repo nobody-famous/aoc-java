@@ -10,9 +10,7 @@ import aoc.utils.geometry.Point;
 public class Parser extends aoc.utils.Parser<List<Claim>> {
     private Matcher matcher;
 
-    public Parser(String fileName) {
-        super(fileName);
-
+    public Parser() {
         var pattern = Pattern.compile("#(\\d+) @ (\\d+),(\\d+): (\\d+)x(\\d+)");
         matcher = pattern.matcher("");
     }
@@ -34,9 +32,8 @@ public class Parser extends aoc.utils.Parser<List<Claim>> {
     }
 
     @Override
-    public List<Claim> parse() {
+    public List<Claim> parse(List<String> lines) {
         try {
-            var lines = readLines();
             var claims = new ArrayList<Claim>();
 
             for (var line : lines) {

@@ -5,13 +5,11 @@ import java.util.List;
 import aoc.utils.Problem;
 
 public abstract class Solver extends Problem<Integer> {
-    private Parser parser;
+    private Parser parser = new Parser();
     protected List<Integer> masses;
 
     public Solver(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
+        super(fileName, exp);
     }
 
     protected abstract int doWork();
@@ -20,8 +18,9 @@ public abstract class Solver extends Problem<Integer> {
         return (mass / 3) - 2;
     }
 
-    public Integer run() {
-        masses = parser.parse();
+    @Override
+    public Integer run(List<String> lines) {
+        masses = parser.parse(lines);
 
         return doWork();
     }

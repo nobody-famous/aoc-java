@@ -5,18 +5,17 @@ import java.util.List;
 import aoc.utils.Problem;
 
 public abstract class Solver<T> extends Problem<T> {
-    private Parser parser;
+    private Parser parser = new Parser();
 
     public Solver(String fileName, T exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
+        super(fileName, exp);
     }
 
     public abstract T doWork(List<Moon> moons);
 
-    public T run() {
-        var moons = parser.parse();
+    @Override
+    public T run(List<String> lines) {
+        var moons = parser.parse(lines);
 
         return doWork(moons);
     }

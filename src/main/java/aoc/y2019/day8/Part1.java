@@ -5,12 +5,10 @@ import java.util.List;
 import aoc.utils.Problem;
 
 public class Part1 extends Problem<Integer> {
-    private Parser parser;
+    private Parser parser = new Parser(25, 6);
 
     public Part1(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName, 25, 6);
+        super(fileName, exp);
     }
 
     private Image.Layer findFewestZeroes(List<Image.Layer> layers) {
@@ -25,8 +23,9 @@ public class Part1 extends Problem<Integer> {
         return layer;
     }
 
-    public Integer run() {
-        var img = parser.parse();
+    @Override
+    public Integer run(List<String> lines) {
+        var img = parser.parse(lines);
         var layers = img.getLayers();
         var layer = findFewestZeroes(layers);
 

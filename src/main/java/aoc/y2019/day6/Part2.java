@@ -7,13 +7,11 @@ import java.util.Map;
 import aoc.utils.Problem;
 
 public class Part2 extends Problem<Integer> {
-    private Parser parser;
+    private Parser parser = new Parser();
     private Map<String, List<String>> orbits;
 
     public Part2(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
+        super(fileName, exp);
     }
 
     private List<String> findPath(List<String> curPath, String start, String end) {
@@ -61,8 +59,9 @@ public class Part2 extends Problem<Integer> {
         return base;
     }
 
-    public Integer run() {
-        orbits = parser.parse();
+    @Override
+    public Integer run(List<String> lines) {
+        orbits = parser.parse(lines);
 
         var youPath = findPath("COM", "YOU");
         var sanPath = findPath("COM", "SAN");
