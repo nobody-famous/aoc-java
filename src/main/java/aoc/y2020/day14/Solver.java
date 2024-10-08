@@ -2,9 +2,9 @@ package aoc.y2020.day14;
 
 import java.util.Collection;
 
-import aoc.utils.Problem;
+import aoc.y2020.Y2020Problem;
 
-public abstract class Solver extends Problem<Long> {
+public abstract class Solver extends Y2020Problem<Long> {
     protected Op[] prog;
 
     protected Solver(Op[] prog, long expected) {

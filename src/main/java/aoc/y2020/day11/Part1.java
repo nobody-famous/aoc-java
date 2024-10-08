@@ -23,6 +23,7 @@ public class Part1 extends Solver {
         return count;
     }
 
+    @Override
     public Long run() {
         while (!isDone()) {
             doRound(4);

@@ -3,9 +3,9 @@ package aoc.y2020.day22;
 import java.util.Deque;
 import java.util.LinkedList;
 
-import aoc.utils.Problem;
+import aoc.y2020.Y2020Problem;
 
-public abstract class Solver extends Problem<Long> {
+public abstract class Solver extends Y2020Problem<Long> {
     protected Player[] input;
 
     protected Solver(Player[] input, long expected) {

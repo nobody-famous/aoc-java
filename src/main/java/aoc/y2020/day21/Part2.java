@@ -3,9 +3,9 @@ package aoc.y2020.day21;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import aoc.utils.Problem;
+import aoc.y2020.Y2020Problem;
 
-public class Part2 extends Problem<String> {
+public class Part2 extends Y2020Problem<String> {
     private Solver solver;
 
     public Part2(Food[] input, String expected) {

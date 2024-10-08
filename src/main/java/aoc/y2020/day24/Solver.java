@@ -3,9 +3,9 @@ package aoc.y2020.day24;
 import java.util.HashMap;
 import java.util.Map;
 
-import aoc.utils.Problem;
+import aoc.y2020.Y2020Problem;
 
-public abstract class Solver extends Problem<Integer> {
+public abstract class Solver extends Y2020Problem<Integer> {
     protected Map<Tile, Color> tiles = new HashMap<Tile, Color>();
     protected Direction[][] input;
 

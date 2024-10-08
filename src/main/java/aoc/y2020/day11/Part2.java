@@ -41,6 +41,7 @@ public class Part2 extends Solver {
         return count;
     }
 
+    @Override
     public Long run() {
         while (!isDone()) {
             doRound(5);

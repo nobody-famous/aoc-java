@@ -1,5 +1,7 @@
 package aoc.y2020.day12;
 
+import java.util.List;
+
 public class Part2 extends Solver {
     private int wpX;
     private int wpY;
@@ -58,10 +60,11 @@ public class Part2 extends Solver {
         y += wpY * value;
     }
 
-    public void solve() {
+    @Override
+    public void solve(List<String> lines) {
         wpX = 10;
         wpY = 1;
 
-        super.solve();
+        super.solve(lines);
     }
 }

@@ -1,8 +1,8 @@
 package aoc.y2020.day8;
 
-import aoc.utils.Problem;
+import aoc.y2020.Y2020Problem;
 
-public class Part2 extends Problem<Long> {
+public class Part2 extends Y2020Problem<Long> {
     private Instruction[] prog;
 
     public Part2(Instruction[] prog, long expected) {

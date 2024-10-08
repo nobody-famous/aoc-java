@@ -2,9 +2,9 @@ package aoc.y2020.day6;
 
 import java.util.HashMap;
 
-import aoc.utils.Problem;
+import aoc.y2020.Y2020Problem;
 
-public class Part1 extends Problem<Long> {
+public class Part1 extends Y2020Problem<Long> {
     private String[][] input;
 
     public Part1(String[][] input, long expected) {

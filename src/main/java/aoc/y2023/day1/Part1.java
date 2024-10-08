@@ -1,5 +1,7 @@
 package aoc.y2023.day1;
 
+import java.util.List;
+
 import aoc.utils.Problem;
 
 public class Part1 extends Problem<Integer> {
@@ -8,7 +10,7 @@ public class Part1 extends Problem<Integer> {
     }
 
     @Override
-    public Integer run() {
+    public Integer run(List<String> lines) {
         return 0;
     }
 }

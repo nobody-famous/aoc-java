@@ -25,6 +25,10 @@ public abstract class Runner {
     }
 
     private List<String> readLines(String fileName) throws Exception {
+        if (fileName == null || fileName == "") {
+            return new ArrayList<>();
+        }
+
         try (var reader = new BufferedReader(new FileReader(fileName))) {
             var lines = new ArrayList<String>();
             var line = reader.readLine();

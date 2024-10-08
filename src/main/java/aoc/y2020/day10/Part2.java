@@ -56,6 +56,7 @@ public class Part2 extends Solver {
         return arranges;
     }
 
+    @Override
     public Long run() {
         var adapters = addAdapters(input);
         Arrays.sort(adapters);

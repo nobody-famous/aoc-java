@@ -7,6 +7,7 @@ public class Part1 extends Solver {
         super(input, expected);
     }
 
+    @Override
     public Long run() {
         var adapters = addAdapters(input);
         Arrays.sort(adapters);
