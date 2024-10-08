@@ -1,4 +1,5 @@
 {
     "java.format.comments.enabled": false,
     "java.configuration.updateBuildConfiguration": "automatic",
+    "editor.inlayHints.enabled": "off"
 }

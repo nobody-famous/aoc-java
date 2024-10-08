@@ -7,43 +7,26 @@
             "label": "Compile",
             "type": "shell",
             "command": "mvn",
-            "args": [
-                "-B",
-                "compile"
-            ],
+            "args": ["-B", "compile"],
             "problemMatcher": []
         },
         {
             "label": "Run Intcode Machine",
             "type": "shell",
             "command": "mvn",
-            "args": [
-                "exec:java",
-                "-D'\"exec.mainClass\"'='\"aoc.IntcodeMachine\"'"
-            ],
+            "args": ["exec:java", "-D'\"exec.mainClass\"'='\"aoc.IntcodeMachine\"'"],
             "problemMatcher": []
         },
         {
             "label": "Run 2018",
             "type": "shell",
             "command": "mvn",
-            "args": [
-                "exec:java",
-                "-D'\"exec.mainClass\"'='\"aoc.y2018.Runner\"'"
-            ],
-            "problemMatcher": []
-        },
-        {
-            "label": "Watch 2018",
-            "dependsOn": "Compile",
-            "type": "shell",
-            "command": "nodemon",
-            "args": [
-                "-e",
-                "java",
-                "--exec",
-                "\"mvn exec:java -D'\"exec.mainClass\"'='\"aoc.y2018.Runner\"'\""
-            ],
+            "windows": {
+                "args": ["exec:java", "-D'\"exec.mainClass\"'='\"aoc.y2018.Runner\"'"]
+            },
+            "linux": {
+                "args": ["exec:java", "-Dexec.mainClass=aoc.y2018.Runner"]
+            },
             "problemMatcher": []
         },
         {
@@ -51,22 +34,12 @@
             "dependsOn": "Compile",
             "type": "shell",
             "command": "mvn",
-            "args": [
-                "exec:java",
-                "-D'\"exec.mainClass\"'='\"aoc.y2019.Runner\"'"
-            ],
-            "problemMatcher": []
-        },
-        {
-            "label": "Watch 2019",
-            "type": "shell",
-            "command": "nodemon",
-            "args": [
-                "-e",
-                "java",
-                "--exec",
-                "\"mvn exec:java -D'\"exec.mainClass\"'='\"aoc.y2019.Runner\"'\""
-            ],
+            "windows": {
+                "args": ["exec:java", "-D'\"exec.mainClass\"'='\"aoc.y2019.Runner\"'"]
+            },
+            "linux": {
+                "args": ["exec:java", "-Dexec.mainClass=aoc.y2019.Runner"]
+            },
             "problemMatcher": []
         },
         {
@@ -74,11 +47,13 @@
             "dependsOn": "Compile",
             "type": "shell",
             "command": "mvn",
-            "args": [
-                "exec:java",
-                "-D'\"exec.mainClass\"'='\"aoc.y2020.Runner\"'"
-            ],
+            "windows": {
+                "args": ["exec:java", "-D'\"exec.mainClass\"'='\"aoc.y2020.Runner\"'"]
+            },
+            "linux": {
+                "args": ["exec:java", "-Dexec.mainClass=aoc.y2020.Runner"]
+            },
             "problemMatcher": []
-        },
+        }
     ]
 }
