@@ -2,7 +2,7 @@ package aoc.y2018;
 
 import aoc.utils.AocProblem;
 
-public class Runner extends aoc.utils.Runner {
+public class Runner extends aoc.utils.Runner<AocProblem> {
     public static AocProblem[] allDays = new AocProblem[] { new aoc.y2018.day1.Part1("input/2018/day1/puzzle.txt", 437),
             new aoc.y2018.day1.Part2("input/2018/day1/puzzle.txt", 655),
             new aoc.y2018.day2.Part1("input/2018/day2/puzzle.txt", 6225),
@@ -19,6 +19,6 @@ public class Runner extends aoc.utils.Runner {
 
         // var allDays = new AocProblem[] { new aoc.y2018.day9.Part2("input/2018/day9/puzzle.txt", 3133277384L) };
 
-        runner.runAll(allDays);
+        runner.runAll(allDays, (prob, lines) -> prob.solve(lines));
     }
 }

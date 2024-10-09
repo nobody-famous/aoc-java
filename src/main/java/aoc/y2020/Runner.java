@@ -2,7 +2,7 @@ package aoc.y2020;
 
 import aoc.utils.AocProblem;
 
-public class Runner extends aoc.utils.Runner {
+public class Runner extends aoc.utils.Runner<AocProblem> {
     public static AocProblem[] allDays = new AocProblem[] {
             new aoc.y2020.day1.Part1(aoc.y2020.day1.Input.puzzle, 972576),
             new aoc.y2020.day1.Part2(aoc.y2020.day1.Input.puzzle, 199300880),
@@ -57,6 +57,6 @@ public class Runner extends aoc.utils.Runner {
 
     public static void main(String[] args) throws Exception {
         var runner = new Runner();
-        runner.runAll(allDays);
+        runner.runAll(allDays, (prob, lines) -> prob.solve(lines));
     }
 }

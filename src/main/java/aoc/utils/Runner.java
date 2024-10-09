@@ -5,15 +5,19 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Runner {
-    public void runAll(AocProblem[] all) throws Exception {
+public abstract class Runner<T extends AocProblem> {
+    public interface Solver<T> {
+        void solve(T prob, List<String> lines);
+    }
+
+    public void runAll(T[] all, Solver<T> solver) throws Exception {
         var total = 0L;
 
         for (var problem : all) {
             var start = System.currentTimeMillis();
             var lines = readLines(problem.getFileName());
 
-            problem.solve(lines);
+            solver.solve(problem, lines);
 
             var diff = System.currentTimeMillis() - start;
 

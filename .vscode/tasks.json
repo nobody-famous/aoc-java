@@ -47,6 +47,19 @@
                 "args": ["exec:java", "-Dexec.mainClass=aoc.y2020.Runner"]
             },
             "problemMatcher": []
+        },
+        {
+            "label": "Run 2023",
+            "dependsOn": "Compile",
+            "type": "shell",
+            "command": "mvn",
+            "windows": {
+                "args": ["exec:java", "-D'\"exec.mainClass\"'='\"aoc.y2023.Runner\"'"]
+            },
+            "linux": {
+                "args": ["exec:java", "-Dexec.mainClass=aoc.y2023.Runner"]
+            },
+            "problemMatcher": []
         }
     ]
 }
