@@ -16,12 +16,21 @@ public abstract class Runner<T extends AocProblem> {
         for (var problem : all) {
             var start = System.currentTimeMillis();
             var lines = readLines(problem.getFileName());
+            var ok = true;
+            var msg = "";
 
-            solver.solve(problem, lines);
+            try {
+                solver.solve(problem, lines);
+            } catch (Exception ex) {
+                ok = false;
+                msg = ex.getMessage();
+            }
 
             var diff = System.currentTimeMillis() - start;
 
-            System.out.println(problem + " " + diff + " ms");
+            var result = ok ? "[OK]" : "[Failed: " + msg + "]";
+            System.out.println(result + " " + problem + " " + diff + " ms");
+
             total += diff;
         }
 
