@@ -3,6 +3,7 @@ package aoc.y2023;
 public class Runner extends aoc.utils.Runner<AocProblem2023> {
     public static AocProblem2023[] allDays = new AocProblem2023[] {
             new aoc.y2023.day1.Part1("input/2023/day1/puzzle.txt", 54331),
+            new aoc.y2023.day1.Part2("input/2023/day1/puzzle.txt", 54518),
     };
 
     public static void main(String[] args) throws Exception {
