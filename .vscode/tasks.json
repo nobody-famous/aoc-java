@@ -60,6 +60,37 @@
                 "args": ["exec:java", "-Dexec.mainClass=aoc.y2023.Runner"]
             },
             "problemMatcher": []
+        },
+        {
+            "label": "Test 2023",
+            "dependsOn": "Compile",
+            "type": "shell",
+            "command": "mvn",
+            "args": ["test", "-Dtest=aoc.y2023.**"],
+            // "args": ["test"],
+            "problemMatcher": []
+        },
+        {
+            "label": "DB Update",
+            "type": "shell",
+            "command": "mvn",
+            "args": ["liquibase:update"],
+            "problemMatcher": []
+        },
+        {
+            "label": "DB Migrate",
+            "dependsOn": "DB Update",
+            "type": "shell",
+            "command": "mvn",
+            "args": ["liquibase:tag", "-Dliquibase.tag=2023.day1"],
+            "problemMatcher": []
+        },
+        {
+            "label": "DB Clear",
+            "type": "shell",
+            "command": "mvn",
+            "args": ["liquibase:rollback", "-Dliquibase.rollbackTag=empty"],
+            "problemMatcher": []
         }
     ]
 }
