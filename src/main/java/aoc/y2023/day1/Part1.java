@@ -16,27 +16,35 @@ public class Part1 extends Problem2023<Integer> {
             clearTable(conn);
             populateTable(conn, lines);
 
-            try (var ps = conn.prepareStatement(
-                    "select substring('a1b2c3d', '.*?(\\d)') as first, substring('a1b2c3d', '.*(\\d)') as last")) {
+            var sql = """
+                    SELECT SUM(
+                        CONCAT(SUBSTRING(value, '.*?(\\d)'), SUBSTRING(value, '.*(\\d)'))::numeric
+                    )
+                    FROM "2023.day1".calibration_value
+                    """;
+            try (var ps = conn.prepareStatement(sql)) {
+                var result = ps.executeQuery();
+
+                if (result.next()) {
+                    return result.getInt(1);
+                }
             }
+
             return 0;
         } catch (Exception ex) {
-            System.out.println("Failed: " + ex.getMessage());
+            ex.printStackTrace();
             return 0;
         }
     }
 
     private void populateTable(Connection conn, List<String> values) throws Exception {
         try (var ps = conn.prepareStatement("INSERT INTO \"2023.day1\".calibration_value (value) VALUES (?)")) {
-
             for (var value : values) {
-                System.out.println("***** Adding value " + value);
                 ps.setString(1, value);
-                ps.executeUpdate();
-                // ps.addBatch();
+                ps.addBatch();
             }
 
-            // ps.executeBatch();
+            ps.executeBatch();
         }
     }
 
