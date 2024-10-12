@@ -66,8 +66,7 @@
             "dependsOn": "Compile",
             "type": "shell",
             "command": "mvn",
-            "args": ["test", "-Dtest=aoc.y2023.day1.Part2Test"],
-            // "args": ["test"],
+            "args": ["test", "-Dtest=aoc.y2023.day2.Part1Test"],
             "problemMatcher": []
         },
         {
@@ -78,18 +77,30 @@
             "problemMatcher": []
         },
         {
-            "label": "DB Migrate",
-            "dependsOn": "DB Update",
+            "label": "DB Rollback",
             "type": "shell",
             "command": "mvn",
-            "args": ["liquibase:tag", "-Dliquibase.tag=2023.day1"],
+            "args": ["liquibase:rollback", "-Dliquibase.rollbackCount=1"],
             "problemMatcher": []
         },
         {
-            "label": "DB Clear",
+            "label": "Start DB Docker",
             "type": "shell",
-            "command": "mvn",
-            "args": ["liquibase:rollback", "-Dliquibase.rollbackTag=empty"],
+            "command": "docker",
+            "args": [
+                "run",
+                "--name",
+                "aoc-postgres",
+                "--rm",
+                "-it",
+                "-e",
+                "POSTGRES_PASSWORD=postgres",
+                "-v",
+                "${workspaceFolder}/db-data:/var/lib/postgresql/data",
+                "-p",
+                "5432:5432",
+                "postgres"
+            ],
             "problemMatcher": []
         }
     ]
