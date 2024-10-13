@@ -7,7 +7,10 @@
             "label": "Compile",
             "type": "shell",
             "command": "mvn",
-            "args": ["-B", "compile"],
+            "args": [
+                "-B",
+                "compile"
+            ],
             "problemMatcher": []
         },
         {
@@ -15,10 +18,16 @@
             "type": "shell",
             "command": "mvn",
             "windows": {
-                "args": ["exec:java", "-D'\"exec.mainClass\"'='\"aoc.y2018.Runner\"'"]
+                "args": [
+                    "exec:java",
+                    "-D'\"exec.mainClass\"'='\"aoc.y2018.Runner\"'"
+                ]
             },
             "linux": {
-                "args": ["exec:java", "-Dexec.mainClass=aoc.y2018.Runner"]
+                "args": [
+                    "exec:java",
+                    "-Dexec.mainClass=aoc.y2018.Runner"
+                ]
             },
             "problemMatcher": []
         },
@@ -28,10 +37,16 @@
             "type": "shell",
             "command": "mvn",
             "windows": {
-                "args": ["exec:java", "-D'\"exec.mainClass\"'='\"aoc.y2019.Runner\"'"]
+                "args": [
+                    "exec:java",
+                    "-D'\"exec.mainClass\"'='\"aoc.y2019.Runner\"'"
+                ]
             },
             "linux": {
-                "args": ["exec:java", "-Dexec.mainClass=aoc.y2019.Runner"]
+                "args": [
+                    "exec:java",
+                    "-Dexec.mainClass=aoc.y2019.Runner"
+                ]
             },
             "problemMatcher": []
         },
@@ -41,10 +56,16 @@
             "type": "shell",
             "command": "mvn",
             "windows": {
-                "args": ["exec:java", "-D'\"exec.mainClass\"'='\"aoc.y2020.Runner\"'"]
+                "args": [
+                    "exec:java",
+                    "-D'\"exec.mainClass\"'='\"aoc.y2020.Runner\"'"
+                ]
             },
             "linux": {
-                "args": ["exec:java", "-Dexec.mainClass=aoc.y2020.Runner"]
+                "args": [
+                    "exec:java",
+                    "-Dexec.mainClass=aoc.y2020.Runner"
+                ]
             },
             "problemMatcher": []
         },
@@ -54,10 +75,16 @@
             "type": "shell",
             "command": "mvn",
             "windows": {
-                "args": ["exec:java", "-D'\"exec.mainClass\"'='\"aoc.y2023.Runner\"'"]
+                "args": [
+                    "exec:java",
+                    "-D'\"exec.mainClass\"'='\"aoc.y2023.Runner\"'"
+                ]
             },
             "linux": {
-                "args": ["exec:java", "-Dexec.mainClass=aoc.y2023.Runner"]
+                "args": [
+                    "exec:java",
+                    "-Dexec.mainClass=aoc.y2023.Runner"
+                ]
             },
             "problemMatcher": []
         },
@@ -66,21 +93,37 @@
             "dependsOn": "Compile",
             "type": "shell",
             "command": "mvn",
-            "args": ["test", "-Dtest=aoc.y2023.day2.**"],
+            "windows": {
+                "args": [
+                    "test",
+                    "-D'test=aoc.y2023.day3.**'"
+                ],
+            },
+            "linux": {
+                "args": [
+                    "test",
+                    "-Dtest=aoc.y2023.day3.**"
+                ],
+            },
             "problemMatcher": []
         },
         {
             "label": "DB Update",
             "type": "shell",
             "command": "mvn",
-            "args": ["liquibase:update"],
+            "args": [
+                "liquibase:update"
+            ],
             "problemMatcher": []
         },
         {
             "label": "DB Rollback",
             "type": "shell",
             "command": "mvn",
-            "args": ["liquibase:rollback", "-Dliquibase.rollbackCount=1"],
+            "args": [
+                "liquibase:rollback",
+                "-Dliquibase.rollbackCount=1"
+            ],
             "problemMatcher": []
         },
         {

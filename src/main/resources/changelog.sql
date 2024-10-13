@@ -22,3 +22,20 @@ CREATE TABLE "2023.day2".round (
     green INTEGER NOT NULL DEFAULT 0
 );
 --rollback DROP SCHEMA "2023.day2" CASCADE;
+
+--changeset rheller:2023-day3
+CREATE SCHEMA IF NOT EXISTS "2023.day3";
+CREATE TABLE "2023.day3"."number" (
+    id SERIAL PRIMARY KEY,
+    y INTEGER NOT NULL,
+    start_x INTEGER NOT NULL,
+    end_x INTEGER NOT NULL,
+    "value" INTEGER NOT NULL
+);
+CREATE TABLE "2023.day3".symbol (
+    id SERIAL PRIMARY KEY,
+    y INTEGER NOT NULL,
+    x INTEGER NOT NULL,
+    "value" CHAR NOT NULL
+);
+--rollback DROP SCHEMA "2023.day3" CASCADE;
