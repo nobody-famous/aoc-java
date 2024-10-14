@@ -4,11 +4,11 @@ import java.util.List;
 
 public class Parser {
     public interface NumberListener {
-        void foundNumber(int y, int startX, int endX, int number);
+        void foundNumber(int y, int startX, int endX, int number) throws Exception;
     }
 
     public interface SymbolListener {
-        void foundSymbol(int y, int x, char symbol);
+        void foundSymbol(int y, int x, char symbol) throws Exception;
     }
 
     private NumberListener numberListener;
@@ -26,13 +26,13 @@ public class Parser {
         this.symbolListener = symbolListener;
     }
 
-    public void parseLines(List<String> lines) {
+    public void parseLines(List<String> lines) throws Exception {
         for (y = 0; y < lines.size(); y++) {
             parseLine(lines.get(y));
         }
     }
 
-    private void parseLine(String line) {
+    private void parseLine(String line) throws Exception {
         for (var x = 0; x < line.length(); x++) {
             var ch = line.charAt(x);
 
@@ -51,7 +51,7 @@ public class Parser {
         currentValue = currentValue * 10 + (ch - '0');
     }
 
-    private void foundNonDigit(int x, char ch) {
+    private void foundNonDigit(int x, char ch) throws Exception {
         if (startNumber != -1) {
             numberListener.foundNumber(y, startNumber, x - 1, currentValue);
             startNumber = -1;
