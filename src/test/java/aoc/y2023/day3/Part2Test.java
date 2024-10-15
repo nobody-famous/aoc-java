@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import aoc.y2023.Helpers;
 
-public class Part1Test {
+public class Part2Test {
     @Test
     void sample() throws Exception {
         var lines = Arrays.asList(new String[] {
@@ -21,8 +21,8 @@ public class Part1Test {
                 "...$.*....",
                 ".664.598..",
         });
-        var part1 = new Part1(null, 4361);
+        var part2 = new Part2(null, 467835);
 
-        part1.solve(Helpers.connectDB(), lines);
+        part2.solve(Helpers.connectDB(), lines);
     }
 }

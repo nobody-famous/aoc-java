@@ -1,7 +1,7 @@
 package aoc.y2023.day3;
 
-public class Part1 extends Solver {
-    public Part1(String fileName, int expected) {
+public class Part2 extends Solver {
+    public Part2(String fileName, int expected) {
         super(fileName, expected);
     }
 
