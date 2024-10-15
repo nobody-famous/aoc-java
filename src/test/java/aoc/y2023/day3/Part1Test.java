@@ -25,4 +25,14 @@ public class Part1Test {
 
         part1.solve(Helpers.connectDB(), lines);
     }
+
+    @Test
+    void inputTest() throws Exception {
+        var lines = Arrays.asList(new String[] {
+            "446*833",
+        });
+        var part1 = new Part1(null, 4361);
+
+        part1.solve(Helpers.connectDB(), lines);
+    }
 }

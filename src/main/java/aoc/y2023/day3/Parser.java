@@ -28,8 +28,19 @@ public class Parser {
 
     public void parseLines(List<String> lines) throws Exception {
         for (y = 0; y < lines.size(); y++) {
-            parseLine(lines.get(y));
+            var line = lines.get(y);
+
+            parseLine(line);
+            if (startNumber != -1) {
+                reportNumber(y, startNumber, line.length() - 1);
+            }
         }
+    }
+
+    private void reportNumber(int y, int start_x, int end_x) throws Exception {
+        numberListener.foundNumber(y, startNumber, end_x, currentValue);
+        startNumber = -1;
+        currentValue = 0;
     }
 
     private void parseLine(String line) throws Exception {
@@ -53,9 +64,7 @@ public class Parser {
 
     private void foundNonDigit(int x, char ch) throws Exception {
         if (startNumber != -1) {
-            numberListener.foundNumber(y, startNumber, x - 1, currentValue);
-            startNumber = -1;
-            currentValue = 0;
+            reportNumber(y, startNumber, x - 1);
         }
 
         if (ch != '.') {
