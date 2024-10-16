@@ -8,9 +8,15 @@ public class Part2 extends Solver {
     @Override
     String getSQL() {
         return """
-                SELECT SUM(n.value) FROM "2023.day3".number n
-                JOIN "2023.day3".symbol s
-                ON (s.y = n.y OR s.y = n.y + 1 OR s.y = n.y - 1)  AND s.x >= n.start_x - 1 AND s.x <= n.end_x + 1
+                WITH agg AS (
+                    SELECT s.id, count(*) as count, array_agg(n."value") AS values FROM "2023.day3".number n
+                    JOIN "2023.day3".symbol s
+                    ON (s.y = n.y OR s.y = n.y + 1 OR s.y = n.y - 1)  AND s.x >= n.start_x - 1 AND s.x <= n.end_x + 1
+                    GROUP BY s.id
+                )
+                SELECT SUM(values[1] * values[2]) AS total
+                FROM agg
+                WHERE count = 2
                 """;
     }
 }
