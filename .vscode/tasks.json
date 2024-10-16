@@ -96,13 +96,13 @@
             "windows": {
                 "args": [
                     "test",
-                    "-D'test=aoc.y2023.day3.**'"
+                    "-D'test=aoc.y2023.day4.**'"
                 ],
             },
             "linux": {
                 "args": [
                     "test",
-                    "-Dtest=aoc.y2023.day3.**"
+                    "-Dtest=aoc.y2023.day4.**"
                 ],
             },
             "problemMatcher": []
@@ -120,10 +120,18 @@
             "label": "DB Rollback",
             "type": "shell",
             "command": "mvn",
-            "args": [
-                "liquibase:rollback",
-                "-Dliquibase.rollbackCount=1"
-            ],
+            "linux": {
+                "args": [
+                    "liquibase:rollback",
+                    "-Dliquibase.rollbackCount=1"
+                ]
+            },
+            "windows": {
+                "args": [
+                    "liquibase:rollback",
+                    "-D'liquibase.rollbackCount'=1"
+                ]
+            },
             "problemMatcher": []
         },
         {

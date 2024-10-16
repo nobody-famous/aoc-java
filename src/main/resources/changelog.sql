@@ -39,3 +39,21 @@ CREATE TABLE "2023.day3".symbol (
     "value" CHAR NOT NULL
 );
 --rollback DROP SCHEMA "2023.day3" CASCADE;
+
+--changeset rheller:2023-day4
+CREATE SCHEMA IF NOT EXISTS "2023.day4";
+CREATE TABLE "2023.day4"."card" (
+    id SERIAL PRIMARY KEY,
+    "number" INTEGER NOT NULL
+);
+CREATE TABLE "2023.day4".winning (
+    id SERIAL PRIMARY KEY,
+    card_id INTEGER REFERENCES "2023.day4"."card" (id),
+    "number" INTEGER NOT NULL
+);
+CREATE TABLE "2023.day4".holding (
+    id SERIAL PRIMARY KEY,
+    card_id INTEGER REFERENCES "2023.day4"."card" (id),
+    "number" INTEGER NOT NULL
+);
+--rollback DROP SCHEMA "2023.day4" CASCADE;
