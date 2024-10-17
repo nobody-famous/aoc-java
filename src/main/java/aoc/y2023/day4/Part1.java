@@ -30,7 +30,7 @@ public class Part1 extends Problem2023<Integer> {
             SELECT SUM(POW(2, count - 1)) AS result FROM counts
             """;
 
-    static Pattern cardRegEx = Pattern.compile("Card (\\d+): (.*) \\| (.*)");
+    static Pattern cardRegEx = Pattern.compile("Card\\s+(\\d+):\\s+(.*)\\s+\\|\\s+(.*)");
 
     public Part1(String fileName, int exp) {
         super(fileName, exp);
@@ -52,7 +52,7 @@ public class Part1 extends Problem2023<Integer> {
                 var resultPS = conn.prepareStatement(resultSQL)) {
 
             parseLines(new PreparedStatements(createCardPS, createWinningPS, createHoldingPS), lines);
-
+            
             var result = resultPS.executeQuery();
 
             result.next();
