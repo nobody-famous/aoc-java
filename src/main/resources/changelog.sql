@@ -44,7 +44,9 @@ CREATE TABLE "2023.day3".symbol (
 CREATE SCHEMA IF NOT EXISTS "2023.day4";
 CREATE TABLE "2023.day4"."card" (
     id SERIAL PRIMARY KEY,
-    "number" INTEGER NOT NULL
+    "number" INTEGER NOT NULL,
+    copies INTEGER DEFAULT 1,
+    wins INTEGER DEFAULT 0
 );
 CREATE TABLE "2023.day4".winning (
     id SERIAL PRIMARY KEY,
