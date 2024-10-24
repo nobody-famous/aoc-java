@@ -15,11 +15,20 @@ public abstract class Problem2023<T> implements AocProblem2023 {
     }
 
     @Override
-    public void solve(Connection conn, List<String> lines) {
-        var actual = run(conn, lines);
+    public void solve(Connection conn, List<String> lines) throws Exception {
+        conn.setAutoCommit(false);
 
-        if (!actual.equals(expected)) {
-            throw new RuntimeException("Wrong answer: " + actual + " != " + expected);
+        try {
+            var actual = run(conn, lines);
+
+            if (!actual.equals(expected)) {
+                throw new RuntimeException("Wrong answer: " + actual + " != " + expected);
+            }
+
+            conn.commit();
+        } catch (Exception ex) {
+            conn.rollback();
+            throw ex;
         }
     }
 

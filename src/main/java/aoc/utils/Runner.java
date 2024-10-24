@@ -7,7 +7,7 @@ import java.util.List;
 
 public abstract class Runner<T extends AocProblem> {
     public interface Solver<T> {
-        void solve(T prob, List<String> lines);
+        void solve(T prob, List<String> lines) throws Exception;
     }
 
     public void runAll(T[] all, Solver<T> solver) throws Exception {
