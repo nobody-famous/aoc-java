@@ -96,13 +96,13 @@
             "windows": {
                 "args": [
                     "test",
-                    "-D'test=aoc.y2023.day4.**'"
+                    "-D'test=aoc.y2023.day5.**'"
                 ],
             },
             "linux": {
                 "args": [
                     "test",
-                    "-Dtest=aoc.y2023.day4.**"
+                    "-Dtest=aoc.y2023.day5.**"
                 ],
             },
             "problemMatcher": []
