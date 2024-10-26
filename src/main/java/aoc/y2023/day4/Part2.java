@@ -3,7 +3,7 @@ package aoc.y2023.day4;
 import java.sql.Connection;
 
 public class Part2 extends Solver {
-    private String winsCountSQL = """
+    private static final String winsCountSQL = """
             WITH wins AS (
                 SELECT c.number AS id, COUNT(*) AS count
                     FROM "2023.day4".winning w
@@ -16,18 +16,18 @@ public class Part2 extends Solver {
             FROM wins
             WHERE c.number = wins.id
             """;
-    private String updateCountSQL = """
+    private static final String updateCountSQL = """
             UPDATE "2023.day4".card
             SET copies = copies + ?
             WHERE number = ?
             """;
-    private String sumCopiesSQL = """
+    private static final String sumCopiesSQL = """
             SELECT SUM(copies) as copies FROM"2023.day4".card
             """;
-    private String cardNumberSQL = """
+    private static final String cardNumberSQL = """
             SELECT number, wins FROM "2023.day4".card ORDER BY number ASC
             """;
-    private String cardCopiesSQL = """
+    private static final String cardCopiesSQL = """
             SELECT copies FROM "2023.day4".card WHERE number = ?
             """;
 

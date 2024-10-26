@@ -8,36 +8,30 @@ import java.util.regex.Pattern;
 import aoc.y2023.Problem2023;
 
 public abstract class Solver extends Problem2023<Integer> {
-    static String createCardSQL = """
+    static final String createCardSQL = """
             INSERT INTO "2023.day4"."card" (number) VALUES (?) RETURNING ID
             """;
-    static String clearCardSQL = """
+    static final String clearCardSQL = """
             DELETE FROM "2023.day4"."card"
             """;
-    static String createWinningSQL = """
+    static final String createWinningSQL = """
             INSERT INTO "2023.day4".winning (card_id, number)
             VALUES ((SELECT id FROM "2023.day4".card WHERE number = ?),?)
             """;
-    static String clearWinningSQL = """
+    static final String clearWinningSQL = """
             DELETE FROM "2023.day4".winning
             """;
-    static String createHoldingSQL = """
+    static final String createHoldingSQL = """
             INSERT INTO "2023.day4".holding (card_id, number)
             VALUES ((SELECT id FROM "2023.day4".card WHERE number = ?),?)
             """;
-    static String clearHoldingSQL = """
+    static final String clearHoldingSQL = """
             DELETE FROM "2023.day4".holding
             """;
 
-    static Pattern cardRegEx = Pattern.compile("Card\\s+(\\d+):\\s+(.*)\\s+\\|\\s+(.*)");
+    static final Pattern cardRegEx = Pattern.compile("Card\\s+(\\d+):\\s+(.*)\\s+\\|\\s+(.*)");
 
     protected abstract int getResult(Connection conn) throws Exception;
-
-    private record PreparedStatements(
-            PreparedStatement createCard,
-            PreparedStatement createWinning,
-            PreparedStatement createHolding) {
-    }
 
     public Solver(String fileName, int expected) {
         super(fileName, expected);
@@ -46,23 +40,23 @@ public abstract class Solver extends Problem2023<Integer> {
     @Override
     public Integer run(Connection conn, List<String> lines) {
         try (var createCardPS = conn.prepareStatement(createCardSQL);
-                var createWinningPS = conn.prepareStatement(createWinningSQL);
-                var createHoldingPS = conn.prepareStatement(createHoldingSQL)) {
+             var createWinningPS = conn.prepareStatement(createWinningSQL);
+             var createHoldingPS = conn.prepareStatement(createHoldingSQL)) {
 
             clearTables(conn);
-            parseLines(new PreparedStatements(createCardPS, createWinningPS, createHoldingPS), lines);
+            parseLines(createCardPS, createWinningPS, createHoldingPS, lines);
 
             return getResult(conn);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.out.println("Failed: " + ex.getMessage());
             return 0;
         }
     }
 
     private void clearTables(Connection conn) throws Exception {
         try (var clearCardPS = conn.prepareStatement(clearCardSQL);
-                var clearWinningPS = conn.prepareStatement(clearWinningSQL);
-                var clearHoldingPS = conn.prepareStatement(clearHoldingSQL)) {
+             var clearWinningPS = conn.prepareStatement(clearWinningSQL);
+             var clearHoldingPS = conn.prepareStatement(clearHoldingSQL)) {
             clearWinningPS.executeUpdate();
             clearHoldingPS.executeUpdate();
             clearCardPS.executeUpdate();
@@ -73,7 +67,7 @@ public abstract class Solver extends Problem2023<Integer> {
         for (var item : numbers) {
             var str = item.trim();
 
-            if (str.length() == 0) {
+            if (str.isEmpty()) {
                 continue;
             }
 
@@ -84,7 +78,7 @@ public abstract class Solver extends Problem2023<Integer> {
         }
     }
 
-    private void parseLines(PreparedStatements ps, List<String> lines) throws Exception {
+    private void parseLines(PreparedStatement createCardPS, PreparedStatement createWinningPS, PreparedStatement createHoldingPS, List<String> lines) throws Exception {
         for (var line : lines) {
             var matcher = cardRegEx.matcher(line.trim());
 
@@ -96,15 +90,15 @@ public abstract class Solver extends Problem2023<Integer> {
             var winning = matcher.group(2).trim();
             var holding = matcher.group(3).trim();
 
-            ps.createCard().setInt(1, cardNumber);
-            ps.createCard().addBatch();
+            createCardPS.setInt(1, cardNumber);
+            createCardPS.addBatch();
 
-            addNumberList(ps.createWinning(), cardNumber, winning.split(" "));
-            addNumberList(ps.createHolding(), cardNumber, holding.split(" "));
+            addNumberList(createWinningPS, cardNumber, winning.split(" "));
+            addNumberList(createHoldingPS, cardNumber, holding.split(" "));
         }
 
-        ps.createCard().executeBatch();
-        ps.createWinning().executeBatch();
-        ps.createHolding().executeBatch();
+        createCardPS.executeBatch();
+        createWinningPS.executeBatch();
+        createHoldingPS.executeBatch();
     }
 }

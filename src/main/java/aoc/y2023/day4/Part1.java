@@ -7,7 +7,7 @@ public class Part1 extends Solver {
         super(fileName, exp);
     }
 
-    private String resultSQL = """
+    private static final String resultSQL = """
             WITH counts AS (
                 SELECT h.card_id AS id, COUNT(*) AS count
                 FROM "2023.day4".winning w
