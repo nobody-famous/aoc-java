@@ -5,7 +5,7 @@ import java.util.List;
 import aoc.utils.Problem;
 
 public class Part1 extends Problem<Integer> {
-    private Parser parser = new Parser();
+    private final Parser parser = new Parser();
 
     public Part1(String fileName, int exp) {
         super(fileName, exp);
@@ -13,10 +13,10 @@ public class Part1 extends Problem<Integer> {
 
     @Override
     public Integer run(List<String> lines) {
-        var ints = parser.parse(lines);
+        var values = parser.parse(lines);
         var total = 0;
 
-        for (var i : ints) {
+        for (var i : values) {
             total += i;
         }
 

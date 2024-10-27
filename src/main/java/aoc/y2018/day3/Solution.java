@@ -1,12 +1,12 @@
 package aoc.y2018.day3;
 
-import java.util.List;
-
 import aoc.utils.Problem;
 import aoc.utils.geometry.Point;
 
+import java.util.List;
+
 public abstract class Solution extends Problem<Integer> {
-    private Parser parser = new Parser();
+    private final Parser parser = new Parser();
 
     protected List<Claim> claims;
     protected int[][] grid;

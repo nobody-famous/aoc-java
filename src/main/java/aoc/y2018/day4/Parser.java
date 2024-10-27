@@ -1,15 +1,14 @@
 package aoc.y2018.day4;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser extends aoc.utils.Parser<List<GuardRecord>> {
-    private Matcher beginShift;
-    private Matcher fallAsleep;
-    private Matcher wakesUp;
+    private final Matcher beginShift;
+    private final Matcher fallAsleep;
+    private final Matcher wakesUp;
 
     public Parser() {
         var dateStr = "\\[(\\d\\d\\d\\d)-(\\d\\d)-(\\d\\d) (\\d\\d):(\\d\\d)\\]";
@@ -27,27 +26,25 @@ public class Parser extends aoc.utils.Parser<List<GuardRecord>> {
         try {
             var records = parseRecords(lines);
 
-            records.sort(new Comparator<GuardRecord>() {
-                public int compare(GuardRecord o1, GuardRecord o2) {
-                    if (o1.date.year() != o2.date.year()) {
-                        return o1.date.year() > o2.date.year() ? 1 : -1;
-                    } else if (o1.date.month() != o2.date.month()) {
-                        return o1.date.month() > o2.date.month() ? 1 : -1;
-                    } else if (o1.date.day() != o2.date.day()) {
-                        return o1.date.day() > o2.date.day() ? 1 : -1;
-                    } else if (o1.date.hour() != o2.date.hour()) {
-                        return o1.date.hour() > o2.date.hour() ? 1 : -1;
-                    } else if (o1.date.minute() != o2.date.minute()) {
-                        return o1.date.minute() > o2.date.minute() ? 1 : -1;
-                    }
+            records.sort((o1, o2) -> {
+                if (o1.date.year() != o2.date.year()) {
+                    return o1.date.year() > o2.date.year() ? 1 : -1;
+                } else if (o1.date.month() != o2.date.month()) {
+                    return o1.date.month() > o2.date.month() ? 1 : -1;
+                } else if (o1.date.day() != o2.date.day()) {
+                    return o1.date.day() > o2.date.day() ? 1 : -1;
+                } else if (o1.date.hour() != o2.date.hour()) {
+                    return o1.date.hour() > o2.date.hour() ? 1 : -1;
+                } else if (o1.date.minute() != o2.date.minute()) {
+                    return o1.date.minute() > o2.date.minute() ? 1 : -1;
+                }
 
-                    return 0;
-                };
+                return 0;
             });
 
             return records;
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
             return null;
         }
     }

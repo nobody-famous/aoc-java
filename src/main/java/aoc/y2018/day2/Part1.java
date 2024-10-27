@@ -1,11 +1,11 @@
 package aoc.y2018.day2;
 
-import java.util.List;
-
 import aoc.utils.Problem;
 
+import java.util.List;
+
 public class Part1 extends Problem<Integer> {
-    private Parser parser = new Parser();
+    private final Parser parser = new Parser();
 
     public Part1(String fileName, int exp) {
         super(fileName, exp);
@@ -13,7 +13,6 @@ public class Part1 extends Problem<Integer> {
 
     private int[] letterCounts(String str) {
         var counts = new int[26];
-
         for (var ch : str.toCharArray()) {
             var ndx = ch - 'a';
             counts[ndx] += 1;

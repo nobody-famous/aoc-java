@@ -5,7 +5,7 @@ import java.util.List;
 import aoc.utils.Problem;
 
 public class Part2 extends Problem<Long> {
-    private Parser parser = new Parser();
+    private final Parser parser = new Parser();
 
     public Part2(String fileName, long exp) {
         super(fileName, exp);

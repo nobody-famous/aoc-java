@@ -6,7 +6,7 @@ import java.util.List;
 import aoc.utils.Problem;
 
 public class Part2 extends Problem<Integer> {
-    private Parser parser = new Parser();
+    private final Parser parser = new Parser();
 
     public Part2(String fileName, int exp) {
         super(fileName, exp);
@@ -14,7 +14,7 @@ public class Part2 extends Problem<Integer> {
 
     @Override
     public Integer run(List<String> lines) {
-        var ints = parser.parse(lines);
+        var values = parser.parse(lines);
         var seen = new HashSet<Integer>();
 
         var ndx = 0;
@@ -22,13 +22,13 @@ public class Part2 extends Problem<Integer> {
         var dup = 0;
 
         while (dup == 0) {
-            total += ints[ndx];
+            total += values[ndx];
 
             if (seen.contains(total)) {
                 dup = total;
             } else {
                 seen.add(total);
-                ndx = (ndx + 1) % ints.length;
+                ndx = (ndx + 1) % values.length;
             }
         }
 

@@ -1,11 +1,11 @@
 package aoc.y2018.day9;
 
-import java.util.List;
-
 import aoc.utils.Problem;
 
+import java.util.List;
+
 public class Part1 extends Problem<Long> {
-    private Parser parser = new Parser();
+    private final Parser parser = new Parser();
 
     public Part1(String fileName, long exp) {
         super(fileName, exp);

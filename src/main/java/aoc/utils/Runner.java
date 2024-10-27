@@ -38,7 +38,7 @@ public abstract class Runner<T extends AocProblem> {
     }
 
     private List<String> readLines(String fileName) throws Exception {
-        if (fileName == null || fileName == "") {
+        if (fileName == null || fileName.isEmpty()) {
             return new ArrayList<>();
         }
 

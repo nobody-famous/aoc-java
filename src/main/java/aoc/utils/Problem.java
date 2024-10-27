@@ -3,8 +3,8 @@ package aoc.utils;
 import java.util.List;
 
 public abstract class Problem<T> implements AocProblem {
-    private T expected;
-    private String fileName;
+    private final T expected;
+    private final String fileName;
 
     public abstract T run(List<String> lines);
 
