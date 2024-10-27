@@ -10,8 +10,8 @@ public class Part1 extends Solver {
     }
 
     @Override
-    protected int doWork(Maze maze, Map<Point, Map<Point, Integer>> dists) {
-        var finder = new PathFinder(maze, dists);
+    protected int doWork(Maze maze, Map<Point, Map<Point, Integer>> distances) {
+        var finder = new PathFinder(maze, distances);
 
         return finder.shortestPath();
     }

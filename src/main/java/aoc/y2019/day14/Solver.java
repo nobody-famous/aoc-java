@@ -8,7 +8,7 @@ import aoc.utils.Problem;
 
 public abstract class Solver extends Problem<Long> {
     protected Map<String, Reaction> reactions;
-    private Parser parser = new Parser();
+    private final Parser parser = new Parser();
 
     public Solver(String fileName, long exp) {
         super(fileName, exp);
@@ -24,7 +24,7 @@ public abstract class Solver extends Problem<Long> {
 
     public long getOreForFuel(long fuel) {
         var pile = new HashMap<String, Long>();
-        Map<String, Long> level = new HashMap<String, Long>();
+        Map<String, Long> level = new HashMap<>();
 
         level.put("FUEL", fuel);
         do {
@@ -46,19 +46,19 @@ public abstract class Solver extends Problem<Long> {
 
     private Map<String, Long> getChemicals(Map<String, Long> pile, String name, long reqAmount) {
         var react = reactions.get(name);
-        var chems = new HashMap<String, Long>();
-        var mult = getMultiplier(reqAmount, react.output().amount());
-        var rem = (react.output().amount() * mult) - reqAmount;
+        var chemicals = new HashMap<String, Long>();
+        var multiplier = getMultiplier(reqAmount, react.output().amount());
+        var rem = (react.output().amount() * multiplier) - reqAmount;
 
         if (rem > 0) {
             addToMap(pile, name, rem);
         }
 
         for (var chem : react.input()) {
-            chems.put(chem.name(), (long) chem.amount() * mult);
+            chemicals.put(chem.name(), (long) chem.amount() * multiplier);
         }
 
-        return chems;
+        return chemicals;
     }
 
     private long getFromPile(Map<String, Long> pile, String name, long amount) {
@@ -72,7 +72,7 @@ public abstract class Solver extends Problem<Long> {
             pile.remove(name);
             return 0;
         } else if (inPile > amount) {
-            addToMap(pile, name, (long) -amount);
+            addToMap(pile, name, -amount);
             return 0;
         }
 

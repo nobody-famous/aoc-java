@@ -5,8 +5,8 @@ import java.util.HashSet;
 import aoc.utils.geometry.Point;
 
 public class GridFiller {
-    private Grid grid;
-    private HashSet<Point> seen;
+    private final Grid grid;
+    private final HashSet<Point> seen;
     private HashSet<Point> toVisit;
 
     public GridFiller(Grid grid) {

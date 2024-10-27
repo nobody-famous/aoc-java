@@ -7,8 +7,8 @@ import aoc.utils.Problem;
 import aoc.utils.geometry.Point;
 
 public abstract class Solver extends Problem<Integer> {
-    private Parser parser = new Parser();
-    private HashMap<Point, HashMap<Point, GraphNode>> graph = new HashMap<>();
+    private final Parser parser = new Parser();
+    private final HashMap<Point, HashMap<Point, GraphNode>> graph = new HashMap<>();
 
     public Solver(String fileName, int exp) {
         super(fileName, exp);

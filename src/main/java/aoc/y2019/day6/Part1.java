@@ -6,7 +6,7 @@ import java.util.Map;
 import aoc.utils.Problem;
 
 public class Part1 extends Problem<Integer> {
-    private Parser parser = new Parser();
+    private final Parser parser = new Parser();
 
     public Part1(String fileName, int exp) {
         super(fileName, exp);

@@ -15,8 +15,8 @@ public class Robot implements Machine.IO {
     public static final int DIR_LEFT = 3;
     public static final int DIR_RIGHT = 4;
 
-    private Machine mach;
-    private Map<Point, Integer> panels;
+    private final Machine mach;
+    private final Map<Point, Integer> panels;
     private Point curLoc;
     private boolean outputColor;
     private int dir;
@@ -37,14 +37,12 @@ public class Robot implements Machine.IO {
         }
     }
 
-    public Map<Point,Integer> getPanels() {
+    public Map<Point, Integer> getPanels() {
         return panels;
     }
 
     public long input() {
-        var color = panels.containsKey(curLoc) ? panels.get(curLoc) : COLOR_BLACK;
-
-        return color;
+        return panels.getOrDefault(curLoc, COLOR_BLACK);
     }
 
     public void output(long value) {

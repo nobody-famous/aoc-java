@@ -16,15 +16,15 @@ public class Parser extends aoc.utils.Parser<int[][]> {
     @Override
     public int[][] parse(List<String> lines) {
         try {
-            var parts = lines.get(0).split("-");
-            var nums = new int[2][];
+            var parts = lines.getFirst().split("-");
+            var numbers = new int[2][];
 
-            nums[0] = toIntArray(parts[0]);
-            nums[1] = toIntArray(parts[1]);
+            numbers[0] = toIntArray(parts[0]);
+            numbers[1] = toIntArray(parts[1]);
 
-            return nums;
+            return numbers;
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
             return null;
         }
     }

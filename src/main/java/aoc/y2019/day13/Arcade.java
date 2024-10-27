@@ -7,8 +7,6 @@ import aoc.utils.geometry.Point;
 import aoc.y2019.intcode.Machine;
 
 public class Arcade implements Machine.IO {
-    public static final int EMPTY = 0;
-    public static final int WALL = 1;
     public static final int TILE = 2;
     public static final int PADDLE = 3;
     public static final int BALL = 4;
@@ -18,8 +16,8 @@ public class Arcade implements Machine.IO {
     private static final int READ_TILE = 2;
     private static final int READ_SCORE = 3;
 
-    private Machine mach;
-    private Map<Point, Integer> screen = new HashMap<>();
+    private final Machine mach;
+    private final Map<Point, Integer> screen = new HashMap<>();
     private int readState = READ_X;
     private int xPos = 0;
     private int yPos = 0;
@@ -51,13 +49,7 @@ public class Arcade implements Machine.IO {
     }
 
     public long input() {
-        if (ballX < paddleX) {
-            return -1;
-        } else if (ballX > paddleX) {
-            return 1;
-        } else {
-            return 0;
-        }
+        return Integer.compare(ballX, paddleX);
     }
 
     public void output(long value) {

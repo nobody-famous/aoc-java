@@ -6,7 +6,7 @@ public class Part2 extends Solver {
     }
 
     @Override
-    protected String[] getInstrList() {
+    protected String[] getInstructionList() {
         return new String[] { "NOT A T", "NOT B J", "OR T J", "NOT C T", "OR T J", "NOT E T", "AND H T", "OR E T",
                 "AND T J", "AND D J", };
     }

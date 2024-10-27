@@ -6,7 +6,7 @@ import java.util.List;
 import aoc.utils.geometry.Point;
 
 public class Grid {
-    private HashSet<Point> scaffold;
+    private final HashSet<Point> scaffold;
     private Point robot;
     private char robotDir;
 
@@ -44,10 +44,6 @@ public class Grid {
 
     public Point getRobot() {
         return robot;
-    }
-
-    public void setRobot(Point pt) {
-        robot = pt;
     }
 
     public char getRobotDir() {

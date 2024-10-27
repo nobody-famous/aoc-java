@@ -20,9 +20,9 @@ public abstract class Solver extends Problem<Integer> {
         return (start < end) ? value >= start && value <= end : value >= end && value <= start;
     }
 
-    protected boolean linesCross(Line vert, Line horiz) {
-        return isBetween(vert.start.x, horiz.start.x, horiz.end.x)
-                && isBetween(horiz.start.y, vert.start.y, vert.end.y);
+    protected boolean linesCross(Line vert, Line horizontal) {
+        return isBetween(vert.start.x, horizontal.start.x, horizontal.end.x)
+                && isBetween(horizontal.start.y, vert.start.y, vert.end.y);
     }
 
     protected Point crossPoint(Line line1, Line line2) {

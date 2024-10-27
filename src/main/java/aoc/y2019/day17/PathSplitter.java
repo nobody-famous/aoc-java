@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PathSplitter {
-    private List<Movement> path;
+    private final List<Movement> path;
 
     public PathSplitter(List<Movement> path) {
         this.path = path;
@@ -68,7 +68,7 @@ public class PathSplitter {
     }
 
     private String movementToOpt(Movement move) {
-        return "" + move.turn() + "," + move.distance();
+        return move.turn() + "," + move.distance();
     }
 
     private List<String> buildOptions(List<Movement> path, int ndx) {

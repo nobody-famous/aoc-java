@@ -7,7 +7,7 @@ import java.util.Map;
 import aoc.utils.Problem;
 
 public class Part2 extends Problem<Integer> {
-    private Parser parser = new Parser();
+    private final Parser parser = new Parser();
     private Map<Integer, Grid> grids = new HashMap<>();
     private Map<Integer, Grid> newGrids;
 

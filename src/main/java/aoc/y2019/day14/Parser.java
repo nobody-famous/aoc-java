@@ -17,14 +17,14 @@ public class Parser extends aoc.utils.Parser<Map<String, Reaction>> {
     private Reaction parseLine(String line) {
         var parts = line.split(" => ");
         var inputs = parts[0].split(",");
-        var outChem = parseChemical(parts[1]);
-        var inChems = new ArrayList<Chemical>();
+        var outChemical = parseChemical(parts[1]);
+        var inChemicals = new ArrayList<Chemical>();
 
         for (var input : inputs) {
-            inChems.add(parseChemical(input.trim()));
+            inChemicals.add(parseChemical(input.trim()));
         }
 
-        return new Reaction(inChems, outChem);
+        return new Reaction(inChemicals, outChemical);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class Parser extends aoc.utils.Parser<Map<String, Reaction>> {
 
             return reactions;
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
             return null;
         }
     }

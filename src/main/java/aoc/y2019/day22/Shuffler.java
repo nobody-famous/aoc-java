@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Shuffler {
-    private List<Technique> techniques = new ArrayList<>();
+    private final List<Technique> techniques = new ArrayList<>();
 
     public void addStep(Technique tech) {
         this.techniques.add(tech);

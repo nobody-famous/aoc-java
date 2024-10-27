@@ -6,7 +6,7 @@ public class Parser extends aoc.utils.Parser<long[]> {
     @Override
     public long[] parse(List<String> lines) {
         try {
-            var line = lines.get(0);
+            var line = lines.getFirst();
             var parts = line.split(",");
             var prog = new long[parts.length];
 
@@ -16,7 +16,7 @@ public class Parser extends aoc.utils.Parser<long[]> {
 
             return prog;
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
             return null;
         }
     }

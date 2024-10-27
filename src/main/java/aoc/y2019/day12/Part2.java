@@ -59,8 +59,8 @@ public class Part2 extends Solver<Long> {
     }
 
     private long gcd(long n1, long n2) {
-        var big = n1 > n2 ? n1 : n2;
-        var small = n1 > n2 ? n2 : n1;
+        var big = Math.max(n1, n2);
+        var small = Math.min(n1, n2);
         var result = small;
 
         while (small > 0) {

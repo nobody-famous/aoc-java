@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 import aoc.utils.geometry.Point3D;
 
 public class Parser extends aoc.utils.Parser<List<Moon>> {
-    private Matcher regex;
+    private final Matcher regex;
 
     public Parser() {
         var moonRegex = Pattern.compile("<x=(-?\\d+), y=(-?\\d+), z=(-?\\d+)>");
@@ -40,7 +40,7 @@ public class Parser extends aoc.utils.Parser<List<Moon>> {
 
             return moons;
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
             return null;
         }
     }

@@ -6,7 +6,7 @@ import aoc.utils.Problem;
 import aoc.y2019.intcode.Parser;
 
 public class Part1 extends Problem<Integer> {
-    private Parser parser = new Parser();
+    private final Parser parser = new Parser();
     private Droid droid;
 
     public Part1(String fileName, int exp) {
@@ -16,7 +16,7 @@ public class Part1 extends Problem<Integer> {
     private String nextLine() {
         var line = "";
 
-        while (!droid.isHalted() && line.length() == 0) {
+        while (!droid.isHalted() && line.isEmpty()) {
             line = droid.readLine();
         }
 

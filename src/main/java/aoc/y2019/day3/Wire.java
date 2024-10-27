@@ -9,7 +9,7 @@ public class Wire {
     public List<Line> lines;
 
     public Wire() {
-        lines = new ArrayList<Line>();
+        lines = new ArrayList<>();
     }
 
     public void addLine(Line line) {

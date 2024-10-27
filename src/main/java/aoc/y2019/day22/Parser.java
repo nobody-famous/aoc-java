@@ -30,7 +30,7 @@ public class Parser extends aoc.utils.Parser<Shuffler> {
         try {
             return parseLines(lines);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
             return null;
         }
     }

@@ -8,7 +8,7 @@ import java.util.Map;
 public class Parser extends aoc.utils.Parser<Map<String, List<String>>> {
     private void addToMap(Map<String, List<String>> orbits, String parent, String child) {
         if (!orbits.containsKey(parent)) {
-            orbits.put(parent, new ArrayList<String>());
+            orbits.put(parent, new ArrayList<>());
         }
 
         var kids = orbits.get(parent);
@@ -29,7 +29,7 @@ public class Parser extends aoc.utils.Parser<Map<String, List<String>>> {
 
             return orbits;
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
             return null;
         }
     }

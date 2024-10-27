@@ -13,8 +13,8 @@ public class Grid {
             throw new RuntimeException("Invalid value " + value);
         }
 
-        if (!isOnGrid(x, y)) {
-            throw new RuntimeException("Invalid coords " + x + "," + y);
+        if (isOffGrid(x, y)) {
+            throw new RuntimeException("Invalid coordinates " + x + "," + y);
         }
 
         var cell = toCell(x, y);
@@ -30,7 +30,7 @@ public class Grid {
     }
 
     public int get(int x, int y) {
-        if (!isOnGrid(x, y)) {
+        if (isOffGrid(x, y)) {
             return EMPTY;
         }
 
@@ -48,12 +48,12 @@ public class Grid {
         return value == EMPTY || value == BUG;
     }
 
-    protected boolean isOnGrid(int x, int y) {
-        return isInRange(x) && isInRange(y);
+    protected boolean isOffGrid(int x, int y) {
+        return isOutOfRange(x) || isOutOfRange(y);
     }
 
-    protected boolean isInRange(int value) {
-        return value >= 0 && value < 5;
+    protected boolean isOutOfRange(int value) {
+        return value < 0 || value >= 5;
     }
 
     public String toString() {

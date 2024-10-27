@@ -59,6 +59,6 @@ public class Runner extends aoc.utils.Runner<AocProblem> {
 
         // var allDays = new AocProblem[] { new aoc.y2019.day25.Part1("input/2019/day25/puzzle.txt", 100667393) };
 
-        runner.runAll(allDays, (prob, lines) -> prob.solve(lines));
+        runner.runAll(allDays, AocProblem::solve);
     }
 }

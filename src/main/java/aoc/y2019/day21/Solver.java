@@ -6,14 +6,14 @@ import aoc.utils.Problem;
 import aoc.y2019.intcode.Parser;
 
 public abstract class Solver extends Problem<Integer> {
-    private Parser parser = new Parser();
+    private final Parser parser = new Parser();
     private Droid droid;
 
     public Solver(String fileName, int exp) {
         super(fileName, exp);
     }
 
-    protected abstract String[] getInstrList();
+    protected abstract String[] getInstructionList();
 
     protected abstract String getSpeed();
 
@@ -27,9 +27,9 @@ public abstract class Solver extends Problem<Integer> {
         }
     }
 
-    private void sendInstructions(String[] instrs) {
-        for (var instr : instrs) {
-            droid.send(instr + '\n');
+    private void sendInstructions(String[] instructions) {
+        for (var instruction : instructions) {
+            droid.send(instruction + '\n');
         }
     }
 
@@ -44,13 +44,13 @@ public abstract class Solver extends Problem<Integer> {
     @Override
     public Integer run(List<String> lines) {
         var prog = parser.parse(lines);
-        var instrs = getInstrList();
+        var instructions = getInstructionList();
         var speed = getSpeed();
 
         droid = new Droid(prog);
 
         readPrompt();
-        sendInstructions(instrs);
+        sendInstructions(instructions);
         droid.send(speed.toUpperCase() + "\n");
 
         expectString("");

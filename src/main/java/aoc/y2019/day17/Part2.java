@@ -8,7 +8,7 @@ import aoc.utils.geometry.Point;
 import aoc.y2019.intcode.Parser;
 
 public class Part2 extends Problem<Integer> {
-    private Parser parser = new Parser();
+    private final Parser parser = new Parser();
 
     public Part2(String fileName, int exp) {
         super(fileName, exp);
@@ -53,14 +53,7 @@ public class Part2 extends Problem<Integer> {
 
     private Movement getMove(Grid grid) {
         var robot = grid.getRobot();
-        var scaffold = grid.getScaffold();
-        var turn = switch (grid.getRobotDir()) {
-            case '^' -> scaffold.contains(new Point(robot.x + 1, robot.y)) ? 'R' : 'L';
-            case 'v' -> scaffold.contains(new Point(robot.x - 1, robot.y)) ? 'R' : 'L';
-            case '>' -> scaffold.contains(new Point(robot.x, robot.y + 1)) ? 'R' : 'L';
-            case '<' -> scaffold.contains(new Point(robot.x, robot.y - 1)) ? 'R' : 'L';
-            default -> throw new RuntimeException("Unhandled direction: " + grid.getRobotDir());
-        };
+        var turn = getTurn(grid, robot);
         var newDir = switch (grid.getRobotDir()) {
             case '^' -> turn == 'R' ? '>' : '<';
             case 'v' -> turn == 'R' ? '<' : '>';
@@ -74,6 +67,17 @@ public class Part2 extends Problem<Integer> {
         var moves = moveRobot(grid, robot);
 
         return new Movement(turn, moves);
+    }
+
+    private static char getTurn(Grid grid, Point robot) {
+        var scaffold = grid.getScaffold();
+        return switch (grid.getRobotDir()) {
+            case '^' -> scaffold.contains(new Point(robot.x + 1, robot.y)) ? 'R' : 'L';
+            case 'v' -> scaffold.contains(new Point(robot.x - 1, robot.y)) ? 'R' : 'L';
+            case '>' -> scaffold.contains(new Point(robot.x, robot.y + 1)) ? 'R' : 'L';
+            case '<' -> scaffold.contains(new Point(robot.x, robot.y - 1)) ? 'R' : 'L';
+            default -> throw new RuntimeException("Unhandled direction: " + grid.getRobotDir());
+        };
     }
 
     private List<Movement> buildPath(Grid grid) {
@@ -92,16 +96,12 @@ public class Part2 extends Problem<Integer> {
         while (sent < 4) {
             var line = ctrl.readLine();
 
-            if (line.equals("Main:")) {
-                ctrl.writeLine(parts.main());
-            } else if (line.equals("Function A:")) {
-                ctrl.writeLine(parts.A());
-            } else if (line.equals("Function B:")) {
-                ctrl.writeLine(parts.B());
-            } else if (line.equals("Function C:")) {
-                ctrl.writeLine(parts.C());
-            } else {
-                throw new RuntimeException("Unhandled line: " + line);
+            switch (line) {
+                case "Main:" -> ctrl.writeLine(parts.main());
+                case "Function A:" -> ctrl.writeLine(parts.A());
+                case "Function B:" -> ctrl.writeLine(parts.B());
+                case "Function C:" -> ctrl.writeLine(parts.C());
+                default -> throw new RuntimeException("Unhandled line: " + line);
             }
 
             sent += 1;

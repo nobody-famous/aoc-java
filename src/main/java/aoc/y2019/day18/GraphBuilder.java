@@ -1,20 +1,19 @@
 package aoc.y2019.day18;
 
+import aoc.utils.geometry.Point;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import aoc.utils.geometry.Point;
-
 public class GraphBuilder {
-    private Grid grid;
-    private Point start;
+    private final Grid grid;
+    private final Point start;
     private Point enter = null;
     private int dist = 0;
-    private HashMap<Point, GraphNode> nodes = new HashMap<>();
-    private HashSet<Point> seen = new HashSet<>();
+    private final HashMap<Point, GraphNode> nodes = new HashMap<>();
+    private final HashSet<Point> seen = new HashSet<>();
 
     public GraphBuilder(Grid grid, Point start) {
         this.grid = grid;
@@ -66,9 +65,9 @@ public class GraphBuilder {
 
     private void buildNodes() {
         var needKeys = grid.keys.containsKey(start) ? grid.masks.get(grid.keys.get(start)) : 0;
-        var toVisit = Arrays.<GraphNode>asList(new GraphNode(start, enter, 0, needKeys, 0));
+        var toVisit = List.of(new GraphNode(start, enter, 0, needKeys, 0));
 
-        while (toVisit.size() > 0) {
+        while (!toVisit.isEmpty()) {
             var neighbors = new ArrayList<GraphNode>();
 
             dist += 1;

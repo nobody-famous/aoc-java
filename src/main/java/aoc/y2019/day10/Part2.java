@@ -1,10 +1,9 @@
 package aoc.y2019.day10;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import aoc.utils.geometry.Point;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Part2 extends Solver {
     public Part2(String fileName, int exp) {
@@ -17,13 +16,7 @@ public class Part2 extends Solver {
 
         for (var group : groups) {
             var slopes = getSlopeMap(group, pt);
-            var keys = slopes.keySet().toArray();
-
-            Arrays.sort(keys);
-
-            for (var key : keys) {
-                sorted.add(slopes.get(key));
-            }
+            sorted.addAll(slopes.values());
         }
 
         return sorted;
@@ -56,8 +49,8 @@ public class Part2 extends Solver {
         while (count < 200) {
             var item = sorted.get(ndx);
 
-            if (item.size() != 0) {
-                lastPt = item.remove(0);
+            if (!item.isEmpty()) {
+                lastPt = item.removeFirst();
                 count += 1;
             }
 

@@ -5,7 +5,7 @@ import java.util.List;
 import aoc.utils.Problem;
 
 public abstract class Solver<T> extends Problem<T> {
-    private Parser parser = new Parser();
+    private final Parser parser = new Parser();
 
     public Solver(String fileName, T exp) {
         super(fileName, exp);

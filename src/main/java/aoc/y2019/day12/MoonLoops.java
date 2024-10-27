@@ -3,9 +3,9 @@ package aoc.y2019.day12;
 import aoc.utils.geometry.Point3D;
 
 public class MoonLoops {
-    private Loop xLoop;
-    private Loop yLoop;
-    private Loop zLoop;
+    private final Loop xLoop;
+    private final Loop yLoop;
+    private final Loop zLoop;
     private Point3D counts;
 
     public MoonLoops() {

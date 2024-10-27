@@ -3,7 +3,7 @@ package aoc.y2019.day19;
 import aoc.y2019.intcode.Machine;
 
 public class Drone implements Machine.IO {
-    private long[] prog;
+    private final long[] prog;
     private Long nextInput = null;
     private Long lastOutput = null;
 
@@ -20,9 +20,7 @@ public class Drone implements Machine.IO {
         sendInput(mach, x);
         sendInput(mach, y);
 
-        var resp = getResponse(mach);
-
-        return resp;
+        return getResponse(mach);
     }
 
     private int getResponse(Machine mach) {

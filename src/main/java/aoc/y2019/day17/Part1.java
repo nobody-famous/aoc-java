@@ -9,7 +9,7 @@ import aoc.utils.geometry.Point;
 import aoc.y2019.intcode.Parser;
 
 public class Part1 extends Problem<Integer> {
-    private Parser parser = new Parser();
+    private final Parser parser = new Parser();
 
     public Part1(String fileName, int exp) {
         super(fileName, exp);

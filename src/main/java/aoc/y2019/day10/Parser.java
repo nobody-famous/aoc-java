@@ -27,7 +27,7 @@ public class Parser extends aoc.utils.Parser<List<Point>> {
         try {
             return parseMap(lines);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
             return null;
         }
     }

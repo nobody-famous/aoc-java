@@ -10,10 +10,10 @@ import aoc.utils.geometry.Point;
 
 public class Parser extends aoc.utils.Parser<Maze> {
     private char[][] matrix;
-    private Maze maze = new Maze();
+    private final Maze maze = new Maze();
 
     private void readMatrix(List<String> lines) {
-        matrix = new char[lines.size()][lines.get(0).length()];
+        matrix = new char[lines.size()][lines.getFirst().length()];
 
         for (var y = 0; y < lines.size(); y += 1) {
             var line = lines.get(y);
@@ -141,7 +141,7 @@ public class Parser extends aoc.utils.Parser<Maze> {
 
             return maze;
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
             return null;
         }
     }

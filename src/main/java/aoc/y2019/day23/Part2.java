@@ -6,7 +6,7 @@ import aoc.utils.Problem;
 import aoc.y2019.intcode.Parser;
 
 public class Part2 extends Problem<Integer> {
-    private Parser parser = new Parser();
+    private final Parser parser = new Parser();
 
     public Part2(String fileName, int exp) {
         super(fileName, exp);
@@ -27,6 +27,8 @@ public class Part2 extends Problem<Integer> {
                 natPkt = newPkt;
                 continue;
             }
+
+            assert natPkt != null;
 
             if (natPkt.y() == lastY) {
                 foundY = lastY;

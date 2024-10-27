@@ -6,7 +6,7 @@ import aoc.utils.Problem;
 import aoc.y2019.intcode.Parser;
 
 public abstract class Solver extends Problem<Integer> {
-    private Parser parser = new Parser();
+    private final Parser parser = new Parser();
     private Drone drone;
 
     public Solver(String fileName, int exp) {

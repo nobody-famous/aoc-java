@@ -6,7 +6,7 @@ import aoc.utils.Problem;
 import aoc.y2019.intcode.Parser;
 
 public class Part2 extends Problem<Long> {
-    private Parser parser = new Parser();
+    private final Parser parser = new Parser();
 
     public Part2(String fileName, long exp) {
         super(fileName, exp);

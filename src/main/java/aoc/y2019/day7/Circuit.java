@@ -1,7 +1,7 @@
 package aoc.y2019.day7;
 
 public class Circuit {
-    private Amp[] amps;
+    private final Amp[] amps;
 
     public Circuit(long[] prog, int size) {
         amps = new Amp[size];

@@ -20,7 +20,7 @@ public class Parser extends aoc.utils.Parser<Grid> {
 
             return grid;
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
             return null;
         }
     }

@@ -5,7 +5,7 @@ import java.util.List;
 import aoc.utils.Problem;
 
 public abstract class Solver extends Problem<Integer> {
-    private Parser parser = new Parser();
+    private final Parser parser = new Parser();
     protected List<Integer> masses;
 
     public Solver(String fileName, int exp) {

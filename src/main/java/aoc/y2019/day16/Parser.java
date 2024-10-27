@@ -17,9 +17,9 @@ public class Parser extends aoc.utils.Parser<List<Integer>> {
     @Override
     public List<Integer> parse(List<String> lines) {
         try {
-            return toIntList(lines.get(0));
+            return toIntList(lines.getFirst());
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
             return null;
         }
     }

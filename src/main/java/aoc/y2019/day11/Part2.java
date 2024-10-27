@@ -8,7 +8,7 @@ import aoc.utils.geometry.Point;
 import aoc.y2019.intcode.Parser;
 
 public class Part2 extends Problem<String> {
-    private Parser parser = new Parser();
+    private final Parser parser = new Parser();
 
     public Part2(String fileName, String exp) {
         super(fileName, exp);
@@ -55,7 +55,7 @@ public class Part2 extends Problem<String> {
         for (var y = min.y; y <= max.y; y += 1) {
             for (var x = min.x; x <= max.x; x += 1) {
                 var pt = new Point(x, y);
-                var color = panels.containsKey(pt) ? panels.get(pt) : Robot.COLOR_BLACK;
+                var color = panels.getOrDefault(pt, Robot.COLOR_BLACK);
 
                 System.out.print(color == Robot.COLOR_BLACK ? ' ' : '#');
             }
@@ -63,7 +63,7 @@ public class Part2 extends Problem<String> {
         }
     }
 
-    private boolean doDrawPixels = false;
+    private static final boolean doDrawPixels = false;
 
     @Override
     public String run(List<String> lines) {
