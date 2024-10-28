@@ -11,8 +11,8 @@ public class Parser {
         void foundSymbol(int y, int x, char symbol) throws Exception;
     }
 
-    private NumberListener numberListener;
-    private SymbolListener symbolListener;
+    private final NumberListener numberListener;
+    private final SymbolListener symbolListener;
     private int startNumber = -1;
     private int currentValue = 0;
     private int y = -1;
@@ -32,12 +32,12 @@ public class Parser {
 
             parseLine(line);
             if (startNumber != -1) {
-                reportNumber(y, startNumber, line.length() - 1);
+                reportNumber(y, line.length() - 1);
             }
         }
     }
 
-    private void reportNumber(int y, int start_x, int end_x) throws Exception {
+    private void reportNumber(int y, int end_x) throws Exception {
         numberListener.foundNumber(y, startNumber, end_x, currentValue);
         startNumber = -1;
         currentValue = 0;
@@ -64,7 +64,7 @@ public class Parser {
 
     private void foundNonDigit(int x, char ch) throws Exception {
         if (startNumber != -1) {
-            reportNumber(y, startNumber, x - 1);
+            reportNumber(y, x - 1);
         }
 
         if (ch != '.') {

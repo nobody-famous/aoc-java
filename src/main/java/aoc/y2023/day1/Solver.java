@@ -20,7 +20,7 @@ public abstract class Solver extends Problem2023<Integer> {
 
             return calculateAnswer(conn);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
             return 0;
         }
     }

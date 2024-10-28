@@ -7,7 +7,7 @@ public class Part2 extends Solver {
 
     @Override
     String getQuery() {
-        var sql = """
+        return """
                 WITH powers AS (
                     SELECT max(red) * max(blue) * max(green) AS power FROM "2023.day2".round r
                     LEFT JOIN "2023.day2".game g on g.id = r.game_id
@@ -15,6 +15,5 @@ public class Part2 extends Solver {
                 )
                 SELECT SUM(power) FROM powers
                 """;
-        return sql;
     }
 }

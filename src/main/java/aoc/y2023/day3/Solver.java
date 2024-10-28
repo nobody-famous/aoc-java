@@ -7,11 +7,11 @@ import java.util.List;
 import aoc.y2023.Problem2023;
 
 public abstract class Solver extends Problem2023<Integer> {
-    private String insertNumberSQL = """
-            INSERT INTO \"2023.day3\".\"number\" (y, start_x, end_x, value) VALUES (?,?,?,?)
+    private static final String insertNumberSQL = """
+            INSERT INTO "2023.day3"."number" (y, start_x, end_x, value) VALUES (?,?,?,?)
             """;
-    private String insertSymbolSQL = """
-            INSERT INTO \"2023.day3\".symbol (y, x, value) VALUES (?,?,?)
+    private static final String insertSymbolSQL = """
+            INSERT INTO "2023.day3".symbol (y, x, value) VALUES (?,?,?)
             """;
 
     abstract String getSQL();
@@ -23,7 +23,7 @@ public abstract class Solver extends Problem2023<Integer> {
     @Override
     public Integer run(Connection conn, List<String> lines) {
         try (var numberPS = conn.prepareStatement(insertNumberSQL);
-                var symbolPS = conn.prepareStatement(insertSymbolSQL)) {
+             var symbolPS = conn.prepareStatement(insertSymbolSQL)) {
             clearTables(conn);
             populateTables(numberPS, symbolPS, lines);
 
@@ -37,23 +37,23 @@ public abstract class Solver extends Problem2023<Integer> {
 
             return result.getInt(1);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
             return 0;
         }
     }
 
     private void clearTables(Connection conn) throws Exception {
         try (var numberPS = conn.prepareStatement("DELETE FROM \"2023.day3\".\"number\"");
-                var symbolPS = conn.prepareStatement("DELETE FROM \"2023.day3\".symbol")) {
+             var symbolPS = conn.prepareStatement("DELETE FROM \"2023.day3\".symbol")) {
             numberPS.executeUpdate();
             symbolPS.executeUpdate();
         }
     }
 
-    private void populateTables(PreparedStatement numerPS, PreparedStatement symbolPS, List<String> lines)
+    private void populateTables(PreparedStatement numberPS, PreparedStatement symbolPS, List<String> lines)
             throws Exception {
         var parser = new Parser(
-                (y, startX, endX, value) -> foundNumber(numerPS, y, startX, endX, value),
+                (y, startX, endX, value) -> foundNumber(numberPS, y, startX, endX, value),
                 (y, x, ch) -> foundSymbol(symbolPS, y, x, ch));
 
         parser.parseLines(lines);

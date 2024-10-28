@@ -33,7 +33,7 @@ public abstract class Solver extends Problem2023<Integer> {
 
             return calculateAnswer(conn);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
             return 0;
         }
     }
@@ -55,12 +55,10 @@ public abstract class Solver extends Problem2023<Integer> {
                 var count = Integer.parseInt(cubeMatcher.group(1));
                 var color = cubeMatcher.group(2).trim();
 
-                if ("red".equals(color)) {
-                    red = count;
-                } else if ("green".equals(color)) {
-                    green = count;
-                } else if ("blue".equals(color)) {
-                    blue = count;
+                switch (color) {
+                    case "red" -> red = count;
+                    case "green" -> green = count;
+                    case "blue" -> blue = count;
                 }
             }
 
@@ -74,7 +72,7 @@ public abstract class Solver extends Problem2023<Integer> {
 
     private void populateTables(Connection conn, List<String> lines) throws Exception {
         try (var gamePS = conn.prepareStatement(createGameSQL);
-                var roundPS = conn.prepareStatement(createRoundSQL)) {
+             var roundPS = conn.prepareStatement(createRoundSQL)) {
             for (var line : lines) {
                 var matcher = gameRegEx.matcher(line);
 

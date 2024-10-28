@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.util.List;
 
 public abstract class Problem2023<T> implements AocProblem2023 {
-    private T expected;
-    private String fileName;
+    private final T expected;
+    private final String fileName;
 
     public abstract T run(Connection conn, List<String> lines);
 
