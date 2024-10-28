@@ -17,7 +17,7 @@ public abstract class Solver extends Y2020Problem<Long> {
         var out = new HashMap<String, BagContents[]>();
 
         for (var rule : rules) {
-            out.put(rule.getType(), rule.getContents());
+            out.put(rule.type(), rule.contents());
         }
 
         return out;

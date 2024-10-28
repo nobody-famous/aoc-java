@@ -6,7 +6,7 @@ import java.util.Map;
 import aoc.y2020.Y2020Problem;
 
 public abstract class Solver extends Y2020Problem<Integer> {
-    protected Map<Tile, Color> tiles = new HashMap<Tile, Color>();
+    protected Map<Tile, Color> tiles = new HashMap<>();
     protected Direction[][] input;
 
     protected Solver(Direction[][] input, int expected) {

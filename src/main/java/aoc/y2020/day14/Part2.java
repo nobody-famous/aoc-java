@@ -75,20 +75,20 @@ public class Part2 extends Solver {
 
         for (var op : prog) {
             if (op.getType() == Op.Type.MEMORY) {
+                assert curMask != null;
+
                 var memOp = (Memory) op;
-                var update = updateMask(curMask.getOriginalMask(), Long.toBinaryString(memOp.getAddr()));
+                var update = updateMask(curMask.getOriginalMask(), Long.toBinaryString(memOp.address()));
                 var perms = permutations(update);
 
                 for (var perm : perms) {
-                    mem.put(perm, memOp.getValue());
+                    mem.put(perm, memOp.value());
                 }
             } else if (op.getType() == Op.Type.MASK) {
                 curMask = (Mask) op;
             }
         }
 
-        var answer = sumValues(mem.values());
-
-        return answer;
+        return sumValues(mem.values());
     }
 }

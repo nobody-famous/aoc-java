@@ -3,7 +3,7 @@ package aoc.y2020.day8;
 import aoc.y2020.Y2020Problem;
 
 public class Part2 extends Y2020Problem<Long> {
-    private Instruction[] prog;
+    private final Instruction[] prog;
 
     public Part2(Instruction[] prog, long expected) {
         super(expected);
@@ -38,8 +38,6 @@ public class Part2 extends Y2020Problem<Long> {
             }
         }
 
-        var answer = machine.getAcc();
-
-        return answer;
+        return machine.getAcc();
     }
 }

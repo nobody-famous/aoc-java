@@ -9,10 +9,6 @@ public interface Token {
         return false;
     }
 
-    default boolean isCloseParen() {
-        return false;
-    }
-
     default boolean isAdd() {
         return false;
     }

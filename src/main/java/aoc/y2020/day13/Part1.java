@@ -3,7 +3,7 @@ package aoc.y2020.day13;
 import aoc.y2020.Y2020Problem;
 
 public class Part1 extends Y2020Problem<Long> {
-    private Notes input;
+    private final Notes input;
 
     public Part1(Notes input, long expected) {
         super(expected);
@@ -14,12 +14,12 @@ public class Part1 extends Y2020Problem<Long> {
         var min = Long.MAX_VALUE;
         var busID = 0;
 
-        for (var id : input.getIds()) {
+        for (var id : input.ids()) {
             if (id == null) {
                 continue;
             }
 
-            var diff = id - (input.getTimestamp() % id);
+            var diff = id - (input.timestamp() % id);
 
             if (diff < min) {
                 min = diff;
@@ -27,8 +27,6 @@ public class Part1 extends Y2020Problem<Long> {
             }
         }
 
-        var answer = busID * min;
-
-        return answer;
+        return busID * min;
     }
 }

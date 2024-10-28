@@ -1,7 +1,7 @@
 package aoc.y2020.day19;
 
 public class CharRule implements Rule {
-    private char ch;
+    private final char ch;
 
     public CharRule(char ch) {
         this.ch = ch;

@@ -6,8 +6,8 @@ import java.util.Map;
 
 public class Solver {
     public Food[] input;
-    public Map<String, Map<String, Boolean>> allergenMap = new HashMap<String, Map<String, Boolean>>();
-    public Map<String, Boolean> allIngredients = new HashMap<String, Boolean>();
+    public Map<String, Map<String, Boolean>> allergenMap = new HashMap<>();
+    public Map<String, Boolean> allIngredients = new HashMap<>();
 
     public Solver(Food[] input) {
         this.input = input;
@@ -15,20 +15,20 @@ public class Solver {
 
     public void buildMaps() {
         for (var food : input) {
-            for (var ingr : food.getIngredients()) {
-                allIngredients.put(ingr, true);
+            for (var ingredient : food.ingredients()) {
+                allIngredients.put(ingredient, true);
             }
 
-            for (var allergen : food.getAllergens()) {
-                var ingrMap = listToMap(food.getIngredients());
+            for (var allergen : food.allergens()) {
+                var ingrMap = listToMap(food.ingredients());
                 updateAllergens(allergen, ingrMap);
             }
         }
     }
 
-    public void updateAllergens(String allergen, Map<String, Boolean> ingrs) {
+    public void updateAllergens(String allergen, Map<String, Boolean> ingredients) {
         if (!allergenMap.containsKey(allergen)) {
-            allergenMap.put(allergen, ingrs);
+            allergenMap.put(allergen, ingredients);
             return;
         }
 
@@ -36,7 +36,7 @@ public class Solver {
         var toRemove = new ArrayList<String>();
 
         for (var key : foodMap.keySet()) {
-            if (!ingrs.containsKey(key)) {
+            if (!ingredients.containsKey(key)) {
                 toRemove.add(key);
             }
         }

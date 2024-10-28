@@ -15,16 +15,16 @@ public class Part1 extends Solver {
             if (op.getType() == Op.Type.MASK) {
                 curMask = (Mask) op;
             } else if (op.getType() == Op.Type.MEMORY) {
-                var memOp = (Memory) op;
-                var addr = memOp.getAddr();
-                var value = curMask.apply(memOp.getValue());
+                assert curMask != null;
 
-                mem.put(addr, value);
+                var memOp = (Memory) op;
+                var address = memOp.address();
+                var value = curMask.apply(memOp.value());
+
+                mem.put(address, value);
             }
         }
 
-        var answer = sumValues(mem.values());
-
-        return answer;
+        return sumValues(mem.values());
     }
 }

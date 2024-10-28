@@ -16,19 +16,16 @@ public class Part2 extends Solver {
         }
 
         for (var entry : content) {
-            count += entry.getCount();
-            count += entry.getCount() * countBags(rules, entry.getType());
+            count += entry.count();
+            count += entry.count() * countBags(rules, entry.type());
         }
 
         return count;
     }
 
     public Long run() {
-        long answer = 0;
         var rules = rulesToMap(input);
 
-        answer = countBags(rules, "shiny gold");
-
-        return answer;
+        return countBags(rules, "shiny gold");
     }
 }

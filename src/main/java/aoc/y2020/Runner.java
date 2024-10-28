@@ -57,6 +57,6 @@ public class Runner extends aoc.utils.Runner<AocProblem> {
 
     public static void main(String[] args) throws Exception {
         var runner = new Runner();
-        runner.runAll(allDays, (prob, lines) -> prob.solve(lines));
+        runner.runAll(allDays, AocProblem::solve);
     }
 }

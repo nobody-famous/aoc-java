@@ -3,8 +3,8 @@ package aoc.y2020.day18;
 import aoc.y2020.Y2020Problem;
 
 public abstract class Solver extends Y2020Problem<Long> {
-    private String[] input;
-    private boolean usePrecedence;
+    private final String[] input;
+    private final boolean usePrecedence;
 
     public Solver(String[] input, boolean usePrecedence, long expected) {
         super(expected);

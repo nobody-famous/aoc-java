@@ -3,7 +3,7 @@ package aoc.y2020.day4;
 import aoc.y2020.Y2020Problem;
 
 public class Part1 extends Y2020Problem<Long> {
-    private String[][][] input;
+    private final String[][][] input;
 
     public Part1(String[][][] input, long expected) {
         super(expected);
@@ -22,20 +22,14 @@ public class Part1 extends Y2020Problem<Long> {
         for (var entry : entries) {
             var key = entry[0];
 
-            if (key.toLowerCase() == "byr") {
-                byr = true;
-            } else if (key.toLowerCase() == "iyr") {
-                iyr = true;
-            } else if (key.toLowerCase() == "eyr") {
-                eyr = true;
-            } else if (key.toLowerCase() == "hgt") {
-                hgt = true;
-            } else if (key.toLowerCase() == "hcl") {
-                hcl = true;
-            } else if (key.toLowerCase() == "ecl") {
-                ecl = true;
-            } else if (key.toLowerCase() == "pid") {
-                pid = true;
+            switch (key.toLowerCase()) {
+                case "byr" -> byr = true;
+                case "iyr" -> iyr = true;
+                case "eyr" -> eyr = true;
+                case "hgt" -> hgt = true;
+                case "hcl" -> hcl = true;
+                case "ecl" -> ecl = true;
+                case "pid" -> pid = true;
             }
         }
 

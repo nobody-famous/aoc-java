@@ -19,22 +19,22 @@ public abstract class Solver extends Y2020Problem<Long> {
 
     protected Deque<Integer> copyCards(Deque<Integer> cards, int count) {
         var copy = new LinkedList<Integer>();
-        var iter = cards.iterator();
+        var iterator = cards.iterator();
 
         for (var n = 0; n < count; n += 1) {
-            copy.add(iter.next());
+            copy.add(iterator.next());
         }
 
         return copy;
     }
 
     protected long calculateAnswer(Deque<Integer> cards) {
-        var mult = cards.size();
+        var multiplier = cards.size();
         var answer = 0L;
 
         for (var card : cards) {
-            answer += card * mult;
-            mult -= 1;
+            answer += (long) card * multiplier;
+            multiplier -= 1;
         }
 
         return answer;

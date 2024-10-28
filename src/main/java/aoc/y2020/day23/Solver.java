@@ -6,18 +6,12 @@ public abstract class Solver extends Y2020Problem<Long> {
     protected int[] input;
     protected int[] board;
     protected int current;
-    private int maximum;
+    private final int maximum;
 
     protected Solver(int[] input, int maximum, long expected) {
         super(expected);
         this.input = input;
         this.maximum = maximum;
-    }
-
-    protected void printBoard() {
-        for (var ndx = 1; ndx < board.length; ndx += 1) {
-            System.out.println(ndx + " -> " + board[ndx]);
-        }
     }
 
     private int dec(int ndx) {
@@ -37,14 +31,14 @@ public abstract class Solver extends Y2020Problem<Long> {
 
         board[current] = board[third];
 
-        var dest = dec(current);
+        var destination = dec(current);
 
-        while (dest == first || dest == second || dest == third) {
-            dest = dec(dest);
+        while (destination == first || destination == second || destination == third) {
+            destination = dec(destination);
         }
 
-        var tmp = board[dest];
-        board[dest] = first;
+        var tmp = board[destination];
+        board[destination] = first;
         board[third] = tmp;
 
         current = board[current];

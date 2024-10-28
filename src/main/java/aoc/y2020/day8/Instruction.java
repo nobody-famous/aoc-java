@@ -2,7 +2,7 @@ package aoc.y2020.day8;
 
 public class Instruction {
     private String op;
-    private int arg;
+    private final int arg;
 
     public Instruction(String op, int arg) {
         this.op = op;

@@ -21,9 +21,9 @@ public class Part1 extends Solver {
     public Long run() {
         var invalid = new ArrayList<Long>();
 
-        for (var ticket : input.getNearby()) {
-            for (var value : ticket.getValues()) {
-                if (!isValid(value, input.getFields())) {
+        for (var ticket : input.nearby()) {
+            for (var value : ticket.values()) {
+                if (notValid(value, input.fields())) {
                     invalid.add(value);
                 }
             }

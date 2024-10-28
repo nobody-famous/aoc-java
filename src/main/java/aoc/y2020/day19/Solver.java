@@ -13,8 +13,8 @@ public abstract class Solver extends Y2020Problem<Long> {
     public Long run() {
         var answer = 0L;
 
-        for (var msg : input.getMsgs()) {
-            var m = new Matcher(input.getRules(), msg);
+        for (var msg : input.messages()) {
+            var m = new Matcher(input.rules(), msg);
 
             if (m.match()) {
                 answer += 1;

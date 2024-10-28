@@ -3,10 +3,10 @@ package aoc.y2020.day17;
 import aoc.y2020.Y2020Problem;
 
 public class Part2 extends Y2020Problem<Long> {
-    private char[][] input;
+    private final char[][] input;
     private char[][][][] cube;
     private char[][][][] newCube;
-    private int cycles = 6;
+    private static final int cycles = 6;
 
     public Part2(char[][] input, long expected) {
         super(expected);
@@ -41,11 +41,11 @@ public class Part2 extends Y2020Problem<Long> {
 
     private long countActive() {
         var count = 0L;
-        for (var x = 0; x < cube.length; x += 1) {
+        for (var chars : cube) {
             for (var y = 0; y < cube.length; y += 1) {
                 for (var z = 0; z < cube.length; z += 1) {
                     for (var w = 0; w < cube.length; w += 1) {
-                        if (cube[x][y][z][w] == '#') {
+                        if (chars[y][z][w] == '#') {
                             count += 1;
                         }
                     }
@@ -78,7 +78,7 @@ public class Part2 extends Y2020Problem<Long> {
         return count;
     }
 
-    private void buildCube(int cycles) {
+    private void buildCube() {
         var size = input.length + (cycles * 2);
 
         cube = new char[size][size][size][size];
@@ -95,11 +95,11 @@ public class Part2 extends Y2020Problem<Long> {
         var z = size / 2;
         var w = size / 2;
         var x = (size / 2) - (input.length / 2);
-        for (var inX = 0; inX < input.length; inX += 1) {
+        for (var chars : input) {
             var y = (size / 2) - (input.length / 2);
 
             for (var inY = 0; inY < input.length; inY += 1) {
-                cube[x][y][z][w] = input[inX][inY];
+                cube[x][y][z][w] = chars[inY];
                 y += 1;
             }
 
@@ -113,9 +113,7 @@ public class Part2 extends Y2020Problem<Long> {
         for (var x = 0; x < cube.length; x += 1) {
             for (var y = 0; y < cube.length; y += 1) {
                 for (var z = 0; z < cube.length; z += 1) {
-                    for (var w = 0; w < cube.length; w += 1) {
-                        copy[x][y][z][w] = cube[x][y][z][w];
-                    }
+                    System.arraycopy(cube[x][y][z], 0, copy[x][y][z], 0, cube.length);
                 }
             }
         }
@@ -140,14 +138,12 @@ public class Part2 extends Y2020Problem<Long> {
     }
 
     public Long run() {
-        buildCube(cycles);
+        buildCube();
 
         for (var cycle = 0; cycle < cycles; cycle += 1) {
             runCycle();
         }
 
-        var answer = countActive();
-
-        return answer;
+        return countActive();
     }
 }

@@ -5,8 +5,8 @@ import java.util.Deque;
 import java.util.List;
 
 public class Matcher {
-    private List<Rule> rules;
-    private String msg;
+    private final List<Rule> rules;
+    private final String msg;
     private int ndx;
     private boolean done;
 
@@ -28,7 +28,7 @@ public class Matcher {
         var startNdx = ndx;
         var copy = new ArrayDeque<Rule>();
 
-        for (var subRule : rule.getRules()) {
+        for (var subRule : rule.rules()) {
             copy.add(rules.get(subRule));
         }
 
@@ -45,8 +45,8 @@ public class Matcher {
 
     private boolean matchOr(OrRule rule, Deque<Rule> rest) {
         var startNdx = ndx;
-        var left = rule.getLeft();
-        var right = rule.getRight();
+        var left = rule.left();
+        var right = rule.right();
 
         var copy = new ArrayDeque<Rule>();
 
@@ -57,7 +57,7 @@ public class Matcher {
             return true;
         }
 
-        copy = new ArrayDeque<Rule>();
+        copy = new ArrayDeque<>();
         copy.add(right);
         copy.addAll(rest);
 

@@ -25,8 +25,6 @@ public class Part1 extends Solver {
             }
         }
 
-        var answer = ones * threes;
-
-        return answer;
+        return ones * threes;
     }
 }

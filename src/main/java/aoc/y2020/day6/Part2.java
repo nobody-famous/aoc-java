@@ -6,7 +6,7 @@ import java.util.Map;
 import aoc.y2020.Y2020Problem;
 
 public class Part2 extends Y2020Problem<Long> {
-    private String[][] input;
+    private final String[][] input;
 
     public Part2(String[][] input, long expected) {
         super(expected);

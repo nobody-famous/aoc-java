@@ -36,8 +36,6 @@ public abstract class Solver extends Y2020Problem<Long> {
             throw new RuntimeException("No solution found");
         }
 
-        var answer = product(entries);
-
-        return answer;
+        return product(entries);
     }
 }

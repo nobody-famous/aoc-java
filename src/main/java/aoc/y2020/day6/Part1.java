@@ -5,7 +5,7 @@ import java.util.HashMap;
 import aoc.y2020.Y2020Problem;
 
 public class Part1 extends Y2020Problem<Long> {
-    private String[][] input;
+    private final String[][] input;
 
     public Part1(String[][] input, long expected) {
         super(expected);

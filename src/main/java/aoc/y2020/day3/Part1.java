@@ -6,8 +6,6 @@ public class Part1 extends Solver {
     }
 
     public Long run() {
-        var answer = countTrees(input, 3, 1);
-
-        return answer;
+        return countTrees(input, 3, 1);
     }
 }

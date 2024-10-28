@@ -11,8 +11,8 @@ public class Part2 extends Solver {
     }
 
     private boolean isValidTicket(Ticket ticket, List<Field> fields) {
-        for (var value : ticket.getValues()) {
-            if (!isValid(value, fields)) {
+        for (var value : ticket.values()) {
+            if (notValid(value, fields)) {
                 return false;
             }
         }
@@ -23,8 +23,8 @@ public class Part2 extends Solver {
     private List<Ticket> getValidTickets(Notes input) {
         var tickets = new ArrayList<Ticket>();
 
-        for (var ticket : input.getNearby()) {
-            if (isValidTicket(ticket, input.getFields())) {
+        for (var ticket : input.nearby()) {
+            if (isValidTicket(ticket, input.fields())) {
                 tickets.add(ticket);
             }
         }
@@ -33,13 +33,13 @@ public class Part2 extends Solver {
     }
 
     private Map<String, Boolean> initNameMap(List<Field> fields) {
-        var candMap = new HashMap<String, Boolean>();
+        var nameMap = new HashMap<String, Boolean>();
 
         for (var field : fields) {
-            candMap.put(field.getName(), true);
+            nameMap.put(field.name(), true);
         }
 
-        return candMap;
+        return nameMap;
     }
 
     private List<Map<String, Boolean>> initCandidates(List<Field> fields) {
@@ -73,13 +73,11 @@ public class Part2 extends Solver {
         for (var valueNdx = 0; valueNdx < values.size(); valueNdx += 1) {
             var value = values.get(valueNdx);
 
-            for (var fieldNdx = 0; fieldNdx < fields.size(); fieldNdx += 1) {
-                var field = fields.get(fieldNdx);
-
+            for (Field field : fields) {
                 if (!inField(value, field)) {
                     var candidateMap = candidates.get(valueNdx);
 
-                    candidateMap.remove(field.getName());
+                    candidateMap.remove(field.name());
                     if (candidateMap.size() == 1) {
                         var toRemove = candidateMap.keySet().iterator().next();
 
@@ -114,7 +112,7 @@ public class Part2 extends Solver {
             var name = names.get(ndx);
 
             if (name.startsWith("departure")) {
-                sum *= mine.getValues().get(ndx);
+                sum *= mine.values().get(ndx);
             }
         }
 
@@ -123,14 +121,14 @@ public class Part2 extends Solver {
 
     public Long run() {
         var tickets = getValidTickets(input);
-        var candidates = initCandidates(input.getFields());
+        var candidates = initCandidates(input.fields());
 
         for (var ticket : tickets) {
-            updateCandidates(candidates, input.getFields(), ticket.getValues());
+            updateCandidates(candidates, input.fields(), ticket.values());
         }
 
         var names = candidatesToNames(candidates);
 
-        return multiplyValues(names, input.getMine());
+        return multiplyValues(names, input.mine());
     }
 }

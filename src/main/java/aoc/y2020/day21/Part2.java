@@ -6,19 +6,19 @@ import java.util.Arrays;
 import aoc.y2020.Y2020Problem;
 
 public class Part2 extends Y2020Problem<String> {
-    private Solver solver;
+    private final Solver solver;
 
     public Part2(Food[] input, String expected) {
         super(expected);
         this.solver = new Solver(input);
     }
 
-    private boolean removeIngredient(String ingr) {
+    private boolean removeIngredient(String ingredient) {
         var changed = false;
 
         for (var ingrsMap : solver.allergenMap.values()) {
-            if (ingrsMap.size() > 1 && ingrsMap.containsKey(ingr)) {
-                ingrsMap.remove(ingr);
+            if (ingrsMap.size() > 1 && ingrsMap.containsKey(ingredient)) {
+                ingrsMap.remove(ingredient);
                 changed = true;
             }
         }
@@ -31,11 +31,11 @@ public class Part2 extends Y2020Problem<String> {
             var modified = false;
 
             for (var entry : solver.allergenMap.entrySet()) {
-                var ingrs = entry.getValue();
+                var ingredients = entry.getValue();
 
-                if (ingrs.size() == 1) {
-                    var ingr = ingrs.keySet().iterator().next();
-                    modified |= removeIngredient(ingr);
+                if (ingredients.size() == 1) {
+                    var ingredient = ingredients.keySet().iterator().next();
+                    modified |= removeIngredient(ingredient);
                 }
             }
 
@@ -65,16 +65,14 @@ public class Part2 extends Y2020Problem<String> {
         reduceAllergens();
 
         var allergens = sortedAllergens();
-        var ingrs = new ArrayList<String>();
+        var ingredients = new ArrayList<String>();
         for (var allergen : allergens) {
             var ingrMap = solver.allergenMap.get(allergen);
-            var ingr = ingrMap.keySet().iterator().next();
+            var ingredient = ingrMap.keySet().iterator().next();
 
-            ingrs.add(ingr);
+            ingredients.add(ingredient);
         }
 
-        var answer = String.join(",", ingrs);
-
-        return answer;
+        return String.join(",", ingredients);
     }
 }

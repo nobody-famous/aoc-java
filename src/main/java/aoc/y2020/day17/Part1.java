@@ -3,10 +3,10 @@ package aoc.y2020.day17;
 import aoc.y2020.Y2020Problem;
 
 public class Part1 extends Y2020Problem<Long> {
-    private char[][] input;
+    private final char[][] input;
     private char[][][] cube;
     private char[][][] newCube;
-    private int cycles = 6;
+    private static final int cycles = 6;
 
     public Part1(char[][] input, long expected) {
         super(expected);
@@ -40,10 +40,10 @@ public class Part1 extends Y2020Problem<Long> {
 
     private long countActive() {
         var count = 0L;
-        for (var x = 0; x < cube.length; x += 1) {
+        for (var chars : cube) {
             for (var y = 0; y < cube.length; y += 1) {
                 for (var z = 0; z < cube.length; z += 1) {
-                    if (cube[x][y][z] == '#') {
+                    if (chars[y][z] == '#') {
                         count += 1;
                     }
                 }
@@ -73,7 +73,7 @@ public class Part1 extends Y2020Problem<Long> {
         return count;
     }
 
-    private void buildCube(int cycles) {
+    private void buildCube() {
         var size = input.length + (cycles * 2);
 
         cube = new char[size][size][size];
@@ -87,11 +87,11 @@ public class Part1 extends Y2020Problem<Long> {
 
         var z = size / 2;
         var x = (size / 2) - (input.length / 2);
-        for (var inX = 0; inX < input.length; inX += 1) {
+        for (var chars : input) {
             var y = (size / 2) - (input.length / 2);
 
             for (var inY = 0; inY < input.length; inY += 1) {
-                cube[x][y][z] = input[inX][inY];
+                cube[x][y][z] = chars[inY];
                 y += 1;
             }
 
@@ -104,9 +104,7 @@ public class Part1 extends Y2020Problem<Long> {
 
         for (var x = 0; x < cube.length; x += 1) {
             for (var y = 0; y < cube.length; y += 1) {
-                for (var z = 0; z < cube.length; z += 1) {
-                    copy[x][y][z] = cube[x][y][z];
-                }
+                System.arraycopy(cube[x][y], 0, copy[x][y], 0, cube.length);
             }
         }
 
@@ -128,14 +126,12 @@ public class Part1 extends Y2020Problem<Long> {
     }
 
     public Long run() {
-        buildCube(cycles);
+        buildCube();
 
         for (var cycle = 0; cycle < cycles; cycle += 1) {
             runCycle();
         }
 
-        var answer = countActive();
-
-        return answer;
+        return countActive();
     }
 }

@@ -1,9 +1,9 @@
 package aoc.y2020.day20;
 
 public class Tile {
-    private int id;
-    private String[] data;
-    private String[] borders = new String[4];
+    private final int id;
+    private final String[] data;
+    private final String[] borders = new String[4];
 
     public static final int NORTH = 0;
     public static final int SOUTH = 1;
@@ -49,12 +49,12 @@ public class Tile {
     }
 
     private Tile charsToTile(char[][] out) {
-        var strs = new String[data.length];
+        var strings = new String[data.length];
         for (var y = 0; y < data.length; y += 1) {
-            strs[y] = new String(out[y]);
+            strings[y] = new String(out[y]);
         }
 
-        return new Tile(id, strs);
+        return new Tile(id, strings);
     }
 
     public Tile rotate() {
@@ -84,10 +84,10 @@ public class Tile {
     public String toString() {
         var builder = new StringBuilder();
 
-        builder.append("Tile " + id + "\n");
+        builder.append("Tile ").append(id).append("\n");
 
         for (var line : data) {
-            builder.append(line + "\n");
+            builder.append(line).append("\n");
         }
 
         return builder.toString();

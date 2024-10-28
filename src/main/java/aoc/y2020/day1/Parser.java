@@ -7,13 +7,13 @@ import java.util.List;
 
 public class Parser {
     public static List<Integer> parse(String fileName) throws Exception {
-        var ints = new ArrayList<Integer>();
+        var numbers = new ArrayList<Integer>();
 
         try (var reader = new BufferedReader(new FileReader(fileName))) {
-            parseLines(reader, ints);
+            parseLines(reader, numbers);
         }
 
-        return ints;
+        return numbers;
     }
 
     private static void parseLines(BufferedReader reader, List<Integer> out) throws Exception {

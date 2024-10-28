@@ -13,8 +13,8 @@ public abstract class Solver extends Y2020Problem<Long> {
     }
 
     protected boolean inField(long value, Field field) {
-        for (var range : field.getRanges()) {
-            if (value >= range.getLow() && value <= range.getHigh()) {
+        for (var range : field.ranges()) {
+            if (value >= range.low() && value <= range.high()) {
                 return true;
             }
         }
@@ -22,13 +22,13 @@ public abstract class Solver extends Y2020Problem<Long> {
         return false;
     }
 
-    protected boolean isValid(long value, List<Field> fields) {
+    protected boolean notValid(long value, List<Field> fields) {
         for (var field : fields) {
             if (inField(value, field)) {
-                return true;
+                return false;
             }
         }
 
-        return false;
+        return true;
     }
 }

@@ -6,8 +6,8 @@ public class Part2 extends Solver {
     private int wpX;
     private int wpY;
 
-    public Part2(Instruction[] instrs, long expected) {
-        super(instrs, expected);
+    public Part2(Instruction[] instructions, long expected) {
+        super(instructions, expected);
     }
 
     protected void north(int value) {

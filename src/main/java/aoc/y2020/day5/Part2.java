@@ -3,7 +3,7 @@ package aoc.y2020.day5;
 import aoc.y2020.Y2020Problem;
 
 public class Part2 extends Y2020Problem<Long> {
-    private int[] input;
+    private final int[] input;
 
     public Part2(int[] input, long expected) {
         super(expected);
@@ -29,11 +29,9 @@ public class Part2 extends Y2020Problem<Long> {
 
         var rangeSum = 0;
         for (var i = min; i <= max; i += 1) {
-            rangeSum += i;
+            rangeSum += (int) i;
         }
 
-        var answer = rangeSum - sum;
-
-        return answer;
+        return rangeSum - sum;
     }
 }

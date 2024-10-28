@@ -64,8 +64,6 @@ public class Part2 extends Solver {
         var stepsMap = buildStepsMap(adapters);
         var arranges = buildArrangeMap(adapters, stepsMap);
 
-        var answer = arranges.get(0);
-
-        return answer;
+        return arranges.get(0);
     }
 }

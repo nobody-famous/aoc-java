@@ -3,7 +3,7 @@ package aoc.y2020.day11;
 import aoc.y2020.Y2020Problem;
 
 public abstract class Solver extends Y2020Problem<Long> {
-    private char[][] board = null;
+    private char[][] board;
     private char[][] nextBoard = null;
     private boolean done = false;
 
@@ -25,16 +25,8 @@ public abstract class Solver extends Y2020Problem<Long> {
         }
     }
 
-    protected boolean isDone() {
-        return done;
-    }
-
-    protected int rowsCount() {
-        return board.length;
-    }
-
-    protected int colsCount() {
-        return board[0].length;
+    protected boolean isNotDone() {
+        return !done;
     }
 
     protected boolean onBoard(int row, int col) {
@@ -53,9 +45,7 @@ public abstract class Solver extends Y2020Problem<Long> {
         nextBoard = new char[board.length][board[0].length];
 
         for (var row = 0; row < board.length; row += 1) {
-            for (var col = 0; col < board[row].length; col += 1) {
-                nextBoard[row][col] = board[row][col];
-            }
+            System.arraycopy(board[row], 0, nextBoard[row], 0, board[row].length);
         }
     }
 
@@ -74,24 +64,15 @@ public abstract class Solver extends Y2020Problem<Long> {
     protected long countOccupied() {
         var count = 0L;
 
-        for (var row = 0; row < board.length; row += 1) {
-            for (var col = 0; col < board[row].length; col += 1) {
-                if (board[row][col] == '#') {
+        for (var chars : board) {
+            for (var aChar : chars) {
+                if (aChar == '#') {
                     count += 1;
                 }
             }
         }
 
         return count;
-    }
-
-    protected void printBoard() {
-        for (var row = 0; row < rowsCount(); row += 1) {
-            for (var col = 0; col < colsCount(); col += 1) {
-                System.out.print(lookup(row, col));
-            }
-            System.out.println();
-        }
     }
 
     protected void doRound(int threshold) {

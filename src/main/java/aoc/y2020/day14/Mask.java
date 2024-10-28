@@ -1,7 +1,7 @@
 package aoc.y2020.day14;
 
 public class Mask implements Op {
-    private String orig;
+    private final String orig;
     private long onesMask;
     private long zeroesMask;
 
