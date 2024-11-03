@@ -64,14 +64,14 @@ CREATE TABLE "2023.day4".holding (
 CREATE SCHEMA IF NOT EXISTS "2023.day5";
 CREATE TABLE "2023.day5".seeds (
     id SERIAL PRIMARY KEY,
-    "number" INTEGER NOT NULL
+    "number" BIGINT NOT NULL
 );
 CREATE TABLE "2023.day5".maps (
     id SERIAL PRIMARY KEY,
     src VARCHAR(255) NOT NULL,
     dst VARCHAR(255) NOT NULL,
-    src_start INTEGER NOT NULL,
-    dst_start INTEGER NOT NULL,
+    src_start BIGINT NOT NULL,
+    dst_start BIGINT NOT NULL,
     count INTEGER NOT NULL
 );
 --rollback DROP SCHEMA "2023.day5" CASCADE;

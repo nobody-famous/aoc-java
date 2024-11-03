@@ -10,6 +10,7 @@ public class Runner extends aoc.utils.Runner<AocProblem2023> {
             new aoc.y2023.day3.Part2("input/2023/day3/puzzle.txt", 78826761),
             new aoc.y2023.day4.Part1("input/2023/day4/puzzle.txt", 25010),
             new aoc.y2023.day4.Part2("input/2023/day4/puzzle.txt", 9924412),
+            new aoc.y2023.day5.Part1("input/2023/day5/puzzle.txt", 910845529),
     };
 
     public static void main(String[] args) throws Exception {
