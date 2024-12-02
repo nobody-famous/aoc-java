@@ -17,11 +17,37 @@ public class Part1 extends Problem2023<Integer> {
     private static final String clearMapsSQL = """
             DELETE FROM "2023.day5".maps
             """;
+    private static final String clearScratchSQL = """
+            DELETE FROM "2023.day5".scratch
+            """;
     private static final String insertSeedSQL = """
             INSERT INTO "2023.day5".seeds (number) VALUES (?)
             """;
     private static final String addToMapSQL = """
             INSERT INTO "2023.day5".maps (src, dst, src_start, dst_start, count) VALUES (?,?,?,?,?)
+            """;
+    private static final String seedScratchTableSQL = """
+            INSERT INTO "2023.day5".scratch (src, number) VALUES (SELECT 'seed', number FROM "2023.day5".seeds)
+            """;
+    private static final String calculateNextValueSQL = """
+            INSERT INTO "2023.day5".scratch (src, number)
+                (WITH Conversion AS (
+                    SELECT s.number,
+                        m.dst,
+                        (array_remove(array_agg(CASE
+                            WHEN s.number >= m.src_start AND s.number < m.src_start + m.count THEN s.number + (m.dst_start - m.src_start)
+                            ELSE NULL
+                            END), NULL))[1] AS modified,
+                        (array_remove(array_agg(CASE
+                            WHEN s.number < m.src_start OR s.number >= m.src_start + m.count THEN s.number
+                            ELSE NULL
+                        END), NULL))[1] AS unaltered
+                    FROM "2023.day5".maps m, "2023.day5".scratch s
+                    WHERE m.src=s.src AND m.src=?
+                    GROUP BY s.number, m.dst
+                )
+                SELECT dst, CASE WHEN modified IS NOT NULL THEN modified ELSE unaltered END AS new_value
+                FROM Conversion);
             """;
 
     private static final String minLocationSQL = """
@@ -144,9 +170,11 @@ public class Part1 extends Problem2023<Integer> {
 
     private void clearTables(Connection conn) throws Exception {
         try (var seedsPS = conn.prepareStatement(clearSeedSQL);
-             var mapsPS = conn.prepareStatement(clearMapsSQL)) {
+             var mapsPS = conn.prepareStatement(clearMapsSQL);
+             var scratchPS = conn.prepareStatement(clearScratchSQL)) {
             seedsPS.executeUpdate();
             mapsPS.executeUpdate();
+            scratchPS.executeUpdate();
         }
     }
 

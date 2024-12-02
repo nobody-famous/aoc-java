@@ -74,4 +74,8 @@ CREATE TABLE "2023.day5".maps (
     dst_start BIGINT NOT NULL,
     count INTEGER NOT NULL
 );
+CREATE TABLE "2023.day5".scratch (
+    src VARCHAR(256) NOT NULL,
+    number BIGINT NOT NULL
+);
 --rollback DROP SCHEMA "2023.day5" CASCADE;
