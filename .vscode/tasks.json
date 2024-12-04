@@ -70,39 +70,39 @@
             "problemMatcher": []
         },
         {
-            "label": "Run 2023",
+            "label": "Run 2024",
             "dependsOn": "Compile",
             "type": "shell",
             "command": "mvn",
             "windows": {
                 "args": [
                     "exec:java",
-                    "-D'\"exec.mainClass\"'='\"aoc.y2023.Runner\"'"
+                    "-D'\"exec.mainClass\"'='\"aoc.y2024.Runner\"'"
                 ]
             },
             "linux": {
                 "args": [
                     "exec:java",
-                    "-Dexec.mainClass=aoc.y2023.Runner"
+                    "-Dexec.mainClass=aoc.y2024.Runner"
                 ]
             },
             "problemMatcher": []
         },
         {
-            "label": "Test 2023",
+            "label": "Test 2024",
             "dependsOn": "Compile",
             "type": "shell",
             "command": "mvn",
             "windows": {
                 "args": [
                     "test",
-                    "-D'test=aoc.y2023.day5.**'"
+                    "-D'test=aoc.y2024.day1.**'"
                 ],
             },
             "linux": {
                 "args": [
                     "test",
-                    "-Dtest=aoc.y2023.day5.**"
+                    "-Dtest=aoc.y2024.day1.**"
                 ],
             },
             "problemMatcher": []
