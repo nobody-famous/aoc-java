@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Parser extends aoc.utils.Parser<Map<String, List<String>>> {
+public class Parser implements aoc.utils.Parser<Map<String, List<String>>> {
     private void addToMap(Map<String, List<String>> orbits, String parent, String child) {
         if (!orbits.containsKey(parent)) {
             orbits.put(parent, new ArrayList<>());

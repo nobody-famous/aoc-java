@@ -2,7 +2,7 @@ package aoc.y2019.day22;
 
 import java.util.List;
 
-public class Parser extends aoc.utils.Parser<Shuffler> {
+public class Parser implements aoc.utils.Parser<Shuffler> {
     private Technique parseLine(String line) {
         var parts = line.split(" ");
 

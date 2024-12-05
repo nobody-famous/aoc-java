@@ -2,7 +2,7 @@ package aoc.y2019.day8;
 
 import java.util.List;
 
-public class Parser extends aoc.utils.Parser<Image> {
+public class Parser implements aoc.utils.Parser<Image> {
     private int width;
     private int height;
 

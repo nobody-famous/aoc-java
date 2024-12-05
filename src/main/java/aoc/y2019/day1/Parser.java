@@ -3,7 +3,7 @@ package aoc.y2019.day1;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Parser extends aoc.utils.Parser<List<Integer>> {
+public class Parser implements aoc.utils.Parser<List<Integer>> {
     public List<Integer> parse(List<String> lines) {
         try {
             var nums = new ArrayList<Integer>();

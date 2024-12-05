@@ -4,7 +4,7 @@ import java.util.List;
 
 import aoc.utils.geometry.Point;
 
-public class Parser extends aoc.utils.Parser<Grid> {
+public class Parser implements aoc.utils.Parser<Grid> {
     private void parseLine(Grid grid, int y, String line) {
         for (var x = 0; x < line.length(); x += 1) {
             var ch = line.charAt(x);

@@ -6,7 +6,7 @@ import java.util.List;
 import aoc.utils.geometry.Line;
 import aoc.utils.geometry.Point;
 
-public class Parser extends aoc.utils.Parser<Wire[]> {
+public class Parser implements aoc.utils.Parser<Wire[]> {
     private List<Point> toDeltas(String[] parts) {
         var deltas = new ArrayList<Point>();
 

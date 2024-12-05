@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Parser extends aoc.utils.Parser<List<GuardRecord>> {
+public class Parser implements aoc.utils.Parser<List<GuardRecord>> {
     private final Matcher beginShift;
     private final Matcher fallAsleep;
     private final Matcher wakesUp;

@@ -2,7 +2,7 @@ package aoc.y2019.day24;
 
 import java.util.List;
 
-public class Parser extends aoc.utils.Parser<Grid> {
+public class Parser implements aoc.utils.Parser<Grid> {
     @Override
     public Grid parse(List<String> lines) {
         try {

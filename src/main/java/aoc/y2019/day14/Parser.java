@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Parser extends aoc.utils.Parser<Map<String, Reaction>> {
+public class Parser implements aoc.utils.Parser<Map<String, Reaction>> {
     private Chemical parseChemical(String chem) {
         var parts = chem.split(" ");
         var amount = Integer.parseInt(parts[0]);

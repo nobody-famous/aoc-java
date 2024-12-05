@@ -8,7 +8,7 @@ import java.util.Map;
 import aoc.utils.geometry.Bounds;
 import aoc.utils.geometry.Point;
 
-public class Parser extends aoc.utils.Parser<Maze> {
+public class Parser implements aoc.utils.Parser<Maze> {
     private char[][] matrix;
     private final Maze maze = new Maze();
 

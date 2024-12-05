@@ -2,7 +2,7 @@ package aoc.y2019.intcode;
 
 import java.util.List;
 
-public class Parser extends aoc.utils.Parser<long[]> {
+public class Parser implements aoc.utils.Parser<long[]> {
     @Override
     public long[] parse(List<String> lines) {
         try {

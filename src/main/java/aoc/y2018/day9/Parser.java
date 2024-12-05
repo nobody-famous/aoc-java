@@ -3,7 +3,7 @@ package aoc.y2018.day9;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class Parser extends aoc.utils.Parser<Config> {
+public class Parser implements aoc.utils.Parser<Config> {
     @Override
     public Config parse(List<String> lines) {
         try {

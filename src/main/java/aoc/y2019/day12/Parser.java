@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 import aoc.utils.geometry.Point3D;
 
-public class Parser extends aoc.utils.Parser<List<Moon>> {
+public class Parser implements aoc.utils.Parser<List<Moon>> {
     private final Matcher regex;
 
     public Parser() {

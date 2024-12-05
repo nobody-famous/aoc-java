@@ -2,7 +2,7 @@ package aoc.y2019.day4;
 
 import java.util.List;
 
-public class Parser extends aoc.utils.Parser<int[][]> {
+public class Parser implements aoc.utils.Parser<int[][]> {
     private int[] toIntArray(String str) {
         var arr = new int[str.length()];
 

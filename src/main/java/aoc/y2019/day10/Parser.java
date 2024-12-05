@@ -5,7 +5,7 @@ import java.util.List;
 
 import aoc.utils.geometry.Point;
 
-public class Parser extends aoc.utils.Parser<List<Point>> {
+public class Parser implements aoc.utils.Parser<List<Point>> {
     private List<Point> parseMap(List<String> lines) {
         var points = new ArrayList<Point>();
 

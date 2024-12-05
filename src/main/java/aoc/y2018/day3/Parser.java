@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 import aoc.utils.geometry.Point;
 
-public class Parser extends aoc.utils.Parser<List<Claim>> {
+public class Parser implements aoc.utils.Parser<List<Claim>> {
     private final Pattern pattern = Pattern.compile("#(\\d+) @ (\\d+),(\\d+): (\\d+)x(\\d+)");
     private final Matcher matcher = pattern.matcher("");
 

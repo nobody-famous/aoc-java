@@ -7,84 +7,19 @@
             "label": "Compile",
             "type": "shell",
             "command": "mvn",
-            "args": [
-                "-B",
-                "compile"
-            ],
+            "args": ["-B", "compile"],
             "problemMatcher": []
         },
         {
-            "label": "Run 2018",
-            "type": "shell",
-            "command": "mvn",
-            "windows": {
-                "args": [
-                    "exec:java",
-                    "-D'\"exec.mainClass\"'='\"aoc.y2018.Runner\"'"
-                ]
-            },
-            "linux": {
-                "args": [
-                    "exec:java",
-                    "-Dexec.mainClass=aoc.y2018.Runner"
-                ]
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "Run 2019",
+            "label": "Run",
             "dependsOn": "Compile",
             "type": "shell",
             "command": "mvn",
             "windows": {
-                "args": [
-                    "exec:java",
-                    "-D'\"exec.mainClass\"'='\"aoc.y2019.Runner\"'"
-                ]
+                "args": ["exec:java", "-D'\"exec.mainClass\"'='\"aoc.Runner\"'"]
             },
             "linux": {
-                "args": [
-                    "exec:java",
-                    "-Dexec.mainClass=aoc.y2019.Runner"
-                ]
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "Run 2020",
-            "dependsOn": "Compile",
-            "type": "shell",
-            "command": "mvn",
-            "windows": {
-                "args": [
-                    "exec:java",
-                    "-D'\"exec.mainClass\"'='\"aoc.y2020.Runner\"'"
-                ]
-            },
-            "linux": {
-                "args": [
-                    "exec:java",
-                    "-Dexec.mainClass=aoc.y2020.Runner"
-                ]
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "Run 2024",
-            "dependsOn": "Compile",
-            "type": "shell",
-            "command": "mvn",
-            "windows": {
-                "args": [
-                    "exec:java",
-                    "-D'\"exec.mainClass\"'='\"aoc.y2024.Runner\"'"
-                ]
-            },
-            "linux": {
-                "args": [
-                    "exec:java",
-                    "-Dexec.mainClass=aoc.y2024.Runner"
-                ]
+                "args": ["exec:java", "-Dexec.mainClass=aoc.Runner"]
             },
             "problemMatcher": []
         },
@@ -94,16 +29,10 @@
             "type": "shell",
             "command": "mvn",
             "windows": {
-                "args": [
-                    "test",
-                    "-D'test=aoc.y2024.day1.**'"
-                ],
+                "args": ["test", "-D'test=aoc.y2024.day1.**'"]
             },
             "linux": {
-                "args": [
-                    "test",
-                    "-Dtest=aoc.y2024.day1.**"
-                ],
+                "args": ["test", "-Dtest=aoc.y2024.day1.**"]
             },
             "problemMatcher": []
         },
@@ -111,9 +40,7 @@
             "label": "DB Update",
             "type": "shell",
             "command": "mvn",
-            "args": [
-                "liquibase:update"
-            ],
+            "args": ["liquibase:update"],
             "problemMatcher": []
         },
         {
@@ -121,16 +48,10 @@
             "type": "shell",
             "command": "mvn",
             "linux": {
-                "args": [
-                    "liquibase:rollback",
-                    "-Dliquibase.rollbackCount=1"
-                ]
+                "args": ["liquibase:rollback", "-Dliquibase.rollbackCount=1"]
             },
             "windows": {
-                "args": [
-                    "liquibase:rollback",
-                    "-D'liquibase.rollbackCount'=1"
-                ]
+                "args": ["liquibase:rollback", "-D'liquibase.rollbackCount'=1"]
             },
             "problemMatcher": []
         },

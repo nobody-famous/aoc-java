@@ -2,7 +2,7 @@ package aoc.y2018.day1;
 
 import java.util.List;
 
-public class Parser extends aoc.utils.Parser<int[]> {
+public class Parser implements aoc.utils.Parser<int[]> {
     private int parseLine(String line) {
         var negative = line.charAt(0) == '-';
         var intStr = line.substring(1);
