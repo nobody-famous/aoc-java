@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import aoc.utils.Problem;
+import aoc.y2024.day1.Parser.InputItem;
 
 public class Part2 extends Problem<Integer> {
     public Part2(String fileName, int exp) {
@@ -12,20 +13,36 @@ public class Part2 extends Problem<Integer> {
 
     @Override
     public Integer run(List<String> lines) {
-        var parser = new Parser();
-        var items = parser.parse(lines);
-        var score = new HashMap<Integer, Integer>();
+        var items = new Parser().parse(lines);
+        var scores = new HashMap<Integer, Integer>();
 
+        populateScores(scores, items);
+
+        return calculateAnswer(scores, items);
+    }
+
+    private void populateScores(HashMap<Integer, Integer> scores, List<InputItem> items) {
         for (var item : items) {
             var right = item.right();
 
-            if (!score.containsKey(right)) {
-                score.put(right, right);
+            if (!scores.containsKey(right)) {
+                scores.put(right, right);
             } else {
-                score.put(right, score.get(right) + right);
+                scores.put(right, scores.get(right) + right);
             }
         }
+    }
 
-        return items.stream().map(v -> score.containsKey(v.left()) ? score.get(v.left()) : 0).mapToInt(Integer::intValue).sum();
+    private int calculateAnswer(HashMap<Integer, Integer> scores, List<InputItem> items) {
+        var answer = 0;
+        for (var item : items) {
+            var left = item.left();
+
+            answer += scores.containsKey(left)
+                    ? scores.get(left)
+                    : 0;
+        }
+
+        return answer;
     }
 }

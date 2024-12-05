@@ -15,7 +15,8 @@ public class Part2 extends Problem<String> {
     public String run(List<String> lines) {
         var img = parser.parse(lines);
 
-        var canvas = img.render();
+        // var canvas = img.render();
+        img.render();
 
         // for (var row = 0; row < out.length; row += 1) {
         //     for (var col = 0; col < out[row].length; col += 1) {

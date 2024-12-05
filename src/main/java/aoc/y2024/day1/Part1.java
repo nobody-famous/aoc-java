@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import aoc.utils.Problem;
+import aoc.y2024.day1.Parser.InputItem;
 
 public class Part1 extends Problem<Integer> {
     public Part1(String fileName, int exp) {
@@ -12,11 +13,16 @@ public class Part1 extends Problem<Integer> {
 
     @Override
     public Integer run(List<String> lines) {
-        var parser = new Parser();
-        var items = parser.parse(lines);
+        var items = new Parser().parse(lines);
         var left = new ArrayList<Integer>();
         var right = new ArrayList<Integer>();
 
+        populateLists(left, right, items);
+
+        return calculateAnswer(left, right);
+    }
+
+    private void populateLists(List<Integer> left, List<Integer> right, List<InputItem> items) {
         for (var item : items) {
             left.add(item.left());
             right.add(item.right());
@@ -24,12 +30,15 @@ public class Part1 extends Problem<Integer> {
 
         left.sort((a, b) -> a - b);
         right.sort((a, b) -> a - b);
+    }
 
-        var total = 0;
+    private int calculateAnswer(List<Integer> left, List<Integer> right) {
+        var answer = 0;
+
         for (var index = 0; index < left.size(); index += 1) {
-            total += Math.abs(left.get(index) - right.get(index));
+            answer += Math.abs(left.get(index) - right.get(index));
         }
 
-        return total;
+        return answer;
     }
 }
