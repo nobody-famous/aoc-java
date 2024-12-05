@@ -128,7 +128,11 @@ public class Runner {
                     new aoc.y2020.day23.Part2(aoc.y2020.day23.Input.puzzle, 474600314018L),
                     new aoc.y2020.day24.Part1(aoc.y2020.day24.Input.puzzle, 317),
                     new aoc.y2020.day24.Part2(aoc.y2020.day24.Input.puzzle, 3804),
-                    new aoc.y2020.day25.Part1(aoc.y2020.day25.Input.puzzle, 19414467))));
+                    new aoc.y2020.day25.Part1(aoc.y2020.day25.Input.puzzle, 19414467))),
+
+            new Year("2024", List.of(
+                    new aoc.y2024.day1.Part1("input/2024/day1/puzzle.txt", 2057374),
+                    new aoc.y2024.day1.Part2("input/2024/day1/puzzle.txt", 23177084))));
 
     private static <T extends AocProblem> void runAll(String label, List<T> all) throws Exception {
         var total = 0L;
@@ -180,7 +184,9 @@ public class Runner {
 
     public static void main(String[] args) throws Exception {
         for (var year : years) {
-            runAll(year.label, year.problems);
+            if (year.label == "2024") {
+                runAll(year.label, year.problems);
+            }
         }
     }
 }
