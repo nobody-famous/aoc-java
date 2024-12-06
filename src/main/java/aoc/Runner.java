@@ -131,10 +131,11 @@ public class Runner {
                     new aoc.y2020.day25.Part1(aoc.y2020.day25.Input.puzzle, 19414467))),
 
             new Year("2024", List.of(
-                    new aoc.y2024.day1.Part1("input/2024/day1/puzzle.txt", 2057374),
-                    new aoc.y2024.day1.Part2("input/2024/day1/puzzle.txt", 23177084),
-                    new aoc.y2024.day2.Part1("input/2024/day2/puzzle.txt", 334),
-                    new aoc.y2024.day2.Part2("input/2024/day2/puzzle.txt", 400))));
+                    new aoc.y2024.day1.Part1("input/2024/day1.txt", 2057374),
+                    new aoc.y2024.day1.Part2("input/2024/day1.txt", 23177084),
+                    new aoc.y2024.day2.Part1("input/2024/day2.txt", 334),
+                    new aoc.y2024.day2.Part2("input/2024/day2.txt", 400),
+                    new aoc.y2024.day3.Part1("input/2024/day3.txt", 170778545))));
 
     private static <T extends AocProblem> void runAll(String label, List<T> all) throws Exception {
         var total = 0L;

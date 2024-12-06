@@ -14,8 +14,7 @@ public class Part1Test {
                 "1   3",
                 "3   9",
                 "3   3");
-        var part1 = new Part1(null, 11);
 
-        part1.solve(lines);
+        new Part1(null, 11).solve(lines);
     }
 }

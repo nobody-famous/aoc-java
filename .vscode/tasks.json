@@ -29,10 +29,10 @@
             "type": "shell",
             "command": "mvn",
             "windows": {
-                "args": ["test", "-D'test=aoc.y2024.day2.**'"]
+                "args": ["test", "-D'test=aoc.y2024.day3.**'"]
             },
             "linux": {
-                "args": ["test", "-Dtest=aoc.y2024.day2.**"]
+                "args": ["test", "-Dtest=aoc.y2024.day3.**"]
             },
             "problemMatcher": []
         },
