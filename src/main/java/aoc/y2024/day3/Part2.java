@@ -1,6 +1,6 @@
 package aoc.y2024.day3;
 
-import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,13 +18,19 @@ public class Part2 extends Solver {
     }
 
     @Override
-    protected void foundMatch(Matcher matcher, List<MultiplyNumbers> numbers) {
+    protected Optional<MultiplyNumbers> foundMatch(Matcher matcher) {
+        if (matcher.group().startsWith("mul(")) {
+            return doMultiply
+                    ? Optional.of(new MultiplyNumbers(Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(2))))
+                    : Optional.empty();
+        }
+
         if ("do()".equals(matcher.group())) {
             doMultiply = true;
         } else if ("don't()".equals(matcher.group())) {
             doMultiply = false;
-        } else if (doMultiply) {
-            numbers.add(new MultiplyNumbers(Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(2))));
         }
+
+        return Optional.empty();
     }
 }

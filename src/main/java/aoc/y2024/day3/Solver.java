@@ -2,6 +2,7 @@ package aoc.y2024.day3;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,7 +14,7 @@ public abstract class Solver extends Problem<Integer> {
 
     protected abstract Pattern getPattern();
 
-    protected abstract void foundMatch(Matcher matcher, List<MultiplyNumbers> numbers);
+    protected abstract Optional<MultiplyNumbers> foundMatch(Matcher matcher);
 
     public Solver(String fileName, int exp) {
         super(fileName, exp);
@@ -28,7 +29,11 @@ public abstract class Solver extends Problem<Integer> {
             matcher.reset(line);
 
             while (matcher.find()) {
-                foundMatch(matcher, numbers);
+                var newNumbers = foundMatch(matcher);
+
+                if (newNumbers.isPresent()) {
+                    numbers.add(newNumbers.get());
+                }
             }
         }
 

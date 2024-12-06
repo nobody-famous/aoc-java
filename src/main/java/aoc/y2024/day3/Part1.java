@@ -1,6 +1,6 @@
 package aoc.y2024.day3;
 
-import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,7 +17,7 @@ public class Part1 extends Solver {
     }
 
     @Override
-    protected void foundMatch(Matcher matcher, List<MultiplyNumbers> numbers) {
-        numbers.add(new MultiplyNumbers(Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(2))));
+    protected Optional<MultiplyNumbers> foundMatch(Matcher matcher) {
+        return Optional.of(new MultiplyNumbers(Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(2))));
     }
 }
