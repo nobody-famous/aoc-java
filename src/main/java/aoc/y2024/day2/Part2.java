@@ -19,6 +19,7 @@ public class Part2 extends Problem<Integer> {
                 answer += 1;
             }
         }
+
         return answer;
     }
 

@@ -4,14 +4,10 @@ import java.util.List;
 
 public interface Utils {
     static boolean isSafe(List<Integer> report) {
-        return tryIsSafe(report, report.size());
+        return isSafe(report, report.size());
     }
 
     static boolean isSafe(List<Integer> report, int toSkip) {
-        return tryIsSafe(report, toSkip);
-    }
-
-    private static boolean tryIsSafe(List<Integer> report, int toSkip) {
         var cur = toSkip == 0 ? 1 : 0;
         var next = cur + 1 == toSkip ? cur + 2 : cur + 1;
         var slope = 0;
@@ -22,7 +18,7 @@ public interface Utils {
             }
 
             var diff = report.get(next) - report.get(cur);
-            if (diff == 0 || (slope < 0 && diff > 0) || (slope > 0 && diff < 0) || !isValidStep(diff)) {
+            if (!isValidStep(diff) || (slope < 0 && diff > 0) || (slope > 0 && diff < 0)) {
                 return false;
             }
 
