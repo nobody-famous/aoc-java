@@ -135,7 +135,8 @@ public class Runner {
                     new aoc.y2024.day1.Part2("input/2024/day1.txt", 23177084),
                     new aoc.y2024.day2.Part1("input/2024/day2.txt", 334),
                     new aoc.y2024.day2.Part2("input/2024/day2.txt", 400),
-                    new aoc.y2024.day3.Part1("input/2024/day3.txt", 170778545))));
+                    new aoc.y2024.day3.Part1("input/2024/day3.txt", 170778545),
+                    new aoc.y2024.day3.Part2("input/2024/day3.txt", 82868252))));
 
     private static <T extends AocProblem> void runAll(String label, List<T> all) throws Exception {
         var total = 0L;
