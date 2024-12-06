@@ -133,7 +133,8 @@ public class Runner {
             new Year("2024", List.of(
                     new aoc.y2024.day1.Part1("input/2024/day1/puzzle.txt", 2057374),
                     new aoc.y2024.day1.Part2("input/2024/day1/puzzle.txt", 23177084),
-                    new aoc.y2024.day2.Part1("input/2024/day2/puzzle.txt", 334))));
+                    new aoc.y2024.day2.Part1("input/2024/day2/puzzle.txt", 334),
+                    new aoc.y2024.day2.Part2("input/2024/day2/puzzle.txt", 400))));
 
     private static <T extends AocProblem> void runAll(String label, List<T> all) throws Exception {
         var total = 0L;
