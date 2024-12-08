@@ -6,7 +6,7 @@ import java.util.HashSet;
 import aoc.utils.geometry.Point;
 
 public class Walker {
-    private Grid grid;
+    private final Grid grid;
     private Direction dir = Direction.UP;
 
     private enum Direction {
@@ -22,10 +22,7 @@ public class Walker {
         var visited = new HashSet<Point>();
         var seen = new HashMap<Direction, HashSet<Point>>();
 
-        seen.put(Direction.UP, new HashSet<>());
-        seen.put(Direction.DOWN, new HashSet<>());
-        seen.put(Direction.RIGHT, new HashSet<>());
-        seen.put(Direction.LEFT, new HashSet<>());
+        initDirMap(seen);
 
         while (grid.map().containsKey(pt)) {
             if (seen.get(dir).contains(pt)) {
@@ -38,6 +35,13 @@ public class Walker {
         }
 
         return visited;
+    }
+
+    private void initDirMap(HashMap<Direction, HashSet<Point>> map) {
+        map.put(Direction.UP, new HashSet<>());
+        map.put(Direction.DOWN, new HashSet<>());
+        map.put(Direction.RIGHT, new HashSet<>());
+        map.put(Direction.LEFT, new HashSet<>());
     }
 
     private Point step(Point pt) {

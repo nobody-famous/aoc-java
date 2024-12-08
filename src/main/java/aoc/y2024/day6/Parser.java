@@ -1,6 +1,7 @@
 package aoc.y2024.day6;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import aoc.utils.geometry.Point;
@@ -9,6 +10,7 @@ public class Parser implements aoc.utils.Parser<Grid> {
     @Override
     public Grid parse(List<String> lines) {
         var items = new HashMap<Point, Character>();
+        var walls = new HashSet<Point>();
         var start = new Point(0, 0);
 
         for (var row = 0; row < lines.size(); row += 1) {
@@ -21,10 +23,12 @@ public class Parser implements aoc.utils.Parser<Grid> {
 
                 if (ch == '^') {
                     start = new Point(row, col);
+                } else if (ch == '#') {
+                    walls.add(new Point(row, col));
                 }
             }
         }
 
-        return new Grid(items, start);
+        return new Grid(items, walls, start);
     }
 }
