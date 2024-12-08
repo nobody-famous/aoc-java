@@ -5,11 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import aoc.utils.geometry.Point;
+
 public class Part2 extends Solver {
     private final Map<Integer, Boolean> used = new HashMap<>();
     private Map<String, Integer> borderCounts;
 
-    private final String[] monster = new String[] { "                  # ", "#    ##    ##    ###", " #  #  #  #  #  #   " };
+    private final String[] monster = new String[]{ "                  # ", "#    ##    ##    ###", " #  #  #  #  #  #   " };
     private final int numMonsterPoints;
 
     public Part2(Tile[] input, long expected) {
@@ -171,8 +173,8 @@ public class Part2 extends Solver {
         var data = tile.getData();
 
         for (var point : points) {
-            var row = startRow + point.row();
-            var col = startCol + point.col();
+            var row = startRow + point.x;
+            var col = startCol + point.y;
 
             if (data[row].charAt(col) != '#') {
                 return false;
