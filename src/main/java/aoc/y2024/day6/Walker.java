@@ -21,20 +21,19 @@ public class Walker {
         var pt = grid.start();
         var visited = new HashSet<Point>();
         var seen = new HashMap<Direction, HashSet<Point>>();
+        var hasLoop = false;
 
         initDirMap(seen);
 
-        while (grid.map().containsKey(pt)) {
-            if (seen.get(dir).contains(pt)) {
-                return new HashSet<>();
-            }
+        while (!hasLoop && grid.map().containsKey(pt)) {
+            hasLoop = seen.get(dir).contains(pt);
 
             seen.get(dir).add(pt);
             visited.add(pt);
             pt = step(pt);
         }
 
-        return visited;
+        return hasLoop ? new HashSet<>() : visited;
     }
 
     private void initDirMap(HashMap<Direction, HashSet<Point>> map) {
