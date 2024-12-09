@@ -27,20 +27,17 @@ public class Part2 extends Problem<Integer> {
                 continue;
             }
 
-            // grid.walls().add(pt);
-            grid.map().put(pt, '#');
+            grid.set(pt, '#');
             if (isLoop(grid)) {
                 loops += 1;
             }
-            // grid.walls().remove(pt);
-            grid.map().put(pt, '.');
+            grid.set(pt, '.');
         }
 
         return loops;
     }
 
     private boolean isLoop(Grid grid) {
-        // return new Walker(grid).hasLoop();
-        return new Walker(grid).walk().size() == 0;
+        return new Walker(grid).hasLoop();
     }
 }

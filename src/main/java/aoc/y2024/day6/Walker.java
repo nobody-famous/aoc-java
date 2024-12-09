@@ -43,30 +43,11 @@ public class Walker {
         return hasLoop;
     }
 
-    public HashSet<Point> walk() {
-        var pt = grid.start();
-        var visited = new HashSet<Point>();
-        var seen = new HashMap<Direction, HashSet<Point>>();
-        var hasLoop = false;
-
-        initDirMap(seen);
-
-        while (!hasLoop && grid.map().containsKey(pt)) {
-            hasLoop = seen.get(dir).contains(pt);
-
-            seen.get(dir).add(pt);
-            visited.add(pt);
-            pt = step(pt);
-        }
-
-        return hasLoop ? new HashSet<>() : visited;
-    }
-
     public HashSet<Point> getFullPath() {
         var pt = grid.start();
         var visited = new HashSet<Point>();
 
-        while (grid.map().containsKey(pt)) {
+        while (grid.onMap(pt)) {
             visited.add(pt);
             pt = step(pt);
         }
@@ -75,31 +56,32 @@ public class Walker {
     }
 
     private Optional<Point> jumpToWall(Point pt) {
-        var newPoint = switch (dir) {
-        case UP -> new Point(Integer.MIN_VALUE, pt.y);
-        case DOWN -> new Point(Integer.MAX_VALUE, pt.y);
-        case RIGHT -> new Point(pt.x, Integer.MAX_VALUE);
-        case LEFT -> new Point(pt.x, Integer.MIN_VALUE);
+        var newPoint = new Point(pt);
+        var rowDelta = switch (dir) {
+        case UP -> -1;
+        case DOWN -> 1;
+        case RIGHT -> 0;
+        case LEFT -> 0;
         };
-        var found = false;
+        var colDelta = switch (dir) {
+        case UP -> 0;
+        case DOWN -> 0;
+        case RIGHT -> 1;
+        case LEFT -> -1;
+        };
 
-        for (var wall : grid.walls()) {
-            if (dir == Direction.UP && wall.y == pt.y && wall.x < pt.x && wall.x >= newPoint.x) {
-                newPoint.x = wall.x + 1;
-                found = true;
-            } else if (dir == Direction.DOWN && wall.y == pt.y && wall.x > pt.x && wall.x <= newPoint.x) {
-                newPoint.x = wall.x - 1;
-                found = true;
-            } else if (dir == Direction.RIGHT && wall.x == pt.x && wall.y > pt.y && wall.y <= newPoint.y) {
-                newPoint.y = wall.y - 1;
-                found = true;
-            } else if (dir == Direction.LEFT && wall.x == pt.x && wall.y < pt.y && wall.y >= newPoint.y) {
-                newPoint.y = wall.y + 1;
-                found = true;
+        while (grid.onMap(newPoint)) {
+            newPoint.x += rowDelta;
+            newPoint.y += colDelta;
+
+            if (grid.get(newPoint) == '#') {
+                newPoint.x -= rowDelta;
+                newPoint.y -= colDelta;
+                return Optional.of(newPoint);
             }
         }
 
-        return found ? Optional.of(newPoint) : Optional.empty();
+        return Optional.empty();
     }
 
     private void initDirMap(HashMap<Direction, HashSet<Point>> map) {
@@ -117,8 +99,7 @@ public class Walker {
         case LEFT -> new Point(pt.x, pt.y - 1);
         };
 
-        var ch = grid.map().get(newPoint);
-        if (ch != null && ch == '#') {
+        if (grid.get(newPoint) == '#') {
             turnRight();
             return pt;
         }
