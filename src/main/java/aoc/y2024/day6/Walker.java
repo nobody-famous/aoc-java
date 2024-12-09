@@ -2,7 +2,6 @@ package aoc.y2024.day6;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Optional;
 
 import aoc.utils.geometry.Point;
 
@@ -21,26 +20,21 @@ public class Walker {
     public boolean hasLoop() {
         var pt = grid.start();
         var seen = new HashMap<Direction, HashSet<Point>>();
-        var hasLoop = false;
-        var onGrid = true;
 
         initDirMap(seen);
 
-        while (!hasLoop && onGrid) {
-            hasLoop = seen.get(dir).contains(pt);
+        while (grid.onMap(pt)) {
+            if (seen.get(dir).contains(pt)) {
+                return true;
+            }
 
             seen.get(dir).add(pt);
 
-            var newPoint = jumpToWall(pt);
-            if (newPoint.isPresent()) {
-                pt = newPoint.get();
-                turnRight();
-            } else {
-                onGrid = false;
-            }
+            pt = jumpToWall(pt);
+            turnRight();
         }
 
-        return hasLoop;
+        return false;
     }
 
     public HashSet<Point> getFullPath() {
@@ -55,7 +49,7 @@ public class Walker {
         return visited;
     }
 
-    private Optional<Point> jumpToWall(Point pt) {
+    private Point jumpToWall(Point pt) {
         var newPoint = new Point(pt);
         var rowDelta = switch (dir) {
         case UP -> -1;
@@ -77,11 +71,11 @@ public class Walker {
             if (grid.get(newPoint) == '#') {
                 newPoint.x -= rowDelta;
                 newPoint.y -= colDelta;
-                return Optional.of(newPoint);
+                return newPoint;
             }
         }
 
-        return Optional.empty();
+        return new Point(-1, -1);
     }
 
     private void initDirMap(HashMap<Direction, HashSet<Point>> map) {
