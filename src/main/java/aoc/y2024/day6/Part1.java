@@ -13,8 +13,6 @@ public class Part1 extends Problem<Integer> {
     public Integer run(List<String> lines) {
         var grid = new Parser().parse(lines);
 
-        return new Walker(grid)
-                .walk()
-                .size();
+        return new Walker(grid).getFullPath().size();
     }
 }

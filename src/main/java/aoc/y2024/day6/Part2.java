@@ -14,7 +14,7 @@ public class Part2 extends Problem<Integer> {
     @Override
     public Integer run(List<String> lines) {
         var grid = new Parser().parse(lines);
-        var path = new Walker(grid).walk();
+        var path = new Walker(grid).getFullPath();
 
         return countLoops(grid, path);
     }
@@ -27,10 +27,12 @@ public class Part2 extends Problem<Integer> {
                 continue;
             }
 
-            grid.map().replace(pt, '#');
+            // grid.walls().add(pt);
+            grid.map().put(pt, '#');
             if (isLoop(grid)) {
                 loops += 1;
             }
+            // grid.walls().remove(pt);
             grid.map().put(pt, '.');
         }
 
@@ -38,6 +40,7 @@ public class Part2 extends Problem<Integer> {
     }
 
     private boolean isLoop(Grid grid) {
+        // return new Walker(grid).hasLoop();
         return new Walker(grid).walk().size() == 0;
     }
 }
