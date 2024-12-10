@@ -18,7 +18,7 @@ public class Walker {
     }
 
     public boolean hasLoop() {
-        var pt = grid.start();
+        var pt = grid.getStart();
         var seen = new HashMap<Direction, HashSet<Point>>();
 
         initDirMap(seen);
@@ -38,7 +38,7 @@ public class Walker {
     }
 
     public HashSet<Point> getFullPath() {
-        var pt = grid.start();
+        var pt = grid.getStart();
         var visited = new HashSet<Point>();
 
         while (grid.onMap(pt)) {

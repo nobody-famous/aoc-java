@@ -23,7 +23,7 @@ public class Part2 extends Problem<Integer> {
         var loops = 0;
 
         for (var pt : path) {
-            if (pt == grid.start()) {
+            if (pt == grid.getStart()) {
                 continue;
             }
 
