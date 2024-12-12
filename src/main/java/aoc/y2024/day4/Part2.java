@@ -1,16 +1,32 @@
 package aoc.y2024.day4;
 
-import java.util.List;
+import aoc.utils.geometry.Point;
 
-import aoc.utils.Problem;
-
-public class Part2 extends Problem<Integer> {
+public class Part2 extends Solver {
     public Part2(String fileName, int exp) {
         super(fileName, exp);
     }
 
     @Override
-    public Integer run(List<String> lines) {
-        return 0;
+    public char getTargetChar() {
+        return 'A';
+    }
+
+    @Override
+    public int countMatches(Grid grid, Point pt) {
+        var count = 0;
+
+        if (matches(grid, pt.x, pt.y)) {
+            count += 1;
+        }
+
+        return count;
+    }
+
+    private boolean matches(Grid grid, int row, int col) {
+        return ((grid.onMap(row - 1, col - 1) && grid.get(row - 1, col - 1) == 'M' && grid.onMap(row + 1, col + 1) && grid.get(row + 1, col + 1) == 'S')
+                || (grid.onMap(row - 1, col - 1) && grid.get(row - 1, col - 1) == 'S' && grid.onMap(row + 1, col + 1) && grid.get(row + 1, col + 1) == 'M'))
+                && ((grid.onMap(row - 1, col + 1) && grid.get(row - 1, col + 1) == 'M' && grid.onMap(row + 1, col - 1) && grid.get(row + 1, col - 1) == 'S')
+                        || (grid.onMap(row - 1, col + 1) && grid.get(row - 1, col + 1) == 'S' && grid.onMap(row + 1, col - 1) && grid.get(row + 1, col - 1) == 'M'));
     }
 }

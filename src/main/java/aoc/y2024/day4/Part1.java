@@ -2,11 +2,10 @@ package aoc.y2024.day4;
 
 import java.util.List;
 
-import aoc.utils.Problem;
 import aoc.utils.geometry.Point;
 
-public class Part1 extends Problem<Integer> {
-    private List<Point> diffs = List.of(
+public class Part1 extends Solver {
+    private static List<Point> diffs = List.of(
             new Point(0, 1),
             new Point(0, -1),
             new Point(1, 1),
@@ -21,20 +20,14 @@ public class Part1 extends Problem<Integer> {
     }
 
     @Override
-    public Integer run(List<String> lines) {
-        var grid = new Parser().parse(lines);
-        var startPoints = grid.findAll('X');
-        var answer = 0;
-
-        for (var pt : startPoints) {
-            answer += countMatches(grid, "XMAS", pt);
-        }
-
-        return answer;
+    char getTargetChar() {
+        return 'X';
     }
 
-    private int countMatches(Grid grid, String target, Point pt) {
-        int count = 0;
+    @Override
+    int countMatches(Grid grid, Point pt) {
+        var target = "XMAS";
+        var count = 0;
 
         for (var diff : diffs) {
             if (matches(grid, target, pt, diff)) {
