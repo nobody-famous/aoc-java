@@ -137,6 +137,7 @@ public class Runner {
                     new aoc.y2024.day2.Part2("input/2024/day2.txt", 400),
                     new aoc.y2024.day3.Part1("input/2024/day3.txt", 170778545),
                     new aoc.y2024.day3.Part2("input/2024/day3.txt", 82868252),
+                    new aoc.y2024.day4.Part1("input/2024/day4.txt", 0),
                     new aoc.y2024.day6.Part1("input/2024/day6.txt", 4776),
                     new aoc.y2024.day6.Part2("input/2024/day6.txt", 1586))));
 
