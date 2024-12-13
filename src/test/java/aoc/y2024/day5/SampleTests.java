@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-public class Part1Test {
+public class SampleTests {
     private static List<String> lines = List.of(
             "47|53",
             "97|13",
