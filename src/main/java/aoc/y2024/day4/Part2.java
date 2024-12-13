@@ -24,9 +24,16 @@ public class Part2 extends Solver {
     }
 
     private boolean matches(Grid grid, int row, int col) {
-        return ((grid.onMap(row - 1, col - 1) && grid.get(row - 1, col - 1) == 'M' && grid.onMap(row + 1, col + 1) && grid.get(row + 1, col + 1) == 'S')
-                || (grid.onMap(row - 1, col - 1) && grid.get(row - 1, col - 1) == 'S' && grid.onMap(row + 1, col + 1) && grid.get(row + 1, col + 1) == 'M'))
-                && ((grid.onMap(row - 1, col + 1) && grid.get(row - 1, col + 1) == 'M' && grid.onMap(row + 1, col - 1) && grid.get(row + 1, col - 1) == 'S')
-                        || (grid.onMap(row - 1, col + 1) && grid.get(row - 1, col + 1) == 'S' && grid.onMap(row + 1, col - 1) && grid.get(row + 1, col - 1) == 'M'));
+        return matches(grid, new Point(row - 1, col - 1), new Point(row + 1, col + 1))
+                && matches(grid, new Point(row - 1, col + 1), new Point(row + 1, col - 1));
+    }
+
+    private boolean matches(Grid grid, Point p1, Point p2) {
+        if (!grid.onMap(p1.x, p1.y) || !grid.onMap(p2.x, p2.y)) {
+            return false;
+        }
+
+        return (grid.get(p1.x, p1.y) == 'M' && grid.get(p2.x, p2.y) == 'S')
+                || (grid.get(p1.x, p1.y) == 'S' && grid.get(p2.x, p2.y) == 'M');
     }
 }
