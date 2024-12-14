@@ -24,6 +24,14 @@
             "problemMatcher": []
         },
         {
+            "label": "Unit Tests",
+            "dependsOn": "Compile",
+            "type": "shell",
+            "command": "mvn",
+            "args": ["test"],
+            "problemMatcher": []
+        },
+        {
             "label": "Test 2024",
             "dependsOn": "Compile",
             "type": "shell",
