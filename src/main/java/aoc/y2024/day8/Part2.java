@@ -28,7 +28,7 @@ public class Part2 extends Solver {
 
             pt = new Point(pair.left());
             while (grid.onMap(pt)) {
-                nodes.add(new Point(pt)); 
+                nodes.add(new Point(pt));
                 pt.inc(-rowDiff, -colDiff);
             }
         }
