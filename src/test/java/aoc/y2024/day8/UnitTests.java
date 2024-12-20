@@ -23,4 +23,9 @@ public class UnitTests {
     void testPart1() {
         new Part1(null, 14).solve(lines);
     }
+
+    @Test
+    void testPart2() {
+        new Part2(null, 34).solve(lines);
+    }
 }
