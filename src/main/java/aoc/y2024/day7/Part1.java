@@ -53,14 +53,15 @@ public class Part1 extends aoc.utils.Problem<Long> {
         return equations;
     }
 
-    private boolean canBeTrue(long target, long value, List<Long> numbers) {
-        return numbers.isEmpty()
-                ? target == value
-                : canBeTrue(target, value + numbers.getFirst(), numbers.subList(1, numbers.size())) || canBeTrue(target, value * numbers.getFirst(), numbers.subList(1, numbers.size()));
+    private boolean canBeTrue(long target, List<Long> numbers, int index) {
+        return index < 0
+                ? target == 0
+                : (target % numbers.get(index) == 0 && canBeTrue(target / numbers.get(index), numbers, index - 1))
+                        || (target - numbers.get(index) >= 0 && canBeTrue(target - numbers.get(index), numbers, index - 1));
     }
 
     private boolean canBeTrue(Equation eq) {
-        return canBeTrue(eq.value, 0, eq.numbers);
+        return canBeTrue(eq.value, eq.numbers, eq.numbers.size() - 1);
     }
 
     private long getAnswer(List<Equation> equations) {
