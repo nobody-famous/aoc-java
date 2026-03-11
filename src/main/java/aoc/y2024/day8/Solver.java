@@ -19,26 +19,12 @@ public abstract class Solver extends Problem<Integer> {
 
     @Override
     public Integer run(List<String> lines) {
-        var grid = parseInput(lines);
+        var grid = Grid.parse(lines);
         var frequencies = getFrequencies(grid);
         var pairs = getPairs(frequencies);
         var nodes = createAntinodes(pairs, grid);
 
         return nodes.size();
-    }
-
-    private Grid parseInput(List<String> lines) {
-        var grid = new Grid(lines.size(), lines.get(0).length());
-
-        for (var row = 0; row < lines.size(); row += 1) {
-            var line = lines.get(row);
-
-            for (var col = 0; col < line.length(); col += 1) {
-                grid.set(row, col, line.charAt(col));
-            }
-        }
-
-        return grid;
     }
 
     private void addFrequency(HashMap<Character, List<Point>> map, char key, Point pt) {
