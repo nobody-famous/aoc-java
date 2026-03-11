@@ -199,7 +199,7 @@ public class Runner {
 
     public static void main(String[] args) throws Exception {
         for (var year : years) {
-            if (year.label == "2019") {
+            if (year.label == "2024") {
                 runAll(year.label, year.problems);
             }
         }
