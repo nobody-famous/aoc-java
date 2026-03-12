@@ -3,17 +3,13 @@ package aoc.y2018.day1;
 import java.util.HashSet;
 import java.util.List;
 
-import aoc.utils.Problem;
+import aoc.utils.IntProblem;
 
-public class Part2 extends Problem<Integer> {
+public class Part2 extends IntProblem {
     private final Parser parser = new Parser();
 
-    public Part2(String fileName, int exp) {
-        super(fileName, exp);
-    }
-
     @Override
-    public Integer run(List<String> lines) {
+    public int solve(List<String> lines) {
         var values = parser.parse(lines);
         var seen = new HashSet<Integer>();
 

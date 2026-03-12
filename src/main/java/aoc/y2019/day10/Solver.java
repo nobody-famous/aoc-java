@@ -1,21 +1,20 @@
 package aoc.y2019.day10;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
-import aoc.utils.Problem;
+import aoc.utils.IntProblem;
 import aoc.utils.geometry.Point;
 
-public abstract class Solver extends Problem<Integer> {
+public abstract class Solver extends IntProblem {
     private final Parser parser = new Parser();
-
-    public Solver(String fileName, int exp) {
-        super(fileName, exp);
-    }
 
     protected abstract int doWork(List<Point> asteroids);
 
     @Override
-    public Integer run(List<String> lines) {
+    public int solve(List<String> lines) {
         var asteroids = parser.parse(lines);
 
         return doWork(asteroids);

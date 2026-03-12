@@ -2,16 +2,12 @@ package aoc.y2019.day25;
 
 import java.util.List;
 
-import aoc.utils.Problem;
+import aoc.utils.IntProblem;
 import aoc.y2019.intcode.Parser;
 
-public class Part1 extends Problem<Integer> {
+public class Part1 extends IntProblem {
     private final Parser parser = new Parser();
     private Droid droid;
-
-    public Part1(String fileName, int exp) {
-        super(fileName, exp);
-    }
 
     private String nextLine() {
         var line = "";
@@ -24,9 +20,9 @@ public class Part1 extends Problem<Integer> {
     }
 
     @Override
-    public Integer run(List<String> lines) {
+    public int solve(List<String> lines) {
         var prog = parser.parse(lines);
-        var commands = new String[] { "north", "east", "north", "east", "take semiconductor", "west", "south", "west",
+        var commands = new String[]{ "north", "east", "north", "east", "take semiconductor", "west", "south", "west",
                 "south", "east", "north", "take coin", "south", "east", "take candy cane", "west", "west", "south",
                 "east", "take mouse", "south", "west", "" };
 

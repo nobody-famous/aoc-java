@@ -1,11 +1,6 @@
 package aoc.y2019.day19;
 
 public class Part2 extends Solver {
-    public Part2(String fileName, int exp) {
-        super(fileName, exp);
-
-    }
-
     private boolean squareFits(int x, int y) {
         return isBeam(x, y) && isBeam(x + 100 - 1, y - 100 + 1);
     }

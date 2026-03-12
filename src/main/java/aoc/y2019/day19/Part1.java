@@ -5,10 +5,6 @@ public class Part1 extends Solver {
     private final static int MAX_X = 50;
     private final static int MAX_Y = 50;
 
-    public Part1(String fileName, int exp) {
-        super(fileName, exp);
-    }
-
     private int scanLine(int y) {
         var maxX = MAX_X;
         var start = findStart(y, prevStart, maxX);

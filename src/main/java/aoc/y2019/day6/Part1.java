@@ -3,14 +3,10 @@ package aoc.y2019.day6;
 import java.util.List;
 import java.util.Map;
 
-import aoc.utils.Problem;
+import aoc.utils.IntProblem;
 
-public class Part1 extends Problem<Integer> {
+public class Part1 extends IntProblem {
     private final Parser parser = new Parser();
-
-    public Part1(String fileName, int exp) {
-        super(fileName, exp);
-    }
 
     private int countOrbits(Map<String, List<String>> orbits, String node, int curTotal) {
         if (!orbits.containsKey(node)) {
@@ -28,7 +24,7 @@ public class Part1 extends Problem<Integer> {
     }
 
     @Override
-    public Integer run(List<String> lines) {
+    public int solve(List<String> lines) {
         var orbits = parser.parse(lines);
 
         return countOrbits(orbits, "COM", 0);

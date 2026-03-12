@@ -2,17 +2,13 @@ package aoc.y2018.day9;
 
 import java.util.List;
 
-import aoc.utils.Problem;
+import aoc.utils.LongProblem;
 
-public class Part2 extends Problem<Long> {
+public class Part2 extends LongProblem {
     private final Parser parser = new Parser();
 
-    public Part2(String fileName, long exp) {
-        super(fileName, exp);
-    }
-
     @Override
-    public Long run(List<String> lines) {
+    public long solve(List<String> lines) {
         var oldConfig = parser.parse(lines);
         var config = new Config(oldConfig.numPlayers(), oldConfig.lastMarble() * 100);
         var state = new State(config.numPlayers(), config.lastMarble());

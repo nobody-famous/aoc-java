@@ -6,10 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Part2 extends Solver {
-    public Part2(String fileName, int exp) {
-        super(fileName, exp);
-    }
-
     private List<List<Point>> sortSlopes(List<Point> asteroids, Point pt) {
         var groups = createGroups(asteroids, pt);
         var sorted = new ArrayList<List<Point>>();

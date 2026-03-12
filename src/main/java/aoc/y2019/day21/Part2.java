@@ -1,10 +1,6 @@
 package aoc.y2019.day21;
 
 public class Part2 extends Solver {
-    public Part2(String fileName, int exp) {
-        super(fileName, exp);
-    }
-
     @Override
     protected String[] getInstructionList() {
         return new String[] { "NOT A T", "NOT B J", "OR T J", "NOT C T", "OR T J", "NOT E T", "AND H T", "OR E T",

@@ -4,15 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import aoc.utils.Problem;
+import aoc.utils.IntProblem;
 
-public class Part2 extends Problem<Integer> {
+public class Part2 extends IntProblem {
     private final Parser parser = new Parser();
     private Map<String, List<String>> orbits;
-
-    public Part2(String fileName, int exp) {
-        super(fileName, exp);
-    }
 
     private List<String> findPath(List<String> curPath, String start, String end) {
         curPath.add(start);
@@ -60,7 +56,7 @@ public class Part2 extends Problem<Integer> {
     }
 
     @Override
-    public Integer run(List<String> lines) {
+    public int solve(List<String> lines) {
         orbits = parser.parse(lines);
 
         var youPath = findPath("YOU");

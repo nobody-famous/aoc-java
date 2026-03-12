@@ -1,15 +1,11 @@
 package aoc.y2018.day2;
 
-import aoc.utils.Problem;
-
 import java.util.List;
 
-public class Part1 extends Problem<Integer> {
-    private final Parser parser = new Parser();
+import aoc.utils.IntProblem;
 
-    public Part1(String fileName, int exp) {
-        super(fileName, exp);
-    }
+public class Part1 extends IntProblem {
+    private final Parser parser = new Parser();
 
     private int[] letterCounts(String str) {
         var counts = new int[26];
@@ -43,7 +39,7 @@ public class Part1 extends Problem<Integer> {
     }
 
     @Override
-    public Integer run(List<String> lines) {
+    public int solve(List<String> lines) {
         var input = parser.parse(lines);
         var twosThrees = new int[2];
 

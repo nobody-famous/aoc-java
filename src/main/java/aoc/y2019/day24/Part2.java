@@ -4,16 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import aoc.utils.Problem;
+import aoc.utils.IntProblem;
 
-public class Part2 extends Problem<Integer> {
+public class Part2 extends IntProblem {
     private final Parser parser = new Parser();
     private Map<Integer, Grid> grids = new HashMap<>();
     private Map<Integer, Grid> newGrids;
-
-    public Part2(String fileName, int exp) {
-        super(fileName, exp);
-    }
 
     private int countAdjacent(Grid grid, int x, int y) {
         var count = 0;
@@ -184,7 +180,7 @@ public class Part2 extends Problem<Integer> {
     }
 
     @Override
-    public Integer run(List<String> lines) {
+    public int solve(List<String> lines) {
         var grid = parser.parse(lines);
 
         grids.put(0, grid);

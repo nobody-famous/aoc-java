@@ -2,17 +2,13 @@ package aoc.y2019.day8;
 
 import java.util.List;
 
-import aoc.utils.Problem;
+import aoc.utils.StringProblem;
 
-public class Part2 extends Problem<String> {
+public class Part2 extends StringProblem {
     private final Parser parser = new Parser(25, 6);
 
-    public Part2(String fileName, String exp) {
-        super(fileName, exp);
-    }
-
     @Override
-    public String run(List<String> lines) {
+    public String solve(List<String> lines) {
         var img = parser.parse(lines);
 
         // var canvas = img.render();

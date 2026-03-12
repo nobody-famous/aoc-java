@@ -1,10 +1,6 @@
 package aoc.y2018.day4;
 
 public class Part2 extends Solver {
-    public Part2(String fileName, int exp) {
-        super(fileName, exp);
-    }
-
     private int[] findGuardAndMinute() {
         var guard = 0;
         var minute = 0;

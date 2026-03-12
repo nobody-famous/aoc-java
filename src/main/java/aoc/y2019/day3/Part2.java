@@ -7,10 +7,6 @@ import aoc.utils.geometry.Line;
 import aoc.utils.geometry.Point;
 
 public class Part2 extends Solver {
-    public Part2(String fileName, int exp) {
-        super(fileName, exp);
-    }
-
     private boolean onLine(Point pt, Line line) {
         return (line.start.x == line.end.x && line.start.x == pt.x && isBetween(pt.y, line.start.y, line.end.y))
                 || (line.start.y == line.end.y && line.start.y == pt.y && isBetween(pt.x, line.start.x, line.end.x));

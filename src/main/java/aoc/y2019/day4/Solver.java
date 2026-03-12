@@ -2,19 +2,15 @@ package aoc.y2019.day4;
 
 import java.util.List;
 
-import aoc.utils.Problem;
+import aoc.utils.IntProblem;
 
-public abstract class Solver extends Problem<Integer> {
+public abstract class Solver extends IntProblem {
     private final Parser parser = new Parser();
-
-    protected Solver(String fileName, int exp) {
-        super(fileName, exp);
-    }
 
     protected abstract boolean isValid(int[] num);
 
     @Override
-    public Integer run(List<String> lines) {
+    public int solve(List<String> lines) {
         var nums = parser.parse(lines);
         var total = 0;
 

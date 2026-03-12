@@ -3,16 +3,12 @@ package aoc.y2019.day3;
 import java.util.ArrayList;
 import java.util.List;
 
-import aoc.utils.Problem;
+import aoc.utils.IntProblem;
 import aoc.utils.geometry.Line;
 import aoc.utils.geometry.Point;
 
-public abstract class Solver extends Problem<Integer> {
+public abstract class Solver extends IntProblem {
     protected Parser parser = new Parser();
-
-    public Solver(String fileName, int exp) {
-        super(fileName, exp);
-    }
 
     protected abstract int doWork(Wire[] wires, List<Point> crosses);
 
@@ -52,7 +48,7 @@ public abstract class Solver extends Problem<Integer> {
     }
 
     @Override
-    public Integer run(List<String> lines) {
+    public int solve(List<String> lines) {
         var wires = parser.parse(lines);
         var crosses = findCrosses(wires);
 

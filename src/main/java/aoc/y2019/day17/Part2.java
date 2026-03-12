@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Set;
 
 import aoc.utils.Grid;
-import aoc.utils.Problem;
+import aoc.utils.IntProblem;
 import aoc.utils.geometry.Point;
 import aoc.y2019.intcode.Parser;
 
-public class Part2 extends Problem<Integer> {
+public class Part2 extends IntProblem {
     private final Parser parser = new Parser();
 
     private class Robot {
@@ -43,10 +43,6 @@ public class Part2 extends Problem<Integer> {
 
             return moves;
         }
-    }
-
-    public Part2(String fileName, int exp) {
-        super(fileName, exp);
     }
 
     private boolean hasMove(Set<Point> scaffold, Robot robot) {
@@ -144,7 +140,7 @@ public class Part2 extends Problem<Integer> {
     }
 
     @Override
-    public Integer run(List<String> lines) {
+    public int solve(List<String> lines) {
         var prog = parser.parse(lines);
         var ctrl = new Controller(prog);
 

@@ -1,10 +1,6 @@
 package aoc.y2019.day4;
 
 public class Part2 extends Solver {
-    public Part2(String fileName, int exp) {
-        super(fileName, exp);
-    }
-
     protected boolean isValid(int[] num) {
         var counts = new int[10];
 

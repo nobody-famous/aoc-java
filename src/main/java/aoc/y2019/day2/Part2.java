@@ -2,16 +2,12 @@ package aoc.y2019.day2;
 
 import java.util.List;
 
-import aoc.utils.Problem;
+import aoc.utils.LongProblem;
 import aoc.y2019.intcode.Machine;
 import aoc.y2019.intcode.Parser;
 
-public class Part2 extends Problem<Long> {
+public class Part2 extends LongProblem {
     private final Parser parser = new Parser();
-
-    public Part2(String fileName, long exp) {
-        super(fileName, exp);
-    }
 
     private long runMachine(long[] prog, int noun, int verb) {
         var mach = new Machine(prog);
@@ -27,7 +23,7 @@ public class Part2 extends Problem<Long> {
     }
 
     @Override
-    public Long run(List<String> lines) {
+    public long solve(List<String> lines) {
         var prog = parser.parse(lines);
         var target = 19690720;
         var answer = 0L;

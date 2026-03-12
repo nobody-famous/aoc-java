@@ -3,14 +3,10 @@ package aoc.y2019.day16;
 import java.util.ArrayList;
 import java.util.List;
 
-import aoc.utils.Problem;
+import aoc.utils.IntProblem;
 
-public abstract class Solver extends Problem<Integer> {
+public abstract class Solver extends IntProblem {
     private final Parser parser = new Parser();
-
-    public Solver(String fileName, int exp) {
-        super(fileName, exp);
-    }
 
     protected abstract int doWork(List<Integer> numbers);
 
@@ -52,7 +48,7 @@ public abstract class Solver extends Problem<Integer> {
     }
 
     @Override
-    public Integer run(List<String> lines) {
+    public int solve(List<String> lines) {
         var numbers = parser.parse(lines);
 
         return doWork(numbers);

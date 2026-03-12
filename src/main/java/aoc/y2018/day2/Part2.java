@@ -1,15 +1,11 @@
 package aoc.y2018.day2;
 
-import aoc.utils.Problem;
-
 import java.util.List;
 
-public class Part2 extends Problem<String> {
-    private final Parser parser = new Parser();
+import aoc.utils.StringProblem;
 
-    public Part2(String fileName, String exp) {
-        super(fileName, exp);
-    }
+public class Part2 extends StringProblem {
+    private final Parser parser = new Parser();
 
     private int countDiffs(String str1, String str2) {
         var diffs = 0;
@@ -58,7 +54,7 @@ public class Part2 extends Problem<String> {
     }
 
     @Override
-    public String run(List<String> lines) {
+    public String solve(List<String> lines) {
         var input = parser.parse(lines);
         var matches = findDiffByOne(input);
 

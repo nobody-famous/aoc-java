@@ -3,16 +3,12 @@ package aoc.y2019.day11;
 import java.util.List;
 import java.util.Map;
 
-import aoc.utils.Problem;
+import aoc.utils.StringProblem;
 import aoc.utils.geometry.Point;
 import aoc.y2019.intcode.Parser;
 
-public class Part2 extends Problem<String> {
+public class Part2 extends StringProblem {
     private final Parser parser = new Parser();
-
-    public Part2(String fileName, String exp) {
-        super(fileName, exp);
-    }
 
     private Point findMin(Map<Point, Integer> panels) {
         var minX = Integer.MAX_VALUE;
@@ -66,7 +62,7 @@ public class Part2 extends Problem<String> {
     private static final boolean doDrawPixels = false;
 
     @Override
-    public String run(List<String> lines) {
+    public String solve(List<String> lines) {
         var prog = parser.parse(lines);
         var robot = new Robot(prog, Robot.COLOR_WHITE);
 

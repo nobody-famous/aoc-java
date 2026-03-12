@@ -3,16 +3,12 @@ package aoc.y2019.day18;
 import java.util.HashMap;
 import java.util.List;
 
-import aoc.utils.Problem;
+import aoc.utils.IntProblem;
 import aoc.utils.geometry.Point;
 
-public abstract class Solver extends Problem<Integer> {
+public abstract class Solver extends IntProblem {
     private final Parser parser = new Parser();
     private final HashMap<Point, HashMap<Point, GraphNode>> graph = new HashMap<>();
-
-    public Solver(String fileName, int exp) {
-        super(fileName, exp);
-    }
 
     private void addToGraph(Grid grid, Point pt) {
         var builder = new GraphBuilder(grid, pt);
@@ -22,7 +18,7 @@ public abstract class Solver extends Problem<Integer> {
     }
 
     @Override
-    public Integer run(List<String> lines) {
+    public int solve(List<String> lines) {
         var grid = parser.parse(lines);
 
         for (var entrance : grid.entrances) {

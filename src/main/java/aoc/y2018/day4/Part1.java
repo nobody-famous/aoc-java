@@ -1,10 +1,6 @@
 package aoc.y2018.day4;
 
 public class Part1 extends Solver {
-    public Part1(String fileName, int exp) {
-        super(fileName, exp);
-    }
-
     private int countMinutes(int[] minutes) {
         int count = 0;
 

@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Part2 extends Solver {
-    public Part2(String fileName, int exp) {
-        super(fileName, exp);
-    }
-
     private List<Integer> createSignal(List<Integer> input) {
         var output = new ArrayList<Integer>();
 
