@@ -17,12 +17,47 @@ public class Part1 extends Problem<Integer> {
         for (var row = 0; row < grid.getRows(); row++) {
             for (var col = 0; col < grid.getCols(); col++) {
                 if (grid.get(row, col) == '0') {
-                    heads.add(new Point(col, row));
+                    heads.add(new Point(row, col));
                 } else if (grid.get(row, col) == '9') {
-                    tails.add(new Point(col, row));
+                    tails.add(new Point(row, col));
                 }
             }
         }
+    }
+
+    private void addToFrontier(Set<Point> frontier, Grid grid, Point pt) {
+        var neighbors = List.of(
+                new Point(pt.x - 1, pt.y),
+                new Point(pt.x + 1, pt.y),
+                new Point(pt.x, pt.y - 1),
+                new Point(pt.x, pt.y + 1));
+        var height = grid.get(pt) - '0';
+
+        for (var neighbor : neighbors) {
+            if (grid.onMap(neighbor) && grid.get(neighbor) - '0' == height - 1) {
+                frontier.add(neighbor);
+            }
+        }
+    }
+
+    private Set<Point> walkPath(Grid grid, Point start) {
+        var frontier = new HashSet<Point>();
+        var seen = new HashSet<Point>();
+
+        seen.add(start);
+        addToFrontier(frontier, grid, start);
+
+        while (!frontier.isEmpty()) {
+            var newFrontier = new HashSet<Point>();
+            for (var pt : frontier) {
+                seen.add(pt);
+                addToFrontier(newFrontier, grid, pt);
+            }
+
+            frontier = newFrontier;
+        }
+
+        return seen;
     }
 
     @Override
@@ -30,12 +65,24 @@ public class Part1 extends Problem<Integer> {
         var grid = Grid.parse(lines);
         var trailHeads = new HashSet<Point>();
         var trailTails = new HashSet<Point>();
+        var counts = new int[grid.getRows()][grid.getCols()];
 
         findTrailEnds(grid, trailHeads, trailTails);
 
-        System.out.println("HEADS " + trailHeads);
-        System.out.println("TAILS " + trailTails);
+        for (var start : trailTails) {
+            counts[start.y][start.x] += 1;
 
-        return 0;
+            var pts = walkPath(grid, start);
+            for (var pt : pts) {
+                counts[pt.y][pt.x] += 1;
+            }
+        }
+
+        var result = 0;
+        for (var head : trailHeads) {
+            result += counts[head.y][head.x];
+        }
+
+        return result;
     }
 }
