@@ -82,9 +82,6 @@ public class Runner {
                     new Solver<Integer>(new aoc.y2019.day24.Part2(), "input/2019/day24/puzzle.txt", 2063),
                     new Solver<Integer>(new aoc.y2019.day25.Part1(), "input/2019/day25/puzzle.txt", 100667393))),
 
-            // TODO: Need to add parsing to all the 2020 problems. It was the first year I did
-            //       and I went with the idea of hand parsing the data into data structures.
-            //       I have since decided that was stupid and changed to parsing the input files.
             new Year("2020", List.of(
                     new Solver<Integer>(new aoc.y2020.day1.Part1(), "input/2020/day1.txt", 972576),
                     new Solver<Integer>(new aoc.y2020.day1.Part2(), "input/2020/day1.txt", 199300880),
@@ -95,9 +92,9 @@ public class Runner {
                     new Solver<Integer>(new aoc.y2020.day4.Part1(), "input/2020/day4.txt", 213),
                     new Solver<Integer>(new aoc.y2020.day4.Part2(), "input/2020/day4.txt", 147),
                     new Solver<Integer>(new aoc.y2020.day5.Part1(), "input/2020/day5.txt", 994),
-                    new Solver<Integer>(new aoc.y2020.day5.Part2(), "input/2020/day5.txt", 741)
-            //         new aoc.y2020.day6.Part1(aoc.y2020.day6.Input.puzzle, 6587),
-            //         new aoc.y2020.day6.Part2(aoc.y2020.day6.Input.puzzle, 3235),
+                    new Solver<Integer>(new aoc.y2020.day5.Part2(), "input/2020/day5.txt", 741),
+                    new Solver<Integer>(new aoc.y2020.day6.Part1(), "input/2020/day6.txt", 6587),
+                    new Solver<Integer>(new aoc.y2020.day6.Part2(), "input/2020/day6.txt", 3235)
             //         new aoc.y2020.day7.Part1(aoc.y2020.day7.Input.puzzle, 370),
             //         new aoc.y2020.day7.Part2(aoc.y2020.day7.Input.puzzle, 29547),
             //         new aoc.y2020.day8.Part1(aoc.y2020.day8.Input.puzzle, 1859),
@@ -210,7 +207,7 @@ public class Runner {
 
     public static void main(String[] args) throws Exception {
         for (var year : years) {
-            if (year.label == "2024") {
+            if (year.label == "2020") {
                 runAll(year.label, year.problems);
             }
         }
