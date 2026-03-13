@@ -1,11 +1,11 @@
 package aoc.y2020.day3;
 
-public class Part1 extends Solver {
-    public Part1(char[][] input, long expected) {
-        super(input, expected);
-    }
+import java.util.List;
 
-    public Long run() {
+public class Part1 extends Solver {
+    @Override
+    public Long solve(List<String> lines) {
+        var input = parseLines(lines);
         return countTrees(input, 3, 1);
     }
 }
