@@ -8,10 +8,6 @@ public class Part2 extends Solver {
     private Pattern pattern = Pattern.compile("don't\\(\\)|do\\(\\)|mul\\((\\d{1,3}),(\\d{1,3})\\)");
     private boolean doMultiply = true;
 
-    public Part2(String fileName, int exp) {
-        super(fileName, exp);
-    }
-
     @Override
     protected Pattern getPattern() {
         return pattern;

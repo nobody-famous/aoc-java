@@ -6,9 +6,9 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import aoc.utils.Problem;
+import aoc.utils.IntProblem;
 
-public abstract class Solver extends Problem<Integer> {
+public abstract class Solver extends IntProblem {
     protected record MultiplyNumbers(int x, int y) {
     }
 
@@ -16,12 +16,8 @@ public abstract class Solver extends Problem<Integer> {
 
     protected abstract Optional<MultiplyNumbers> foundMatch(Matcher matcher);
 
-    public Solver(String fileName, int exp) {
-        super(fileName, exp);
-    }
-
     @Override
-    public Integer run(List<String> lines) {
+    public int solve(List<String> lines) {
         var numbers = new ArrayList<MultiplyNumbers>();
         var matcher = getPattern().matcher("");
 

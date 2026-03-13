@@ -3,10 +3,6 @@ package aoc.y2024.day7;
 import java.util.List;
 
 public class Part1 extends Solver {
-    public Part1(String fileName, long exp) {
-        super(fileName, exp);
-    }
-
     private boolean canBeTrue(long target, List<Long> numbers, int index) {
         return index < 0
                 ? target == 0

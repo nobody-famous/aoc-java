@@ -7,10 +7,6 @@ import java.util.regex.Pattern;
 public class Part1 extends Solver {
     private Pattern pattern = Pattern.compile("mul\\((\\d{1,3}),(\\d{1,3})\\)");
 
-    public Part1(String fileName, int exp) {
-        super(fileName, exp);
-    }
-
     @Override
     protected Pattern getPattern() {
         return pattern;

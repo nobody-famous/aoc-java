@@ -2,17 +2,13 @@ package aoc.y2024.day5;
 
 import java.util.List;
 
-import aoc.utils.Problem;
+import aoc.utils.IntProblem;
 
-public abstract class Solver extends Problem<Integer> {
-    public Solver(String fileName, int exp) {
-        super(fileName, exp);
-    }
-
+public abstract class Solver extends IntProblem {
     abstract List<List<Integer>> findUpdates(PageComparator cmp, List<List<Integer>> updates);
 
     @Override
-    public Integer run(List<String> lines) {
+    public int solve(List<String> lines) {
         var rules = new Parser().parse(lines);
         var validUpdates = findUpdates(new PageComparator(rules), rules.getUpdates());
         var answer = 0;

@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Part2 extends Solver {
-    public Part2(String fileName, int exp) {
-        super(fileName, exp);
-    }
-
     @Override
     List<List<Integer>> findUpdates(PageComparator cmp, List<List<Integer>> updates) {
         var toSort = findToSort(cmp, updates);

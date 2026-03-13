@@ -3,10 +3,6 @@ package aoc.y2024.day7;
 import java.util.List;
 
 public class Part2 extends Solver {
-    public Part2(String fileName, long exp) {
-        super(fileName, exp);
-    }
-
     private boolean endsWith(long number, long suffix) {
         return Long.toString(number).endsWith(Long.toString(suffix));
     }

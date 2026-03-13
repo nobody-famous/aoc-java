@@ -15,10 +15,6 @@ public class Part1 extends Solver {
             new Point(-1, 0),
             new Point(-1, 1));
 
-    public Part1(String fileName, int exp) {
-        super(fileName, exp);
-    }
-
     @Override
     char getTargetChar() {
         return 'X';

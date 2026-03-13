@@ -3,16 +3,12 @@ package aoc.y2024.day1;
 import java.util.ArrayList;
 import java.util.List;
 
-import aoc.utils.Problem;
+import aoc.utils.IntProblem;
 import aoc.y2024.day1.Parser.InputItem;
 
-public class Part1 extends Problem<Integer> {
-    public Part1(String fileName, int exp) {
-        super(fileName, exp);
-    }
-
+public class Part1 extends IntProblem {
     @Override
-    public Integer run(List<String> lines) {
+    public int solve(List<String> lines) {
         var items = new Parser().parse(lines);
         var left = new ArrayList<Integer>();
         var right = new ArrayList<Integer>();

@@ -2,20 +2,16 @@ package aoc.y2024.day4;
 
 import java.util.List;
 
-import aoc.utils.Problem;
+import aoc.utils.IntProblem;
 import aoc.utils.geometry.Point;
 
-public abstract class Solver extends Problem<Integer> {
-    public Solver(String fileName, int exp) {
-        super(fileName, exp);
-    }
-
+public abstract class Solver extends IntProblem {
     abstract char getTargetChar();
 
     abstract int countMatches(Grid grid, Point pt);
 
     @Override
-    public Integer run(List<String> lines) {
+    public int solve(List<String> lines) {
         var grid = new Parser().parse(lines);
 
         var startPoints = grid.findAll(getTargetChar());

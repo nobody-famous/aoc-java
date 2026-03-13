@@ -5,14 +5,10 @@ import java.util.List;
 import java.util.Set;
 
 import aoc.utils.Grid;
-import aoc.utils.Problem;
+import aoc.utils.IntProblem;
 import aoc.utils.geometry.Point;
 
-public class Part1 extends Problem<Integer> {
-    public Part1(String filename, int expected) {
-        super(filename, expected);
-    }
-
+public class Part1 extends IntProblem {
     private void findTrailEnds(Grid grid, Set<Point> heads, Set<Point> tails) {
         for (var row = 0; row < grid.getRows(); row++) {
             for (var col = 0; col < grid.getCols(); col++) {
@@ -61,7 +57,7 @@ public class Part1 extends Problem<Integer> {
     }
 
     @Override
-    public Integer run(List<String> lines) {
+    public int solve(List<String> lines) {
         var grid = Grid.parse(lines);
         var trailHeads = new HashSet<Point>();
         var trailTails = new HashSet<Point>();

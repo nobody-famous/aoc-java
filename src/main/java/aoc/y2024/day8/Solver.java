@@ -6,19 +6,15 @@ import java.util.HashSet;
 import java.util.List;
 
 import aoc.utils.Grid;
+import aoc.utils.IntProblem;
 import aoc.utils.Pair;
-import aoc.utils.Problem;
 import aoc.utils.geometry.Point;
 
-public abstract class Solver extends Problem<Integer> {
+public abstract class Solver extends IntProblem {
     protected abstract HashSet<Point> createAntinodes(List<Pair<Point>> pairs, Grid grid);
 
-    public Solver(String fileName, int exp) {
-        super(fileName, exp);
-    }
-
     @Override
-    public Integer run(List<String> lines) {
+    public int solve(List<String> lines) {
         var grid = Grid.parse(lines);
         var frequencies = getFrequencies(grid);
         var pairs = getPairs(frequencies);

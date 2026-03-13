@@ -3,10 +3,6 @@ package aoc.y2024.day4;
 import aoc.utils.geometry.Point;
 
 public class Part2 extends Solver {
-    public Part2(String fileName, int exp) {
-        super(fileName, exp);
-    }
-
     @Override
     public char getTargetChar() {
         return 'A';
