@@ -1,10 +1,12 @@
 package aoc.y2020.day8;
 
+import java.util.List;
+
 public class Machine {
-    private long acc = 0;
+    private int acc = 0;
     private boolean finished = false;
 
-    public long getAcc() {
+    public int getAcc() {
         return acc;
     }
 
@@ -12,14 +14,14 @@ public class Machine {
         return finished;
     }
 
-    public void run(Instruction[] prog) {
-        var seen = new boolean[prog.length];
+    public void run(List<Instruction> prog) {
+        var seen = new boolean[prog.size()];
         var ndx = 0;
 
         acc = 0;
 
-        while (ndx < prog.length) {
-            var instr = prog[ndx];
+        while (ndx < prog.size()) {
+            var instr = prog.get(ndx);
 
             if (seen[ndx]) {
                 finished = false;

@@ -1,29 +1,27 @@
 package aoc.y2020.day8;
 
-import aoc.y2020.Y2020Problem;
+import java.util.List;
 
-public class Part2 extends Y2020Problem<Long> {
-    private final Instruction[] prog;
+import aoc.utils.AocProblem;
 
-    public Part2(Instruction[] prog, long expected) {
-        this.prog = prog;
-    }
-
-    private boolean tryRun(Machine m, Instruction[] prog, int ndx, String before, String after) {
-        prog[ndx].setOp(after);
+public class Part2 implements AocProblem<Integer> {
+    private boolean tryRun(Machine m, List<Instruction> prog, int ndx, String before, String after) {
+        prog.get(ndx).setOp(after);
 
         m.run(prog);
 
-        prog[ndx].setOp(before);
+        prog.get(ndx).setOp(before);
 
         return m.didFinish();
     }
 
-    public Long run() {
+    @Override
+    public Integer solve(List<String> lines) {
+        var prog = new Parser().parse(lines);
         var machine = new Machine();
 
-        for (var ndx = 0; ndx < prog.length; ndx += 1) {
-            var instr = prog[ndx];
+        for (var ndx = 0; ndx < prog.size(); ndx += 1) {
+            var instr = prog.get(ndx);
             var done = false;
 
             if ("jmp".equals(instr.getOp())) {
