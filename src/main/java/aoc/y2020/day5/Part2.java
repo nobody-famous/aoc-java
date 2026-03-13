@@ -1,18 +1,16 @@
 package aoc.y2020.day5;
 
-import aoc.y2020.Y2020Problem;
+import java.util.List;
 
-public class Part2 extends Y2020Problem<Long> {
-    private final int[] input;
+import aoc.utils.AocProblem;
 
-    public Part2(int[] input, long expected) {
-        this.input = input;
-    }
-
-    public Long run() {
+public class Part2 implements AocProblem<Integer> {
+    @Override
+    public Integer solve(List<String> lines) {
+        var input = new Parser().parse(lines);
         var min = Long.MAX_VALUE;
         var max = Long.MIN_VALUE;
-        var sum = 0L;
+        var sum = 0;
 
         for (var n : input) {
             if (n < min) {
