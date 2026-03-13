@@ -58,4 +58,9 @@ public class UnitTests {
         assertEquals(3, new Part1().solve(example4));
         assertEquals(36, new Part1().solve(example5));
     }
+
+    @Test
+    void testPart2() {
+        assertEquals(81, new Part2().solve(example5));
+    }
 }

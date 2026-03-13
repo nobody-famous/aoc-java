@@ -154,7 +154,8 @@ public class Runner {
                     new Solver<Long>(new aoc.y2024.day7.Part2(), "input/2024/day7.txt", 110365987435001L),
                     new Solver<Integer>(new aoc.y2024.day8.Part1(), "input/2024/day8.txt", 341),
                     new Solver<Integer>(new aoc.y2024.day8.Part2(), "input/2024/day8.txt", 1134),
-                    new Solver<Integer>(new aoc.y2024.day10.Part1(), "input/2024/day10.txt", 550))));
+                    new Solver<Integer>(new aoc.y2024.day10.Part1(), "input/2024/day10.txt", 550),
+                    new Solver<Integer>(new aoc.y2024.day10.Part2(), "input/2024/day10.txt", 1255))));
 
     private static String runSolver(Solver<?> solver) throws Exception {
         try {
@@ -209,7 +210,7 @@ public class Runner {
 
     public static void main(String[] args) throws Exception {
         for (var year : years) {
-            if (year.label == "2020") {
+            if (year.label == "2024") {
                 runAll(year.label, year.problems);
             }
         }
