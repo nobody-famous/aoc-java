@@ -1,32 +1,20 @@
 package aoc.y2020.day7;
 
+import java.util.List;
 import java.util.Map;
 
 public class Part1 extends Solver {
-    public Part1(BagRule[] input, long expected) {
-        super(input, expected);
-    }
-
-    private boolean hasTarget(String target, Map<String, BagContents[]> rules, String bag) {
+    private boolean hasTarget(String target, Map<String, List<BagContents>> rules, String bag) {
         var contents = rules.get(bag);
 
-        for (var content : contents) {
-            if (target.equals(content.type())) {
-                return true;
-            }
-        }
-
-        for (var content : contents) {
-            if (hasTarget(target, rules, content.type())) {
-                return true;
-            }
-        }
-
-        return false;
+        return contents.stream().anyMatch(c -> target.equals(c.type()))
+                || contents.stream().anyMatch(c -> hasTarget(target, rules, c.type()));
     }
 
-    public Long run() {
-        long answer = 0;
+    @Override
+    public Integer solve(List<String> lines) {
+        var input = new Parser().parse(lines);
+        var answer = 0;
         var rules = rulesToMap(input);
 
         for (var bag : rules.keySet()) {
