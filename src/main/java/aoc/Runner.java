@@ -85,11 +85,11 @@ public class Runner {
             // TODO: Need to add parsing to all the 2020 problems. It was the first year I did
             //       and I went with the idea of hand parsing the data into data structures.
             //       I have since decided that was stupid and changed to parsing the input files.
-            // new Year("2020", List.of(
-            //         new aoc.y2020.day1.Part1(aoc.y2020.day1.Input.puzzle, 972576),
-            //         new aoc.y2020.day1.Part2(aoc.y2020.day1.Input.puzzle, 199300880),
-            //         new aoc.y2020.day2.Part1(aoc.y2020.day2.Input.puzzle, 564),
-            //         new aoc.y2020.day2.Part2(aoc.y2020.day2.Input.puzzle, 325),
+            new Year("2020", List.of(
+                    new Solver<Integer>(new aoc.y2020.day1.Part1(), "input/2020/day1.txt", 972576),
+                    new Solver<Integer>(new aoc.y2020.day1.Part2(), "input/2020/day1.txt", 199300880),
+                    new Solver<Integer>(new aoc.y2020.day2.Part1(), "input/2020/day2.txt", 564),
+                    new Solver<Integer>(new aoc.y2020.day2.Part2(), "input/2020/day2.txt", 325)
             //         new aoc.y2020.day3.Part1(aoc.y2020.day3.Input.puzzle, 145),
             //         new aoc.y2020.day3.Part2(aoc.y2020.day3.Input.puzzle, 3424528800L),
             //         new aoc.y2020.day4.Part1(aoc.y2020.day4.Input.puzzle, 213),
@@ -134,7 +134,8 @@ public class Runner {
             //         new aoc.y2020.day23.Part2(aoc.y2020.day23.Input.puzzle, 474600314018L),
             //         new aoc.y2020.day24.Part1(aoc.y2020.day24.Input.puzzle, 317),
             //         new aoc.y2020.day24.Part2(aoc.y2020.day24.Input.puzzle, 3804),
-            //         new aoc.y2020.day25.Part1(aoc.y2020.day25.Input.puzzle, 19414467))),
+            //         new aoc.y2020.day25.Part1(aoc.y2020.day25.Input.puzzle, 19414467)
+            )),
 
             new Year("2024", List.of(
                     new Solver<Integer>(new aoc.y2024.day1.Part1(), "input/2024/day1.txt", 2057374),
@@ -208,7 +209,7 @@ public class Runner {
 
     public static void main(String[] args) throws Exception {
         for (var year : years) {
-            if (year.label == "2024") {
+            if (year.label == "2020") {
                 runAll(year.label, year.problems);
             }
         }
