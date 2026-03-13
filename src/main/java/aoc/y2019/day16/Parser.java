@@ -3,11 +3,7 @@ package aoc.y2019.day16;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Parser extends aoc.utils.Parser<List<Integer>> {
-    public Parser(String fileName) {
-        super(fileName);
-    }
-
+public class Parser implements aoc.utils.Parser<List<Integer>> {
     private List<Integer> toIntList(String line) {
         var list = new ArrayList<Integer>();
 
@@ -18,13 +14,12 @@ public class Parser extends aoc.utils.Parser<List<Integer>> {
         return list;
     }
 
-    public List<Integer> parse() {
+    @Override
+    public List<Integer> parse(List<String> lines) {
         try {
-            var lines = readLines();
-
-            return toIntList(lines.get(0));
+            return toIntList(lines.getFirst());
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
             return null;
         }
     }

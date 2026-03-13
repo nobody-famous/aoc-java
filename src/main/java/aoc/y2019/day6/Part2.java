@@ -4,17 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import aoc.utils.Problem;
+import aoc.utils.AocProblem;
 
-public class Part2 extends Problem<Integer> {
-    private Parser parser;
+public class Part2 implements AocProblem<Integer> {
+    private final Parser parser = new Parser();
     private Map<String, List<String>> orbits;
-
-    public Part2(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
-    }
 
     private List<String> findPath(List<String> curPath, String start, String end) {
         curPath.add(start);
@@ -30,7 +24,7 @@ public class Part2 extends Problem<Integer> {
         var kids = orbits.get(start);
 
         for (var kid : kids) {
-            var path = findPath(new ArrayList<String>(curPath), kid, end);
+            var path = findPath(new ArrayList<>(curPath), kid, end);
 
             if (path != null) {
                 return path;
@@ -40,8 +34,8 @@ public class Part2 extends Problem<Integer> {
         return null;
     }
 
-    private List<String> findPath(String start, String end) {
-        return findPath(new ArrayList<String>(), start, end);
+    private List<String> findPath(String end) {
+        return findPath(new ArrayList<>(), "COM", end);
     }
 
     private List<String> findCommonBase(List<String> path1, List<String> path2) {
@@ -61,11 +55,12 @@ public class Part2 extends Problem<Integer> {
         return base;
     }
 
-    public Integer run() {
-        orbits = parser.parse();
+    @Override
+    public Integer solve(List<String> lines) {
+        orbits = parser.parse(lines);
 
-        var youPath = findPath("COM", "YOU");
-        var sanPath = findPath("COM", "SAN");
+        var youPath = findPath("YOU");
+        var sanPath = findPath("SAN");
         var base = findCommonBase(youPath, sanPath);
 
         var youDist = youPath.size() - base.size() - 1;

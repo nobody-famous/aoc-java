@@ -11,48 +11,76 @@
             "problemMatcher": []
         },
         {
-            "label": "Run Intcode Machine",
-            "type": "shell",
-            "command": "mvn",
-            "args": ["exec:java", "-D'\"exec.mainClass\"'='\"aoc.IntcodeMachine\"'"],
-            "problemMatcher": []
-        },
-        {
-            "label": "Run 2018",
-            "type": "shell",
-            "command": "mvn",
-            "windows": {
-                "args": ["exec:java", "-D'\"exec.mainClass\"'='\"aoc.y2018.Runner\"'"]
-            },
-            "linux": {
-                "args": ["exec:java", "-Dexec.mainClass=aoc.y2018.Runner"]
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "Run 2019",
+            "label": "Run",
             "dependsOn": "Compile",
             "type": "shell",
             "command": "mvn",
             "windows": {
-                "args": ["exec:java", "-D'\"exec.mainClass\"'='\"aoc.y2019.Runner\"'"]
+                "args": ["exec:java", "-D'\"exec.mainClass\"'='\"aoc.Runner\"'"]
             },
             "linux": {
-                "args": ["exec:java", "-Dexec.mainClass=aoc.y2019.Runner"]
+                "args": ["exec:java", "-Dexec.mainClass=aoc.Runner"]
             },
             "problemMatcher": []
         },
         {
-            "label": "Run 2020",
+            "label": "Unit Tests",
+            "dependsOn": "Compile",
+            "type": "shell",
+            "command": "mvn",
+            "args": ["test"],
+            "problemMatcher": []
+        },
+        {
+            "label": "Test 2024",
             "dependsOn": "Compile",
             "type": "shell",
             "command": "mvn",
             "windows": {
-                "args": ["exec:java", "-D'\"exec.mainClass\"'='\"aoc.y2020.Runner\"'"]
+                "args": ["test", "-D'test=aoc.y2024.day10.**'"]
             },
             "linux": {
-                "args": ["exec:java", "-Dexec.mainClass=aoc.y2020.Runner"]
+                "args": ["test", "-Dtest=aoc.y2024.day10.**"]
             },
+            "problemMatcher": []
+        },
+        {
+            "label": "DB Update",
+            "type": "shell",
+            "command": "mvn",
+            "args": ["liquibase:update"],
+            "problemMatcher": []
+        },
+        {
+            "label": "DB Rollback",
+            "type": "shell",
+            "command": "mvn",
+            "linux": {
+                "args": ["liquibase:rollback", "-Dliquibase.rollbackCount=1"]
+            },
+            "windows": {
+                "args": ["liquibase:rollback", "-D'liquibase.rollbackCount'=1"]
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Start DB Docker",
+            "type": "shell",
+            "command": "docker",
+            "args": [
+                "run",
+                "--name",
+                "aoc-postgres",
+                "--rm",
+                "-it",
+                "-e",
+                "POSTGRES_PASSWORD=postgres",
+                "-v",
+                "${workspaceFolder}/db-data:/var/lib/postgresql/data",
+                "-p",
+                "5432:5432",
+                "postgres"
+            ],
             "problemMatcher": []
         }
     ]

@@ -1,10 +1,8 @@
 package aoc.y2019.day4;
 
-public class Parser extends aoc.utils.Parser<int[][]> {
-    public Parser(String fileName) {
-        super(fileName);
-    }
+import java.util.List;
 
+public class Parser implements aoc.utils.Parser<int[][]> {
     private int[] toIntArray(String str) {
         var arr = new int[str.length()];
 
@@ -15,18 +13,18 @@ public class Parser extends aoc.utils.Parser<int[][]> {
         return arr;
     }
 
-    public int[][] parse() {
+    @Override
+    public int[][] parse(List<String> lines) {
         try {
-            var lines = readLines();
-            var parts = lines.get(0).split("-");
-            var nums = new int[2][];
+            var parts = lines.getFirst().split("-");
+            var numbers = new int[2][];
 
-            nums[0] = toIntArray(parts[0]);
-            nums[1] = toIntArray(parts[1]);
+            numbers[0] = toIntArray(parts[0]);
+            numbers[1] = toIntArray(parts[1]);
 
-            return nums;
+            return numbers;
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
             return null;
         }
     }

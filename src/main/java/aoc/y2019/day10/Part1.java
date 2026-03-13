@@ -5,10 +5,6 @@ import java.util.List;
 import aoc.utils.geometry.Point;
 
 public class Part1 extends Solver {
-    public Part1(String fileName, int exp) {
-        super(fileName, exp);
-    }
-
     protected int doWork(List<Point> asteroids) {
         var most = 0;
 

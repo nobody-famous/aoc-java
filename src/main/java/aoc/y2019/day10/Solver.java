@@ -1,26 +1,21 @@
 package aoc.y2019.day10;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
-import aoc.utils.Problem;
+import aoc.utils.AocProblem;
 import aoc.utils.geometry.Point;
 
-public abstract class Solver extends Problem<Integer> {
-    private Parser parser;
-
-    public Solver(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
-    }
+public abstract class Solver implements AocProblem<Integer> {
+    private final Parser parser = new Parser();
 
     protected abstract int doWork(List<Point> asteroids);
 
-    public Integer run() {
-        var asteroids = parser.parse();
+    @Override
+    public Integer solve(List<String> lines) {
+        var asteroids = parser.parse(lines);
 
         return doWork(asteroids);
     }
@@ -33,13 +28,13 @@ public abstract class Solver extends Problem<Integer> {
     }
 
     protected Map<Float, List<Point>> getSlopeMap(List<Point> asteroids, Point pt) {
-        var slopes = new HashMap<Float, List<Point>>();
+        var slopes = new TreeMap<Float, List<Point>>();
 
         for (var asteroid : asteroids) {
             var slope = calculateSlope(pt, asteroid);
 
             if (!slopes.containsKey(slope)) {
-                slopes.put(slope, new ArrayList<Point>());
+                slopes.put(slope, new ArrayList<>());
             }
 
             slopes.get(slope).add(asteroid);
@@ -52,7 +47,7 @@ public abstract class Solver extends Problem<Integer> {
         var groups = new ArrayList<List<Point>>();
 
         for (var count = 0; count < 4; count += 1) {
-            groups.add(new ArrayList<Point>());
+            groups.add(new ArrayList<>());
         }
 
         for (var asteroid : asteroids) {
@@ -61,10 +56,10 @@ public abstract class Solver extends Problem<Integer> {
             }
 
             if (asteroid.x >= pt.x && asteroid.y < pt.y) {
-                groups.get(0).add(asteroid);
-            } else if (asteroid.x > pt.x && asteroid.y >= pt.y) {
+                groups.getFirst().add(asteroid);
+            } else if (asteroid.x > pt.x) {
                 groups.get(1).add(asteroid);
-            } else if (asteroid.x <= pt.x && asteroid.y > pt.y) {
+            } else if (asteroid.y > pt.y) {
                 groups.get(2).add(asteroid);
             } else {
                 groups.get(3).add(asteroid);

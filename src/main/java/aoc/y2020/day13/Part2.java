@@ -3,15 +3,14 @@ package aoc.y2020.day13;
 import java.util.ArrayList;
 import java.util.List;
 
-import aoc.utils.Problem;
+import aoc.y2020.Y2020Problem;
 
-public class Part2 extends Problem<Long> {
+public class Part2 extends Y2020Problem<Long> {
     private long value;
     private long step;
-    private Notes input;
+    private final Notes input;
 
     public Part2(Notes input, long expected) {
-        super(expected);
         this.input = input;
     }
 
@@ -19,7 +18,7 @@ public class Part2 extends Problem<Long> {
         var buses = new ArrayList<Bus>();
         var offset = 0;
 
-        for (var id : input.getIds()) {
+        for (var id : input.ids()) {
             if (id != null) {
                 buses.add(new Bus(id, offset));
             }
@@ -35,7 +34,7 @@ public class Part2 extends Problem<Long> {
 
         for (var ndx = 0; ndx < count; ndx += 1) {
             var bus = buses.get(ndx);
-            sum *= bus.getId();
+            sum *= bus.id();
         }
 
         return sum;
@@ -44,9 +43,9 @@ public class Part2 extends Problem<Long> {
     private boolean allMatch(List<Bus> buses, int count) {
         for (var ndx = 1; ndx < count; ndx += 1) {
             var bus = buses.get(ndx);
-            var target = value + bus.getOffset();
+            var target = value + bus.offset();
 
-            if (target % bus.getId() != 0) {
+            if (target % bus.id() != 0) {
                 return false;
             }
         }
@@ -68,7 +67,7 @@ public class Part2 extends Problem<Long> {
     public Long run() {
         var buses = notesToBuses(input);
 
-        value = buses.get(0).getId();
+        value = buses.getFirst().id();
         step = value;
 
         for (var busCount = 2; busCount <= buses.size(); busCount += 1) {

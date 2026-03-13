@@ -1,19 +1,14 @@
 package aoc.y2019.day11;
 
+import java.util.List;
 import java.util.Map;
 
-import aoc.utils.Problem;
+import aoc.utils.AocProblem;
 import aoc.utils.geometry.Point;
 import aoc.y2019.intcode.Parser;
 
-public class Part2 extends Problem<String> {
-    private Parser parser;
-
-    public Part2(String fileName, String exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
-    }
+public class Part2 implements AocProblem<String> {
+    private final Parser parser = new Parser();
 
     private Point findMin(Map<Point, Integer> panels) {
         var minX = Integer.MAX_VALUE;
@@ -56,7 +51,7 @@ public class Part2 extends Problem<String> {
         for (var y = min.y; y <= max.y; y += 1) {
             for (var x = min.x; x <= max.x; x += 1) {
                 var pt = new Point(x, y);
-                var color = panels.containsKey(pt) ? panels.get(pt) : Robot.COLOR_BLACK;
+                var color = panels.getOrDefault(pt, Robot.COLOR_BLACK);
 
                 System.out.print(color == Robot.COLOR_BLACK ? ' ' : '#');
             }
@@ -64,10 +59,11 @@ public class Part2 extends Problem<String> {
         }
     }
 
-    private boolean doDrawPixels = false;
+    private static final boolean doDrawPixels = false;
 
-    public String run() {
-        var prog = parser.parse();
+    @Override
+    public String solve(List<String> lines) {
+        var prog = parser.parse(lines);
         var robot = new Robot(prog, Robot.COLOR_WHITE);
 
         robot.run();

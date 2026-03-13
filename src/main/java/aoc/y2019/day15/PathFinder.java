@@ -1,15 +1,14 @@
 package aoc.y2019.day15;
 
+import aoc.utils.geometry.Point;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-import aoc.utils.geometry.Point;
-
 public class PathFinder {
-    private Grid grid;
-    private HashSet<Point> seen;
+    private final Grid grid;
+    private final HashSet<Point> seen;
     private List<Point> toVisit;
 
     public PathFinder(Grid grid) {
@@ -20,7 +19,7 @@ public class PathFinder {
     public int findMinDist() {
         var dist = 0;
 
-        toVisit = Arrays.<Point>asList(new Point(0, 0));
+        toVisit = List.of(new Point(0, 0));
 
         while (!toVisit.isEmpty() && !hasTarget(toVisit)) {
             nextRound();

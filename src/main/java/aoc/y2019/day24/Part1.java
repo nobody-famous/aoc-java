@@ -1,17 +1,12 @@
 package aoc.y2019.day24;
 
 import java.util.HashSet;
+import java.util.List;
 
-import aoc.utils.Problem;
+import aoc.utils.AocProblem;
 
-public class Part1 extends Problem<Integer> {
-    private Parser parser;
-
-    public Part1(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
-    }
+public class Part1 implements AocProblem<Integer> {
+    private final Parser parser = new Parser();
 
     private int countAdjacent(Grid grid, int x, int y) {
         var count = 0;
@@ -43,8 +38,8 @@ public class Part1 extends Problem<Integer> {
     }
 
     @Override
-    public Integer run() {
-        var grid = parser.parse();
+    public Integer solve(List<String> lines) {
+        var grid = parser.parse(lines);
         var layouts = new HashSet<Integer>();
         Integer ans = null;
 

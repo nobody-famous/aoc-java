@@ -1,11 +1,13 @@
 package aoc.y2020.day12;
 
+import java.util.List;
+
 public class Part2 extends Solver {
     private int wpX;
     private int wpY;
 
-    public Part2(Instruction[] instrs, long expected) {
-        super(instrs, expected);
+    public Part2(Instruction[] instructions, long expected) {
+        super(instructions, expected);
     }
 
     protected void north(int value) {
@@ -58,10 +60,12 @@ public class Part2 extends Solver {
         y += wpY * value;
     }
 
-    public void solve() {
+    @Override
+    public Long solve(List<String> lines) {
         wpX = 10;
         wpY = 1;
 
-        super.solve();
+        super.solve(lines);
+        return 0L;
     }
 }

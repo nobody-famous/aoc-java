@@ -1,4 +1,5 @@
 target/
+db-data/
 
 # Compiled class file
 *.class

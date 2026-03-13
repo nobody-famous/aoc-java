@@ -1,20 +1,16 @@
 package aoc.y2019.day13;
 
-import aoc.utils.Problem;
+import java.util.List;
+
+import aoc.utils.AocProblem;
 import aoc.y2019.intcode.Parser;
 
-public class Part1 extends Problem<Integer> {
-    private Parser parser;
-
-    public Part1(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
-    }
+public class Part1 implements AocProblem<Integer> {
+    private final Parser parser = new Parser();
 
     @Override
-    public Integer run() {
-        var prog = parser.parse();
+    public Integer solve(List<String> lines) {
+        var prog = parser.parse(lines);
         var arcade = new Arcade(prog);
 
         arcade.run();
@@ -23,7 +19,7 @@ public class Part1 extends Problem<Integer> {
 
         var count = 0;
         for (var entry : screen.values()) {
-            if (entry.intValue() == Arcade.TILE) {
+            if (entry == Arcade.TILE) {
                 count += 1;
             }
         }

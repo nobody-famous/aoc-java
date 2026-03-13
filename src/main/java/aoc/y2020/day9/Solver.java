@@ -1,13 +1,12 @@
 package aoc.y2020.day9;
 
-import aoc.utils.Problem;
+import aoc.y2020.Y2020Problem;
 
-public abstract class Solver extends Problem<Long> {
+public abstract class Solver extends Y2020Problem<Long> {
     protected long[] input;
     protected int preambleLength;
 
     protected Solver(long[] input, int preambleLength, long expected) {
-        super(expected);
         this.input = input;
         this.preambleLength = preambleLength;
     }

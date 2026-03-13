@@ -1,19 +1,15 @@
 package aoc.y2019.day22;
 
-import aoc.utils.Problem;
+import java.util.List;
 
-public class Part1 extends Problem<Long> {
-    private Parser parser;
+import aoc.utils.AocProblem;
 
-    public Part1(String fileName, long exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
-    }
+public class Part1 implements AocProblem<Long> {
+    private final Parser parser = new Parser();
 
     @Override
-    public Long run() {
-        var shuffler = parser.parse();
+    public Long solve(List<String> lines) {
+        var shuffler = parser.parse(lines);
 
         return shuffler.apply(10007, 2019);
     }

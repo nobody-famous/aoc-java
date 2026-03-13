@@ -17,10 +17,10 @@ public class Part2 extends Solver {
             var ch = lookup(row, col);
 
             switch (ch) {
-            case '#':
-                return true;
-            case 'L':
-                return false;
+                case '#':
+                    return true;
+                case 'L':
+                    return false;
             }
         }
     }
@@ -41,13 +41,12 @@ public class Part2 extends Solver {
         return count;
     }
 
+    @Override
     public Long run() {
-        while (!isDone()) {
+        while (isNotDone()) {
             doRound(5);
         }
 
-        var answer = countOccupied();
-
-        return answer;
+        return countOccupied();
     }
 }

@@ -3,10 +3,10 @@ package aoc.y2019.day7;
 import aoc.y2019.intcode.Machine;
 
 public class Amp {
-    private Machine mach;
-    private IO io;
+    private final Machine mach;
+    private final IO io;
 
-    private class IO implements Machine.IO {
+    private static class IO implements Machine.IO {
         public Long nextInput = null;
         public Long lastOutput = null;
 

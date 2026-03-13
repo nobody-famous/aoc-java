@@ -2,20 +2,14 @@ package aoc.y2018.day3;
 
 import java.util.List;
 
-import aoc.utils.Problem;
+import aoc.utils.AocProblem;
 import aoc.utils.geometry.Point;
 
-public abstract class Solution extends Problem<Integer> {
-    private Parser parser;
+public abstract class Solution implements AocProblem<Integer> {
+    private final Parser parser = new Parser();
 
     protected List<Claim> claims;
     protected int[][] grid;
-
-    public Solution(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
-    }
 
     protected abstract Integer doWork();
 
@@ -63,8 +57,8 @@ public abstract class Solution extends Problem<Integer> {
     }
 
     @Override
-    public Integer run() {
-        claims = parser.parse();
+    public Integer solve(List<String> lines) {
+        claims = parser.parse(lines);
         grid = buildGrid(claims);
 
         return doWork();

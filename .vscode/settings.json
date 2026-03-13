@@ -1,5 +1,6 @@
 {
     "java.format.comments.enabled": false,
     "java.configuration.updateBuildConfiguration": "automatic",
-    "editor.inlayHints.enabled": "off"
+    "editor.inlayHints.enabled": "off",
+    "java.format.settings.url": ".vscode/java-formatter.xml"
 }

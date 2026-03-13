@@ -2,21 +2,16 @@ package aoc.y2019.day12;
 
 import java.util.List;
 
-import aoc.utils.Problem;
+import aoc.utils.AocProblem;
 
-public abstract class Solver<T> extends Problem<T> {
-    private Parser parser;
+public abstract class Solver implements AocProblem<Long> {
+    private final Parser parser = new Parser();
 
-    public Solver(String fileName, T exp) {
-        super(exp);
+    public abstract long doWork(List<Moon> moons);
 
-        parser = new Parser(fileName);
-    }
-
-    public abstract T doWork(List<Moon> moons);
-
-    public T run() {
-        var moons = parser.parse();
+    @Override
+    public Long solve(List<String> lines) {
+        var moons = parser.parse(lines);
 
         return doWork(moons);
     }

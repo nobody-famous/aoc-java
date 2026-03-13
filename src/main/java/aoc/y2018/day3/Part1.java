@@ -1,10 +1,6 @@
 package aoc.y2018.day3;
 
 public class Part1 extends Solution {
-    public Part1(String fileName, int exp) {
-        super(fileName, exp);
-    }
-
     public Integer doWork() {
         var minPt = findMinPoint(claims);
         var count = 0;

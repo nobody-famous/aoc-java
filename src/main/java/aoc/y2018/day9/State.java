@@ -3,8 +3,8 @@ package aoc.y2018.day9;
 import java.util.HashSet;
 
 public class State {
-    private long[] scores;
-    private Node[] marbles;
+    private final long[] scores;
+    private final Node[] marbles;
     private int curMarble;
     private int nextMarble;
     private int curPlayer;

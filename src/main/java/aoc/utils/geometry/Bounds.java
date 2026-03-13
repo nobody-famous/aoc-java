@@ -43,13 +43,6 @@ public class Bounds {
     }
 
     public String toString() {
-        var sb = new StringBuilder();
-
-        sb.append("[");
-        sb.append(low);
-        sb.append("..");
-        sb.append(high);
-        sb.append("]");
-        return sb.toString();
+        return "[" + low + ".." + high + "]";
     }
 }

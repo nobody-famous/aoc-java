@@ -1,19 +1,16 @@
 package aoc.y2019.day15;
 
-import aoc.utils.Problem;
+import java.util.List;
+
+import aoc.utils.AocProblem;
 import aoc.y2019.intcode.Parser;
 
-public class Part1 extends Problem<Integer> {
-    private Parser parser;
+public class Part1 implements AocProblem<Integer> {
+    private final Parser parser = new Parser();
 
-    public Part1(String fileName, int exp) {
-        super(exp);
-
-        this.parser = new Parser(fileName);
-    }
-
-    public Integer run() {
-        var prog = parser.parse();
+    @Override
+    public Integer solve(List<String> lines) {
+        var prog = parser.parse(lines);
         var mapper = new GridMapper(prog);
         var grid = mapper.mapGrid();
         var finder = new PathFinder(grid);

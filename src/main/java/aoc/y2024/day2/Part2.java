@@ -1,0 +1,31 @@
+package aoc.y2024.day2;
+
+import java.util.List;
+
+import aoc.utils.AocProblem;
+
+public class Part2 implements AocProblem<Integer> {
+    @Override
+    public Integer solve(List<String> lines) {
+        var reports = new Parser().parse(lines);
+        var answer = 0;
+
+        for (var report : reports) {
+            if (testReport(report)) {
+                answer += 1;
+            }
+        }
+
+        return answer;
+    }
+
+    private boolean testReport(List<Integer> report) {
+        for (var toSkip = 0; toSkip <= report.size(); toSkip += 1) {
+            if (Utils.isSafe(report, toSkip)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}

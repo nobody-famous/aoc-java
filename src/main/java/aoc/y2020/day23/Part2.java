@@ -38,8 +38,7 @@ public class Part2 extends Solver {
 
         var first = board[1];
         var second = board[first];
-        long answer = (long) first * (long) second;
 
-        return answer;
+        return (long) first * (long) second;
     }
 }

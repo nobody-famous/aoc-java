@@ -1,10 +1,6 @@
 package aoc.y2019.day14;
 
 public class Part2 extends Solver {
-    public Part2(String fileName, int exp) {
-        super(fileName, exp);
-    }
-
     public long doWork() {
         var target = 1000000000000L;
         var low = 0L;

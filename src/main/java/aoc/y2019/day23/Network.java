@@ -4,26 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Network {
-    private List<Computer> computers = new ArrayList<>();
-    private Long lastY;
+    private final List<Computer> computers = new ArrayList<>();
 
     public Network(long[] prog, int numComputers) {
         for (var id = 0; id < numComputers; id += 1) {
             computers.add(new Computer(prog, id));
         }
-    }
-
-    public Long getLastY() {
-        return lastY;
-    }
-
-    public void send(Packet packet) {
-        if (packet.addr() < 0 || packet.addr() >= computers.size()) {
-            lastY = packet.y();
-            return;
-        }
-
-        computers.get(packet.addr()).receive(packet);
     }
 
     public void start() {
@@ -45,22 +31,22 @@ public class Network {
         return packets;
     }
 
-    private Packet processPackets(List<Packet> pkts) {
-        for (var pkt : pkts) {
-            var addr = pkt.addr();
+    private Packet processPackets(List<Packet> packets) {
+        for (var pkt : packets) {
+            var address = pkt.address();
 
-            if (addr >= computers.size()) {
+            if (address >= computers.size()) {
                 return pkt;
             }
 
-            computers.get(addr).receive(pkt);
+            computers.get(address).receive(pkt);
         }
 
         return null;
     }
 
     public void sendNat(Packet pkt) {
-        computers.get(0).receive(pkt);
+        computers.getFirst().receive(pkt);
     }
 
     public Packet run() {
@@ -68,10 +54,10 @@ public class Network {
         var count = 0;
 
         while (count < 10 && stopPacket == null) {
-            var pkts = nextRound();
+            var packets = nextRound();
 
-            if (pkts.size() > 0) {
-                stopPacket = processPackets(pkts);
+            if (!packets.isEmpty()) {
+                stopPacket = processPackets(packets);
             } else {
                 count += 1;
             }

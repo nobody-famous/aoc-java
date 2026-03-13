@@ -8,10 +8,9 @@ import java.util.Map;
 import aoc.utils.geometry.Point;
 
 public class DfsWalker {
-    private Grid grid;
-    private HashMap<Point, HashMap<Point, GraphNode>> graph;
-    private HashMap<Character, HashMap<Integer, Integer>> below = new HashMap<>();
-    private int pathDist = Integer.MAX_VALUE;
+    private final Grid grid;
+    private final HashMap<Point, HashMap<Point, GraphNode>> graph;
+    private final HashMap<Character, HashMap<Integer, Integer>> below = new HashMap<>();
 
     public DfsWalker(Grid grid, HashMap<Point, HashMap<Point, GraphNode>> graph) {
         this.grid = grid;
@@ -71,7 +70,7 @@ public class DfsWalker {
             }
         }
 
-        return new ArrayList<GraphNode>(candidates.values());
+        return new ArrayList<>(candidates.values());
     }
 
     private int walk(Map<Point, GraphNode> robots, int keys, List<Character> path) {
@@ -106,10 +105,10 @@ public class DfsWalker {
                 continue;
             }
 
-            var newRobots = new HashMap<Point, GraphNode>(robots);
+            var newRobots = new HashMap<>(robots);
             newRobots.put(candidate.enter, candidate);
 
-            var newPath = new ArrayList<Character>(path);
+            var newPath = new ArrayList<>(path);
             newPath.add(grid.keys.get(candidate.pt));
 
             var belowDist = walk(newRobots, newKeys, newPath);
@@ -132,8 +131,7 @@ public class DfsWalker {
         }
 
         var path = new ArrayList<Character>();
-        pathDist = walk(robots, 0, path);
 
-        return pathDist;
+        return walk(robots, 0, path);
     }
 }

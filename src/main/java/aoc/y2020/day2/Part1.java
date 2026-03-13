@@ -1,12 +1,6 @@
 package aoc.y2020.day2;
 
-import java.util.List;
-
 public class Part1 extends Solver {
-    public Part1(List<DBEntry> input, long expected) {
-        super(input, expected);
-    }
-
     private int countLetter(char letter, String pw) {
         int count = 0;
 
@@ -20,9 +14,9 @@ public class Part1 extends Solver {
     }
 
     protected boolean validate(DBEntry entry) {
-        var policy = entry.getPolicy();
-        var count = countLetter(policy.getLetter(), entry.getPassword());
+        var policy = entry.policy();
+        var count = countLetter(policy.letter(), entry.password());
 
-        return count >= policy.getLow() && count <= policy.getHigh();
+        return count >= policy.low() && count <= policy.high();
     }
 }

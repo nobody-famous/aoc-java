@@ -1,15 +1,14 @@
 package aoc.y2020.day12;
 
-import aoc.utils.Problem;
+import aoc.y2020.Y2020Problem;
 
-public abstract class Solver extends Problem<Long> {
+public abstract class Solver extends Y2020Problem<Long> {
     protected int x;
     protected int y;
     protected int dir;
     protected Instruction[] instrs;
 
     protected Solver(Instruction[] instrs, long expected) {
-        super(expected);
         this.instrs = instrs;
     }
 
@@ -28,27 +27,27 @@ public abstract class Solver extends Problem<Long> {
     abstract void forward(int value);
 
     protected void process(Instruction instr) {
-        switch (instr.getAction()) {
+        switch (instr.action()) {
         case 'N':
-            north(instr.getValue());
+            north(instr.value());
             break;
         case 'S':
-            south(instr.getValue());
+            south(instr.value());
             break;
         case 'E':
-            east(instr.getValue());
+            east(instr.value());
             break;
         case 'W':
-            west(instr.getValue());
+            west(instr.value());
             break;
         case 'L':
-            left(instr.getValue());
+            left(instr.value());
             break;
         case 'R':
-            right(instr.getValue());
+            right(instr.value());
             break;
         case 'F':
-            forward(instr.getValue());
+            forward(instr.value());
             break;
         }
     }

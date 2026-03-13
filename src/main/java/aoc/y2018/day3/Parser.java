@@ -7,15 +7,9 @@ import java.util.regex.Pattern;
 
 import aoc.utils.geometry.Point;
 
-public class Parser extends aoc.utils.Parser<List<Claim>> {
-    private Matcher matcher;
-
-    public Parser(String fileName) {
-        super(fileName);
-
-        var pattern = Pattern.compile("#(\\d+) @ (\\d+),(\\d+): (\\d+)x(\\d+)");
-        matcher = pattern.matcher("");
-    }
+public class Parser implements aoc.utils.Parser<List<Claim>> {
+    private final Pattern pattern = Pattern.compile("#(\\d+) @ (\\d+),(\\d+): (\\d+)x(\\d+)");
+    private final Matcher matcher = pattern.matcher("");
 
     private Claim parseLine(String line) {
         matcher.reset(line);
@@ -34,9 +28,8 @@ public class Parser extends aoc.utils.Parser<List<Claim>> {
     }
 
     @Override
-    public List<Claim> parse() {
+    public List<Claim> parse(List<String> lines) {
         try {
-            var lines = readLines();
             var claims = new ArrayList<Claim>();
 
             for (var line : lines) {
@@ -45,7 +38,7 @@ public class Parser extends aoc.utils.Parser<List<Claim>> {
 
             return claims;
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
             return null;
         }
     }

@@ -1,13 +1,12 @@
 package aoc.y2020.day15;
 
-import aoc.utils.Problem;
+import aoc.y2020.Y2020Problem;
 
-public class Solver extends Problem<Integer> {
+public class Solver extends Y2020Problem<Integer> {
     protected int[] input;
     protected int numRounds;
 
     protected Solver(int[] input, int numRounds, int expected) {
-        super(expected);
         this.input = input;
         this.numRounds = numRounds;
     }

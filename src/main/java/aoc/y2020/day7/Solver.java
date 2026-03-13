@@ -3,13 +3,12 @@ package aoc.y2020.day7;
 import java.util.HashMap;
 import java.util.Map;
 
-import aoc.utils.Problem;
+import aoc.y2020.Y2020Problem;
 
-public abstract class Solver extends Problem<Long> {
+public abstract class Solver extends Y2020Problem<Long> {
     protected BagRule[] input;
 
     protected Solver(BagRule[] input, long expected) {
-        super(expected);
         this.input = input;
     }
 
@@ -17,7 +16,7 @@ public abstract class Solver extends Problem<Long> {
         var out = new HashMap<String, BagContents[]>();
 
         for (var rule : rules) {
-            out.put(rule.getType(), rule.getContents());
+            out.put(rule.type(), rule.contents());
         }
 
         return out;

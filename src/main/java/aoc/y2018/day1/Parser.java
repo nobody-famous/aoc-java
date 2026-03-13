@@ -1,10 +1,8 @@
 package aoc.y2018.day1;
 
-public class Parser extends aoc.utils.Parser<int[]> {
-    public Parser(String fileName) {
-        super(fileName);
-    }
+import java.util.List;
 
+public class Parser implements aoc.utils.Parser<int[]> {
     private int parseLine(String line) {
         var negative = line.charAt(0) == '-';
         var intStr = line.substring(1);
@@ -13,21 +11,19 @@ public class Parser extends aoc.utils.Parser<int[]> {
         return negative ? -intValue : intValue;
     }
 
-    public int[] parse() {
+    public int[] parse(List<String> lines) {
         try {
-            var lines = readLines();
-            var ints = new int[lines.size()];
+            var values = new int[lines.size()];
 
             for (var ndx = 0; ndx < lines.size(); ndx += 1) {
                 var line = lines.get(ndx);
 
-                ints[ndx] = parseLine(line);
+                values[ndx] = parseLine(line);
             }
 
-            return ints;
+            return values;
         } catch (Exception ex) {
-            ex.printStackTrace();
-
+            System.out.println(ex.getMessage());
             return null;
         }
     }

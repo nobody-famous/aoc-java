@@ -2,16 +2,10 @@ package aoc.y2019.day8;
 
 import java.util.List;
 
-import aoc.utils.Problem;
+import aoc.utils.AocProblem;
 
-public class Part1 extends Problem<Integer> {
-    private Parser parser;
-
-    public Part1(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName, 25, 6);
-    }
+public class Part1 implements AocProblem<Integer> {
+    private Parser parser = new Parser(25, 6);
 
     private Image.Layer findFewestZeroes(List<Image.Layer> layers) {
         Image.Layer layer = null;
@@ -25,8 +19,9 @@ public class Part1 extends Problem<Integer> {
         return layer;
     }
 
-    public Integer run() {
-        var img = parser.parse();
+    @Override
+    public Integer solve(List<String> lines) {
+        var img = parser.parse(lines);
         var layers = img.getLayers();
         var layer = findFewestZeroes(layers);
 

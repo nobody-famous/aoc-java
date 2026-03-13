@@ -6,9 +6,9 @@ import java.util.Map;
 import aoc.utils.geometry.Point;
 
 public class Grid {
-    private Map<Point, Integer> grid;
-    private Point minPt;
-    private Point maxPt;
+    private final Map<Point, Integer> grid;
+    private final Point minPt;
+    private final Point maxPt;
     private Point oxygen;
 
     public Grid() {
@@ -28,7 +28,7 @@ public class Grid {
     }
 
     public int get(Point pt) {
-        return grid.containsKey(pt) ? grid.get(pt) : RepairDroid.Wall;
+        return grid.getOrDefault(pt, RepairDroid.Wall);
     }
 
     public Point getOxygen() {
@@ -57,12 +57,12 @@ public class Grid {
     }
 
     public String toString() {
-        var str = new StringBuffer();
+        var str = new StringBuilder();
 
         for (var y = minPt.y; y <= maxPt.y; y += 1) {
             for (var x = minPt.x; x <= maxPt.x; x += 1) {
                 var pt = new Point(x, y);
-                var value = grid.containsKey(pt) ? grid.get(pt) : RepairDroid.Wall;
+                var value = grid.getOrDefault(pt, RepairDroid.Wall);
                 var cell = (x == 0 && y == 0) ? 'X' : cellToChar(value);
 
                 str.append(cell);

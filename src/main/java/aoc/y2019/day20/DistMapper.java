@@ -8,11 +8,11 @@ import java.util.Set;
 import aoc.utils.geometry.Point;
 
 public class DistMapper {
-    private Maze maze;
-    private Point start;
+    private final Maze maze;
+    private final Point start;
     private int curDist = 0;
-    private Map<Point, Integer> dists = new HashMap<>();
-    private Set<Point> seen = new HashSet<>();
+    private final Map<Point, Integer> distances = new HashMap<>();
+    private final Set<Point> seen = new HashSet<>();
 
     public DistMapper(Maze maze, Point start) {
         this.maze = maze;
@@ -27,7 +27,7 @@ public class DistMapper {
         seen.add(pt);
 
         if (maze.outerJumps.containsKey(pt) || maze.innerJumps.containsKey(pt)) {
-            dists.put(pt, curDist);
+            distances.put(pt, curDist);
         } else if (maze.path.contains(pt)) {
             neighbors.add(pt);
         }
@@ -63,13 +63,13 @@ public class DistMapper {
 
         if (maze.innerJumps.containsKey(start)) {
             var name = maze.innerJumps.get(start);
-            dists.put(maze.outerJumpsByName.get(name), 1);
+            distances.put(maze.outerJumpsByName.get(name), 1);
         } else if (maze.outerJumps.containsKey(start)) {
             var name = maze.outerJumps.get(start);
             var inner = maze.innerJumpsByName.get(name);
 
             if (inner != null) {
-                dists.put(inner, 1);
+                distances.put(inner, 1);
             }
         }
 
@@ -80,6 +80,6 @@ public class DistMapper {
             toVisit = visitAll(toVisit);
         }
 
-        return dists;
+        return distances;
     }
 }

@@ -1,0 +1,30 @@
+package aoc.y2024.day7;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+public class UnitTests {
+    private static List<String> lines = List.of(
+            "190: 10 19",
+            "3267: 81 40 27",
+            "83: 17 5",
+            "156: 15 6",
+            "7290: 6 8 6 15",
+            "161011: 16 10 13",
+            "192: 17 8 14",
+            "21037: 9 7 18 13",
+            "292: 11 6 16 20");
+
+    @Test
+    void testPart1() {
+        assertEquals(3749, new Part1().solve(lines));
+    }
+
+    @Test
+    void testPart2() {
+        assertEquals(11387, new Part2().solve(lines));
+    }
+}

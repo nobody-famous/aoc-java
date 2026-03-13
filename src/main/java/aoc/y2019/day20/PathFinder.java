@@ -7,12 +7,12 @@ import java.util.Set;
 import aoc.utils.geometry.Point;
 
 public class PathFinder {
-    private Maze maze;
-    private Map<Point, Map<Point, Integer>> dists;
-    private boolean isRecusive = false;
+    private final Maze maze;
+    private final Map<Point, Map<Point, Integer>> distances;
+    private boolean isRecursive = false;
     private Set<Walker> toVisit = new HashSet<>();
-    private Set<LevelPoint> seen = new HashSet<>();
-    private boolean foundEnd = false;
+    private final Set<LevelPoint> seen = new HashSet<>();
+    private final boolean foundEnd = false;
     private LevelPoint endPoint;
 
     private class Walker {
@@ -26,11 +26,10 @@ public class PathFinder {
 
         @Override
         public boolean equals(Object obj) {
-            if (!(obj instanceof Walker)) {
+            if (!(obj instanceof Walker them)) {
                 return false;
             }
 
-            var them = (Walker) obj;
             return them.dist == dist && them.pt.equals(pt);
         }
 
@@ -40,23 +39,19 @@ public class PathFinder {
         }
     }
 
-    public PathFinder(Maze maze, Map<Point, Map<Point, Integer>> dists) {
+    public PathFinder(Maze maze, Map<Point, Map<Point, Integer>> distances) {
         this.maze = maze;
-        this.dists = dists;
+        this.distances = distances;
     }
 
     public void setRecursive(boolean recursive) {
-        isRecusive = recursive;
+        isRecursive = recursive;
     }
 
     private String pointName(Point pt) {
         if (maze.innerJumps.containsKey(pt)) {
             return maze.innerJumps.get(pt).toLowerCase();
-        } else if (maze.outerJumps.containsKey(pt)) {
-            return maze.outerJumps.get(pt);
-        } else {
-            return "??";
-        }
+        } else return maze.outerJumps.getOrDefault(pt, "??");
     }
 
     private boolean isNestedStartOrEnd(int level, Point pt) {
@@ -87,16 +82,16 @@ public class PathFinder {
 
     private Set<Walker> visit(Walker walker) {
         var neighbors = new HashSet<Walker>();
-        var kids = dists.get(walker.pt.point());
+        var kids = distances.get(walker.pt.point());
 
         seen.add(walker.pt);
 
         for (var kid : kids.entrySet()) {
-            if (isRecusive && kid.getValue() != 1 && shouldSkip(walker.pt.level(), kid.getKey())) {
+            if (isRecursive && kid.getValue() != 1 && shouldSkip(walker.pt.level(), kid.getKey())) {
                 continue;
             }
 
-            var lvlDiff = isRecusive && kid.getValue() == 1 ? levelDiff(walker.pt.point()) : 0;
+            var lvlDiff = isRecursive && kid.getValue() == 1 ? levelDiff(walker.pt.point()) : 0;
             var newPoint = new LevelPoint(walker.pt.level() + lvlDiff, kid.getKey());
             var newDist = walker.dist + kid.getValue();
 

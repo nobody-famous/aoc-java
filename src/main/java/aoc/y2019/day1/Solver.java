@@ -2,17 +2,11 @@ package aoc.y2019.day1;
 
 import java.util.List;
 
-import aoc.utils.Problem;
+import aoc.utils.AocProblem;
 
-public abstract class Solver extends Problem<Integer> {
-    private Parser parser;
+public abstract class Solver implements AocProblem<Integer> {
+    private final Parser parser = new Parser();
     protected List<Integer> masses;
-
-    public Solver(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
-    }
 
     protected abstract int doWork();
 
@@ -20,8 +14,9 @@ public abstract class Solver extends Problem<Integer> {
         return (mass / 3) - 2;
     }
 
-    public Integer run() {
-        masses = parser.parse();
+    @Override
+    public Integer solve(List<String> lines) {
+        masses = parser.parse(lines);
 
         return doWork();
     }

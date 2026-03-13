@@ -3,7 +3,7 @@ package aoc.y2019.day9;
 import aoc.y2019.intcode.Machine;
 
 public class MachIO implements Machine.IO {
-    private long nextInput;
+    private final long nextInput;
     private long lastOutput;
 
     public MachIO(long value) {

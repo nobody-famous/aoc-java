@@ -1,23 +1,18 @@
 package aoc.y2019.day19;
 
 public class Part2 extends Solver {
-    public Part2(String fileName, int exp) {
-        super(fileName, exp);
-
-    }
-
     private boolean squareFits(int x, int y) {
         return isBeam(x, y) && isBeam(x + 100 - 1, y - 100 + 1);
     }
 
-    private boolean lineFits(int y) {
+    private boolean lineNoFit(int y) {
         var x = findStart(y, 0, y * y);
 
-        return squareFits(x, y);
+        return !squareFits(x, y);
     }
 
     private int findHigh(int start) {
-        while (!lineFits(start)) {
+        while (lineNoFit(start)) {
             start *= 10;
         }
 
@@ -32,7 +27,7 @@ public class Part2 extends Solver {
         while (mid != high - 1) {
             mid = low + ((high - low) / 2);
 
-            if (!lineFits(mid)) {
+            if (lineNoFit(mid)) {
                 low = mid;
             } else {
                 high = mid;

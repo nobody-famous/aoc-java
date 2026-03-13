@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Loop {
     private boolean foundLoop;
-    private List<Integer> items;
+    private final List<Integer> items;
 
     public Loop() {
         this.foundLoop = false;

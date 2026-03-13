@@ -1,30 +1,26 @@
 package aoc.y2019.day14;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import aoc.utils.Problem;
+import aoc.utils.AocProblem;
 
-public abstract class Solver extends Problem<Long> {
+public abstract class Solver implements AocProblem<Long> {
     protected Map<String, Reaction> reactions;
-    private Parser parser;
-
-    public Solver(String fileName, long exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
-    }
+    private final Parser parser = new Parser();
 
     abstract long doWork();
 
-    public Long run() {
-        reactions = parser.parse();
+    @Override
+    public Long solve(List<String> lines) {
+        reactions = parser.parse(lines);
         return doWork();
     }
 
     public long getOreForFuel(long fuel) {
         var pile = new HashMap<String, Long>();
-        Map<String, Long> level = new HashMap<String, Long>();
+        Map<String, Long> level = new HashMap<>();
 
         level.put("FUEL", fuel);
         do {
@@ -46,19 +42,19 @@ public abstract class Solver extends Problem<Long> {
 
     private Map<String, Long> getChemicals(Map<String, Long> pile, String name, long reqAmount) {
         var react = reactions.get(name);
-        var chems = new HashMap<String, Long>();
-        var mult = getMultiplier(reqAmount, react.output().amount());
-        var rem = (react.output().amount() * mult) - reqAmount;
+        var chemicals = new HashMap<String, Long>();
+        var multiplier = getMultiplier(reqAmount, react.output().amount());
+        var rem = (react.output().amount() * multiplier) - reqAmount;
 
         if (rem > 0) {
             addToMap(pile, name, rem);
         }
 
         for (var chem : react.input()) {
-            chems.put(chem.name(), (long) chem.amount() * mult);
+            chemicals.put(chem.name(), (long) chem.amount() * multiplier);
         }
 
-        return chems;
+        return chemicals;
     }
 
     private long getFromPile(Map<String, Long> pile, String name, long amount) {
@@ -72,7 +68,7 @@ public abstract class Solver extends Problem<Long> {
             pile.remove(name);
             return 0;
         } else if (inPile > amount) {
-            addToMap(pile, name, (long) -amount);
+            addToMap(pile, name, -amount);
             return 0;
         }
 

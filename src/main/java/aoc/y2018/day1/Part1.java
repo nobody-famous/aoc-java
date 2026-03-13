@@ -1,21 +1,17 @@
 package aoc.y2018.day1;
 
-import aoc.utils.Problem;
+import java.util.List;
 
-public class Part1 extends Problem<Integer> {
-    private Parser parser;
+import aoc.utils.AocProblem;
+import aoc.utils.NumberListParser;
 
-    public Part1(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
-    }
-
-    public Integer run() {
-        var ints = parser.parse();
+public class Part1 implements AocProblem<Integer> {
+    @Override
+    public Integer solve(List<String> lines) {
+        var values = new NumberListParser().parse(lines);
         var total = 0;
 
-        for (var i : ints) {
+        for (var i : values) {
             total += i;
         }
 

@@ -1,12 +1,11 @@
 package aoc.y2020.day25;
 
-import aoc.utils.Problem;
+import aoc.y2020.Y2020Problem;
 
-public class Part1 extends Problem<Long> {
-    private int[] input;
+public class Part1 extends Y2020Problem<Long> {
+    private final int[] input;
 
     public Part1(int[] input, long expected) {
-        super(expected);
         this.input = input;
     }
 

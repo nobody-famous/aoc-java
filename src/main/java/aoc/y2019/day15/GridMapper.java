@@ -1,17 +1,16 @@
 package aoc.y2019.day15;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import aoc.utils.geometry.Point;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GridMapper {
-    private long[] prog;
+    private final long[] prog;
     private List<DroidClone> clones;
     private Grid grid;
 
-    private class DroidClone {
+    private static class DroidClone {
         public RepairDroid droid;
         public Point loc;
 
@@ -30,7 +29,7 @@ public class GridMapper {
         var droid = new RepairDroid(prog);
         var clone = new DroidClone(droid, start);
 
-        clones = Arrays.<DroidClone>asList(clone);
+        clones = List.of(clone);
         grid = new Grid();
 
         while (!clones.isEmpty()) {

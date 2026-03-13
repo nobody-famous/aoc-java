@@ -1,44 +1,39 @@
 package aoc.y2019.day20;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import aoc.utils.Problem;
+import aoc.utils.AocProblem;
 import aoc.utils.geometry.Point;
 
-public abstract class Solver extends Problem<Integer> {
-    private Parser parser;
+public abstract class Solver implements AocProblem<Integer> {
+    private final Parser parser = new Parser();
 
-    public Solver(String fileName, int exp) {
-        super(exp);
+    protected abstract int doWork(Maze maze, Map<Point, Map<Point, Integer>> distances);
 
-        parser = new Parser(fileName);
-    }
-
-    protected abstract int doWork(Maze maze, Map<Point, Map<Point, Integer>> dists);
-
-    private void addPoints(Map<Point, Map<Point, Integer>> dists, Maze maze, Map<Point, String> jumps) {
+    private void addPoints(Map<Point, Map<Point, Integer>> distances, Maze maze, Map<Point, String> jumps) {
         for (var pt : jumps.keySet()) {
             var mapper = new DistMapper(maze, pt);
 
-            dists.put(pt, mapper.getDistances());
+            distances.put(pt, mapper.getDistances());
         }
     }
 
     private Map<Point, Map<Point, Integer>> getAllDistances(Maze maze) {
-        var dists = new HashMap<Point, Map<Point, Integer>>();
+        var distances = new HashMap<Point, Map<Point, Integer>>();
 
-        addPoints(dists, maze, maze.innerJumps);
-        addPoints(dists, maze, maze.outerJumps);
+        addPoints(distances, maze, maze.innerJumps);
+        addPoints(distances, maze, maze.outerJumps);
 
-        return dists;
+        return distances;
     }
 
     @Override
-    public Integer run() {
-        var maze = parser.parse();
-        var dists = getAllDistances(maze);
+    public Integer solve(List<String> lines) {
+        var maze = parser.parse(lines);
+        var distances = getAllDistances(maze);
 
-        return doWork(maze, dists);
+        return doWork(maze, distances);
     }
 }

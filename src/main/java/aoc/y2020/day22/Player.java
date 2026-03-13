@@ -4,12 +4,12 @@ import java.util.Deque;
 import java.util.LinkedList;
 
 public class Player {
-    private int id;
-    private Deque<Integer> cards;
+    private final int id;
+    private final Deque<Integer> cards;
 
     public Player(int id, int[] cardsList) {
         this.id = id;
-        this.cards = new LinkedList<Integer>();
+        this.cards = new LinkedList<>();
 
         for (var card : cardsList) {
             this.cards.add(card);
@@ -27,7 +27,7 @@ public class Player {
         builder.append(":");
 
         for (var card : cards) {
-            builder.append(" " + card);
+            builder.append(" ").append(card);
         }
 
         return builder.toString();

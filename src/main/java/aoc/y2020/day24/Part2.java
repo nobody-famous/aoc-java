@@ -11,7 +11,7 @@ public class Part2 extends Solver {
     }
 
     private Tile[] getNeighbors(Tile tile) {
-        return new Tile[] { new Tile(tile.getX(), tile.getY() + 1, tile.getZ() - 1),
+        return new Tile[]{ new Tile(tile.getX(), tile.getY() + 1, tile.getZ() - 1),
                 new Tile(tile.getX() + 1, tile.getY(), tile.getZ() - 1),
                 new Tile(tile.getX() + 1, tile.getY() - 1, tile.getZ()),
                 new Tile(tile.getX(), tile.getY() - 1, tile.getZ() + 1),
@@ -64,7 +64,7 @@ public class Part2 extends Solver {
         }
 
         for (var day = 0; day < 100; day += 1) {
-            newTiles = new HashMap<Tile, Color>();
+            newTiles = new HashMap<>();
             for (var tile : tiles.keySet()) {
                 processNeighbors(tile);
             }
@@ -72,8 +72,6 @@ public class Part2 extends Solver {
             tiles = newTiles;
         }
 
-        var answer = newTiles.size();
-
-        return answer;
+        return newTiles.size();
     }
 }

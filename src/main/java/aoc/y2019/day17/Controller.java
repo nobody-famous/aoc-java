@@ -6,7 +6,7 @@ import java.util.List;
 import aoc.y2019.intcode.Machine;
 
 public class Controller implements Machine.IO {
-    private Machine mach;
+    private final Machine mach;
     private Long lastOutput;
     private Long nextInput;
 
@@ -22,7 +22,7 @@ public class Controller implements Machine.IO {
         var output = new ArrayList<String>();
 
         var line = readLine();
-        while (line.length() > 0) {
+        while (!line.isEmpty()) {
             output.add(line);
             line = readLine();
         }
@@ -32,7 +32,7 @@ public class Controller implements Machine.IO {
 
     public void writeLine(String str) {
         for (var ch : str.toCharArray()) {
-            writeChar((long) ch);
+            writeChar(ch);
         }
 
         writeChar(10);
@@ -65,7 +65,7 @@ public class Controller implements Machine.IO {
             mach.exec();
         }
 
-        return lastOutput.longValue();
+        return lastOutput;
     }
 
     private char readChar() {

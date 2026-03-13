@@ -3,18 +3,15 @@ package aoc.y2018.day4;
 import java.util.HashMap;
 import java.util.List;
 
-import aoc.utils.Problem;
+import aoc.utils.AocProblem;
 
-public abstract class Solver extends Problem<Integer> {
-    protected Parser parser;
+public abstract class Solver implements AocProblem<Integer> {
+    protected Parser parser = new Parser();
     protected Integer curGuard;
     protected Integer fallsAsleep;
     protected HashMap<Integer, int[]> guardMinutes;
 
-    public Solver(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
+    public Solver() {
         guardMinutes = new HashMap<Integer, int[]>();
         curGuard = null;
         fallsAsleep = null;
@@ -62,8 +59,8 @@ public abstract class Solver extends Problem<Integer> {
     }
 
     @Override
-    public Integer run() {
-        var records = parser.parse();
+    public Integer solve(List<String> lines) {
+        var records = parser.parse(lines);
 
         processRecords(records);
 

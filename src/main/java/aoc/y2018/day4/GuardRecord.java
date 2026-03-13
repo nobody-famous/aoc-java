@@ -6,8 +6,4 @@ public class GuardRecord {
     public GuardRecord(RecordDate date) {
         this.date = date;
     }
-
-    public RecordDate getDate() {
-        return date;
-    }
 }

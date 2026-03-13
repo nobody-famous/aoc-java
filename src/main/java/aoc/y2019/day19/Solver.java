@@ -1,16 +1,13 @@
 package aoc.y2019.day19;
 
-import aoc.utils.Problem;
+import java.util.List;
+
+import aoc.utils.AocProblem;
 import aoc.y2019.intcode.Parser;
 
-public abstract class Solver extends Problem<Integer> {
-    private Parser parser;
+public abstract class Solver implements AocProblem<Integer> {
+    private final Parser parser = new Parser();
     private Drone drone;
-
-    public Solver(String fileName, int exp) {
-        super(exp);
-        parser = new Parser(fileName);
-    }
 
     protected abstract int doWork();
 
@@ -36,8 +33,9 @@ public abstract class Solver extends Problem<Integer> {
         return drone.sendRequest(x, y) == Drone.PULLED;
     }
 
-    public Integer run() {
-        var prog = parser.parse();
+    @Override
+    public Integer solve(List<String> lines) {
+        var prog = parser.parse(lines);
 
         drone = new Drone(prog);
 

@@ -6,14 +6,14 @@ import java.util.Queue;
 import aoc.y2019.intcode.Machine;
 
 public class Computer implements Machine.IO {
-    private Machine mach;
-    private Long id;
+    private final Machine mach;
+    private final Long id;
     private Long sendId;
     private Long packetId;
     private Long packetX;
     private Long nextInput;
     private Packet nextPacket;
-    private Queue<Packet> messages = new LinkedList<>();
+    private final Queue<Packet> messages = new LinkedList<>();
 
     public Computer(long[] prog, long id) {
         this.mach = new Machine(prog, this);
@@ -74,7 +74,7 @@ public class Computer implements Machine.IO {
             throw new RuntimeException(id + " No input");
         }
 
-        var value = nextInput.longValue();
+        var value = nextInput;
 
         nextInput = null;
 

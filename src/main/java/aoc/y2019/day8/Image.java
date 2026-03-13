@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Image {
-    public class Layer {
-        private int[][] data;
-        private int[] counts;
+    public static class Layer {
+        private final int[][] data;
+        private final int[] counts;
 
         public Layer(int width, int height) {
             data = new int[height][width];
@@ -27,14 +27,14 @@ public class Image {
         }
     }
 
-    private int width;
-    private int height;
-    private List<Layer> layers;
+    private final int width;
+    private final int height;
+    private final List<Layer> layers;
 
     public Image(int width, int height) {
         this.width = width;
         this.height = height;
-        this.layers = new ArrayList<Layer>();
+        this.layers = new ArrayList<>();
     }
 
     public List<Layer> getLayers() {

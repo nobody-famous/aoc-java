@@ -1,49 +1,27 @@
 package aoc.y2020.day4;
 
-import aoc.utils.Problem;
+import java.util.List;
+import java.util.Map;
 
-public class Part1 extends Problem<Long> {
-    private String[][][] input;
+import aoc.utils.AocProblem;
 
-    public Part1(String[][][] input, long expected) {
-        super(expected);
-        this.input = input;
-    }
-
-    private boolean validate(String[][] entries) {
-        boolean byr = false;
-        boolean iyr = false;
-        boolean eyr = false;
-        boolean hgt = false;
-        boolean hcl = false;
-        boolean ecl = false;
-        boolean pid = false;
-
-        for (var entry : entries) {
-            var key = entry[0];
-
-            if (key.toLowerCase() == "byr") {
-                byr = true;
-            } else if (key.toLowerCase() == "iyr") {
-                iyr = true;
-            } else if (key.toLowerCase() == "eyr") {
-                eyr = true;
-            } else if (key.toLowerCase() == "hgt") {
-                hgt = true;
-            } else if (key.toLowerCase() == "hcl") {
-                hcl = true;
-            } else if (key.toLowerCase() == "ecl") {
-                ecl = true;
-            } else if (key.toLowerCase() == "pid") {
-                pid = true;
-            }
-        }
+public class Part1 implements AocProblem<Integer> {
+    private boolean validate(Map<String, String> passport) {
+        boolean byr = passport.containsKey("byr");
+        boolean iyr = passport.containsKey("iyr");
+        boolean eyr = passport.containsKey("eyr");
+        boolean hgt = passport.containsKey("hgt");
+        boolean hcl = passport.containsKey("hcl");
+        boolean ecl = passport.containsKey("ecl");
+        boolean pid = passport.containsKey("pid");
 
         return byr && iyr && eyr && hgt && hcl && ecl && pid;
     }
 
-    public Long run() {
-        long valid = 0;
+    @Override
+    public Integer solve(List<String> lines) {
+        var input = new Parser().parse(lines);
+        var valid = 0;
 
         for (var entries : input) {
             if (validate(entries)) {

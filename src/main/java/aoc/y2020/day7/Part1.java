@@ -11,13 +11,13 @@ public class Part1 extends Solver {
         var contents = rules.get(bag);
 
         for (var content : contents) {
-            if (target.equals(content.getType())) {
+            if (target.equals(content.type())) {
                 return true;
             }
         }
 
         for (var content : contents) {
-            if (hasTarget(target, rules, content.getType())) {
+            if (hasTarget(target, rules, content.type())) {
                 return true;
             }
         }

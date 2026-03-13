@@ -1,20 +1,16 @@
 package aoc.y2018.day1;
 
 import java.util.HashSet;
+import java.util.List;
 
-import aoc.utils.Problem;
+import aoc.utils.AocProblem;
 
-public class Part2 extends Problem<Integer> {
-    private Parser parser;
+public class Part2 implements AocProblem<Integer> {
+    private final Parser parser = new Parser();
 
-    public Part2(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
-    }
-
-    public Integer run() {
-        var ints = parser.parse();
+    @Override
+    public Integer solve(List<String> lines) {
+        var values = parser.parse(lines);
         var seen = new HashSet<Integer>();
 
         var ndx = 0;
@@ -22,13 +18,13 @@ public class Part2 extends Problem<Integer> {
         var dup = 0;
 
         while (dup == 0) {
-            total += ints[ndx];
+            total += values[ndx];
 
             if (seen.contains(total)) {
                 dup = total;
             } else {
                 seen.add(total);
-                ndx = (ndx + 1) % ints.length;
+                ndx = (ndx + 1) % values.length;
             }
         }
 

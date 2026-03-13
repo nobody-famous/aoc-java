@@ -2,23 +2,18 @@ package aoc.y2019.day22;
 
 import java.math.BigInteger;
 import java.util.Collections;
+import java.util.List;
 
-import aoc.utils.Problem;
+import aoc.utils.AocProblem;
 
-public class Part2 extends Problem<Long> {
-    private Parser parser;
-
-    public Part2(String fileName, long exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
-    }
+public class Part2 implements AocProblem<Long> {
+    private final Parser parser = new Parser();
 
     @Override
-    public Long run() {
-        var shuffler = parser.parse();
+    public Long solve(List<String> lines) {
+        var shuffler = parser.parse(lines);
         var size = BigInteger.valueOf(119315717514047L);
-        var iters = BigInteger.valueOf(101741582076661L);
+        var iterations = BigInteger.valueOf(101741582076661L);
         var steps = shuffler.getTechniques();
         var startPos = BigInteger.valueOf(2020L);
 
@@ -29,8 +24,6 @@ public class Part2 extends Problem<Long> {
         Collections.reverse(steps);
 
         var oldPos = pos;
-        a = BigInteger.ONE;
-        b = BigInteger.ZERO;
 
         for (var step : steps) {
             if (pos.compareTo(BigInteger.ZERO) < 0 || pos.compareTo(size) >= 0) {
@@ -41,9 +34,8 @@ public class Part2 extends Problem<Long> {
                 pos = size.subtract(BigInteger.ONE).subtract(pos);
                 a = a.negate();
                 b = b.negate().add(size).subtract(BigInteger.ONE);
-            } else if (step instanceof CutCards) {
-                var cut = (CutCards) step;
-                var n = BigInteger.valueOf(cut.getNumCards());
+            } else if (step instanceof CutCards cut) {
+                var n = BigInteger.valueOf(cut.numCards());
 
                 if (n.compareTo(BigInteger.ZERO) < 0) {
                     n = size.subtract(n.abs());
@@ -51,14 +43,13 @@ public class Part2 extends Problem<Long> {
 
                 pos = (pos.add(n)).mod(size);
                 b = b.add(n);
-            } else if (step instanceof DealIncrement) {
-                var deal = (DealIncrement) step;
-                var n = BigInteger.valueOf(deal.getIncrement());
-                var ninv = n.modInverse(size);
+            } else if (step instanceof DealIncrement deal) {
+                var n = BigInteger.valueOf(deal.increment());
+                var nInverse = n.modInverse(size);
 
-                a = a.multiply(ninv);
-                b = b.multiply(ninv);
-                pos = (ninv.multiply(pos)).mod(size);
+                a = a.multiply(nInverse);
+                b = b.multiply(nInverse);
+                pos = (nInverse.multiply(pos)).mod(size);
             }
         }
 
@@ -69,7 +60,7 @@ public class Part2 extends Problem<Long> {
             throw new RuntimeException("Check failed");
         }
 
-        var pow = a.modPow(iters, size);
+        var pow = a.modPow(iterations, size);
         var inv = a.subtract(BigInteger.ONE).modInverse(size);
         var f = startPos.multiply(pow);
         var g = pow.subtract(BigInteger.ONE).multiply(b).multiply(inv);

@@ -23,8 +23,12 @@ public class Point {
     }
 
     public void inc(Point delta) {
-        x += delta.x;
-        y += delta.y;
+        inc(delta.x, delta.y);
+    }
+
+    public void inc(int dx, int dy) {
+        x += dx;
+        y += dy;
     }
 
     public int manDist(Point pt) {

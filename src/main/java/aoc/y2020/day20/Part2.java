@@ -5,12 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import aoc.utils.geometry.Point;
+
 public class Part2 extends Solver {
-    private Map<Integer, Boolean> used = new HashMap<Integer, Boolean>();
+    private final Map<Integer, Boolean> used = new HashMap<>();
     private Map<String, Integer> borderCounts;
 
-    private String[] monster = new String[] { "                  # ", "#    ##    ##    ###", " #  #  #  #  #  #   " };
-    private int numMonsterPoints;
+    private final String[] monster = new String[]{ "                  # ", "#    ##    ##    ###", " #  #  #  #  #  #   " };
+    private final int numMonsterPoints;
 
     public Part2(Tile[] input, long expected) {
         super(input, expected);
@@ -21,8 +23,8 @@ public class Part2 extends Solver {
     private int countPounds(String[] data) {
         var count = 0;
 
-        for (var row = 0; row < data.length; row += 1) {
-            for (var ch : data[row].toCharArray()) {
+        for (var datum : data) {
+            for (var ch : datum.toCharArray()) {
                 if (ch == '#') {
                     count += 1;
                 }
@@ -81,6 +83,7 @@ public class Part2 extends Solver {
         var grid = new Tile[size][size];
         var corner = getCandidate(tiles, null, null);
 
+        assert corner != null;
         used.put(corner.getId(), true);
         grid[0][0] = corner;
 
@@ -170,8 +173,8 @@ public class Part2 extends Solver {
         var data = tile.getData();
 
         for (var point : points) {
-            var row = startRow + point.getRow();
-            var col = startCol + point.getCol();
+            var row = startRow + point.x;
+            var col = startCol + point.y;
 
             if (data[row].charAt(col) != '#') {
                 return false;
@@ -217,7 +220,7 @@ public class Part2 extends Solver {
 
         var pounds = countPounds(tile.getData());
 
-        answer = pounds - (monsterCount * numMonsterPoints);
+        answer = pounds - ((long) monsterCount * numMonsterPoints);
 
         return answer;
     }

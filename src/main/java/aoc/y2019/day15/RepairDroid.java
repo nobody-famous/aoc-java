@@ -12,12 +12,14 @@ public class RepairDroid implements Machine.IO {
     public static final int Open = 1;
     public static final int Oxygen = 2;
 
-    private Machine mach;
+    private final Machine mach;
     private Long nextInput;
     private Long lastOutput;
 
     public RepairDroid(RepairDroid clone) {
         this.mach = new Machine(clone.mach, this);
+        this.nextInput = 0L;
+        this.lastOutput = 0L;
     }
 
     public RepairDroid(long[] prog) {

@@ -6,8 +6,6 @@ public class Part1 extends Solver {
     }
 
     public Long run() {
-        var answer = findWeakness(input, preambleLength);
-
-        return answer;
+        return findWeakness(input, preambleLength);
     }
 }

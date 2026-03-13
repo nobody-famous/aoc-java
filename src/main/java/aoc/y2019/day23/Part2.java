@@ -1,20 +1,16 @@
 package aoc.y2019.day23;
 
-import aoc.utils.Problem;
+import java.util.List;
+
+import aoc.utils.AocProblem;
 import aoc.y2019.intcode.Parser;
 
-public class Part2 extends Problem<Integer> {
-    private Parser parser;
-
-    public Part2(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
-    }
+public class Part2 implements AocProblem<Integer> {
+    private final Parser parser = new Parser();
 
     @Override
-    public Integer run() {
-        var prog = parser.parse();
+    public Integer solve(List<String> lines) {
+        var prog = parser.parse(lines);
         var network = new Network(prog, 50);
         var lastY = 0L;
 
@@ -27,6 +23,8 @@ public class Part2 extends Problem<Integer> {
                 natPkt = newPkt;
                 continue;
             }
+
+            assert natPkt != null;
 
             if (natPkt.y() == lastY) {
                 foundY = lastY;

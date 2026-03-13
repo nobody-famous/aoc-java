@@ -1,10 +1,6 @@
 package aoc.y2018.day3;
 
 public class Part2 extends Solution {
-    public Part2(String fileName, int exp) {
-        super(fileName, exp);
-    }
-
     private boolean overlaps(Claim claim) {
         for (var x = claim.pt.x; x < claim.pt.x + claim.w; x += 1) {
             for (var y = claim.pt.y; y < claim.pt.y + claim.h; y += 1) {

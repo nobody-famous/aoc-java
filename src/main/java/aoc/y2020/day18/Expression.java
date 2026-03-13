@@ -3,14 +3,10 @@ package aoc.y2020.day18;
 import java.util.Stack;
 
 public class Expression {
-    private String expr;
+    private final String expr;
     private int ndx;
     private Stack<Token> stack;
-    private boolean usePrecedence;
-
-    public Expression(String expr) {
-        this(expr, false);
-    }
+    private final boolean usePrecedence;
 
     public Expression(String expr, boolean usePrecedence) {
         this.expr = expr;
@@ -18,7 +14,7 @@ public class Expression {
     }
 
     public long eval() {
-        stack = new Stack<Token>();
+        stack = new Stack<>();
 
         while (!done()) {
             skipWS();
@@ -45,13 +41,13 @@ public class Expression {
 
         var token = stack.peek();
 
-        return token.isNumber() ? ((Number) token).getValue() : 0;
+        return token.isNumber() ? ((Number) token).value() : 0;
     }
 
     private long combine(long firstValue) {
         var top = stack.pop();
         var secondToken = stack.pop();
-        var secondValue = ((Number) secondToken).getValue();
+        var secondValue = ((Number) secondToken).value();
 
         if (top.isAdd()) {
             return firstValue + secondValue;
@@ -65,14 +61,14 @@ public class Expression {
     private void number() {
         var num = parseNumber();
 
-        if (stack.size() == 0 || stack.peek().isOpenParen()) {
+        if (stack.isEmpty() || stack.peek().isOpenParen()) {
             stack.push(new Number(num));
             return;
         }
 
         var top = stack.peek();
 
-        if (!usePrecedence || (usePrecedence && top.isAdd())) {
+        if (!usePrecedence || top.isAdd()) {
             var value = combine(num);
             stack.push(new Number(value));
         } else {
@@ -111,10 +107,13 @@ public class Expression {
         }
 
         var num = (Number) numToken;
-        var value = num.getValue();
+        var value = num.value();
 
         var opToken = stack.peek();
-        while (!stack.empty() && (opToken.isAdd() || opToken.isMultiply())) {
+        while (!stack.empty()) {
+            assert opToken != null;
+
+            if (!(opToken.isAdd() || opToken.isMultiply())) break;
             stack.pop();
 
             numToken = stack.pop();
@@ -124,9 +123,9 @@ public class Expression {
 
             num = (Number) numToken;
             if (opToken.isAdd()) {
-                value += num.getValue();
+                value += num.value();
             } else if (opToken.isMultiply()) {
-                value *= num.getValue();
+                value *= num.value();
             }
 
             opToken = stack.empty() ? null : stack.peek();
@@ -149,7 +148,7 @@ public class Expression {
             throw new RuntimeException("closeParen INVALID TOKENS");
         }
 
-        var firstValue = ((Number) numToken).getValue();
+        var firstValue = ((Number) numToken).value();
         while (stack.size() > 1 && stack.peek().isAdd()) {
             firstValue = combine(firstValue);
         }
@@ -175,15 +174,11 @@ public class Expression {
         return done() ? '\0' : expr.charAt(ndx);
     }
 
-    private char consume() {
+    private void consume() {
         if (done()) {
-            return '\0';
+            return;
         }
 
-        var ch = peek();
-
         ndx += 1;
-
-        return ch;
     }
 }

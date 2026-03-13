@@ -1,15 +1,11 @@
 package aoc.y2020.day4;
 
-import aoc.utils.Problem;
+import java.util.List;
+import java.util.Map;
 
-public class Part2 extends Problem<Long> {
-    private String[][][] input;
+import aoc.utils.AocProblem;
 
-    public Part2(String[][][] input, long expected) {
-        super(expected);
-        this.input = input;
-    }
-
+public class Part2 implements AocProblem<Integer> {
     private boolean inRange(String value, int low, int high) {
         var intValue = Integer.parseInt(value);
 
@@ -49,7 +45,7 @@ public class Part2 extends Problem<Long> {
         return true;
     }
 
-    private boolean valideEyeColor(String value) {
+    private boolean validateEyeColor(String value) {
         return ("amb".equals(value) || "blu".equals(value) || "brn".equals(value) || "gry".equals(value)
                 || "grn".equals(value) || "hzl".equals(value) || "oth".equals(value));
     }
@@ -68,7 +64,7 @@ public class Part2 extends Problem<Long> {
         return true;
     }
 
-    private boolean validate(String[][] entries) {
+    private boolean validate(Map<String, String> passport) {
         boolean byr = false;
         boolean iyr = false;
         boolean eyr = false;
@@ -77,32 +73,28 @@ public class Part2 extends Problem<Long> {
         boolean ecl = false;
         boolean pid = false;
 
-        for (var entry : entries) {
-            var key = entry[0];
-            var value = entry[1];
+        for (var entry : passport.entrySet()) {
+            var key = entry.getKey();
+            var value = entry.getValue();
 
-            if (key.toLowerCase() == "byr") {
-                byr = inRange(value, 1920, 2020);
-            } else if (key.toLowerCase() == "iyr") {
-                iyr = inRange(value, 2010, 2020);
-            } else if (key.toLowerCase() == "eyr") {
-                eyr = inRange(value, 2020, 2030);
-            } else if (key.toLowerCase() == "hgt") {
-                hgt = validateHeight(value);
-            } else if (key.toLowerCase() == "hcl") {
-                hcl = validateHair(value);
-            } else if (key.toLowerCase() == "ecl") {
-                ecl = valideEyeColor(value);
-            } else if (key.toLowerCase() == "pid") {
-                pid = validatePID(value);
+            switch (key.toLowerCase()) {
+            case "byr" -> byr = inRange(value, 1920, 2020);
+            case "iyr" -> iyr = inRange(value, 2010, 2020);
+            case "eyr" -> eyr = inRange(value, 2020, 2030);
+            case "hgt" -> hgt = validateHeight(value);
+            case "hcl" -> hcl = validateHair(value);
+            case "ecl" -> ecl = validateEyeColor(value);
+            case "pid" -> pid = validatePID(value);
             }
         }
 
         return byr && iyr && eyr && hgt && hcl && ecl && pid;
     }
 
-    public Long run() {
-        long valid = 0;
+    @Override
+    public Integer solve(List<String> lines) {
+        var input = new Parser().parse(lines);
+        var valid = 0;
 
         for (var entries : input) {
             if (validate(entries)) {

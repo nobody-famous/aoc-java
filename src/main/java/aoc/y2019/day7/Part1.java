@@ -1,19 +1,16 @@
 package aoc.y2019.day7;
 
-import aoc.utils.Problem;
+import java.util.List;
+
+import aoc.utils.AocProblem;
 import aoc.y2019.intcode.Parser;
 
-public class Part1 extends Problem<Long> {
-    private Parser parser;
+public class Part1 implements AocProblem<Long> {
+    private final Parser parser = new Parser();
 
-    public Part1(String fileName, long exp) {
-        super(exp);
-
-        this.parser = new Parser(fileName);
-    }
-
-    public Long run() {
-        var prog = parser.parse();
+    @Override
+    public Long solve(List<String> lines) {
+        var prog = parser.parse(lines);
         var perms = Utils.findPerms(new int[] { 0, 1, 2, 3, 4 });
 
         var most = 0L;

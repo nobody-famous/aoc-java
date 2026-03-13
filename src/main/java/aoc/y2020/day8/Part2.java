@@ -1,12 +1,11 @@
 package aoc.y2020.day8;
 
-import aoc.utils.Problem;
+import aoc.y2020.Y2020Problem;
 
-public class Part2 extends Problem<Long> {
-    private Instruction[] prog;
+public class Part2 extends Y2020Problem<Long> {
+    private final Instruction[] prog;
 
     public Part2(Instruction[] prog, long expected) {
-        super(expected);
         this.prog = prog;
     }
 
@@ -38,8 +37,6 @@ public class Part2 extends Problem<Long> {
             }
         }
 
-        var answer = machine.getAcc();
-
-        return answer;
+        return machine.getAcc();
     }
 }

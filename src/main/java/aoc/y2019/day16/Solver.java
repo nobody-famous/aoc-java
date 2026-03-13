@@ -3,31 +3,25 @@ package aoc.y2019.day16;
 import java.util.ArrayList;
 import java.util.List;
 
-import aoc.utils.Problem;
+import aoc.utils.AocProblem;
 
-public abstract class Solver extends Problem<Integer> {
-    private Parser parser;
+public abstract class Solver implements AocProblem<Integer> {
+    private final Parser parser = new Parser();
 
-    public Solver(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
-    }
-
-    protected abstract int doWork(List<Integer> nums);
+    protected abstract int doWork(List<Integer> numbers);
 
     protected int apply(List<Integer> input, int element) {
         var startNdx = element - 1;
         var total = 0;
-        var mult = 1;
+        var multiplier = 1;
 
         while (startNdx < input.size()) {
             for (var ndx = startNdx; ndx < input.size() && ndx < startNdx + element; ndx += 1) {
-                total += input.get(ndx) * mult;
+                total += input.get(ndx) * multiplier;
             }
 
             startNdx += (element * 2);
-            mult = -mult;
+            multiplier = -multiplier;
         }
 
         return Math.abs(total % 10);
@@ -53,9 +47,10 @@ public abstract class Solver extends Problem<Integer> {
         return output;
     }
 
-    public Integer run() {
-        var nums = parser.parse();
+    @Override
+    public Integer solve(List<String> lines) {
+        var numbers = parser.parse(lines);
 
-        return doWork(nums);
+        return doWork(numbers);
     }
 }

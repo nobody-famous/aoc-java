@@ -1,20 +1,16 @@
 package aoc.y2020.day1;
 
-import aoc.utils.Problem;
+import java.util.List;
 
-public abstract class Solver extends Problem<Long> {
-    protected int[] input;
-    protected int target;
+import aoc.utils.AocProblem;
+import aoc.utils.NumberListParser;
 
-    protected Solver(int[] input, int target, long expected) {
-        super(expected);
-        this.input = input;
-        this.target = target;
-    }
+public abstract class Solver implements AocProblem<Integer> {
+    private final static int TARGET = 2020;
 
     protected abstract int[] findCandidates(int[] input, int target);
 
-    protected long product(int[] entries) {
+    protected int product(int[] entries) {
         if (entries.length == 0) {
             return 0;
         }
@@ -28,15 +24,15 @@ public abstract class Solver extends Problem<Long> {
         return answer;
     }
 
-    public Long run() {
-        var entries = findCandidates(input, target);
+    @Override
+    public Integer solve(List<String> lines) {
+        var input = new NumberListParser().parse(lines);
+        var entries = findCandidates(input, TARGET);
 
         if (entries == null) {
             throw new RuntimeException("No solution found");
         }
 
-        var answer = product(entries);
-
-        return answer;
+        return product(entries);
     }
 }

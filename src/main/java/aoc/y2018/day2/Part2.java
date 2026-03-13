@@ -2,16 +2,10 @@ package aoc.y2018.day2;
 
 import java.util.List;
 
-import aoc.utils.Problem;
+import aoc.utils.AocProblem;
 
-public class Part2 extends Problem<String> {
-    private Parser parser;
-
-    public Part2(String fileName, String exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
-    }
+public class Part2 implements AocProblem<String> {
+    private final Parser parser = new Parser();
 
     private int countDiffs(String str1, String str2) {
         var diffs = 0;
@@ -30,7 +24,7 @@ public class Part2 extends Problem<String> {
 
         for (var ndx2 = ndx + 1; ndx2 < input.size(); ndx2 += 1) {
             if (countDiffs(toMatch, input.get(ndx2)) == 1) {
-                return new String[] { toMatch, input.get(ndx2) };
+                return new String[]{ toMatch, input.get(ndx2) };
             }
         }
 
@@ -46,7 +40,7 @@ public class Part2 extends Problem<String> {
             }
         }
 
-        return null;
+        return new String[]{};
     }
 
     private String removeDiffs(String[] matches) {
@@ -60,11 +54,10 @@ public class Part2 extends Problem<String> {
     }
 
     @Override
-    public String run() {
-        var input = parser.parse();
+    public String solve(List<String> lines) {
+        var input = parser.parse(lines);
         var matches = findDiffByOne(input);
-        var answer = removeDiffs(matches);
 
-        return answer;
+        return removeDiffs(matches);
     }
 }

@@ -1,20 +1,17 @@
 package aoc.y2019.day4;
 
-import aoc.utils.Problem;
+import java.util.List;
 
-public abstract class Solver extends Problem<Integer> {
-    private Parser parser;
+import aoc.utils.AocProblem;
 
-    protected Solver(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
-    }
+public abstract class Solver implements AocProblem<Integer> {
+    private final Parser parser = new Parser();
 
     protected abstract boolean isValid(int[] num);
 
-    public Integer run() {
-        var nums = parser.parse();
+    @Override
+    public Integer solve(List<String> lines) {
+        var nums = parser.parse(lines);
         var total = 0;
 
         findFirstNum(nums[0]);

@@ -6,8 +6,6 @@ public class Part1 extends Solver {
     }
 
     public Long run() {
-        var answer = runProgram(prog);
-
-        return answer;
+        return runProgram(prog);
     }
 }

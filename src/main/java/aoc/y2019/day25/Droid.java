@@ -3,7 +3,7 @@ package aoc.y2019.day25;
 import aoc.y2019.intcode.Machine;
 
 public class Droid implements Machine.IO {
-    private Machine mach;
+    private final Machine mach;
     private Long lastOutput;
     private Long nextInput;
 

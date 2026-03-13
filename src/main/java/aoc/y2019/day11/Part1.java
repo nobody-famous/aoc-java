@@ -1,19 +1,16 @@
 package aoc.y2019.day11;
 
-import aoc.utils.Problem;
+import java.util.List;
+
+import aoc.utils.AocProblem;
 import aoc.y2019.intcode.Parser;
 
-public class Part1 extends Problem<Integer> {
-    private Parser parser;
+public class Part1 implements AocProblem<Integer> {
+    private final Parser parser = new Parser();
 
-    public Part1(String fileName, int exp) {
-        super(exp);
-
-        parser = new Parser(fileName);
-    }
-
-    public Integer run() {
-        var prog = parser.parse();
+    @Override
+    public Integer solve(List<String> lines) {
+        var prog = parser.parse(lines);
         var robot = new Robot(prog, Robot.COLOR_BLACK);
 
         robot.run();

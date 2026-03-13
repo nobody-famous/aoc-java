@@ -4,11 +4,7 @@ import java.util.List;
 
 import aoc.utils.geometry.Point3D;
 
-public class Part1 extends Solver<Integer> {
-    public Part1(String fileName, int exp) {
-        super(fileName, exp);
-    }
-
+public class Part1 extends Solver {
     private int energy(Point3D pt) {
         return Math.abs(pt.x) + Math.abs(pt.y) + Math.abs(pt.z);
     }
@@ -17,8 +13,8 @@ public class Part1 extends Solver<Integer> {
         return energy(moon.pos) * energy(moon.vel);
     }
 
-    private int totalEnergy(List<Moon> moons) {
-        int total = 0;
+    private long totalEnergy(List<Moon> moons) {
+        long total = 0L;
 
         for (var moon : moons) {
             total += energy(moon);
@@ -27,7 +23,7 @@ public class Part1 extends Solver<Integer> {
         return total;
     }
 
-    public Integer doWork(List<Moon> moons) {
+    public long doWork(List<Moon> moons) {
         for (var loop = 0; loop < 1000; loop += 1) {
             timeStep(moons);
         }

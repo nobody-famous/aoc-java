@@ -1,12 +1,10 @@
 package aoc.y2019.day18;
 
+import java.util.List;
+
 import aoc.utils.geometry.Point;
 
-public class Parser extends aoc.utils.Parser<Grid> {
-    public Parser(String fileName) {
-        super(fileName);
-    }
-
+public class Parser implements aoc.utils.Parser<Grid> {
     private void parseLine(Grid grid, int y, String line) {
         for (var x = 0; x < line.length(); x += 1) {
             var ch = line.charAt(x);
@@ -26,9 +24,9 @@ public class Parser extends aoc.utils.Parser<Grid> {
         }
     }
 
-    public Grid parse() {
+    @Override
+    public Grid parse(List<String> lines) {
         try {
-            var lines = readLines();
             var grid = new Grid();
 
             for (var y = 0; y < lines.size(); y += 1) {
@@ -37,7 +35,7 @@ public class Parser extends aoc.utils.Parser<Grid> {
 
             return grid;
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
             return null;
         }
     }

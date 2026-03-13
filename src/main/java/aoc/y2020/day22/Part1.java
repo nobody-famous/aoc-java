@@ -28,14 +28,12 @@ public class Part1 extends Solver {
         while (true) {
             playRound(cards1, cards2);
 
-            if (cards1.size() == 0 || cards2.size() == 0) {
-                winner = cards1.size() == 0 ? cards2 : cards1;
+            if (cards1.isEmpty() || cards2.isEmpty()) {
+                winner = cards1.isEmpty() ? cards2 : cards1;
                 break;
             }
         }
 
-        var answer = calculateAnswer(winner);
-
-        return answer;
+        return calculateAnswer(winner);
     }
 }

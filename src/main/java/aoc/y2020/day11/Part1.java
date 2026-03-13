@@ -23,13 +23,12 @@ public class Part1 extends Solver {
         return count;
     }
 
+    @Override
     public Long run() {
-        while (!isDone()) {
+        while (isNotDone()) {
             doRound(4);
         }
 
-        var answer = countOccupied();
-
-        return answer;
+        return countOccupied();
     }
 }

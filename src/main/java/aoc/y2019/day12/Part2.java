@@ -5,11 +5,7 @@ import java.util.List;
 
 import aoc.utils.geometry.Point3D;
 
-public class Part2 extends Solver<Long> {
-    public Part2(String fileName, long exp) {
-        super(fileName, exp);
-    }
-
+public class Part2 extends Solver {
     private void updateLoops(List<MoonLoops> loops, List<Moon> moons) {
         for (var ndx = 0; ndx < moons.size(); ndx += 1) {
             loops.get(ndx).insert(moons.get(ndx).pos);
@@ -55,12 +51,12 @@ public class Part2 extends Solver<Long> {
             result -= small;
         }
 
-        return new long[] { small, result };
+        return new long[]{ small, result };
     }
 
     private long gcd(long n1, long n2) {
-        var big = n1 > n2 ? n1 : n2;
-        var small = n1 > n2 ? n2 : n1;
+        var big = Math.max(n1, n2);
+        var small = Math.min(n1, n2);
         var result = small;
 
         while (small > 0) {
@@ -78,7 +74,7 @@ public class Part2 extends Solver<Long> {
         return (n1 * n2) / gcd(n1, n2);
     }
 
-    public Long doWork(List<Moon> moons) {
+    public long doWork(List<Moon> moons) {
         var loops = new ArrayList<MoonLoops>();
 
         for (var n = 0; n < moons.size(); n += 1) {

@@ -17,30 +17,30 @@ public class Tile {
 
     public void move(Direction dir) {
         switch (dir) {
-        case EAST -> {
-            x += 1;
-            y -= 1;
-        }
-        case WEST -> {
-            x -= 1;
-            y += 1;
-        }
-        case NORTHEAST -> {
-            x += 1;
-            z -= 1;
-        }
-        case NORTHWEST -> {
-            y += 1;
-            z -= 1;
-        }
-        case SOUTHEAST -> {
-            y -= 1;
-            z += 1;
-        }
-        case SOUTHWEST -> {
-            x -= 1;
-            z += 1;
-        }
+            case EAST -> {
+                x += 1;
+                y -= 1;
+            }
+            case WEST -> {
+                x -= 1;
+                y += 1;
+            }
+            case NORTHEAST -> {
+                x += 1;
+                z -= 1;
+            }
+            case NORTHWEST -> {
+                y += 1;
+                z -= 1;
+            }
+            case SOUTHEAST -> {
+                y -= 1;
+                z += 1;
+            }
+            case SOUTHWEST -> {
+                x -= 1;
+                z += 1;
+            }
         }
     }
 
@@ -69,13 +69,15 @@ public class Tile {
     }
 
     public boolean equals(Object obj) {
-        var them = (Tile) obj;
+        if (!(obj instanceof Tile them)) {
+            return false;
+        }
+
         return x == them.x && y == them.y && z == them.z;
     }
 
     public int hashCode() {
-        var hash = x * 1000 + y * 100 + z * 10;
-        return hash;
+        return x * 1000 + y * 100 + z * 10;
     }
 
     public String toString() {
