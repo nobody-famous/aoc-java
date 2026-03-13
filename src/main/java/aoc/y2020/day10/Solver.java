@@ -1,18 +1,12 @@
 package aoc.y2020.day10;
 
-import aoc.y2020.Y2020Problem;
+import aoc.utils.AocProblem;
 
-public abstract class Solver extends Y2020Problem<Long> {
-    protected int[] input;
-
-    protected Solver(int[] input, long expected) {
-        this.input = input;
-    }
-
-    protected int[] addAdapters(int[] input) {
-        var adapters = new int[input.length + 2];
+public abstract class Solver implements AocProblem<Long> {
+    protected long[] addAdapters(long[] input) {
+        var adapters = new long[input.length + 2];
         var ndx = 0;
-        var highest = 0;
+        var highest = 0L;
 
         adapters[ndx] = 0;
         ndx += 1;

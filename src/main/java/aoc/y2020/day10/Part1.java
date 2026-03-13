@@ -1,14 +1,14 @@
 package aoc.y2020.day10;
 
 import java.util.Arrays;
+import java.util.List;
+
+import aoc.utils.LongListParser;
 
 public class Part1 extends Solver {
-    public Part1(int[] input, long expected) {
-        super(input, expected);
-    }
-
     @Override
-    public Long run() {
+    public Long solve(List<String> lines) {
+        var input = new LongListParser().parse(lines);
         var adapters = addAdapters(input);
         Arrays.sort(adapters);
 
