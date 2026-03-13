@@ -3,7 +3,7 @@ package aoc.y2020.day1;
 import java.util.List;
 
 import aoc.utils.AocProblem;
-import aoc.utils.NumberListParser;
+import aoc.utils.IntListParser;
 
 public abstract class Solver implements AocProblem<Integer> {
     private final static int TARGET = 2020;
@@ -26,7 +26,7 @@ public abstract class Solver implements AocProblem<Integer> {
 
     @Override
     public Integer solve(List<String> lines) {
-        var input = new NumberListParser().parse(lines);
+        var input = new IntListParser().parse(lines);
         var entries = findCandidates(input, TARGET);
 
         if (entries == null) {
