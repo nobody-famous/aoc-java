@@ -1,14 +1,11 @@
 package aoc.y2020.day4;
 
-import aoc.y2020.Y2020Problem;
+import java.util.List;
+import java.util.Map;
 
-public class Part2 extends Y2020Problem<Long> {
-    private final String[][][] input;
+import aoc.utils.AocProblem;
 
-    public Part2(String[][][] input, long expected) {
-        this.input = input;
-    }
-
+public class Part2 implements AocProblem<Integer> {
     private boolean inRange(String value, int low, int high) {
         var intValue = Integer.parseInt(value);
 
@@ -67,7 +64,7 @@ public class Part2 extends Y2020Problem<Long> {
         return true;
     }
 
-    private boolean validate(String[][] entries) {
+    private boolean validate(Map<String, String> passport) {
         boolean byr = false;
         boolean iyr = false;
         boolean eyr = false;
@@ -76,26 +73,28 @@ public class Part2 extends Y2020Problem<Long> {
         boolean ecl = false;
         boolean pid = false;
 
-        for (var entry : entries) {
-            var key = entry[0];
-            var value = entry[1];
+        for (var entry : passport.entrySet()) {
+            var key = entry.getKey();
+            var value = entry.getValue();
 
             switch (key.toLowerCase()) {
-                case "byr" -> byr = inRange(value, 1920, 2020);
-                case "iyr" -> iyr = inRange(value, 2010, 2020);
-                case "eyr" -> eyr = inRange(value, 2020, 2030);
-                case "hgt" -> hgt = validateHeight(value);
-                case "hcl" -> hcl = validateHair(value);
-                case "ecl" -> ecl = validateEyeColor(value);
-                case "pid" -> pid = validatePID(value);
+            case "byr" -> byr = inRange(value, 1920, 2020);
+            case "iyr" -> iyr = inRange(value, 2010, 2020);
+            case "eyr" -> eyr = inRange(value, 2020, 2030);
+            case "hgt" -> hgt = validateHeight(value);
+            case "hcl" -> hcl = validateHair(value);
+            case "ecl" -> ecl = validateEyeColor(value);
+            case "pid" -> pid = validatePID(value);
             }
         }
 
         return byr && iyr && eyr && hgt && hcl && ecl && pid;
     }
 
-    public Long run() {
-        long valid = 0;
+    @Override
+    public Integer solve(List<String> lines) {
+        var input = new Parser().parse(lines);
+        var valid = 0;
 
         for (var entries : input) {
             if (validate(entries)) {
