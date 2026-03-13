@@ -2,10 +2,10 @@ package aoc.y2019.day25;
 
 import java.util.List;
 
-import aoc.utils.IntProblem;
+import aoc.utils.AocProblem;
 import aoc.y2019.intcode.Parser;
 
-public class Part1 extends IntProblem {
+public class Part1 implements AocProblem<Integer> {
     private final Parser parser = new Parser();
     private Droid droid;
 
@@ -20,7 +20,7 @@ public class Part1 extends IntProblem {
     }
 
     @Override
-    public int solve(List<String> lines) {
+    public Integer solve(List<String> lines) {
         var prog = parser.parse(lines);
         var commands = new String[]{ "north", "east", "north", "east", "take semiconductor", "west", "south", "west",
                 "south", "east", "north", "take coin", "south", "east", "take candy cane", "west", "west", "south",

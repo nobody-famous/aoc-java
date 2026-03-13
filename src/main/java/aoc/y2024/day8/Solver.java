@@ -5,16 +5,16 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import aoc.utils.AocProblem;
 import aoc.utils.Grid;
-import aoc.utils.IntProblem;
 import aoc.utils.Pair;
 import aoc.utils.geometry.Point;
 
-public abstract class Solver extends IntProblem {
+public abstract class Solver implements AocProblem<Integer> {
     protected abstract HashSet<Point> createAntinodes(List<Pair<Point>> pairs, Grid grid);
 
     @Override
-    public int solve(List<String> lines) {
+    public Integer solve(List<String> lines) {
         var grid = Grid.parse(lines);
         var frequencies = getFrequencies(grid);
         var pairs = getPairs(frequencies);

@@ -11,7 +11,6 @@ public abstract class Solver extends Y2020Problem<Long> {
     protected Tile[] input;
 
     protected Solver(Tile[] input, long expected) {
-        super(expected);
         this.input = input;
     }
 

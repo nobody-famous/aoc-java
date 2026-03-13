@@ -4,16 +4,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import aoc.utils.LongProblem;
+import aoc.utils.AocProblem;
 
-public abstract class Solver extends LongProblem {
+public abstract class Solver implements AocProblem<Long> {
     protected Map<String, Reaction> reactions;
     private final Parser parser = new Parser();
 
     abstract long doWork();
 
     @Override
-    public long solve(List<String> lines) {
+    public Long solve(List<String> lines) {
         reactions = parser.parse(lines);
         return doWork();
     }

@@ -10,7 +10,6 @@ public abstract class Solver extends Y2020Problem<Integer> {
     protected Direction[][] input;
 
     protected Solver(Direction[][] input, int expected) {
-        super(expected);
         this.input = input;
     }
 

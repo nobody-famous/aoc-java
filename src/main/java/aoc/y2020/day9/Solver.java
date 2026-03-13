@@ -7,7 +7,6 @@ public abstract class Solver extends Y2020Problem<Long> {
     protected int preambleLength;
 
     protected Solver(long[] input, int preambleLength, long expected) {
-        super(expected);
         this.input = input;
         this.preambleLength = preambleLength;
     }

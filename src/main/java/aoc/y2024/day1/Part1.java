@@ -3,12 +3,12 @@ package aoc.y2024.day1;
 import java.util.ArrayList;
 import java.util.List;
 
-import aoc.utils.IntProblem;
+import aoc.utils.AocProblem;
 import aoc.y2024.day1.Parser.InputItem;
 
-public class Part1 extends IntProblem {
+public class Part1 implements AocProblem<Integer> {
     @Override
-    public int solve(List<String> lines) {
+    public Integer solve(List<String> lines) {
         var items = new Parser().parse(lines);
         var left = new ArrayList<Integer>();
         var right = new ArrayList<Integer>();

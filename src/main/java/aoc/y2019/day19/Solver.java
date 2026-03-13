@@ -2,10 +2,10 @@ package aoc.y2019.day19;
 
 import java.util.List;
 
-import aoc.utils.IntProblem;
+import aoc.utils.AocProblem;
 import aoc.y2019.intcode.Parser;
 
-public abstract class Solver extends IntProblem {
+public abstract class Solver implements AocProblem<Integer> {
     private final Parser parser = new Parser();
     private Drone drone;
 
@@ -34,7 +34,7 @@ public abstract class Solver extends IntProblem {
     }
 
     @Override
-    public int solve(List<String> lines) {
+    public Integer solve(List<String> lines) {
         var prog = parser.parse(lines);
 
         drone = new Drone(prog);

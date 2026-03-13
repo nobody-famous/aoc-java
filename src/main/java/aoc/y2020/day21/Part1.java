@@ -9,7 +9,6 @@ public class Part1 extends Y2020Problem<Long> {
     private final Solver solver;
 
     public Part1(Food[] input, long expected) {
-        super(expected);
         this.solver = new Solver(input);
     }
 

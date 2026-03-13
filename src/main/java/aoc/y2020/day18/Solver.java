@@ -7,7 +7,6 @@ public abstract class Solver extends Y2020Problem<Long> {
     private final boolean usePrecedence;
 
     public Solver(String[] input, boolean usePrecedence, long expected) {
-        super(expected);
         this.input = input;
         this.usePrecedence = usePrecedence;
     }

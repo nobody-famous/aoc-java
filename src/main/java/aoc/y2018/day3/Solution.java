@@ -2,10 +2,10 @@ package aoc.y2018.day3;
 
 import java.util.List;
 
-import aoc.utils.IntProblem;
+import aoc.utils.AocProblem;
 import aoc.utils.geometry.Point;
 
-public abstract class Solution extends IntProblem {
+public abstract class Solution implements AocProblem<Integer> {
     private final Parser parser = new Parser();
 
     protected List<Claim> claims;
@@ -57,7 +57,7 @@ public abstract class Solution extends IntProblem {
     }
 
     @Override
-    public int solve(List<String> lines) {
+    public Integer solve(List<String> lines) {
         claims = parser.parse(lines);
         grid = buildGrid(claims);
 

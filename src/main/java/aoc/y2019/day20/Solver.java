@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import aoc.utils.IntProblem;
+import aoc.utils.AocProblem;
 import aoc.utils.geometry.Point;
 
-public abstract class Solver extends IntProblem {
+public abstract class Solver implements AocProblem<Integer> {
     private final Parser parser = new Parser();
 
     protected abstract int doWork(Maze maze, Map<Point, Map<Point, Integer>> distances);
@@ -30,7 +30,7 @@ public abstract class Solver extends IntProblem {
     }
 
     @Override
-    public int solve(List<String> lines) {
+    public Integer solve(List<String> lines) {
         var maze = parser.parse(lines);
         var distances = getAllDistances(maze);
 

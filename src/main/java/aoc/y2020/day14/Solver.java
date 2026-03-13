@@ -8,7 +8,6 @@ public abstract class Solver extends Y2020Problem<Long> {
     protected Op[] prog;
 
     protected Solver(Op[] prog, long expected) {
-        super(expected);
         this.prog = prog;
     }
 

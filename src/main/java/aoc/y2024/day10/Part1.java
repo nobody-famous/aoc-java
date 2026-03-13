@@ -4,11 +4,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import aoc.utils.AocProblem;
 import aoc.utils.Grid;
-import aoc.utils.IntProblem;
 import aoc.utils.geometry.Point;
 
-public class Part1 extends IntProblem {
+public class Part1 implements AocProblem<Integer> {
     private void findTrailEnds(Grid grid, Set<Point> heads, Set<Point> tails) {
         for (var row = 0; row < grid.getRows(); row++) {
             for (var col = 0; col < grid.getCols(); col++) {
@@ -57,7 +57,7 @@ public class Part1 extends IntProblem {
     }
 
     @Override
-    public int solve(List<String> lines) {
+    public Integer solve(List<String> lines) {
         var grid = Grid.parse(lines);
         var trailHeads = new HashSet<Point>();
         var trailTails = new HashSet<Point>();

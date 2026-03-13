@@ -6,7 +6,6 @@ public class Part1 extends Y2020Problem<Long> {
     private final Notes input;
 
     public Part1(Notes input, long expected) {
-        super(expected);
         this.input = input;
     }
 

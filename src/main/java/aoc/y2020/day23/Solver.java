@@ -9,7 +9,6 @@ public abstract class Solver extends Y2020Problem<Long> {
     private final int maximum;
 
     protected Solver(int[] input, int maximum, long expected) {
-        super(expected);
         this.input = input;
         this.maximum = maximum;
     }

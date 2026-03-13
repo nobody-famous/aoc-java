@@ -2,15 +2,15 @@ package aoc.y2019.day9;
 
 import java.util.List;
 
-import aoc.utils.LongProblem;
+import aoc.utils.AocProblem;
 import aoc.y2019.intcode.Machine;
 import aoc.y2019.intcode.Parser;
 
-public class Part2 extends LongProblem {
+public class Part2 implements AocProblem<Long> {
     private final Parser parser = new Parser();
 
     @Override
-    public long solve(List<String> lines) {
+    public Long solve(List<String> lines) {
         var prog = parser.parse(lines);
         var io = new MachIO(2);
         var mach = new Machine(prog, io);

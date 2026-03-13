@@ -3,11 +3,11 @@ package aoc.y2019.day11;
 import java.util.List;
 import java.util.Map;
 
-import aoc.utils.StringProblem;
+import aoc.utils.AocProblem;
 import aoc.utils.geometry.Point;
 import aoc.y2019.intcode.Parser;
 
-public class Part2 extends StringProblem {
+public class Part2 implements AocProblem<String> {
     private final Parser parser = new Parser();
 
     private Point findMin(Map<Point, Integer> panels) {

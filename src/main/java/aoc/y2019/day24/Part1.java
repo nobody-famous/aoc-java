@@ -3,9 +3,9 @@ package aoc.y2019.day24;
 import java.util.HashSet;
 import java.util.List;
 
-import aoc.utils.IntProblem;
+import aoc.utils.AocProblem;
 
-public class Part1 extends IntProblem {
+public class Part1 implements AocProblem<Integer> {
     private final Parser parser = new Parser();
 
     private int countAdjacent(Grid grid, int x, int y) {
@@ -38,7 +38,7 @@ public class Part1 extends IntProblem {
     }
 
     @Override
-    public int solve(List<String> lines) {
+    public Integer solve(List<String> lines) {
         var grid = parser.parse(lines);
         var layouts = new HashSet<Integer>();
         Integer ans = null;

@@ -61,10 +61,11 @@ public class Part2 extends Solver {
     }
 
     @Override
-    public void solve(List<String> lines) {
+    public Long solve(List<String> lines) {
         wpX = 10;
         wpY = 1;
 
         super.solve(lines);
+        return 0L;
     }
 }

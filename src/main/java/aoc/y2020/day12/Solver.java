@@ -9,7 +9,6 @@ public abstract class Solver extends Y2020Problem<Long> {
     protected Instruction[] instrs;
 
     protected Solver(Instruction[] instrs, long expected) {
-        super(expected);
         this.instrs = instrs;
     }
 

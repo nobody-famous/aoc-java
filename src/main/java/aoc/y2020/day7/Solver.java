@@ -9,7 +9,6 @@ public abstract class Solver extends Y2020Problem<Long> {
     protected BagRule[] input;
 
     protected Solver(BagRule[] input, long expected) {
-        super(expected);
         this.input = input;
     }
 

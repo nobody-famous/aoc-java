@@ -7,7 +7,6 @@ public class Solver extends Y2020Problem<Integer> {
     protected int numRounds;
 
     protected Solver(int[] input, int numRounds, int expected) {
-        super(expected);
         this.input = input;
         this.numRounds = numRounds;
     }

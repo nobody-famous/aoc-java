@@ -6,7 +6,6 @@ public class Part2 extends Y2020Problem<Long> {
     private final Instruction[] prog;
 
     public Part2(Instruction[] prog, long expected) {
-        super(expected);
         this.prog = prog;
     }
 

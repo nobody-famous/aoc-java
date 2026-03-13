@@ -2,14 +2,14 @@ package aoc.y2019.day7;
 
 import java.util.List;
 
-import aoc.utils.LongProblem;
+import aoc.utils.AocProblem;
 import aoc.y2019.intcode.Parser;
 
-public class Part2 extends LongProblem {
+public class Part2 implements AocProblem<Long> {
     private final Parser parser = new Parser();
 
     @Override
-    public long solve(List<String> lines) {
+    public Long solve(List<String> lines) {
         var prog = parser.parse(lines);
         var perms = Utils.findPerms(new int[] { 5, 6, 7, 8, 9 });
 

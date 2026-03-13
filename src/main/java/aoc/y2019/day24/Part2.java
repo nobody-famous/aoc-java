@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import aoc.utils.IntProblem;
+import aoc.utils.AocProblem;
 
-public class Part2 extends IntProblem {
+public class Part2 implements AocProblem<Integer> {
     private final Parser parser = new Parser();
     private Map<Integer, Grid> grids = new HashMap<>();
     private Map<Integer, Grid> newGrids;
@@ -180,7 +180,7 @@ public class Part2 extends IntProblem {
     }
 
     @Override
-    public int solve(List<String> lines) {
+    public Integer solve(List<String> lines) {
         var grid = parser.parse(lines);
 
         grids.put(0, grid);

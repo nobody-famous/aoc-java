@@ -5,16 +5,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import aoc.utils.IntProblem;
+import aoc.utils.AocProblem;
 import aoc.utils.geometry.Point;
 
-public abstract class Solver extends IntProblem {
+public abstract class Solver implements AocProblem<Integer> {
     private final Parser parser = new Parser();
 
     protected abstract int doWork(List<Point> asteroids);
 
     @Override
-    public int solve(List<String> lines) {
+    public Integer solve(List<String> lines) {
         var asteroids = parser.parse(lines);
 
         return doWork(asteroids);

@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import aoc.utils.AocProblem;
 import aoc.utils.Grid;
-import aoc.utils.IntProblem;
 import aoc.utils.geometry.Point;
 import aoc.y2019.intcode.Parser;
 
-public class Part1 extends IntProblem {
+public class Part1 implements AocProblem<Integer> {
     private final Parser parser = new Parser();
 
     private boolean isCross(Set<Point> scaffold, Point pt) {
@@ -40,7 +40,7 @@ public class Part1 extends IntProblem {
     }
 
     @Override
-    public int solve(List<String> lines) {
+    public Integer solve(List<String> lines) {
         var prog = parser.parse(lines);
         var ctrl = new Controller(prog);
         var output = ctrl.readCamera();

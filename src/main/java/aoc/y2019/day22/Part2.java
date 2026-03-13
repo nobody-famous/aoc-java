@@ -4,13 +4,13 @@ import java.math.BigInteger;
 import java.util.Collections;
 import java.util.List;
 
-import aoc.utils.LongProblem;
+import aoc.utils.AocProblem;
 
-public class Part2 extends LongProblem {
+public class Part2 implements AocProblem<Long> {
     private final Parser parser = new Parser();
 
     @Override
-    public long solve(List<String> lines) {
+    public Long solve(List<String> lines) {
         var shuffler = parser.parse(lines);
         var size = BigInteger.valueOf(119315717514047L);
         var iterations = BigInteger.valueOf(101741582076661L);

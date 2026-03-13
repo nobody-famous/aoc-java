@@ -10,7 +10,6 @@ public abstract class Solver extends Y2020Problem<Long> {
     abstract int countNeighbors(int row, int col);
 
     protected Solver(char[][] board, long expected) {
-        super(expected);
         this.board = board;
     }
 

@@ -1,5 +1,7 @@
 package aoc.y2024.day2;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -15,11 +17,11 @@ public class UnitTests {
 
     @Test
     void testPart1() {
-        new Part1(null, 2).solve(lines);
+        assertEquals(2, new Part1().solve(lines));
     }
 
     @Test
     void testPart2() {
-        new Part2(null, 4).solve(lines);
+        assertEquals(4, new Part2().solve(lines));
     }
 }

@@ -2,9 +2,9 @@ package aoc.y2018.day2;
 
 import java.util.List;
 
-import aoc.utils.StringProblem;
+import aoc.utils.AocProblem;
 
-public class Part2 extends StringProblem {
+public class Part2 implements AocProblem<String> {
     private final Parser parser = new Parser();
 
     private int countDiffs(String str1, String str2) {

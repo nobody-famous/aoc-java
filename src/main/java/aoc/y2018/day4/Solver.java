@@ -3,9 +3,9 @@ package aoc.y2018.day4;
 import java.util.HashMap;
 import java.util.List;
 
-import aoc.utils.IntProblem;
+import aoc.utils.AocProblem;
 
-public abstract class Solver extends IntProblem {
+public abstract class Solver implements AocProblem<Integer> {
     protected Parser parser = new Parser();
     protected Integer curGuard;
     protected Integer fallsAsleep;
@@ -59,7 +59,7 @@ public abstract class Solver extends IntProblem {
     }
 
     @Override
-    public int solve(List<String> lines) {
+    public Integer solve(List<String> lines) {
         var records = parser.parse(lines);
 
         processRecords(records);

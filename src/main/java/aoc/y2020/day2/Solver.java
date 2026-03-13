@@ -8,7 +8,6 @@ public abstract class Solver extends Y2020Problem<Long> {
     protected List<DBEntry> input;
 
     public Solver(List<DBEntry> input, long expected) {
-        super(expected);
         this.input = input;
     }
 

@@ -2,9 +2,9 @@ package aoc.y2019.day1;
 
 import java.util.List;
 
-import aoc.utils.IntProblem;
+import aoc.utils.AocProblem;
 
-public abstract class Solver extends IntProblem {
+public abstract class Solver implements AocProblem<Integer> {
     private final Parser parser = new Parser();
     protected List<Integer> masses;
 
@@ -15,7 +15,7 @@ public abstract class Solver extends IntProblem {
     }
 
     @Override
-    public int solve(List<String> lines) {
+    public Integer solve(List<String> lines) {
         masses = parser.parse(lines);
 
         return doWork();

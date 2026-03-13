@@ -3,10 +3,10 @@ package aoc.y2019.day18;
 import java.util.HashMap;
 import java.util.List;
 
-import aoc.utils.IntProblem;
+import aoc.utils.AocProblem;
 import aoc.utils.geometry.Point;
 
-public abstract class Solver extends IntProblem {
+public abstract class Solver implements AocProblem<Integer> {
     private final Parser parser = new Parser();
     private final HashMap<Point, HashMap<Point, GraphNode>> graph = new HashMap<>();
 
@@ -18,7 +18,7 @@ public abstract class Solver extends IntProblem {
     }
 
     @Override
-    public int solve(List<String> lines) {
+    public Integer solve(List<String> lines) {
         var grid = parser.parse(lines);
 
         for (var entrance : grid.entrances) {

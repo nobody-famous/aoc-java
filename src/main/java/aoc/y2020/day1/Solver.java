@@ -7,7 +7,6 @@ public abstract class Solver extends Y2020Problem<Long> {
     protected int target;
 
     protected Solver(int[] input, int target, long expected) {
-        super(expected);
         this.input = input;
         this.target = target;
     }

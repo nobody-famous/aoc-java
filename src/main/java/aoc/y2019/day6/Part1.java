@@ -3,9 +3,9 @@ package aoc.y2019.day6;
 import java.util.List;
 import java.util.Map;
 
-import aoc.utils.IntProblem;
+import aoc.utils.AocProblem;
 
-public class Part1 extends IntProblem {
+public class Part1 implements AocProblem<Integer> {
     private final Parser parser = new Parser();
 
     private int countOrbits(Map<String, List<String>> orbits, String node, int curTotal) {
@@ -24,7 +24,7 @@ public class Part1 extends IntProblem {
     }
 
     @Override
-    public int solve(List<String> lines) {
+    public Integer solve(List<String> lines) {
         var orbits = parser.parse(lines);
 
         return countOrbits(orbits, "COM", 0);

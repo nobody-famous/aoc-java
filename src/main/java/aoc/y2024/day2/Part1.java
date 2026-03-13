@@ -2,11 +2,11 @@ package aoc.y2024.day2;
 
 import java.util.List;
 
-import aoc.utils.IntProblem;
+import aoc.utils.AocProblem;
 
-public class Part1 extends IntProblem {
+public class Part1 implements AocProblem<Integer> {
     @Override
-    public int solve(List<String> lines) {
+    public Integer solve(List<String> lines) {
         var reports = new Parser().parse(lines);
         var answer = 0;
 

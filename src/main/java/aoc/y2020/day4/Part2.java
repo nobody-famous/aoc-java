@@ -6,7 +6,6 @@ public class Part2 extends Y2020Problem<Long> {
     private final String[][][] input;
 
     public Part2(String[][][] input, long expected) {
-        super(expected);
         this.input = input;
     }
 

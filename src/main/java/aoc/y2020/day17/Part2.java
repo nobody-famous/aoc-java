@@ -9,7 +9,6 @@ public class Part2 extends Y2020Problem<Long> {
     private static final int cycles = 6;
 
     public Part2(char[][] input, long expected) {
-        super(expected);
         this.input = input;
     }
 

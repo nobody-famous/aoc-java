@@ -1,5 +1,7 @@
 package aoc.y2024.day4;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -19,12 +21,12 @@ public class UnitTests {
 
     @Test
     void testPart1() {
-        new Part1(null, 18).solve(lines);
+        assertEquals(18, new Part1().solve(lines));
     }
 
     @Test
     void testPart2() {
-        new Part2(null, 9).solve(lines);
+        assertEquals(9, new Part2().solve(lines));
     }
 
     @Test
@@ -38,6 +40,6 @@ public class UnitTests {
                 "AMAS",
                 "SMAS");
 
-        new Part1(null, 5).solve(lines);
+        assertEquals(5, new Part1().solve(lines));
     }
 }

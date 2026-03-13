@@ -3,13 +3,13 @@ package aoc.y2018.day1;
 import java.util.HashSet;
 import java.util.List;
 
-import aoc.utils.IntProblem;
+import aoc.utils.AocProblem;
 
-public class Part2 extends IntProblem {
+public class Part2 implements AocProblem<Integer> {
     private final Parser parser = new Parser();
 
     @Override
-    public int solve(List<String> lines) {
+    public Integer solve(List<String> lines) {
         var values = parser.parse(lines);
         var seen = new HashSet<Integer>();
 

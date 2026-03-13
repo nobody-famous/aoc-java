@@ -3,13 +3,13 @@ package aoc.y2024.day7;
 import java.util.ArrayList;
 import java.util.List;
 
-import aoc.utils.LongProblem;
+import aoc.utils.AocProblem;
 
-public abstract class Solver extends LongProblem {
+public abstract class Solver implements AocProblem<Long> {
     abstract boolean canBeTrue(Equation eq);
 
     @Override
-    public long solve(List<String> lines) {
+    public Long solve(List<String> lines) {
         var equations = new Parser().parse(lines);
         var valid = new ArrayList<Equation>();
 

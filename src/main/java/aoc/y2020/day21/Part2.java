@@ -9,7 +9,6 @@ public class Part2 extends Y2020Problem<String> {
     private final Solver solver;
 
     public Part2(Food[] input, String expected) {
-        super(expected);
         this.solver = new Solver(input);
     }
 
