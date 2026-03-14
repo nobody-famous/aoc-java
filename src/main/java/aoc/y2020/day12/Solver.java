@@ -1,16 +1,13 @@
 package aoc.y2020.day12;
 
-import aoc.y2020.Y2020Problem;
+import java.util.List;
 
-public abstract class Solver extends Y2020Problem<Long> {
+import aoc.utils.AocProblem;
+
+public abstract class Solver implements AocProblem<Integer> {
     protected int x;
     protected int y;
     protected int dir;
-    protected Instruction[] instrs;
-
-    protected Solver(Instruction[] instrs, long expected) {
-        this.instrs = instrs;
-    }
 
     abstract void north(int value);
 
@@ -52,11 +49,13 @@ public abstract class Solver extends Y2020Problem<Long> {
         }
     }
 
-    protected long distance(int x, int y) {
+    protected int distance(int x, int y) {
         return Math.abs(x) + Math.abs(y);
     }
 
-    public Long run() {
+    @Override
+    public Integer solve(List<String> lines) {
+        var instrs = new Parser().parse(lines);
         x = 0;
         y = 0;
         dir = 1;
