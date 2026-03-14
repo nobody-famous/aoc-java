@@ -1,13 +1,12 @@
 package aoc.y2020.day14;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class Part1 extends Solver {
-    public Part1(Op[] prog, long expected) {
-        super(prog, expected);
-    }
-
-    public Long run() {
+    @Override
+    public Long solve(List<String> lines) {
+        var prog = new Parser().parse(lines);
         var mem = new HashMap<Long, Long>();
         Mask curMask = null;
 

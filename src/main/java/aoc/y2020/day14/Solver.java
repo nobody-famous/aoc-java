@@ -2,15 +2,9 @@ package aoc.y2020.day14;
 
 import java.util.Collection;
 
-import aoc.y2020.Y2020Problem;
+import aoc.utils.AocProblem;
 
-public abstract class Solver extends Y2020Problem<Long> {
-    protected Op[] prog;
-
-    protected Solver(Op[] prog, long expected) {
-        this.prog = prog;
-    }
-
+public abstract class Solver implements AocProblem<Long> {
     protected long sumValues(Collection<Long> values) {
         var sum = 0L;
 
