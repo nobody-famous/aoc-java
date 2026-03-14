@@ -3,16 +3,11 @@ package aoc.y2020.day13;
 import java.util.ArrayList;
 import java.util.List;
 
-import aoc.y2020.Y2020Problem;
+import aoc.utils.AocProblem;
 
-public class Part2 extends Y2020Problem<Long> {
+public class Part2 implements AocProblem<Long> {
     private long value;
     private long step;
-    private final Notes input;
-
-    public Part2(Notes input, long expected) {
-        this.input = input;
-    }
 
     private List<Bus> notesToBuses(Notes input) {
         var buses = new ArrayList<Bus>();
@@ -64,7 +59,9 @@ public class Part2 extends Y2020Problem<Long> {
         }
     }
 
-    public Long run() {
+    @Override
+    public Long solve(List<String> lines) {
+        var input = new Parser().parse(lines);
         var buses = notesToBuses(input);
 
         value = buses.getFirst().id();
