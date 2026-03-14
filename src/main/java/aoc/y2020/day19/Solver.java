@@ -1,16 +1,18 @@
 package aoc.y2020.day19;
 
-import aoc.y2020.Y2020Problem;
+import java.util.List;
 
-public abstract class Solver extends Y2020Problem<Long> {
-    protected Notes input;
+import aoc.utils.AocProblem;
 
-    protected Solver(Notes input, long expected) {
-        this.input = input;
-    }
+public abstract class Solver implements AocProblem<Integer> {
+    protected abstract void updateInput(Notes input);
 
-    public Long run() {
-        var answer = 0L;
+    @Override
+    public Integer solve(List<String> lines) {
+        var input = new Parser().parse(lines);
+        var answer = 0;
+
+        updateInput(input);
 
         for (var msg : input.messages()) {
             var m = new Matcher(input.rules(), msg);
