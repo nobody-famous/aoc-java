@@ -1,10 +1,8 @@
 package aoc.y2020.day11;
 
-public class Part2 extends Solver {
-    public Part2(char[][] board, long expected) {
-        super(board, expected);
-    }
+import java.util.List;
 
+public class Part2 extends Solver {
     private boolean visibleOccupied(int row, int col, int dRow, int dCol) {
         while (true) {
             row += dRow;
@@ -17,10 +15,10 @@ public class Part2 extends Solver {
             var ch = lookup(row, col);
 
             switch (ch) {
-                case '#':
-                    return true;
-                case 'L':
-                    return false;
+            case '#':
+                return true;
+            case 'L':
+                return false;
             }
         }
     }
@@ -42,7 +40,9 @@ public class Part2 extends Solver {
     }
 
     @Override
-    public Long run() {
+    public Integer solve(List<String> lines) {
+        setBoard(new Parser().parse(lines));
+
         while (isNotDone()) {
             doRound(5);
         }

@@ -1,15 +1,15 @@
 package aoc.y2020.day11;
 
-import aoc.y2020.Y2020Problem;
+import aoc.utils.AocProblem;
 
-public abstract class Solver extends Y2020Problem<Long> {
-    private char[][] board;
+public abstract class Solver implements AocProblem<Integer> {
+    private char[][] board = null;
     private char[][] nextBoard = null;
     private boolean done = false;
 
     abstract int countNeighbors(int row, int col);
 
-    protected Solver(char[][] board, long expected) {
+    protected void setBoard(char[][] board) {
         this.board = board;
     }
 
@@ -60,8 +60,8 @@ public abstract class Solver extends Y2020Problem<Long> {
         return true;
     }
 
-    protected long countOccupied() {
-        var count = 0L;
+    protected int countOccupied() {
+        var count = 0;
 
         for (var chars : board) {
             for (var aChar : chars) {

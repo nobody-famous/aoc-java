@@ -1,10 +1,8 @@
 package aoc.y2020.day11;
 
-public class Part1 extends Solver {
-    public Part1(char[][] board, long expected) {
-        super(board, expected);
-    }
+import java.util.List;
 
+public class Part1 extends Solver {
     protected int countNeighbors(int row, int col) {
         int count = 0;
 
@@ -24,7 +22,9 @@ public class Part1 extends Solver {
     }
 
     @Override
-    public Long run() {
+    public Integer solve(List<String> lines) {
+        setBoard(new Parser().parse(lines));
+
         while (isNotDone()) {
             doRound(4);
         }
