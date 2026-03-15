@@ -1,11 +1,11 @@
 package aoc.y2020.day20;
 
-public class Part1 extends Solver {
-    public Part1(Tile[] input, long expected) {
-        super(input, expected);
-    }
+import java.util.List;
 
-    public Long run() {
+public class Part1 extends Solver {
+    @Override
+    public Long solve(List<String> lines) {
+        var input = new Parser().parse(lines);
         var tiles = tilePerms(input);
         var borders = bordersMap(tiles);
         var answer = 0L;

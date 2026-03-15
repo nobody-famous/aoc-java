@@ -5,15 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import aoc.y2020.Y2020Problem;
+import aoc.utils.AocProblem;
 
-public abstract class Solver extends Y2020Problem<Long> {
-    protected Tile[] input;
-
-    protected Solver(Tile[] input, long expected) {
-        this.input = input;
-    }
-
+public abstract class Solver implements AocProblem<Long> {
     protected List<Tile> permutations(Tile tile) {
         var perms = new ArrayList<Tile>();
         var curr = tile;
@@ -53,7 +47,7 @@ public abstract class Solver extends Y2020Problem<Long> {
         return borders;
     }
 
-    protected Map<Integer, List<Tile>> tilePerms(Tile[] data) {
+    protected Map<Integer, List<Tile>> tilePerms(List<Tile> data) {
         var tiles = new HashMap<Integer, List<Tile>>();
 
         for (var tile : data) {
