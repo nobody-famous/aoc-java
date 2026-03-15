@@ -1,18 +1,13 @@
 package aoc.y2020.day21;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import aoc.y2020.Y2020Problem;
+import aoc.utils.AocProblem;
 
-public class Part1 extends Y2020Problem<Long> {
-    private final Solver solver;
-
-    public Part1(Food[] input, long expected) {
-        this.solver = new Solver(input);
-    }
-
-    private boolean isMissing(String ingredient) {
+public class Part1 implements AocProblem<Integer> {
+    private boolean isMissing(Solver solver, String ingredient) {
         var found = false;
 
         for (var ingrsMap : solver.allergenMap.values()) {
@@ -25,8 +20,8 @@ public class Part1 extends Y2020Problem<Long> {
         return !found;
     }
 
-    private long countMissing(Map<String, Boolean> missing) {
-        var count = 0L;
+    private int countMissing(Solver solver, Map<String, Boolean> missing) {
+        var count = 0;
 
         for (var food : solver.input) {
             for (var ingredient : food.ingredients()) {
@@ -39,11 +34,11 @@ public class Part1 extends Y2020Problem<Long> {
         return count;
     }
 
-    private Map<String, Boolean> findMissing() {
+    private Map<String, Boolean> findMissing(Solver solver) {
         var missing = new HashMap<String, Boolean>();
 
         for (var ingredient : solver.allIngredients.keySet()) {
-            if (isMissing(ingredient)) {
+            if (isMissing(solver, ingredient)) {
                 missing.put(ingredient, true);
             }
         }
@@ -51,11 +46,15 @@ public class Part1 extends Y2020Problem<Long> {
         return missing;
     }
 
-    public Long run() {
+    @Override
+    public Integer solve(List<String> lines) {
+        var input = new Parser().parse(lines);
+        var solver = new Solver(input);
+
         solver.buildMaps();
 
-        var missing = findMissing();
+        var missing = findMissing(solver);
 
-        return countMissing(missing);
+        return countMissing(solver, missing);
     }
 }
