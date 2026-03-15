@@ -3,10 +3,6 @@ package aoc.y2020.day22;
 import java.util.*;
 
 public class Part2 extends Solver {
-    public Part2(Player[] input, long expected) {
-        super(input, expected);
-    }
-
     private boolean dequesEqual(Deque<Integer> us, Deque<Integer> them) {
         if (us.size() != them.size()) {
             return false;
@@ -113,9 +109,11 @@ public class Part2 extends Solver {
         }
     }
 
-    public Long run() {
-        var cards1 = input[0].getCards();
-        var cards2 = input[1].getCards();
+    @Override
+    public Integer solve(List<String> lines) {
+        var input = new Parser().parse(lines);
+        var cards1 = input.get(0).getCards();
+        var cards2 = input.get(1).getCards();
 
         var winner = play(cards1, cards2);
 

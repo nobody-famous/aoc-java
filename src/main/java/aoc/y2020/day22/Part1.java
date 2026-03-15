@@ -1,12 +1,9 @@
 package aoc.y2020.day22;
 
 import java.util.Deque;
+import java.util.List;
 
 public class Part1 extends Solver {
-    public Part1(Player[] input, long expected) {
-        super(input, expected);
-    }
-
     private void playRound(Deque<Integer> cards1, Deque<Integer> cards2) {
         var card1 = cards1.removeFirst();
         var card2 = cards2.removeFirst();
@@ -20,9 +17,11 @@ public class Part1 extends Solver {
         }
     }
 
-    public Long run() {
-        var cards1 = copyCards(input[0].getCards());
-        var cards2 = copyCards(input[1].getCards());
+    @Override
+    public Integer solve(List<String> lines) {
+        var input = new Parser().parse(lines);
+        var cards1 = copyCards(input.get(0).getCards());
+        var cards2 = copyCards(input.get(1).getCards());
         Deque<Integer> winner;
 
         while (true) {

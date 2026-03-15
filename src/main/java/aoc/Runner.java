@@ -124,9 +124,9 @@ public class Runner {
                     new Solver<Long>(new aoc.y2020.day20.Part1(), "input/2020/day20.txt", 13224049461431L),
                     new Solver<Long>(new aoc.y2020.day20.Part2(), "input/2020/day20.txt", 2231L),
                     new Solver<Integer>(new aoc.y2020.day21.Part1(), "input/2020/day21.txt", 2412),
-                    new Solver<String>(new aoc.y2020.day21.Part2(), "input/2020/day21.txt", "mfp,mgvfmvp,nhdjth,hcdchl,dvkbjh,dcvrf,bcjz,mhnrqp")
-            //         new aoc.y2020.day22.Part1(aoc.y2020.day22.Input.puzzle, 33694),
-            //         new aoc.y2020.day22.Part2(aoc.y2020.day22.Input.puzzle, 31835),
+                    new Solver<String>(new aoc.y2020.day21.Part2(), "input/2020/day21.txt", "mfp,mgvfmvp,nhdjth,hcdchl,dvkbjh,dcvrf,bcjz,mhnrqp"),
+                    new Solver<Integer>(new aoc.y2020.day22.Part1(), "input/2020/day22.txt", 33694),
+                    new Solver<Integer>(new aoc.y2020.day22.Part2(), "input/2020/day22.txt", 31835)
             //         new aoc.y2020.day23.Part1(aoc.y2020.day23.Input.puzzle, 82934675),
             //         new aoc.y2020.day23.Part2(aoc.y2020.day23.Input.puzzle, 474600314018L),
             //         new aoc.y2020.day24.Part1(aoc.y2020.day24.Input.puzzle, 317),
