@@ -3,15 +3,9 @@ package aoc.y2020.day22;
 import java.util.Deque;
 import java.util.LinkedList;
 
-import aoc.y2020.Y2020Problem;
+import aoc.utils.AocProblem;
 
-public abstract class Solver extends Y2020Problem<Long> {
-    protected Player[] input;
-
-    protected Solver(Player[] input, long expected) {
-        this.input = input;
-    }
-
+public abstract class Solver implements AocProblem<Integer> {
     protected Deque<Integer> copyCards(Deque<Integer> cards) {
         return copyCards(cards, cards.size());
     }
@@ -27,12 +21,12 @@ public abstract class Solver extends Y2020Problem<Long> {
         return copy;
     }
 
-    protected long calculateAnswer(Deque<Integer> cards) {
+    protected int calculateAnswer(Deque<Integer> cards) {
         var multiplier = cards.size();
-        var answer = 0L;
+        var answer = 0;
 
         for (var card : cards) {
-            answer += (long) card * multiplier;
+            answer += card * multiplier;
             multiplier -= 1;
         }
 

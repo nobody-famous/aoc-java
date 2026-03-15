@@ -2,14 +2,15 @@ package aoc.y2020.day21;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Solver {
-    public Food[] input;
+    public List<Food> input;
     public Map<String, Map<String, Boolean>> allergenMap = new HashMap<>();
     public Map<String, Boolean> allIngredients = new HashMap<>();
 
-    public Solver(Food[] input) {
+    public Solver(List<Food> input) {
         this.input = input;
     }
 

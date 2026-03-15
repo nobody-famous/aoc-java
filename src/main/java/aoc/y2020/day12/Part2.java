@@ -6,10 +6,6 @@ public class Part2 extends Solver {
     private int wpX;
     private int wpY;
 
-    public Part2(Instruction[] instructions, long expected) {
-        super(instructions, expected);
-    }
-
     protected void north(int value) {
         wpY += value;
     }
@@ -61,11 +57,10 @@ public class Part2 extends Solver {
     }
 
     @Override
-    public Long solve(List<String> lines) {
+    public Integer solve(List<String> lines) {
         wpX = 10;
         wpY = 1;
 
-        super.solve(lines);
-        return 0L;
+        return super.solve(lines);
     }
 }

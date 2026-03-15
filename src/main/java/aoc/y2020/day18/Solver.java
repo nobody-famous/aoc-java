@@ -1,21 +1,18 @@
 package aoc.y2020.day18;
 
-import aoc.y2020.Y2020Problem;
+import java.util.List;
 
-public abstract class Solver extends Y2020Problem<Long> {
-    private final String[] input;
-    private final boolean usePrecedence;
+import aoc.utils.AocProblem;
 
-    public Solver(String[] input, boolean usePrecedence, long expected) {
-        this.input = input;
-        this.usePrecedence = usePrecedence;
-    }
+public abstract class Solver implements AocProblem<Long> {
+    protected abstract boolean usePrecedence();
 
-    public Long run() {
+    @Override
+    public Long solve(List<String> lines) {
         var answer = 0L;
 
-        for (var exprStr : input) {
-            var expr = new Expression(exprStr, usePrecedence);
+        for (var exprStr : lines) {
+            var expr = new Expression(exprStr, usePrecedence());
             var value = expr.eval();
 
             answer += value;

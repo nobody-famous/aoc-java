@@ -1,16 +1,8 @@
 package aoc.y2020.day9;
 
-import aoc.y2020.Y2020Problem;
+import aoc.utils.AocProblem;
 
-public abstract class Solver extends Y2020Problem<Long> {
-    protected long[] input;
-    protected int preambleLength;
-
-    protected Solver(long[] input, int preambleLength, long expected) {
-        this.input = input;
-        this.preambleLength = preambleLength;
-    }
-
+public abstract class Solver implements AocProblem<Integer> {
     protected boolean findPair(long[] input, int start, int end, long target) {
         for (var first = start; first < end; first += 1) {
             for (var second = first + 1; second <= end; second += 1) {

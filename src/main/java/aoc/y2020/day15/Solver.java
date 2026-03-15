@@ -1,17 +1,20 @@
 package aoc.y2020.day15;
 
-import aoc.y2020.Y2020Problem;
+import java.util.Arrays;
+import java.util.List;
 
-public class Solver extends Y2020Problem<Integer> {
-    protected int[] input;
-    protected int numRounds;
+import aoc.utils.AocProblem;
 
-    protected Solver(int[] input, int numRounds, int expected) {
-        this.input = input;
+public abstract class Solver implements AocProblem<Integer> {
+    private int numRounds;
+
+    protected Solver(int numRounds) {
         this.numRounds = numRounds;
     }
 
-    public Integer run() {
+    @Override
+    public Integer solve(List<String> lines) {
+        var input = Arrays.stream(lines.get(0).split(",")).map(String::trim).mapToInt(Integer::parseInt).toArray();
         var seen = new int[numRounds];
         var turn = 1;
 

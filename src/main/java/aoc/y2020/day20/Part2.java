@@ -14,9 +14,7 @@ public class Part2 extends Solver {
     private final String[] monster = new String[]{ "                  # ", "#    ##    ##    ###", " #  #  #  #  #  #   " };
     private final int numMonsterPoints;
 
-    public Part2(Tile[] input, long expected) {
-        super(input, expected);
-
+    public Part2() {
         numMonsterPoints = countPounds(monster);
     }
 
@@ -79,7 +77,7 @@ public class Part2 extends Solver {
     }
 
     private Tile[][] placeTiles(Map<Integer, List<Tile>> tiles) {
-        var size = (int) Math.sqrt(input.length);
+        var size = (int) Math.sqrt(tiles.size());
         var grid = new Tile[size][size];
         var corner = getCandidate(tiles, null, null);
 
@@ -200,9 +198,11 @@ public class Part2 extends Solver {
         return count;
     }
 
-    public Long run() {
-        var answer = 0L;
+    @Override
+    public Long solve(List<String> lines) {
+        var input = new Parser().parse(lines);
         var tiles = tilePerms(input);
+        var answer = 0L;
 
         borderCounts = bordersMap(tiles);
 

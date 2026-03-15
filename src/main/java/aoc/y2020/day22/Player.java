@@ -2,12 +2,13 @@ package aoc.y2020.day22;
 
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Player {
     private final int id;
     private final Deque<Integer> cards;
 
-    public Player(int id, int[] cardsList) {
+    public Player(int id, List<Integer> cardsList) {
         this.id = id;
         this.cards = new LinkedList<>();
 

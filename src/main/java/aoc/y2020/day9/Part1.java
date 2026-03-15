@@ -1,11 +1,14 @@
 package aoc.y2020.day9;
 
-public class Part1 extends Solver {
-    public Part1(long[] input, long expected) {
-        super(input, 25, expected);
-    }
+import java.util.List;
 
-    public Long run() {
-        return findWeakness(input, preambleLength);
+import aoc.utils.LongListParser;
+
+public class Part1 extends Solver {
+    @Override
+    public Integer solve(List<String> lines) {
+        var input = new LongListParser().parse(lines);
+
+        return Math.toIntExact(findWeakness(input, 25));
     }
 }

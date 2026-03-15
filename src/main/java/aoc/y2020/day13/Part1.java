@@ -1,17 +1,15 @@
 package aoc.y2020.day13;
 
-import aoc.y2020.Y2020Problem;
+import java.util.List;
 
-public class Part1 extends Y2020Problem<Long> {
-    private final Notes input;
+import aoc.utils.AocProblem;
 
-    public Part1(Notes input, long expected) {
-        this.input = input;
-    }
-
-    public Long run() {
+public class Part1 implements AocProblem<Long> {
+    @Override
+    public Long solve(List<String> lines) {
+        var input = new Parser().parse(lines);
         var min = Long.MAX_VALUE;
-        var busID = 0;
+        var busID = 0L;
 
         for (var id : input.ids()) {
             if (id == null) {

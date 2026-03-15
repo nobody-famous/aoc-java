@@ -5,10 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Part2 extends Solver {
-    public Part2(Op[] prog, long expected) {
-        super(prog, expected);
-    }
-
     private void appendChar(List<StringBuilder> builders, char ch) {
         for (var builder : builders) {
             builder.append(ch);
@@ -69,7 +65,9 @@ public class Part2 extends Solver {
         return new String(mask);
     }
 
-    public Long run() {
+    @Override
+    public Long solve(List<String> lines) {
+        var prog = new Parser().parse(lines);
         var mem = new HashMap<Long, Long>();
         Mask curMask = null;
 

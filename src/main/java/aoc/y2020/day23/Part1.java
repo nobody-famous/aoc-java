@@ -1,8 +1,10 @@
 package aoc.y2020.day23;
 
+import java.util.List;
+
 public class Part1 extends Solver {
-    public Part1(int[] input, long expected) {
-        super(input, 9, expected);
+    public Part1() {
+        super(9);
     }
 
     private String getAnswer() {
@@ -17,7 +19,7 @@ public class Part1 extends Solver {
         return builder.toString();
     }
 
-    protected void buildBoard() {
+    protected void buildBoard(int[] input) {
         board = new int[input.length + 1];
 
         for (var ndx = 0; ndx < input.length - 1; ndx += 1) {
@@ -33,8 +35,11 @@ public class Part1 extends Solver {
         board[cur] = next;
     }
 
-    public Long run() {
-        buildBoard();
+    @Override
+    public Long solve(List<String> lines) {
+        var input = lines.get(0).chars().map(c -> c - '0').toArray();
+
+        buildBoard(input);
         current = input[0];
 
         for (var loop = 0; loop < 100; loop += 1) {

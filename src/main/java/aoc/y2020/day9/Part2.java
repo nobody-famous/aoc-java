@@ -1,12 +1,12 @@
 package aoc.y2020.day9;
 
-public class Part2 extends Solver {
-    private long smallest = Integer.MAX_VALUE;
-    private long largest = Integer.MIN_VALUE;
+import java.util.List;
 
-    public Part2(long[] input, long expected) {
-        super(input, 25, expected);
-    }
+import aoc.utils.LongListParser;
+
+public class Part2 extends Solver {
+    private long smallest = Long.MAX_VALUE;
+    private long largest = Long.MIN_VALUE;
 
     private boolean hasTargetSet(long[] input, int ndx, long target) {
         var sum = 0L;
@@ -37,8 +37,10 @@ public class Part2 extends Solver {
         return false;
     }
 
-    public Long run() {
-        var target = findWeakness(input, preambleLength);
+    @Override
+    public Integer solve(List<String> lines) {
+        var input = new LongListParser().parse(lines);
+        var target = findWeakness(input, 25);
         var answer = 0L;
 
         for (var ndx = 0; ndx < input.length; ndx += 1) {
@@ -48,6 +50,6 @@ public class Part2 extends Solver {
             }
         }
 
-        return answer;
+        return Math.toIntExact(answer);
     }
 }

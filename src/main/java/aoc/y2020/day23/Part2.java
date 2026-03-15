@@ -1,11 +1,13 @@
 package aoc.y2020.day23;
 
+import java.util.List;
+
 public class Part2 extends Solver {
-    public Part2(int[] input, long expected) {
-        super(input, 1000000, expected);
+    public Part2() {
+        super(1000000);
     }
 
-    private void buildBoard() {
+    private void buildBoard(int[] input) {
         board = new int[1000001];
 
         for (var ndx = 0; ndx < input.length - 1; ndx += 1) {
@@ -27,8 +29,11 @@ public class Part2 extends Solver {
         board[cur] = input[0];
     }
 
-    public Long run() {
-        buildBoard();
+    @Override
+    public Long solve(List<String> lines) {
+        var input = lines.get(0).chars().map(c -> c - '0').toArray();
+
+        buildBoard(input);
 
         current = input[0];
 

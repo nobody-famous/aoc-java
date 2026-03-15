@@ -1,11 +1,12 @@
 package aoc.y2020.day24;
 
-public class Part1 extends Solver {
-    public Part1(Direction[][] input, int expected) {
-        super(input, expected);
-    }
+import java.util.List;
 
-    public Integer run() {
+public class Part1 extends Solver {
+    @Override
+    public Integer solve(List<String> lines) {
+        var input = new Parser().parse(lines);
+
         for (var dirs : input) {
             processMoves(dirs);
         }

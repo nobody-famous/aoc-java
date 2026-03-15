@@ -1,16 +1,13 @@
 package aoc.y2020.day17;
 
-import aoc.y2020.Y2020Problem;
+import java.util.List;
 
-public class Part1 extends Y2020Problem<Long> {
-    private final char[][] input;
+import aoc.utils.AocProblem;
+
+public class Part1 implements AocProblem<Integer> {
     private char[][][] cube;
     private char[][][] newCube;
     private static final int cycles = 6;
-
-    public Part1(char[][] input, long expected) {
-        this.input = input;
-    }
 
     private void updateCell(int x, int y, int z) {
         var value = lookup(x, y, z);
@@ -37,8 +34,9 @@ public class Part1 extends Y2020Problem<Long> {
         return onBoard(x, y, z) ? cube[x][y][z] : '\0';
     }
 
-    private long countActive() {
-        var count = 0L;
+    private int countActive() {
+        var count = 0;
+
         for (var chars : cube) {
             for (var y = 0; y < cube.length; y += 1) {
                 for (var z = 0; z < cube.length; z += 1) {
@@ -72,7 +70,7 @@ public class Part1 extends Y2020Problem<Long> {
         return count;
     }
 
-    private void buildCube() {
+    private void buildCube(char[][] input) {
         var size = input.length + (cycles * 2);
 
         cube = new char[size][size][size];
@@ -124,8 +122,11 @@ public class Part1 extends Y2020Problem<Long> {
         cube = newCube;
     }
 
-    public Long run() {
-        buildCube();
+    @Override
+    public Integer solve(List<String> lines) {
+        var input = new Parser().parse(lines);
+
+        buildCube(input);
 
         for (var cycle = 0; cycle < cycles; cycle += 1) {
             runCycle();

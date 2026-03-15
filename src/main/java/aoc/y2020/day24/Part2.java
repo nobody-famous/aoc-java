@@ -1,14 +1,11 @@
 package aoc.y2020.day24;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Part2 extends Solver {
     protected Map<Tile, Color> newTiles;
-
-    public Part2(Direction[][] input, int expected) {
-        super(input, expected);
-    }
 
     private Tile[] getNeighbors(Tile tile) {
         return new Tile[]{ new Tile(tile.getX(), tile.getY() + 1, tile.getZ() - 1),
@@ -58,7 +55,10 @@ public class Part2 extends Solver {
         checkWhites(neighbors);
     }
 
-    public Integer run() {
+    @Override
+    public Integer solve(List<String> lines) {
+        var input = new Parser().parse(lines);
+
         for (var dirs : input) {
             processMoves(dirs);
         }

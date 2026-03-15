@@ -1,19 +1,15 @@
 package aoc.y2020.day24;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import aoc.y2020.Y2020Problem;
+import aoc.utils.AocProblem;
 
-public abstract class Solver extends Y2020Problem<Integer> {
+public abstract class Solver implements AocProblem<Integer> {
     protected Map<Tile, Color> tiles = new HashMap<>();
-    protected Direction[][] input;
 
-    protected Solver(Direction[][] input, int expected) {
-        this.input = input;
-    }
-
-    protected void processMoves(Direction[] dirs) {
+    protected void processMoves(List<Direction> dirs) {
         var tile = new Tile();
 
         for (var dir : dirs) {

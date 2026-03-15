@@ -2,15 +2,9 @@ package aoc.y2020.day16;
 
 import java.util.List;
 
-import aoc.y2020.Y2020Problem;
+import aoc.utils.AocProblem;
 
-public abstract class Solver extends Y2020Problem<Long> {
-    protected Notes input;
-
-    protected Solver(Notes input, long expected) {
-        this.input = input;
-    }
-
+public abstract class Solver implements AocProblem<Long> {
     protected boolean inField(long value, Field field) {
         for (var range : field.ranges()) {
             if (value >= range.low() && value <= range.high()) {

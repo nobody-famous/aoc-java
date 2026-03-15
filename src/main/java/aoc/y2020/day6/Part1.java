@@ -1,17 +1,12 @@
 package aoc.y2020.day6;
 
 import java.util.HashMap;
+import java.util.List;
 
-import aoc.y2020.Y2020Problem;
+import aoc.utils.AocProblem;
 
-public class Part1 extends Y2020Problem<Long> {
-    private final String[][] input;
-
-    public Part1(String[][] input, long expected) {
-        this.input = input;
-    }
-
-    private int countQuestions(String[] group) {
+public class Part1 implements AocProblem<Integer> {
+    private int countQuestions(List<String> group) {
         var seen = new HashMap<>();
 
         for (var questions : group) {
@@ -23,8 +18,10 @@ public class Part1 extends Y2020Problem<Long> {
         return seen.keySet().size();
     }
 
-    public Long run() {
-        long total = 0;
+    @Override
+    public Integer solve(List<String> lines) {
+        var input = new Parser().parse(lines);
+        var total = 0;
 
         for (var group : input) {
             total += countQuestions(group);

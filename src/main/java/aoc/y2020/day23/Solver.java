@@ -1,15 +1,13 @@
 package aoc.y2020.day23;
 
-import aoc.y2020.Y2020Problem;
+import aoc.utils.AocProblem;
 
-public abstract class Solver extends Y2020Problem<Long> {
-    protected int[] input;
+public abstract class Solver implements AocProblem<Long> {
     protected int[] board;
     protected int current;
     private final int maximum;
 
-    protected Solver(int[] input, int maximum, long expected) {
-        this.input = input;
+    protected Solver(int maximum) {
         this.maximum = maximum;
     }
 

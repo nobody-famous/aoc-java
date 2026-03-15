@@ -1,18 +1,13 @@
 package aoc.y2020.day6;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import aoc.y2020.Y2020Problem;
+import aoc.utils.AocProblem;
 
-public class Part2 extends Y2020Problem<Long> {
-    private final String[][] input;
-
-    public Part2(String[][] input, long expected) {
-        this.input = input;
-    }
-
-    private Map<Character, Integer> questionCounts(String[] group) {
+public class Part2 implements AocProblem<Integer> {
+    private Map<Character, Integer> questionCounts(List<String> group) {
         var counts = new HashMap<Character, Integer>();
 
         for (var questions : group) {
@@ -31,23 +26,17 @@ public class Part2 extends Y2020Problem<Long> {
     }
 
     private int countAnswered(Map<Character, Integer> counts, int size) {
-        int count = 0;
-
-        for (var numAnswered : counts.values()) {
-            if (numAnswered == size) {
-                count += 1;
-            }
-        }
-
-        return count;
+        return Math.toIntExact(counts.values().stream().filter(n -> n == size).count());
     }
 
-    public Long run() {
-        long sum = 0;
+    @Override
+    public Integer solve(List<String> lines) {
+        var input = new Parser().parse(lines);
+        var sum = 0;
 
         for (var group : input) {
             var counts = questionCounts(group);
-            sum += countAnswered(counts, group.length);
+            sum += countAnswered(counts, group.size());
         }
 
         return sum;

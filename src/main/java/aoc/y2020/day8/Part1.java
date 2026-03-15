@@ -1,11 +1,17 @@
 package aoc.y2020.day8;
 
-public class Part1 extends Solver {
-    public Part1(Instruction[] prog, long expected) {
-        super(prog, expected);
-    }
+import java.util.List;
 
-    public Long run() {
-        return runProgram(prog);
+import aoc.utils.AocProblem;
+
+public class Part1 implements AocProblem<Integer> {
+    @Override
+    public Integer solve(List<String> lines) {
+        var prog = new Parser().parse(lines);
+        var machine = new Machine();
+
+        machine.run(prog);
+
+        return machine.getAcc();
     }
 }

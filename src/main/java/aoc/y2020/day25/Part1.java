@@ -1,14 +1,11 @@
 package aoc.y2020.day25;
 
-import aoc.y2020.Y2020Problem;
+import java.util.List;
 
-public class Part1 extends Y2020Problem<Long> {
-    private final int[] input;
+import aoc.utils.AocProblem;
+import aoc.utils.LongListParser;
 
-    public Part1(int[] input, long expected) {
-        this.input = input;
-    }
-
+public class Part1 implements AocProblem<Long> {
     private long transform(long value, long subject) {
         value *= subject;
         value %= 20201227;
@@ -16,7 +13,9 @@ public class Part1 extends Y2020Problem<Long> {
         return value;
     }
 
-    public Long run() {
+    @Override
+    public Long solve(List<String> lines) {
+        var input = new LongListParser().parse(lines);
         var value = 1L;
         var subject = 7L;
         var loopSize = 0;
