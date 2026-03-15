@@ -206,7 +206,7 @@ public class Runner {
 
     public static void main(String[] args) throws Exception {
         for (var year : years) {
-            if (year.label == "2020") {
+            if (year.label == "2024") {
                 runAll(year.label, year.problems);
             }
         }
