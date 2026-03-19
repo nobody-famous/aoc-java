@@ -16,8 +16,7 @@ public class Part1 implements AocProblem<Integer> {
         var grid = Grid.parse(lines);
         var regions = findRegions(grid);
 
-        System.out.println("REGIONS " + regions);
-        throw new RuntimeException("not done yet");
+        return regions.stream().map(r -> r.area * r.fences).mapToInt(Integer::intValue).sum();
     }
 
     private List<Region> findRegions(Grid grid) {
@@ -27,8 +26,7 @@ public class Part1 implements AocProblem<Integer> {
         while (!allUsed(used)) {
             var start = findStart(grid, used);
 
-            System.out.println("START " + start);
-            used[start.row()][start.col()] = true;
+            regions.add(findRegion(grid, start, used));
         }
 
         return regions;
@@ -37,14 +35,42 @@ public class Part1 implements AocProblem<Integer> {
     private Region findRegion(Grid grid, Grid.Loc start, boolean[][] used) {
         var target = grid.get(start);
         var toCheck = new HashSet<Grid.Loc>();
+        var diffs = List.of(
+                new Grid.Loc(-1, 0),
+                new Grid.Loc(1, 0),
+                new Grid.Loc(0, -1),
+                new Grid.Loc(0, 1));
+        var area = 0;
+        var fences = 0;
 
         toCheck.add(start);
 
         while (!toCheck.isEmpty()) {
             var newToCheck = new HashSet<Grid.Loc>();
+
+            for (var loc : toCheck) {
+                area++;
+                used[loc.row()][loc.col()] = true;
+
+                var neighbors = diffs.stream().map(diff -> new Grid.Loc(loc.row() + diff.row(), loc.col() + diff.col())).toList();
+
+                for (var neighbor : neighbors) {
+                    if (grid.onMap(neighbor) && grid.get(neighbor) == target && used[neighbor.row()][neighbor.col()]) {
+                        continue;
+                    }
+
+                    if (grid.get(neighbor) == target) {
+                        newToCheck.add(neighbor);
+                    } else {
+                        fences++;
+                    }
+                }
+            }
+
+            toCheck = newToCheck;
         }
 
-        throw new RuntimeException("not done yet");
+        return new Region(area, fences);
     }
 
     private boolean allUsed(boolean[][] used) {
