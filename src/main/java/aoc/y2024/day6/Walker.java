@@ -3,8 +3,6 @@ package aoc.y2024.day6;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import aoc.utils.geometry.Point;
-
 public class Walker {
     private final Grid grid;
     private Direction dir = Direction.UP;
@@ -18,28 +16,28 @@ public class Walker {
     }
 
     public boolean hasLoop() {
-        var pt = grid.getStart();
-        var seen = new HashMap<Direction, HashSet<Point>>();
+        var loc = grid.getStart();
+        var seen = new HashMap<Direction, HashSet<Grid.Loc>>();
 
         initDirMap(seen);
 
-        while (grid.onMap(pt)) {
-            if (seen.get(dir).contains(pt)) {
+        while (grid.onMap(loc)) {
+            if (seen.get(dir).contains(loc)) {
                 return true;
             }
 
-            seen.get(dir).add(pt);
+            seen.get(dir).add(loc);
 
-            pt = jumpToWall(pt);
+            loc = jumpToWall(loc);
             turnRight();
         }
 
         return false;
     }
 
-    public HashSet<Point> getFullPath() {
+    public HashSet<Grid.Loc> getFullPath() {
         var pt = grid.getStart();
-        var visited = new HashSet<Point>();
+        var visited = new HashSet<Grid.Loc>();
 
         while (grid.onMap(pt)) {
             visited.add(pt);
@@ -49,8 +47,8 @@ public class Walker {
         return visited;
     }
 
-    private Point jumpToWall(Point pt) {
-        var newPoint = new Point(pt);
+    private Grid.Loc jumpToWall(Grid.Loc loc) {
+        var newPoint = new Grid.Loc(loc);
         var rowDelta = switch (dir) {
         case UP -> -1;
         case DOWN -> 1;
@@ -65,37 +63,34 @@ public class Walker {
         };
 
         while (grid.onMap(newPoint)) {
-            newPoint.x += rowDelta;
-            newPoint.y += colDelta;
+            newPoint = new Grid.Loc(newPoint.row() + rowDelta, newPoint.col() + colDelta);
 
             if (grid.get(newPoint) == '#') {
-                newPoint.x -= rowDelta;
-                newPoint.y -= colDelta;
-                return newPoint;
+                return new Grid.Loc(newPoint.row() - rowDelta, newPoint.col() - colDelta);
             }
         }
 
-        return new Point(-1, -1);
+        return new Grid.Loc(-1, -1);
     }
 
-    private void initDirMap(HashMap<Direction, HashSet<Point>> map) {
+    private void initDirMap(HashMap<Direction, HashSet<Grid.Loc>> map) {
         map.put(Direction.UP, new HashSet<>());
         map.put(Direction.DOWN, new HashSet<>());
         map.put(Direction.RIGHT, new HashSet<>());
         map.put(Direction.LEFT, new HashSet<>());
     }
 
-    private Point step(Point pt) {
+    private Grid.Loc step(Grid.Loc loc) {
         var newPoint = switch (dir) {
-        case UP -> new Point(pt.x - 1, pt.y);
-        case DOWN -> new Point(pt.x + 1, pt.y);
-        case RIGHT -> new Point(pt.x, pt.y + 1);
-        case LEFT -> new Point(pt.x, pt.y - 1);
+        case UP -> new Grid.Loc(loc.row() - 1, loc.col());
+        case DOWN -> new Grid.Loc(loc.row() + 1, loc.col());
+        case RIGHT -> new Grid.Loc(loc.row(), loc.col() + 1);
+        case LEFT -> new Grid.Loc(loc.row(), loc.col() - 1);
         };
 
         if (grid.get(newPoint) == '#') {
             turnRight();
-            return pt;
+            return loc;
         }
 
         return newPoint;

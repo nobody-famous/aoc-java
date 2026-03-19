@@ -2,8 +2,6 @@ package aoc.y2024.day6;
 
 import java.util.List;
 
-import aoc.utils.geometry.Point;
-
 public class Parser implements aoc.utils.Parser<Grid> {
     @Override
     public Grid parse(List<String> lines) {
@@ -18,7 +16,7 @@ public class Parser implements aoc.utils.Parser<Grid> {
                 grid.set(row, col, ch);
 
                 if (ch == '^') {
-                    grid.setStart(new Point(row, col));
+                    grid.setStart(new Grid.Loc(row, col));
                 }
             }
         }

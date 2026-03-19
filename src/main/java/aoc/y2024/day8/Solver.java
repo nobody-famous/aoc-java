@@ -8,10 +8,9 @@ import java.util.List;
 import aoc.utils.AocProblem;
 import aoc.utils.Grid;
 import aoc.utils.Pair;
-import aoc.utils.geometry.Point;
 
 public abstract class Solver implements AocProblem<Integer> {
-    protected abstract HashSet<Point> createAntinodes(List<Pair<Point>> pairs, Grid grid);
+    protected abstract HashSet<Grid.Loc> createAntinodes(List<Pair<Grid.Loc>> pairs, Grid grid);
 
     @Override
     public Integer solve(List<String> lines) {
@@ -23,23 +22,23 @@ public abstract class Solver implements AocProblem<Integer> {
         return nodes.size();
     }
 
-    private void addFrequency(HashMap<Character, List<Point>> map, char key, Point pt) {
+    private void addFrequency(HashMap<Character, List<Grid.Loc>> map, char key, Grid.Loc loc) {
         if (!map.containsKey(key)) {
-            map.put(key, new ArrayList<Point>());
+            map.put(key, new ArrayList<Grid.Loc>());
         }
 
-        map.get(key).add(pt);
+        map.get(key).add(loc);
     }
 
-    private HashMap<Character, List<Point>> getFrequencies(Grid grid) {
-        var frequencies = new HashMap<Character, List<Point>>();
+    private HashMap<Character, List<Grid.Loc>> getFrequencies(Grid grid) {
+        var frequencies = new HashMap<Character, List<Grid.Loc>>();
 
         for (var row = 0; row < grid.getRows(); row += 1) {
             for (var col = 0; col < grid.getCols(); col += 1) {
                 var ch = grid.get(row, col);
 
                 if (ch != '.') {
-                    addFrequency(frequencies, ch, new Point(row, col));
+                    addFrequency(frequencies, ch, new Grid.Loc(row, col));
                 }
             }
         }
@@ -47,20 +46,20 @@ public abstract class Solver implements AocProblem<Integer> {
         return frequencies;
     }
 
-    private List<Pair<Point>> pairsFromList(List<Point> pts) {
-        var pairs = new ArrayList<Pair<Point>>();
+    private List<Pair<Grid.Loc>> pairsFromList(List<Grid.Loc> locs) {
+        var pairs = new ArrayList<Pair<Grid.Loc>>();
 
-        for (var start = 0; start < pts.size() - 1; start += 1) {
-            for (var index = start + 1; index < pts.size(); index += 1) {
-                pairs.add(new Pair<Point>(pts.get(start), pts.get(index)));
+        for (var start = 0; start < locs.size() - 1; start += 1) {
+            for (var index = start + 1; index < locs.size(); index += 1) {
+                pairs.add(new Pair<Grid.Loc>(locs.get(start), locs.get(index)));
             }
         }
 
         return pairs;
     }
 
-    private List<Pair<Point>> getPairs(HashMap<Character, List<Point>> map) {
-        var pairs = new ArrayList<Pair<Point>>();
+    private List<Pair<Grid.Loc>> getPairs(HashMap<Character, List<Grid.Loc>> map) {
+        var pairs = new ArrayList<Pair<Grid.Loc>>();
 
         for (var pts : map.values()) {
             pairs.addAll(pairsFromList(pts));

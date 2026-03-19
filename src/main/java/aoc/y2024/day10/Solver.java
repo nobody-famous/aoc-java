@@ -6,7 +6,6 @@ import java.util.Set;
 
 import aoc.utils.AocProblem;
 import aoc.utils.Grid;
-import aoc.utils.geometry.Point;
 
 public abstract class Solver implements AocProblem<Integer> {
     protected abstract int run(Grid grid);
@@ -14,14 +13,14 @@ public abstract class Solver implements AocProblem<Integer> {
     public static final char TRAIL_HEAD = '0';
     public static final char TRAIL_END = '9';
 
-    protected static Set<Point> findNeighbors(Grid grid, Point pt, int diff) {
+    protected static Set<Grid.Loc> findNeighbors(Grid grid, Grid.Loc loc, int diff) {
         var toCheck = List.of(
-                new Point(pt.x - 1, pt.y),
-                new Point(pt.x + 1, pt.y),
-                new Point(pt.x, pt.y - 1),
-                new Point(pt.x, pt.y + 1));
-        var height = grid.get(pt) - '0';
-        var neighbors = new HashSet<Point>();
+                new Grid.Loc(loc.row() - 1, loc.col()),
+                new Grid.Loc(loc.row() + 1, loc.col()),
+                new Grid.Loc(loc.row(), loc.col() - 1),
+                new Grid.Loc(loc.row(), loc.col() + 1));
+        var height = grid.get(loc) - '0';
+        var neighbors = new HashSet<Grid.Loc>();
 
         for (var neighbor : toCheck) {
             if (grid.onMap(neighbor) && grid.get(neighbor) - '0' == height + diff) {
@@ -32,13 +31,13 @@ public abstract class Solver implements AocProblem<Integer> {
         return neighbors;
     }
 
-    protected Set<Point> findTrailEnds(Grid grid, char marker) {
-        var ends = new HashSet<Point>();
+    protected Set<Grid.Loc> findTrailEnds(Grid grid, char marker) {
+        var ends = new HashSet<Grid.Loc>();
 
         for (var row = 0; row < grid.getRows(); row++) {
             for (var col = 0; col < grid.getCols(); col++) {
                 if (grid.get(row, col) == marker) {
-                    ends.add(new Point(row, col));
+                    ends.add(new Grid.Loc(row, col));
                 }
             }
         }
