@@ -154,7 +154,7 @@ public class Runner {
                     new Solver<Integer>(new aoc.y2024.day10.Part2(), "input/2024/day10.txt", 1255),
                     new Solver<Long>(new aoc.y2024.day11.Part1(), "input/2024/day11.txt", 183435L),
                     new Solver<Long>(new aoc.y2024.day11.Part2(), "input/2024/day11.txt", 218279375708592L),
-                    new Solver<Integer>(new aoc.y2024.day12.Part1(), "input/2024/day12.txt", 0))));
+                    new Solver<Integer>(new aoc.y2024.day12.Part1(), "input/2024/day12.txt", 1304764))));
 
     private static String runSolver(Solver<?> solver) throws Exception {
         try {
