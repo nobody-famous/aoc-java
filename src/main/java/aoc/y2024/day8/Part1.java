@@ -5,19 +5,18 @@ import java.util.List;
 
 import aoc.utils.Grid;
 import aoc.utils.Pair;
-import aoc.utils.geometry.Point;
 
 public class Part1 extends Solver {
     @Override
-    protected HashSet<Point> createAntinodes(List<Pair<Point>> pairs, Grid grid) {
-        var nodes = new HashSet<Point>();
+    protected HashSet<Grid.Loc> createAntinodes(List<Pair<Grid.Loc>> pairs, Grid grid) {
+        var nodes = new HashSet<Grid.Loc>();
 
         for (var pair : pairs) {
-            var rowDiff = pair.left().x - pair.right().x;
-            var colDiff = pair.left().y - pair.right().y;
+            var rowDiff = pair.left().row() - pair.right().row();
+            var colDiff = pair.left().col() - pair.right().col();
 
-            var node1 = new Point(pair.left().x + rowDiff, pair.left().y + colDiff);
-            var node2 = new Point(pair.right().x - rowDiff, pair.right().y - colDiff);
+            var node1 = new Grid.Loc(pair.left().row() + rowDiff, pair.left().col() + colDiff);
+            var node2 = new Grid.Loc(pair.right().row() - rowDiff, pair.right().col() - colDiff);
 
             if (grid.onMap(node1)) {
                 nodes.add(node1);

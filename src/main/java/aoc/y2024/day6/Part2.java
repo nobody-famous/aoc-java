@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.List;
 
 import aoc.utils.AocProblem;
-import aoc.utils.geometry.Point;
 
 public class Part2 implements AocProblem<Integer> {
     @Override
@@ -15,19 +14,19 @@ public class Part2 implements AocProblem<Integer> {
         return countLoops(grid, path);
     }
 
-    private int countLoops(Grid grid, HashSet<Point> path) {
+    private int countLoops(Grid grid, HashSet<Grid.Loc> path) {
         var loops = 0;
 
-        for (var pt : path) {
-            if (pt == grid.getStart()) {
+        for (var loc : path) {
+            if (loc == grid.getStart()) {
                 continue;
             }
 
-            grid.set(pt, '#');
+            grid.set(loc, '#');
             if (isLoop(grid)) {
                 loops += 1;
             }
-            grid.set(pt, '.');
+            grid.set(loc, '.');
         }
 
         return loops;
