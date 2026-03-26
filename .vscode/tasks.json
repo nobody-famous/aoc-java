@@ -37,10 +37,10 @@
             "type": "shell",
             "command": "mvn",
             "windows": {
-                "args": ["test", "-D'test=aoc.y2024.day12.**'"]
+                "args": ["test", "-D'test=aoc.y2024.day13.**'"]
             },
             "linux": {
-                "args": ["test", "-Dtest=aoc.y2024.day12.**"]
+                "args": ["test", "-Dtest=aoc.y2024.day13.**"]
             },
             "problemMatcher": []
         },
