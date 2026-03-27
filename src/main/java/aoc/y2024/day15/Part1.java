@@ -9,13 +9,15 @@ public class Part1 implements AocProblem<Integer> {
     public Integer solve(List<String> lines) {
         var state = new Parser().parse(lines);
 
-        printGrid(state);
         for (var move : state.moves) {
             tryMove(state, move);
         }
-        printGrid(state);
 
-        return 0;
+        return state.boxes
+                .stream()
+                .map(box -> box.row * 100 + box.col)
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 
     private void tryMove(State state, char move) {
@@ -38,11 +40,24 @@ public class Part1 implements AocProblem<Integer> {
     }
 
     private void tryMove(State state, int rowStep, int colStep) {
-        var target = new Cell(state.robot.row + rowStep, state.robot.col + colStep);
+        var cell = new Cell(state.robot.row + rowStep, state.robot.col + colStep);
+        var lastCell = new Cell(state.robot.row + rowStep, state.robot.col + colStep);
 
-        if (!state.boxes.contains(target) && !state.walls.contains(target)) {
-            state.robot = target;
+        while (state.boxes.contains(lastCell)) {
+            lastCell.row += rowStep;
+            lastCell.col += colStep;
         }
+
+        if (state.walls.contains(lastCell)) {
+            return;
+        }
+
+        if (!cell.equals(lastCell)) {
+            state.boxes.remove(cell);
+            state.boxes.add(lastCell);
+        }
+
+        state.robot = cell;
     }
 
     private void printGrid(State state) {
