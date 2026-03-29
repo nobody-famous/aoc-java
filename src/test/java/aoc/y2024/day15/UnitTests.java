@@ -7,7 +7,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class UnitTests {
-    private static final List<String> example = List.of(
+    private static final List<String> example1 = List.of(
             "##########",
             "#..O..O.O#",
             "#......O.#",
@@ -30,13 +30,25 @@ public class UnitTests {
             "^^>vv<^v^v<vv>^<><v<^v>^^^>>>^^vvv^>vvv<>>>^<^>>>>>^<<^v>^vvv<>^<><<v>",
             "v^^>>><<^^<>>^v^<v^vv<>v^<<>^<^v^v><^<<<><<^<v><v<>vv>>v><v^<vv<>v^<<^");
 
+    private static final List<String> example2 = List.of(
+            "#######",
+            "#...#.#",
+            "#.....#",
+            "#..OO@#",
+            "#..O..#",
+            "#.....#",
+            "#######",
+            "",
+            "<vv<<^^<<^^");
+
     @Test
     void testPart1() {
-        assertEquals(10092, new Part1().solve(example));
+        assertEquals(10092, new Part1().solve(example1));
     }
 
     @Test
     void testPart2() {
-        assertEquals(9021, new Part2().solve(example));
+        assertEquals(9021, new Part2().solve(example1));
+        assertEquals(618, new Part2().solve(example2));
     }
 }

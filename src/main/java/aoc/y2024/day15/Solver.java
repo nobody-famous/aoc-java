@@ -15,13 +15,10 @@ public abstract class Solver implements AocProblem<Integer> {
         var state = new Parser().parse(lines);
 
         updateState(state);
-        printGrid(state);
-        tryMove(state, '<');
-        printGrid(state);
 
-        // for (var move : state.moves) {
-        //     tryMove(state, move);
-        // }
+        for (var move : state.moves) {
+            tryMove(state, move);
+        }
 
         return sumGPS(state.grid);
     }
