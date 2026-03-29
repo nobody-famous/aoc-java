@@ -1,18 +1,17 @@
 package aoc.y2024.day15;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
+import aoc.utils.Grid;
 
 public class State {
-    public Cell robot = new Cell(0, 0);
-    public Set<Cell> boxes = new HashSet<>();
-    public Set<Cell> walls = new HashSet<>();
+    public Grid.Loc robot = new Grid.Loc(0, 0);
+    public char[][] grid = new char[][]{};
     public List<Character> moves = new ArrayList<>();
 
     @Override
     public String toString() {
-        return "[robot:" + robot + ", boxes:" + boxes + ", walls:" + walls + ", moves:" + moves + "]";
+        return "[grid:" + grid.length + "x" + grid[0].length + ", moves:" + moves + "]";
     }
 }
