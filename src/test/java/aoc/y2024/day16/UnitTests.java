@@ -48,4 +48,11 @@ public class UnitTests {
         assertEquals(7036, new Part1().solve(example1));
         assertEquals(11048, new Part1().solve(example2));
     }
+
+    @Test
+    void testPart2() {
+
+        // assertEquals(45, new Part2().solve(example1));
+        assertEquals(64, new Part2().solve(example2));
+    }
 }
