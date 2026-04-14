@@ -13,6 +13,6 @@ public class Part1 extends Solver {
         grid.set(endPoints.start(), '.');
         grid.set(endPoints.end(), '.');
 
-        return shortestDistance(grid, endPoints);
+        return shortestDistance(grid, endPoints).dist();
     }
 }
