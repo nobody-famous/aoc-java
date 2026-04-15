@@ -146,7 +146,18 @@ public abstract class Solver implements AocProblem<Integer> {
                         continue;
                     }
 
-                    if (dists[neighbor.row()][neighbor.col()] == curDist - 1 || dists[neighbor.row()][neighbor.col()] == curDist + 1000 - 1 || dists[neighbor.row()][neighbor.col()] == curDist - 1000 - 1) {
+                    var neighborDist = dists[neighbor.row()][neighbor.col()];
+                    var addIt = false;
+
+                    if (neighborDist == curDist - 1 || neighborDist == curDist + 1000 - 1 || neighborDist == curDist - 1000 - 1) {
+                        addIt = true;
+                    } else if (neighborDist == curDist + 1000 - 1) {
+                        addIt = toCheck.stream().anyMatch((n) -> dists[n.row()][n.col()] == curDist - 2);
+                    } else if (neighborDist == curDist - 1000 - 1) {
+                        addIt = true;
+                    }
+
+                    if (addIt) {
                         nextFrontier.add(neighbor);
                         nodes.add(neighbor);
                     }
@@ -157,7 +168,14 @@ public abstract class Solver implements AocProblem<Integer> {
         }
 
         // System.out.println();
+        // System.out.print(String.format("%4s ", ""));
+        // for (var col = 0; col < dists[0].length; col++) {
+        //     System.out.print(String.format("%7s", col));
+        // }
+        // System.out.println();
+
         // for (var row = 0; row < dists.length; row++) {
+        //     System.out.print(String.format("%4s ", row));
         //     for (var col = 0; col < dists[row].length; col++) {
         //         System.out.print(String.format("%7s", dists[row][col]));
         //     }
