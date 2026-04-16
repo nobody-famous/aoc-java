@@ -46,7 +46,13 @@ public abstract class Solver implements AocProblem<Integer> {
     }
 
     private void updateNode(Grid grid, Grid.Loc loc, Grid.Loc from, int dir, int[][] dists, List<PathNode> neighbors, int targetDist) {
-        if (grid.get(loc) != '.' || (dists[loc.row()][loc.col()] != -1 && dists[loc.row()][loc.col()] != targetDist)) {
+        if (grid.get(loc) != '.') {
+            return;
+        } else if (dists[loc.row()][loc.col()] > targetDist) {
+            dists[loc.row()][loc.col()] = targetDist;
+        }
+
+        if (dists[loc.row()][loc.col()] != -1 && dists[loc.row()][loc.col()] != targetDist) {
             return;
         }
 
@@ -120,9 +126,6 @@ public abstract class Solver implements AocProblem<Integer> {
                     continue;
                 }
 
-                if (node.loc().equals(new Grid.Loc(7, 4))) {
-                    System.out.println("FOUND IT " + node.prev());
-                }
                 allNodes.add(node.loc());
 
                 var nodeDist = dists[node.loc().row()][node.loc().col()];
@@ -131,15 +134,23 @@ public abstract class Solver implements AocProblem<Integer> {
                 if (prevDist == nodeDist + 1) {
                     var rowDiff = node.loc().row() - node.prev().row();
                     var colDiff = node.loc().col() - node.prev().col();
+                    var nextLoc = new Grid.Loc(node.loc().row() + rowDiff, node.loc().col() + colDiff);
 
-                    nextFrontier.add(new FrontierNode(new Grid.Loc(node.loc().row() + rowDiff, node.loc().col() + colDiff), node.loc()));
+                    if (!allNodes.contains(nextLoc)) {
+                        nextFrontier.add(new FrontierNode(nextLoc, node.loc()));
+                    }
                 } else {
-                    nextFrontier.addAll(
-                            listNeighbors(node.loc())
-                                    .stream()
-                                    .filter((n) -> dists[n.row()][n.col()] == nodeDist - 1 || dists[n.row()][n.col()] == prevDist - 2)
-                                    .map((n) -> new FrontierNode(n, node.loc()))
-                                    .toList());
+                    var nextNodes = listNeighbors(node.loc())
+                            .stream()
+                            .filter((n) -> dists[n.row()][n.col()] == nodeDist - 1 || dists[n.row()][n.col()] == prevDist - 2)
+                            .map((n) -> new FrontierNode(n, node.loc()))
+                            .toList();
+
+                    for (var next : nextNodes) {
+                        if (!allNodes.contains(next.loc())) {
+                            nextFrontier.add(next);
+                        }
+                    }
                 }
             }
 
@@ -173,96 +184,6 @@ public abstract class Solver implements AocProblem<Integer> {
         }
 
         var nodes = getAllNodes(grid, dists, endPoints);
-
-        // var frontier = new ArrayList<Grid.Loc>();
-        // var nodes = new HashSet<Grid.Loc>();
-
-        // nodes.add(endPoints.start);
-        // nodes.add(endPoints.end);
-
-        // var endToCheck = List.of(
-        //         new Grid.Loc(endPoints.end.row() - 1, endPoints.end.col()),
-        //         new Grid.Loc(endPoints.end.row() + 1, endPoints.end.col()),
-        //         new Grid.Loc(endPoints.end.row(), endPoints.end.col() - 1),
-        //         new Grid.Loc(endPoints.end.row(), endPoints.end.col() + 1));
-
-        // for (var neighbor : endToCheck) {
-        //     if (dists[neighbor.row()][neighbor.col()] == dist - 1) {
-        //         frontier.add(neighbor);
-        //         nodes.add(neighbor);
-        //     }
-        // }
-
-        // while (!frontier.isEmpty()) {
-        //     var nextFrontier = new ArrayList<Grid.Loc>();
-
-        //     for (var node : frontier) {
-        //         var curDist = dists[node.row()][node.col()];
-        //         var toCheck = List.of(
-        //                 new Grid.Loc(node.row() - 1, node.col()),
-        //                 new Grid.Loc(node.row() + 1, node.col()),
-        //                 new Grid.Loc(node.row(), node.col() - 1),
-        //                 new Grid.Loc(node.row(), node.col() + 1));
-
-        //         for (var neighbor : toCheck) {
-        //             if (grid.get(neighbor) != '.') {
-        //                 continue;
-        //             }
-
-        //             var neighborDist = dists[neighbor.row()][neighbor.col()];
-        //             var addIt = false;
-
-        //             if (neighborDist == curDist - 1) {
-        //                 addIt = true;
-        //             } else if (neighborDist == curDist + 1000 - 1) {
-        //                 addIt = toCheck.stream().anyMatch((n) -> grid.get(n) == '.' && !n.equals(neighbor) && (n.row() == neighbor.row() || n.col() == neighbor.col()) && dists[n.row()][n.col()] == neighborDist - 2);
-        //             } else if (neighborDist == curDist - 1000 - 1) {
-        //                 addIt = true;
-        //             }
-
-        //             if (addIt) {
-        //                 nextFrontier.add(neighbor);
-        //                 nodes.add(neighbor);
-        //             }
-        //         }
-        //     }
-
-        //     frontier = nextFrontier;
-        // }
-
-        System.out.println();
-        System.out.print(String.format("%4s ", ""));
-        for (var col = 0; col < dists[0].length; col++) {
-            // System.out.print(String.format("%8s", col));
-            System.out.print(String.format("%4s", col));
-        }
-        System.out.println();
-
-        for (var row = 0; row < dists.length; row++) {
-            System.out.print(String.format("%4s ", row));
-            for (var col = 0; col < dists[row].length; col++) {
-                // System.out.print(String.format("%7s%s", dists[row][col], nodes.contains(new Grid.Loc(row, col)) ? '+' : '-'));
-                System.out.print(String.format("%4s", grid.get(row, col) == '#' ? " " : nodes.contains(new Grid.Loc(row, col)) ? '*' : ' '));
-            }
-            System.out.println();
-        }
-        System.out.println();
-
-        // for (var node : nodes.stream().sorted((a, b) -> {
-        //     if (a.row() > b.row()) {
-        //         return 1;
-        //     } else if (a.row() < b.row()) {
-        //         return -1;
-        //     } else if (a.col() > b.col()) {
-        //         return 1;
-        //     } else if (a.col() < b.col()) {
-        //         return -1;
-        //     } else {
-        //         return 0;
-        //     }
-        // }).toList()) {
-        //     System.out.println(node);
-        // }
 
         return new Result(dist, nodes.size());
     }
