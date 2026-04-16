@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.Set;
 
 import aoc.utils.AocProblem;
 import aoc.utils.Grid;
@@ -88,6 +89,66 @@ public abstract class Solver implements AocProblem<Integer> {
         }
     }
 
+    private record FrontierNode(Grid.Loc loc, Grid.Loc prev) {
+    }
+
+    private List<Grid.Loc> listNeighbors(Grid.Loc node) {
+        return List.of(
+                new Grid.Loc(node.row() - 1, node.col()),
+                new Grid.Loc(node.row() + 1, node.col()),
+                new Grid.Loc(node.row(), node.col() - 1),
+                new Grid.Loc(node.row(), node.col() + 1));
+    }
+
+    private Set<Grid.Loc> getAllNodes(Grid grid, int[][] dists, EndPoints endPoints) {
+        var allNodes = new HashSet<Grid.Loc>();
+        var endDist = dists[endPoints.end().row()][endPoints.end().col()];
+        var frontier = listNeighbors(endPoints.end)
+                .stream()
+                .filter((n) -> dists[n.row()][n.col()] == endDist - 1)
+                .map((n) -> new FrontierNode(n, endPoints.end()))
+                .toList();
+
+        allNodes.add(endPoints.start);
+        allNodes.add(endPoints.end);
+
+        while (!frontier.isEmpty()) {
+            var nextFrontier = new ArrayList<FrontierNode>();
+
+            for (var node : frontier) {
+                if (grid.get(node.loc()) != '.') {
+                    continue;
+                }
+
+                if (node.loc().equals(new Grid.Loc(7, 4))) {
+                    System.out.println("FOUND IT " + node.prev());
+                }
+                allNodes.add(node.loc());
+
+                var nodeDist = dists[node.loc().row()][node.loc().col()];
+                var prevDist = dists[node.prev().row()][node.prev().col()];
+
+                if (prevDist == nodeDist + 1) {
+                    var rowDiff = node.loc().row() - node.prev().row();
+                    var colDiff = node.loc().col() - node.prev().col();
+
+                    nextFrontier.add(new FrontierNode(new Grid.Loc(node.loc().row() + rowDiff, node.loc().col() + colDiff), node.loc()));
+                } else {
+                    nextFrontier.addAll(
+                            listNeighbors(node.loc())
+                                    .stream()
+                                    .filter((n) -> dists[n.row()][n.col()] == nodeDist - 1 || dists[n.row()][n.col()] == prevDist - 2)
+                                    .map((n) -> new FrontierNode(n, node.loc()))
+                                    .toList());
+                }
+            }
+
+            frontier = nextFrontier;
+        }
+
+        return allNodes;
+    }
+
     protected Result shortestDistance(Grid grid, EndPoints endPoints) {
         var startNode = new PathNode(endPoints.start, EAST);
         var dists = new int[grid.getRows()][grid.getCols()];
@@ -111,93 +172,97 @@ public abstract class Solver implements AocProblem<Integer> {
             queue.addAll(neighbors);
         }
 
-        var frontier = new ArrayList<Grid.Loc>();
-        var nodes = new HashSet<Grid.Loc>();
+        var nodes = getAllNodes(grid, dists, endPoints);
 
-        nodes.add(endPoints.start);
-        nodes.add(endPoints.end);
+        // var frontier = new ArrayList<Grid.Loc>();
+        // var nodes = new HashSet<Grid.Loc>();
 
-        var endToCheck = List.of(
-                new Grid.Loc(endPoints.end.row() - 1, endPoints.end.col()),
-                new Grid.Loc(endPoints.end.row() + 1, endPoints.end.col()),
-                new Grid.Loc(endPoints.end.row(), endPoints.end.col() - 1),
-                new Grid.Loc(endPoints.end.row(), endPoints.end.col() + 1));
+        // nodes.add(endPoints.start);
+        // nodes.add(endPoints.end);
 
-        for (var neighbor : endToCheck) {
-            if (dists[neighbor.row()][neighbor.col()] == dist - 1) {
-                frontier.add(neighbor);
-                nodes.add(neighbor);
-            }
-        }
+        // var endToCheck = List.of(
+        //         new Grid.Loc(endPoints.end.row() - 1, endPoints.end.col()),
+        //         new Grid.Loc(endPoints.end.row() + 1, endPoints.end.col()),
+        //         new Grid.Loc(endPoints.end.row(), endPoints.end.col() - 1),
+        //         new Grid.Loc(endPoints.end.row(), endPoints.end.col() + 1));
 
-        while (!frontier.isEmpty()) {
-            var nextFrontier = new ArrayList<Grid.Loc>();
-
-            for (var node : frontier) {
-                var curDist = dists[node.row()][node.col()];
-                var toCheck = List.of(
-                        new Grid.Loc(node.row() - 1, node.col()),
-                        new Grid.Loc(node.row() + 1, node.col()),
-                        new Grid.Loc(node.row(), node.col() - 1),
-                        new Grid.Loc(node.row(), node.col() + 1));
-
-                for (var neighbor : toCheck) {
-                    if (grid.get(neighbor) != '.') {
-                        continue;
-                    }
-
-                    var neighborDist = dists[neighbor.row()][neighbor.col()];
-                    var addIt = false;
-
-                    if (neighborDist == curDist - 1 || neighborDist == curDist + 1000 - 1 || neighborDist == curDist - 1000 - 1) {
-                        addIt = true;
-                    } else if (neighborDist == curDist + 1000 - 1) {
-                        addIt = toCheck.stream().anyMatch((n) -> dists[n.row()][n.col()] == curDist - 2);
-                    } else if (neighborDist == curDist - 1000 - 1) {
-                        addIt = true;
-                    }
-
-                    if (addIt) {
-                        nextFrontier.add(neighbor);
-                        nodes.add(neighbor);
-                    }
-                }
-            }
-
-            frontier = nextFrontier;
-        }
-
-        // System.out.println();
-        // System.out.print(String.format("%4s ", ""));
-        // for (var col = 0; col < dists[0].length; col++) {
-        //     System.out.print(String.format("%7s", col));
-        // }
-        // System.out.println();
-
-        // for (var row = 0; row < dists.length; row++) {
-        //     System.out.print(String.format("%4s ", row));
-        //     for (var col = 0; col < dists[row].length; col++) {
-        //         System.out.print(String.format("%7s", dists[row][col]));
+        // for (var neighbor : endToCheck) {
+        //     if (dists[neighbor.row()][neighbor.col()] == dist - 1) {
+        //         frontier.add(neighbor);
+        //         nodes.add(neighbor);
         //     }
-        //     System.out.println();
         // }
-        // System.out.println();
 
-        for (var node : nodes.stream().sorted((a, b) -> {
-            if (a.row() > b.row()) {
-                return 1;
-            } else if (a.row() < b.row()) {
-                return -1;
-            } else if (a.col() > b.col()) {
-                return 1;
-            } else if (a.col() < b.col()) {
-                return -1;
-            } else {
-                return 0;
-            }
-        }).toList()) {
-            System.out.println(node);
+        // while (!frontier.isEmpty()) {
+        //     var nextFrontier = new ArrayList<Grid.Loc>();
+
+        //     for (var node : frontier) {
+        //         var curDist = dists[node.row()][node.col()];
+        //         var toCheck = List.of(
+        //                 new Grid.Loc(node.row() - 1, node.col()),
+        //                 new Grid.Loc(node.row() + 1, node.col()),
+        //                 new Grid.Loc(node.row(), node.col() - 1),
+        //                 new Grid.Loc(node.row(), node.col() + 1));
+
+        //         for (var neighbor : toCheck) {
+        //             if (grid.get(neighbor) != '.') {
+        //                 continue;
+        //             }
+
+        //             var neighborDist = dists[neighbor.row()][neighbor.col()];
+        //             var addIt = false;
+
+        //             if (neighborDist == curDist - 1) {
+        //                 addIt = true;
+        //             } else if (neighborDist == curDist + 1000 - 1) {
+        //                 addIt = toCheck.stream().anyMatch((n) -> grid.get(n) == '.' && !n.equals(neighbor) && (n.row() == neighbor.row() || n.col() == neighbor.col()) && dists[n.row()][n.col()] == neighborDist - 2);
+        //             } else if (neighborDist == curDist - 1000 - 1) {
+        //                 addIt = true;
+        //             }
+
+        //             if (addIt) {
+        //                 nextFrontier.add(neighbor);
+        //                 nodes.add(neighbor);
+        //             }
+        //         }
+        //     }
+
+        //     frontier = nextFrontier;
+        // }
+
+        System.out.println();
+        System.out.print(String.format("%4s ", ""));
+        for (var col = 0; col < dists[0].length; col++) {
+            // System.out.print(String.format("%8s", col));
+            System.out.print(String.format("%4s", col));
         }
+        System.out.println();
+
+        for (var row = 0; row < dists.length; row++) {
+            System.out.print(String.format("%4s ", row));
+            for (var col = 0; col < dists[row].length; col++) {
+                // System.out.print(String.format("%7s%s", dists[row][col], nodes.contains(new Grid.Loc(row, col)) ? '+' : '-'));
+                System.out.print(String.format("%4s", grid.get(row, col) == '#' ? " " : nodes.contains(new Grid.Loc(row, col)) ? '*' : ' '));
+            }
+            System.out.println();
+        }
+        System.out.println();
+
+        // for (var node : nodes.stream().sorted((a, b) -> {
+        //     if (a.row() > b.row()) {
+        //         return 1;
+        //     } else if (a.row() < b.row()) {
+        //         return -1;
+        //     } else if (a.col() > b.col()) {
+        //         return 1;
+        //     } else if (a.col() < b.col()) {
+        //         return -1;
+        //     } else {
+        //         return 0;
+        //     }
+        // }).toList()) {
+        //     System.out.println(node);
+        // }
 
         return new Result(dist, nodes.size());
     }
