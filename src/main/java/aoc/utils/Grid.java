@@ -62,4 +62,19 @@ public class Grid {
 
         return grid;
     }
+
+    @Override
+    public String toString() {
+        var builder = new StringBuilder();
+
+        for (var row = 0; row < map.length; row++) {
+            for (var col = 0; col < map[row].length; col++) {
+                builder.append(map[row][col]);
+            }
+
+            builder.append(System.lineSeparator());
+        }
+
+        return builder.toString();
+    }
 }
