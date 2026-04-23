@@ -1,5 +1,6 @@
 package aoc.y2024.day17;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -16,7 +17,7 @@ public class Parser implements aoc.utils.Parser<Config> {
         var regA = 0;
         var regB = 0;
         var regC = 0;
-        var prog = List.of(0);
+        List<Integer> prog = new ArrayList<>();
 
         for (var line : lines) {
             regMatcher.reset(line);

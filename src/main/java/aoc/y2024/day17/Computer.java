@@ -6,17 +6,26 @@ import java.util.function.Consumer;
 public class Computer {
     private static final int MAX_LOOPS = 1000;
 
-    private int registerA = 0;
-    private int registerB = 0;
-    private int registerC = 0;
+    private long registerA = 0;
+    private long registerB = 0;
+    private long registerC = 0;
     private int pc = 0;
-    private Consumer<Integer> output;
+    private Consumer<Long> output;
 
-    public Computer(Consumer<Integer> output) {
+    public static final int CMD_ADV = 0;
+    public static final int CMD_BXL = 1;
+    public static final int CMD_BST = 2;
+    public static final int CMD_JNZ = 3;
+    public static final int CMD_BXC = 4;
+    public static final int CMD_OUT = 5;
+    public static final int CMD_BDV = 6;
+    public static final int CMD_CDV = 7;
+
+    public Computer(Consumer<Long> output) {
         this.output = output;
     }
 
-    public void init(int a, int b, int c) {
+    public void init(long a, long b, long c) {
         registerA = a;
         registerB = b;
         registerC = c;
@@ -30,10 +39,7 @@ public class Computer {
         while (pc < program.size()) {
             loopCount = checkLoopCount(loopCount);
 
-            var opcode = program.get(pc);
-            var operand = program.get(pc + 1);
-
-            exec(opcode, operand);
+            exec(program.get(pc), program.get(pc + 1));
         }
     }
 
@@ -47,35 +53,35 @@ public class Computer {
 
     private void exec(int opcode, int operand) {
         switch (opcode) {
-        case 0:
-            registerA = adv(operand);
+        case CMD_ADV:
+            registerA = div(operand);
             pc += 2;
             break;
-        case 1:
+        case CMD_BXL:
             registerB ^= operand;
             pc += 2;
             break;
-        case 2:
+        case CMD_BST:
             registerB = combo(operand) % 8;
             pc += 2;
             break;
-        case 3:
+        case CMD_JNZ:
             jnz(operand);
             break;
-        case 4:
+        case CMD_BXC:
             registerB ^= registerC;
             pc += 2;
             break;
-        case 5:
+        case CMD_OUT:
             output.accept(combo(operand) % 8);
             pc += 2;
             break;
-        case 6:
-            registerB = adv(operand);
+        case CMD_BDV:
+            registerB = div(operand);
             pc += 2;
             break;
-        case 7:
-            registerC = adv(operand);
+        case CMD_CDV:
+            registerC = div(operand);
             pc += 2;
             break;
         default:
@@ -83,7 +89,7 @@ public class Computer {
         }
     }
 
-    private int adv(int op) {
+    private long div(int op) {
         var den = 1 << combo(op);
 
         return registerA / den;
@@ -95,10 +101,10 @@ public class Computer {
             return;
         }
 
-        pc = op;
+        pc = op / 2;
     }
 
-    private int combo(int op) {
+    private long combo(int op) {
         return switch (op) {
         case 0, 1, 2, 3 -> op;
         case 4 -> registerA;

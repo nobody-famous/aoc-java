@@ -152,7 +152,8 @@ public class Runner {
                     new Solver<Integer>(new aoc.y2024.day15.Part2(), "2024/day15.txt", 1522215),
                     new Solver<Integer>(new aoc.y2024.day16.Part1(), "2024/day16.txt", 98416),
                     new Solver<Integer>(new aoc.y2024.day16.Part2(), "2024/day16.txt", 471),
-                    new Solver<String>(new aoc.y2024.day17.Part1(), "2024/day17.txt", "7,0,7,3,4,1,3,0,1"))));
+                    new Solver<String>(new aoc.y2024.day17.Part1(), "2024/day17.txt", "7,0,7,3,4,1,3,0,1"),
+                    new Solver<Long>(new aoc.y2024.day17.Part2(), "2024/day17.txt", 0L))));
 
     private static void run(String label, Path inputsBaseDir, List<Solver<?>> solvers) throws Exception {
         var total = 0L;
