@@ -16,10 +16,11 @@
             "type": "shell",
             "command": "mvn",
             "windows": {
-                "args": ["exec:java", "-D'\"exec.mainClass\"'='\"aoc.Runner\"'"]
+                "args": ["exec:java", "-D'\"exec.mainClass\"'='\"aoc.Runner\"'", "-D'\"exec.args\"'='\"c:/Users/rich/work/repos/aoc-input\"'"]
+                // "args": ["exec:java", "-D'\"exec.mainClass\"'='\"aoc.Runner\"'", "-D'\"exec.args\"'='\"c:/Users/rich/work/java/aoc/main\"'"]
             },
             "linux": {
-                "args": ["exec:java", "-Dexec.mainClass=aoc.Runner"]
+                "args": ["exec:java", "-Dexec.mainClass=aoc.Runner", "-Dexec.args=\"c:/Users/rich\""]
             },
             "problemMatcher": []
         },
