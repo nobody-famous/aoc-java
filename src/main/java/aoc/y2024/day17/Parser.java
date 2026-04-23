@@ -13,9 +13,9 @@ public class Parser implements aoc.utils.Parser<Config> {
 
     @Override
     public Config parse(List<String> lines) {
-        var regA = 0L;
-        var regB = 0L;
-        var regC = 0L;
+        var regA = 0;
+        var regB = 0;
+        var regC = 0;
         var prog = List.of(0);
 
         for (var line : lines) {

@@ -2,5 +2,5 @@ package aoc.y2024.day17;
 
 import java.util.List;
 
-public record Config(long registerA, long registerB, long registerC, List<Integer> program) {
+public record Config(int registerA, int registerB, int registerC, List<Integer> program) {
 }

@@ -6,17 +6,17 @@ import java.util.function.Consumer;
 public class Computer {
     private static final int MAX_LOOPS = 1000;
 
-    private long registerA = 0;
-    private long registerB = 0;
-    private long registerC = 0;
+    private int registerA = 0;
+    private int registerB = 0;
+    private int registerC = 0;
     private int pc = 0;
-    private Consumer<Long> output;
+    private Consumer<Integer> output;
 
-    public Computer(Consumer<Long> output) {
+    public Computer(Consumer<Integer> output) {
         this.output = output;
     }
 
-    public void init(long a, long b, long c) {
+    public void init(int a, int b, int c) {
         registerA = a;
         registerB = b;
         registerC = c;
@@ -83,7 +83,7 @@ public class Computer {
         }
     }
 
-    private long adv(int op) {
+    private int adv(int op) {
         var den = 1 << combo(op);
 
         return registerA / den;
@@ -98,7 +98,7 @@ public class Computer {
         pc = op;
     }
 
-    private long combo(int op) {
+    private int combo(int op) {
         return switch (op) {
         case 0, 1, 2, 3 -> op;
         case 4 -> registerA;
