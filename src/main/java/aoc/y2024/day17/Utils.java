@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public interface Utils {
+    public static final int MAX_LOOPS = 10_000;
+
     public static String getOutput(long aValue, List<Integer> program) {
         var output = new ArrayList<Long>();
         var computer = new Computer((value) -> output.add(value));
@@ -15,5 +17,13 @@ public interface Utils {
         return output.stream()
                 .map(String::valueOf)
                 .collect(Collectors.joining(","));
+    }
+
+    public static int checkCount(int count, int max) {
+        if (count > max) {
+            throw new RuntimeException("Count exceeded max");
+        }
+
+        return count + 1;
     }
 }

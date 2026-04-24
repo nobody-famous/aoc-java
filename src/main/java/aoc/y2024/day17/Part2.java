@@ -1,7 +1,6 @@
 package aoc.y2024.day17;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import aoc.utils.AocProblem;
 
@@ -9,12 +8,10 @@ public class Part2 implements AocProblem<Long> {
     @Override
     public Long solve(List<String> lines) {
         var config = new Parser().parse(lines);
-        var target = config.program().stream()
-                .map(String::valueOf)
-                .collect(Collectors.joining(","));
+        var computer = new ReverseComputer(config.program().reversed());
+        var candidates = computer.run(config.program());
 
-        System.out.println("CHECKING " + Integer.toBinaryString(0xABC) + " " + Integer.toBinaryString(0xABC % 8));
-
-        return 0L;
+        System.out.println("CANDIDATES " + candidates);
+        return candidates.stream().min((a, b) -> a > b ? 1 : -1).orElse(0L);
     }
 }

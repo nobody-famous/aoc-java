@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class Computer {
-    private static final int MAX_LOOPS = 1000;
-
     private long registerA = 0;
     private long registerB = 0;
     private long registerC = 0;
@@ -44,7 +42,7 @@ public class Computer {
     }
 
     private int checkLoopCount(int count) {
-        if (count > MAX_LOOPS) {
+        if (count > Utils.MAX_LOOPS) {
             throw new RuntimeException("Infinite loop detected");
         }
 
@@ -90,9 +88,7 @@ public class Computer {
     }
 
     private long div(int op) {
-        var den = 1 << combo(op);
-
-        return registerA / den;
+        return registerA >> combo(op);
     }
 
     private void jnz(int op) {
