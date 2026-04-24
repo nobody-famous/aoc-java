@@ -19,11 +19,13 @@ public class ReverseComputer {
         var states = new ArrayDeque<State>(List.of(new State(program, 0, 0, 0, program.size() - 2, 0)));
         var count = 0;
 
+        System.out.println("CHECKING " + bst(new State(program, 0xff, 0x3, 0, 0, 0), 0));
         while (!states.isEmpty()) {
             count = Utils.checkCount(count, Utils.MAX_LOOPS);
 
             var state = states.pop();
 
+            // System.out.println("STATE " + stbsate);
             if (state.pc() < 0) {
                 values.add(state.a());
             } else {
@@ -47,7 +49,8 @@ public class ReverseComputer {
             nextStates.add(decrementPC(new State(state.program(), state.a(), state.b() ^ operand, state.c(), state.pc(), state.nextInput())));
             break;
         case Computer.CMD_BST:
-            throw new RuntimeException("bst not done yet " + operand);
+            nextStates.addAll(bst(state, operand));
+            break;
         case Computer.CMD_JNZ:
             nextStates.add(decrementPC(state));
             break;
@@ -66,6 +69,17 @@ public class ReverseComputer {
         default:
             throw new RuntimeException("Unhandled opcode: " + opcode);
         }
+
+        return nextStates;
+    }
+
+    private List<State> bst(State state, int op) {
+        var nextStates = new ArrayList<State>();
+        var aValue = (state.a() >> 3) << 3;
+
+        aValue += state.b() & 0x7;
+
+        nextStates.add(decrementPC(new State(state.program(), aValue, state.b(), state.c(), state.pc(), state.nextInput())));
 
         return nextStates;
     }
