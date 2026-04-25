@@ -46,6 +46,6 @@ public class UnitTests {
     void testPart2() {
         // assertEquals(117440, new Part2().solve(example2));
         // assertEquals(117440, new Part2().solve(test1));
-        assertEquals(117440, new Part2().solve(test2));
+        assertEquals(117440, new Part2().solve(test1));
     }
 }

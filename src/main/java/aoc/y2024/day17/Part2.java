@@ -12,6 +12,7 @@ public class Part2 implements AocProblem<Long> {
         var candidates = computer.run(config.program());
 
         System.out.println("CANDIDATES " + candidates);
+
         return candidates.stream().min((a, b) -> a > b ? 1 : -1).orElse(0L);
     }
 }

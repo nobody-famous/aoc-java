@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public interface Utils {
-    public static final int MAX_LOOPS = 10_000;
+    public static final int MAX_LOOPS = 1_000_000_000;
 
     public static String getOutput(long aValue, List<Integer> program) {
         var output = new ArrayList<Long>();

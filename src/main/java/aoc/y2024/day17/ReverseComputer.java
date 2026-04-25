@@ -2,7 +2,9 @@ package aoc.y2024.day17;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ReverseComputer {
     private record State(List<Integer> program, long a, long b, long c, int pc, int nextInput) {
@@ -14,18 +16,16 @@ public class ReverseComputer {
         this.input = input;
     }
 
-    public List<Long> run(List<Integer> program) {
-        var values = new ArrayList<Long>();
+    public Set<Long> run(List<Integer> program) {
+        var values = new HashSet<Long>();
         var states = new ArrayDeque<State>(List.of(new State(program, 0, 0, 0, program.size() - 2, 0)));
         var count = 0;
 
-        System.out.println("CHECKING " + bst(new State(program, 0xff, 0x3, 0, 0, 0), 0));
         while (!states.isEmpty()) {
             count = Utils.checkCount(count, Utils.MAX_LOOPS);
 
             var state = states.pop();
 
-            // System.out.println("STATE " + stbsate);
             if (state.pc() < 0) {
                 values.add(state.a());
             } else {
@@ -73,11 +73,15 @@ public class ReverseComputer {
         return nextStates;
     }
 
+    private long setLowBits(long value, long lowBits) {
+        var updated = (value >> 3) << 3;
+
+        return updated | lowBits;
+    }
+
     private List<State> bst(State state, int op) {
         var nextStates = new ArrayList<State>();
-        var aValue = (state.a() >> 3) << 3;
-
-        aValue += state.b() & 0x7;
+        var aValue = setLowBits(state.a(), state.b() & 0x7);
 
         nextStates.add(decrementPC(new State(state.program(), aValue, state.b(), state.c(), state.pc(), state.nextInput())));
 
@@ -126,13 +130,15 @@ public class ReverseComputer {
         }
 
         var target = this.input.get(state.nextInput());
-        var value = combo(state, operand);
+        var nextState = new State(
+                state.program(),
+                operand == 4 ? setLowBits(state.a(), target) : state.a(),
+                operand == 5 ? setLowBits(state.b(), target) : state.b(),
+                operand == 6 ? setLowBits(state.c(), target) : state.c(),
+                state.pc(),
+                state.nextInput() + 1);
 
-        if (value % 8 != target) {
-            return List.of();
-        }
-
-        return List.of(decrementPC(new State(state.program(), state.a(), state.b(), state.c(), state.pc(), state.nextInput() + 1)));
+        return List.of(decrementPC(nextState));
     }
 
     private State decrementPC(State state) {
